@@ -1,0 +1,28 @@
+% Essential packages for notes
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}  % for \coloneqq, etc.
+\usepackage{geometry}   % Better page margins
+\usepackage{parskip}    % Better paragraph spacing
+\usepackage{microtype}  % Better typography
+\usepackage{enumitem}   % Customize lists
+\usepackage{hyperref}   % Clickable links
+\usepackage{booktabs}   % Better tables
+\usepackage{tcolorbox}  % For colored boxes/theorems
+
+% Page layout for notes
+\geometry{a4paper, margin=1in}
+\setlength{\parskip}{0.8em}
+
+% Theorem environments for notes
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Custom colors for notes
+\usepackage{xcolor}
+\definecolor{note-blue}{RGB}{220, 230, 255}
+\definecolor{theorem-green}{RGB}{220, 255, 220}

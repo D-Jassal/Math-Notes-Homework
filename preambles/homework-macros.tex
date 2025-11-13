@@ -1,0 +1,38 @@
+% Math notation shortcuts
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+
+% Theorem environments
+\newtheorem{mainthm}{Theorem}[section]
+\newtheorem{theorem}{Theorem}[section]  
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{claim}[theorem]{Claim}
+
+% Calculus
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}
+\newcommand{\deriv}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+
+% Linear Algebra
+\newcommand{\inner}[2]{\langle #1, #2 \rangle}
+\newcommand{\norm}[1]{\| #1 \|}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\spn}{\operatorname{span}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\nullity}{\operatorname{nullity}}
+
+% Logic
+\newcommand{\contra}{\Rightarrow\Leftarrow}
+
+% Custom commands for notes
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\newcommand{\important}[1]{\textbf{\textcolor{blue}{#1}}}
+
+% Utility commands
+\newcommand{\monthyear}{\ifcase \month \or January\or February\or March\or April\or May\or June\or July\or August\or September\or October\or November\or December\fi\space \number \year}
