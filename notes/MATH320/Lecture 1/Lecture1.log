@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.9.13)  12 NOV 2025 18:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.9.13)  12 NOV 2025 18:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -630,19 +630,35 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 13.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (C:\Users\Deepak Jassal\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-))
-! Emergency stop.
-<*> ...ework/notes/MATH320/Lecture 1/Lecture1.tex"
-                                                  
-*** (job aborted, no legal \end found)
+) [1
 
- 
+{C:/Users/Deepak Jassal/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] (Lecture1.aux)
+ ***********
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-04>
+ ***********
+
+
+Package rerunfilecheck Warning: File `Lecture1.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Lecture1.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  EDA20832E36C500A9E856AD0AFE0B643;159.
+ ) 
 Here is how much of TeX's memory you used:
- 23100 strings out of 474486
- 432101 string characters out of 5739943
- 1925542 words of memory out of 5000000
- 45017 multiletter control sequences out of 15000+600000
+ 23109 strings out of 474486
+ 432355 string characters out of 5739943
+ 1927542 words of memory out of 5000000
+ 45019 multiletter control sequences out of 15000+600000
  562597 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 106i,6n,110p,1074b,409s stack positions out of 10000i,1000n,20000p,200000b,200000s
-!  ==> Fatal error occurred, no output PDF file produced!
+ 106i,6n,110p,1074b,446s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/Deepak Jassal/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Deepak Jassal/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Deepak Jassal/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on Lecture1.pdf (1 page, 35760 bytes).
+PDF statistics:
+ 30 PDF objects out of 1000 (max. 8388607)
+ 3 named destinations out of 1000 (max. 500000)
+ 14349 words of extra memory for PDF output out of 14400 (max. 10000000)
+
