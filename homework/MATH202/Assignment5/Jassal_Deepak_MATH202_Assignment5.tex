@@ -1,0 +1,134 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for notes
+\input{../../../preambles/hw-preamble.tex}
+\input{../../../preambles/homework-macros.tex}
+\input{../../../preambles/homework-title.tex}
+\input{../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Multivariable Calculus I}
+\renewcommand{\coursecode}{MATH 202}
+\renewcommand{\assignment}{Assignment 5}
+\renewcommand{\instructor}{Dr. Stanley Yao Xiao}
+\renewcommand{\duedate}{November 15\textsuperscript{th}, 2025}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Question 1}
+Compute the volume of a right cylindrical cone where the base radius is \( R \) and the height of the cone is \( h \), using cylindrical coordinates.
+
+\stepcounter{section}
+\section*{Question 2}
+A spherical cap is the piece of a sphere (ball) sliced off by a plane. Suppose that a sphere has radius 10, and the height of the spherical cap is 6. Determine the volume of the spherical cap.
+
+\stepcounter{section}
+\section*{Question 3}
+A client spends \( X \) minutes in an insurance agent's waiting room and \( Y \) minutes meeting with the agent (That is, both \( X, Y \) are random variables). The joint probability density function of \( X \) and \( Y \) can be modelled by
+
+\[
+f(x, y) = 
+\begin{cases} 
+ke^{-\frac{x+2y}{40}} & \text{for } x > 0, y > 0 \\
+0 & \text{otherwise}.
+\end{cases}
+\]
+
+Determine the value of \( k \) and the probability that a client spends less than 60 minutes at the agent's office.\\
+\textit{Solution.}
+\[
+	\iint_{\R^2}f(x,y)\,dA=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}ke^{-\frac{x+2y}{40}}\,dy\,dx=k\int_{-\infty}^{\infty}e^{\frac{-x}{40}}\int_{-\infty}^{\infty}e^{\frac{-y}{20}}\,dy\,dx
+\]
+Since the probability density function is non-zero only for non-zero values of $x$ and $y$ we can further simplify the double integral
+\[
+	k\int_{0}^{\infty}e^{\frac{-x}{40}}\int_{0}^{\infty}e^{\frac{-y}{20}}\,dy\,dx
+\]
+\[
+	u=\frac{y}{20},\: 20\,du=dy,\: y=0\Rightarrow u=0,\: y=\infty \Rightarrow u=\infty
+\]
+\[
+	k\int_{0}^{\infty}e^{\frac{-x}{40}}\int_{0}^{\infty}20e^{-u}\,du\,dx=k\int_{0}^{\infty}e^{\frac{-x}{40}}\left[ 20e^{-u} \right]^\infty_0\,dx=-20k\int_{0}^{\infty}e^{\frac{-x}{40}}\,dx
+\]
+\[
+	v=\frac{x}{40},\: 40\,dv=dx,\: x=0\Rightarrow v=0,\: x=\infty \Rightarrow v=\infty
+\]
+\[
+	-20k\int_{0}^{\infty}40e^{-v}\,dv=800k\left[ e^{-v} \right]^\infty_0=800k
+\]
+We want the total probability to be 1, so we have 
+\[
+	k=\frac{1}{800}.
+\]
+We want to find $\mathcal{P}(X+Y<60)$, that is evaluate the integral
+\[
+	\frac{1}{800}\int_{X=0}^{60}\int_{Y=0}^{60-x}e^{-\frac{x+2y}{40}}\,dy\,dx.
+\]
+Using the same substitutions as the previous part we get
+\[
+	\frac{1}{800}\int_{0}^{60}e^{\frac{-x}{40}}\int_{0}^{60-x}e^{\frac{-y}{20}}\,dy\,dx=\frac{1}{800}\int_{0}^{60}e^{\frac{-x}{40}}\left[ 20e^{-u} \right]^{\frac{60-x}{20}}_0\,dx=\frac{1}{800}\int_{0}^{60}e^{\frac{-x}{40}}\left( 20e^{\frac{x-60}{20}} -20 \right)\,dx
+\]
+Factoring and multiplying through
+\[
+	\frac{1}{40}\int_{0}^{60}e^{-3}e^{\frac{x}{40}} - e^{\frac{-x}{40}}\,dx
+\]
+\stepcounter{section}
+\section*{Question 4}
+(Worth 20 points). In this question, we derive some formulas for volumes of higher dimensional balls. Let \( V_n(R) \) denote the volume of a \( n \)-ball (in \( \mathbb{R}^{n+1} \)) of radius \( R \).
+
+A 0-ball is just an interval. This allows us to compute the volume of a 2-ball, defined by the inequality
+
+\[
+x^2 + y^2 + z^2 \leq R^2,
+\]
+
+using cylindrical coordinates, we deduce:
+
+\[
+V_2(R) = \int_{0}^{2\pi} \int_{0}^{R} \int_{-\sqrt{R^2-r^2}}^{\sqrt{R^2-r^2}} r \, dh \, dr \, d\theta = \int_{0}^{2\pi} \int_{0}^{R} 2\sqrt{R^2 - r^2} \, dr \, d\theta.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Verify that \( V_2(R) = \frac{4\pi R^3}{3} \), by finishing with the iterated integral above.
+
+\item Using the same idea, deduce that
+
+\[
+V_3(R) = \int_{0}^{2\pi} \int_{0}^{R} \pi(R^2 - r^2)r \, dr \, d\theta.
+\]
+
+\item Generalize this to obtain the formula
+
+\[
+V_{n+2}(R) = \int_{0}^{2\pi} \int_{0}^{R} V_n(\sqrt{R^2 - r^2}) \, dr \, d\theta.
+\]
+
+\item Using the recursion in part (c), give formulas for \( V_4(R), V_5(R), V_6(R) \).
+
+\item Evaluate the limit
+\[
+\lim_{n \to \infty} \frac{V_n(R)}{R^{n+1}}.
+\]
+
+\end{enumerate}
+
+\end{document}

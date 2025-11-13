@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.9.13)  12 NOV 2025 18:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.9.13)  12 NOV 2025 18:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -520,8 +520,7 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count316
 \l__pdf_internal_box=\box72
-)
-No file Lecture1.aux.
+) (Lecture1.aux)
 \openout1 = `Lecture1.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
@@ -542,6 +541,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -597,6 +597,7 @@ Package microtype Info: No adjustment of character kerning.
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
 )
 Package hyperref Info: Link coloring OFF on input line 11.
+ (Lecture1.out) (Lecture1.out)
 \@outlinefile=\write4
 \openout4 = `Lecture1.out'.
 
@@ -637,28 +638,21 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
-
-
-Package rerunfilecheck Warning: File `Lecture1.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Lecture1.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  EDA20832E36C500A9E856AD0AFE0B643;159.
+Package rerunfilecheck Info: File `Lecture1.out' has not changed.
+(rerunfilecheck)             Checksum: EDA20832E36C500A9E856AD0AFE0B643;159.
  ) 
 Here is how much of TeX's memory you used:
- 23109 strings out of 474486
- 432355 string characters out of 5739943
+ 23119 strings out of 474486
+ 432691 string characters out of 5739943
  1927542 words of memory out of 5000000
- 45019 multiletter control sequences out of 15000+600000
+ 45023 multiletter control sequences out of 15000+600000
  562597 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 106i,6n,110p,1074b,446s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 106i,6n,110p,1074b,448s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Deepak Jassal/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Deepak Jassal/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Deepak Jassal/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on Lecture1.pdf (1 page, 35760 bytes).
+Output written on Lecture1.pdf (1 page, 37248 bytes).
 PDF statistics:
- 30 PDF objects out of 1000 (max. 8388607)
+ 34 PDF objects out of 1000 (max. 8388607)
  3 named destinations out of 1000 (max. 500000)
- 14349 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 14357 words of extra memory for PDF output out of 14400 (max. 10000000)
 
