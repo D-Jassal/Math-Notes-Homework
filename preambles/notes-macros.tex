@@ -1,3 +1,6 @@
+
+\usepackage{import}
+
 % Math notation shortcuts for notes
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
@@ -18,8 +21,263 @@
 \newcommand{\rank}{\operatorname{rank}}
 \newcommand{\nullity}{\operatorname{nullity}}
 
-% Logic
-\newcommand{\contra}{\Rightarrow\Leftarrow}
+% Theorem system 
+% Theorem System original by https://github.com/kcajc/math-notes-template, this is modified 
+% The following boxes are provided:
+%   Definition:     \defn 
+%   Theorem:        \thm 
+%   Lemma:          \lem
+%   Corollary:      \cor
+%   Proposition:    \prop   
+%   Claim:          \clm
+%   Fact:           \fact
+%   Proof:          \pf
+%   Example:        \ex
+%   Remark:         \rmk (sentence), \rmkb (block)
+% Suffix
+%   r:              Allow Theorem/Definition to be referenced, e.g. thmr
+%   p:              Add a short proof block for Lemma, Corollary, Proposition or Claim, e.g. lemp
+%                   For theorems, use \pf for proof blocks
+
+% Definition - subsection numbering for 1.1.1, 1.1.2
+\newtcbtheorem[number within=subsection]{mydefinition}{Definition}
+{
+    colbacktitle=green!20!white,
+    colback=green!10!white,
+    coltitle=black,
+    fonttitle=\bfseries\large,
+}{defn}
+
+\NewDocumentCommand{\defn}{m+m}{
+    \begin{mydefinition}{#1}{}
+        #2
+    \end{mydefinition}
+}
+
+\NewDocumentCommand{\defnr}{mm+m}{
+    \begin{mydefinition}{#1}{#2}
+        #3
+    \end{mydefinition}
+}
+
+% Theorem - subsection numbering
+\newtcbtheorem[use counter from=mydefinition]{mytheorem}{Theorem}
+{
+    colbacktitle=cyan!20!white,
+    colback=cyan!10!white,
+    coltitle=black,
+    fonttitle=\bfseries\large,
+}{thm}
+
+\NewDocumentCommand{\thm}{m+m}{
+    \begin{mytheorem}{#1}{}
+        #2
+    \end{mytheorem}
+}
+
+\NewDocumentCommand{\thmr}{mm+m}{
+    \begin{mytheorem}{#1}{#2}
+        #3
+    \end{mytheorem}
+}
+
+% Lemma - subsection numbering
+\newtcbtheorem[use counter from=mydefinition]{mylemma}{Lemma}
+{
+    colbacktitle=violet!20!white,
+    colback=violet!10!white,
+    coltitle=black,
+    fonttitle=\bfseries\large,
+}{lem}
+
+\NewDocumentCommand{\lem}{m+m}{
+    \begin{mylemma}{#1}{}
+        #2
+    \end{mylemma}
+}
+
+% Improved proof environments with consistent QED placement
+\newenvironment{lempf}{
+    \par\noindent{\it \textbf{Proof for Lemma.}}\par\nopagebreak
+    \begin{list}{}{\setlength\leftmargin{1em}\setlength\rightmargin{0em}}
+    \item\relax
+}{
+    \hfill$\qed$\end{list}
+}
+
+\NewDocumentCommand{\lemp}{m+m+m}{
+    \begin{mylemma}{#1}{}
+        #2
+    \end{mylemma}
+    \begin{lempf}
+        #3
+    \end{lempf}
+}
+
+% Corollary - subsection numbering
+\newtcbtheorem[use counter from=mydefinition]{mycorollary}{Corollary}
+{
+    colbacktitle=orange!20!white,
+    colback=orange!10!white,
+    coltitle=black,
+    fonttitle=\bfseries\large,
+}{cor}
+
+\NewDocumentCommand{\cor}{+m}{
+    \begin{mycorollary}{}{}
+        #1
+    \end{mycorollary}
+}
+
+\newenvironment{corpf}{
+    \par\noindent{\it \textbf{Proof for Corollary.}}\par\nopagebreak
+    \begin{list}{}{\setlength\leftmargin{1em}\setlength\rightmargin{0em}}
+    \item\relax
+}{
+    \hfill$\qed$\end{list}
+}
+
+\NewDocumentCommand{\corp}{m+m+m}{
+    \begin{mycorollary}{}{}
+        #1
+    \end{mycorollary}
+    \begin{corpf}
+        #2
+    \end{corpf}
+}
+
+% Proposition - subsection numbering
+\newtcbtheorem[use counter from=mydefinition]{myproposition}{Proposition}
+{
+    colbacktitle=yellow!30!white,
+    colback=yellow!20!white,
+    coltitle=black,
+    fonttitle=\bfseries\large,
+}{prop}
+
+\NewDocumentCommand{\prop}{+m}{
+    \begin{myproposition}{}{}
+        #1
+    \end{myproposition}
+}
+
+\newenvironment{proppf}{
+    \par\noindent{\it \textbf{Proof for Proposition.}}\par\nopagebreak
+    \begin{list}{}{\setlength\leftmargin{1em}\setlength\rightmargin{0em}}
+    \item\relax
+}{
+    \hfill$\qed$\end{list}
+}
+
+\NewDocumentCommand{\propp}{+m+m}{
+    \begin{myproposition}{}{}
+        #1
+    \end{myproposition}
+    \begin{proppf}
+        #2
+    \end{proppf}
+}
+
+% Claim - subsection numbering
+\newtcbtheorem[use counter from=mydefinition]{myclaim}{Claim}
+{
+    colbacktitle=pink!30!white,
+    colback=pink!20!white,
+    coltitle=black,
+    fonttitle=\bfseries\large,
+}{clm}
+
+\NewDocumentCommand{\clm}{m+m}{
+    \begin{myclaim}{#1}{}
+        #2
+    \end{myclaim}
+}
+
+\newenvironment{clmpf}{
+    \par\noindent{\it \textbf{Proof for Claim.}}\par\nopagebreak
+    \begin{list}{}{\setlength\leftmargin{1em}\setlength\rightmargin{0em}}
+    \item\relax
+}{
+    \hfill$\qed$\end{list}
+}
+
+\NewDocumentCommand{\clmp}{m+m+m}{
+    \begin{myclaim}{#1}{}
+        #2
+    \end{myclaim}
+    \begin{clmpf}
+        #3
+    \end{clmpf}
+}
+
+% Fact - subsection numbering
+\newtcbtheorem[use counter from=mydefinition]{myfact}{Fact}
+{
+    colbacktitle=purple!20!white,
+    colback=purple!10!white,
+    coltitle=black,
+    fonttitle=\bfseries\large,
+}{fact}
+
+\NewDocumentCommand{\fact}{+m}{
+    \begin{myfact}{}{}
+        #1
+    \end{myfact}
+}
+
+% Proof - customizable name
+\NewDocumentEnvironment{custompf}{m}
+{
+    \par\noindent{\it \textbf{#1}}\par\nopagebreak
+    \begin{list}{}{\setlength\leftmargin{1em}\setlength\rightmargin{0em}}
+    \item\relax
+}
+{
+    \hfill$\qed$\end{list}
+}
+
+\NewDocumentCommand{\pf}{O{Proof}+m}{
+    \begin{custompf}{#1.}
+        #2
+    \end{custompf}
+}
+
+% Example - improved environment
+\newenvironment{example}{
+    \par\vspace{5pt}
+    \noindent\textbf{Example.}\par\nopagebreak
+    \begin{list}{}{\setlength\leftmargin{1em}\setlength\rightmargin{0em}}
+    \item\relax
+}{
+    \end{list}\vspace{5pt}
+}
+
+\NewDocumentCommand{\ex}{+m}{
+    \begin{example}
+        #1
+    \end{example}
+}
+
+% Remark
+\NewDocumentCommand{\rmk}{+m}{
+    {\it \color{blue!50!white}#1}
+}
+
+% Remark block - improved environment
+\newenvironment{remark}{
+    \par\vspace{5pt}
+    \noindent\textbf{Remark.}\par\nopagebreak
+    \begin{list}{}{\setlength\leftmargin{1em}\setlength\rightmargin{0em}}
+    \item\relax
+}{
+    \end{list}\vspace{5pt}
+}
+
+\NewDocumentCommand{\rmkb}{+m}{
+    \begin{remark}
+        #1
+    \end{remark}
+}
 
 % Custom commands for notes
 \newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
