@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../preambles/notes-preamble.tex}
+\input{../../../preambles/notes-macros.tex}
+\input{../../../preambles/theorem-system-section.tex}
+
+\title{MATH 320 Lecture 8}
+\author{Deepak Jassal}
+\date{October 2\textsuperscript{nd}, 2025}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage 
+
+\setcounter{section}{0}    % This is to set the section across notes
+\setcounter{subsection}{0} % This is to set the subsection across notes
+
+
+\section{Matrix Groups}
+In this section we will be looking into non-Abelian groups, namely Matrix Groups. The set
+\[
+    GL_n(F)=\{A\in M_n(F):\det{A}\neq0\}
+\]
+of all invertible $n\times n$ matrices with entries in a field $F$ forms a group under matrix multiplication.\\
+A field is the smallest algebraic structure in which we can perform the usual arithmetic operations, including division by non-zero elements. In particular, every non-zero element in a field has a multiplicative inverse.
+\defnr{Field}{field}{A \textit{field} is a set $F$ with two binary operations $+$ and $\cdot$ such that
+\begin{enumerate}[label=(\roman*)]
+    \item $(F, +)$ is an abelian group with identity element 0;
+    \item $F \times := F \setminus {0}$ is an abelian group under · with identity element 1;
+    \item Distributivity holds: for all $a, b, c \in F$ , one has $a(b + c) = ab + ac$.
+\end{enumerate}
+}
+\ex{Common examples of fields include $\Q,\R,\C$, and finite fields $\Z/p\Z$ where $p$ is prime.}
+\rmkb{
+    \begin{enumerate}
+        \item In any field $F$, one has $a\cdot0=0$ for all $a\in F$.
+        \item We write $F^\times$ for the multiplicative group of nonzero elements of a field $F$.
+    \end{enumerate}
+}
+\thm{}{If $F$ is a finite field, then $|F|=p^n$, for some prime $p$ and integer $n\geq 1$.}
+
+\prop{Let $F$ be a field. The set $GL_n(F)$ of all invertible $n\times n$ matrices  with entries in $F$ forms a group under matrix multiplication. It is called the general linear group of degree $n$ over $F$.}
+
+
+\hl{The following material is covered in Chapter 1 Section 6 of the Dummit and Foote textbook}
+
+\section{Group Homomorphisms and Isomorphisms}
+
+\defn{Group Homomorphisms}{ Let $(G,\ast)$ and $(H,\circ)$ be groups. A map $\varphi: G\rightarrow H$ is a \textit{homomorphisms} is 
+\[
+    \varphi(a\ast b)=\varphi(a)\circ\varphi(b)\quad \forall a,b\in G.
+\]
+}
+
+\defn{Group Isomorphisms}{A map $\varphi: G\rightarrow H$ is an \textit{isomorphism} if it is a bijective homomorphism. In this case we say that $G$ and $H$ are \textit{isomorphic} and write $G\cong H$. More precisely, an isomorphism $\varphi$ from a group $(G,\ast)$ to a group $(H,\circ)$ is a \textbf{one-to-one} mapping from $G$ \textbf{onto} $H$ \textbf{that preserves the group operation}. That isomorphism
+\[
+    \varphi(a\ast b)=\varphi(a)\circ\varphi(b).
+\]
+}
+
+From now on, we shall write $\varphi(ab) = \varphi(a)\varphi(b)$ and it will be understood that for ab we are using the operation of $G$, while for $\varphi(a)\varphi(b)$ we are using the operation of $H$.\\
+How do we prove that two groups are isomorphic?
+\begin{enumerate}
+    \item Find a candidate mapping for the isomorphism. That is a function $\varphi:G\rightarrow H$.
+    \item Prove that $\varphi$ is one-to-one.
+    \item Prove that $\varphi$ is onto.
+    \item Prove that $\varphi$ is operation preserving.
+\end{enumerate}
+
+\ex{(Automorphisms). Every group $G$ is isomorphic to itself via the identity map $1_G$. An isomorphism $G \rightarrow G$ is called an \textit{automorphism} of $G$.}
+\end{document}
