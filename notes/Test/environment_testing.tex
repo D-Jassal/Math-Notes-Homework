@@ -1,0 +1,125 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for notes
+\input{../../preambles/notes-preamble.tex}
+\input{../../preambles/notes-macros.tex}
+\input{../../preambles/theorem-system-subsection.tex}
+
+\title{Theorem System Test}
+\author{Deepak Jassal}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage 
+\setcounter{section}{0}
+\setcounter{subsection}{0}
+
+\section{Testing All Theorem Environments}
+
+\subsection{Basic Environments}
+
+% Definition with title
+\defn{Group}{A \textbf{group} is a set $G$ with a binary operation $*$ such that:
+\begin{enumerate}
+    \item \textbf{Associativity}: $(a * b) * c = a * (b * c)$ for all $a,b,c \in G$
+    \item \textbf{Identity}: There exists $e \in G$ such that $e * a = a * e = a$ for all $a \in G$
+    \item \textbf{Inverses}: For each $a \in G$, there exists $a^{-1} \in G$ such that $a * a^{-1} = a^{-1} * a = e$
+\end{enumerate}
+}
+
+% Theorem with title
+\thm{Lagrange's Theorem}{If $G$ is a finite group and $H$ is a subgroup of $G$, then the order of $H$ divides the order of $G$. That is, $|H|$ divides $|G|$.}
+
+% Lemma with title
+\lem{Subgroup Test}{A subset $H$ of a group $G$ is a subgroup if and only if:
+\begin{enumerate}
+    \item $H$ is non-empty
+    \item For all $a, b \in H$, $ab \in H$
+    \item For all $a \in H$, $a^{-1} \in H$
+\end{enumerate}
+}
+
+% Corollary without title
+\cor{Every group of prime order is cyclic.}
+
+% Proposition without title
+\prop{The intersection of two subgroups is also a subgroup.}
+
+% Claim with title
+\clm{Order of Element}{In a finite group, the order of any element divides the order of the group.}
+
+% Fact without title
+\fact{The symmetric group $S_n$ has order $n!$.}
+
+\subsection{Environments with Proofs}
+
+% Lemma with proof
+\lemp{Cyclic Subgroups}{If $a$ is an element of a group $G$, then the set $\langle a \rangle = \{a^n : n \in \mathbb{Z}\}$ is a subgroup of $G$.}{
+Let $x, y \in \langle a \rangle$. Then $x = a^m$ and $y = a^n$ for some $m, n \in \mathbb{Z}$. Then $xy = a^m a^n = a^{m+n} \in \langle a \rangle$. Also, $x^{-1} = a^{-m} \in \langle a \rangle$. Therefore, $\langle a \rangle$ is a subgroup.
+}
+
+% Corollary with proof
+\corp{If $G$ is a cyclic group of order $n$, then $G$ has exactly $\phi(n)$ generators, where $\phi$ is Euler's totient function.}{
+Let $G = \langle a \rangle$ be cyclic of order $n$. Then $a^k$ is a generator if and only if $\gcd(k, n) = 1$. There are exactly $\phi(n)$ such integers $k$ with $1 \leq k \leq n$.
+}
+
+% Proposition with proof
+\propp{The center of a group $Z(G) = \{g \in G : gh = hg \text{ for all } h \in G\}$ is a subgroup of $G$.}{
+Let $x, y \in Z(G)$. For any $h \in G$, we have $(xy)h = x(yh) = x(hy) = (xh)y = (hx)y = h(xy)$, so $xy \in Z(G)$. Also, $x^{-1}h = hx^{-1}$ for all $h \in G$, so $x^{-1} \in Z(G)$.
+}
+
+% Claim with proof
+\clmp{Abelian Center}{If $G$ is a group, then $Z(G)$ is abelian.}{
+Let $x, y \in Z(G)$. Since $x$ commutes with all elements of $G$, it commutes with $y$ in particular. Therefore $xy = yx$, so $Z(G)$ is abelian.
+}
+\subsection{Regular Proof Environment}
+
+% Regular proof
+\pf{Let's prove that every subgroup of a cyclic group is cyclic. Suppose $G = \langle a \rangle$ is cyclic and $H$ is a subgroup of $G$. If $H = \{e\}$, then $H$ is cyclic. Otherwise, let $m$ be the smallest positive integer such that $a^m \in H$. We claim $H = \langle a^m \rangle$. For any $a^n \in H$, by the division algorithm, $n = mq + r$ with $0 \leq r < m$. Then $a^r = a^{n - mq} = a^n (a^m)^{-q} \in H$, so by minimality of $m$, we must have $r = 0$. Thus $a^n = (a^m)^q \in \langle a^m \rangle$.}
+
+\subsection{Examples and Remarks}
+
+% Example
+\ex{Consider the group $\mathbb{Z}_6 = \{0,1,2,3,4,5\}$ under addition modulo 6. The subgroups are: $\{0\}$, $\{0,2,4\}$, $\{0,3\}$, and $\mathbb{Z}_6$ itself. Notice that the orders are 1, 3, 2, and 6, which all divide 6.}
+
+% Another example
+\ex{The symmetric group $S_3$ has order 6. Its subgroups have orders 1, 2, 3, and 6, which all divide 6. However, $S_3$ is not abelian.}
+
+% Inline remark
+This shows that Lagrange's Theorem has a converse that is \rmk{not true} in general.
+
+% Block remark
+\rmkb{While Lagrange's Theorem tells us about possible subgroup orders, it doesn't guarantee that subgroups of those orders actually exist. This leads to the study of Sylow theorems.}
+
+\subsection{Referenced Theorems}
+
+% Theorem with reference
+\thmr{Cauchy's Theorem}{cauchy}{If $G$ is a finite group and $p$ is a prime dividing $|G|$, then $G$ has an element of order $p$.}
+\pf[Proof for Theorem \ref{thm:cauchy}]{
+    Example text
+}
+% Definition with reference  
+\defnr{Simple Group}{simple}{A group $G$ is called \textbf{simple} if it has no non-trivial proper normal subgroups.}
+
+We can reference these later: Theorem \ref{thm:cauchy} and Definition \ref{defn:simple}.
+
+\subsection{More Examples}
+
+% Fact with example
+\fact{The alternating group $A_n$ is simple for $n \geq 5$.}
+
+% Another claim
+\clm{Index Formula}{If $H$ is a subgroup of $G$, then $[G:H] = |G|/|H|$.}
+
+% Final example showing math
+\ex{Let $G = \mathbb{Z}_{12}$. The possible subgroup orders are divisors of 12: 1, 2, 3, 4, 6, 12. For example:
+\begin{itemize}
+    \item Order 2: $\langle 6 \rangle = \{0, 6\}$
+    \item Order 3: $\langle 4 \rangle = \{0, 4, 8\}$ 
+    \item Order 4: $\langle 3 \rangle = \{0, 3, 6, 9\}$
+\end{itemize}
+}
+
+\end{document}

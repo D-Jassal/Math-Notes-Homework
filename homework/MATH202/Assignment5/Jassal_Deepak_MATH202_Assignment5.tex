@@ -36,8 +36,26 @@
 \end{titlepage}
 \stepcounter{section}
 \section*{Question 1}
-Compute the volume of a right cylindrical cone where the base radius is \( R \) and the height of the cone is \( h \), using cylindrical coordinates.
-
+Compute the volume of a right cylindrical cone where the base radius is \( R \) and the height of the cone is \( h \), using cylindrical coordinates.\\
+The Jacobian determinant for cylindrical coordinates has already been computed in class, it is $r$. The triple integral for the volume of the right cylindrical cone $\mathcal{C}$ is 
+\[
+	V=\iiint_\mathcal{C}1\,dV.
+\]
+Converting to cylindrical coordinates 
+\[
+	(x,y,z)\rightarrow (r\cos\theta,r\sin\theta,z)
+\]
+yields
+\[
+	V=\int_{0}^{2\pi}\int_{0}^{h}\int_{0}^{\frac{R}{h}z}r\,dr\,dz\,d\theta.
+\]
+The bounds for the integral in $r$ are obtained by considering the slant of the boundary of the cone from $(0,0,0)$ to a point on the upper edge which would be $\frac{R}{h}z$. Evaluating the integral
+\[
+	V=\int_{0}^{2\pi}\int_{0}^{h}\int_{0}^{\frac{R}{h}z}r\,dr\,dz\,d\theta=2\pi\int_{0}^{h}\int_{0}^{\frac{R}{h}z}r\,dr\,dz=2\pi\int_{0}^{h}\left[ \frac{r^2}{2} \right]_{0}^{\frac{R}{h}z}\,dz=\pi\frac{R^2}{h^2}\int_{0}^{h}z^2\,dz=\frac{\pi\frac{R^2}{h^2}}{3}\left[ z^3 \right]_0^h
+\]
+\[
+	V=\frac{\pi hR^2}{3}.
+\]
 \stepcounter{section}
 \section*{Question 2}
 A spherical cap is the piece of a sphere (ball) sliced off by a plane. Suppose that a sphere has radius 10, and the height of the spherical cap is 6. Determine the volume of the spherical cap.
@@ -79,17 +97,23 @@ We want the total probability to be 1, so we have
 \[
 	k=\frac{1}{800}.
 \]
-We want to find $\mathcal{P}(X+Y<60)$, that is evaluate the integral
+We want to find $\mathcal{P}(X+Y<60)$, which can be done by evaluating the following integral
 \[
-	\frac{1}{800}\int_{X=0}^{60}\int_{Y=0}^{60-x}e^{-\frac{x+2y}{40}}\,dy\,dx.
+	\mathcal{P}(X+Y<60)=\frac{1}{800}\int_{X=0}^{60}\int_{Y=0}^{60-x}e^{-\frac{x+2y}{40}}\,dy\,dx.
 \]
 Using the same substitutions as the previous part we get
 \[
-	\frac{1}{800}\int_{0}^{60}e^{\frac{-x}{40}}\int_{0}^{60-x}e^{\frac{-y}{20}}\,dy\,dx=\frac{1}{800}\int_{0}^{60}e^{\frac{-x}{40}}\left[ 20e^{-u} \right]^{\frac{60-x}{20}}_0\,dx=\frac{1}{800}\int_{0}^{60}e^{\frac{-x}{40}}\left( 20e^{\frac{x-60}{20}} -20 \right)\,dx
+	\frac{1}{800}\int_{0}^{60}e^{\frac{-x}{40}}\int_{0}^{60-x}e^{\frac{-y}{20}}\,dy\,dx=\frac{1}{800}\int_{0}^{60}e^{\frac{-x}{40}}\left[ -20e^{-u} \right]^{\frac{60-x}{20}}_0\,dx=\frac{1}{800}\int_{0}^{60}e^{\frac{-x}{40}}\left(20 - 20e^{\frac{x-60}{20}}  \right)\,dx
 \]
 Factoring and multiplying through
 \[
-	\frac{1}{40}\int_{0}^{60}e^{-3}e^{\frac{x}{40}} - e^{\frac{-x}{40}}\,dx
+	\frac{1}{40}\int_{0}^{60} e^{\frac{-x}{40}} -e^{-3}e^{\frac{x}{40}}\,dx=\frac{1}{40}\left[  \int_{0}^{60}e^{\frac{-x}{40}} - e^{-3}\int_{0}^{60}e^{\frac{x}{40}} \right]
+\]
+\[
+	\frac{1}{40}\left[  -40\left[ e^{\frac{-x}{40}} \right]_0^{60} - 40e^{-3}\left[ e^{\frac{x}{40}} \right]_0^{60} \right]=\left[ -\left[ e^{\frac{-x}{40}} \right]_0^{60} - e^{-3}\left[ e^{\frac{x}{40}} \right]_0^{60} \right]=-e^{\frac{3}{2}}+1-e^{\frac{3}{2}}+e^{-3}
+\]
+\[
+	\mathcal{P}(X+Y<60)=1-e^{-\frac{3}{2}}+e^{-3}.
 \]
 \stepcounter{section}
 \section*{Question 4}
