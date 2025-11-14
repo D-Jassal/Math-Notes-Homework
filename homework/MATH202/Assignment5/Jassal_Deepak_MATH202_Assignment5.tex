@@ -58,8 +58,28 @@ The bounds for the integral in $r$ are obtained by considering the slant of the 
 \]
 \stepcounter{section}
 \section*{Question 2}
-A spherical cap is the piece of a sphere (ball) sliced off by a plane. Suppose that a sphere has radius 10, and the height of the spherical cap is 6. Determine the volume of the spherical cap.
-
+A spherical cap is the piece of a sphere (ball) sliced off by a plane. Suppose that a sphere has radius 10, and the height of the spherical cap is 6. Determine the volume of the spherical cap.\\
+It can be seen that the volume of half a sphere is
+\[
+	V_{\text{half sphere}}=V_{\text{cap}}+\frac{1}{2}V_{\text{cylinder}}+\frac{1}{2}V_{\text{napkin ring}}.
+\]
+Rearranging we get 
+\[
+	V_{\text{cap}}=V_{sphere}-\frac{1}{2}V_{\text{cylinder}}-\frac{1}{2}V_{\text{napkin ring}}.
+\]
+\[
+	V_{\text{half sphere}}=\frac{2}{3}\pi R^3=\frac{2000\pi}{3},
+\]
+\[
+	\frac{1}{2}V_{\text{cylinder}}=\frac{1}{2}\pi r^2h=\pi(\sqrt{10^2-4^2}^2)(6)=\frac{1}{2}\pi(\sqrt{84}^2)(8)=336\pi,
+\]
+\[
+	V_{\text{napkin ring}}=\frac{\pi h^3}{3}=\frac{128\pi}{3}.
+\]
+Putting all of these together
+\[
+	V_{\text{cap}}=\frac{2000\pi}{3}-336\pi-\frac{128\pi}{3}=288\pi.
+\]
 \stepcounter{section}
 \section*{Question 3}
 A client spends \( X \) minutes in an insurance agent's waiting room and \( Y \) minutes meeting with the agent (That is, both \( X, Y \) are random variables). The joint probability density function of \( X \) and \( Y \) can be modelled by
