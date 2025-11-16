@@ -37,27 +37,85 @@
 \end{titlepage}
 \stepcounter{section}
 \section*{Question 1 [2 marks]}
-What is the order of the element $14 + \langle8\rangle$ in the factor group $\Z_{24}/ \langle8\rangle$?
+What is the order of the element $14 + \langle8\rangle$ in the factor group $\Z_{24}/ \langle8\rangle$?\\
+\[
+	|\langle 8 \rangle|=3,
+\]
+\[
+	|\Z_{24}/ \langle8\rangle|=8,
+\]
+\[
+	\langle8\rangle=\{0,8,16\}.
+\]
+It can be seen that 
+\[
+	8+\langle8\rangle=0+\langle8\rangle,
+\]
+that is in the factor group $\Z_{24}/\langle8\rangle$ $8\equiv0$. This tells us that $14+\langle8\rangle=6+\langle8\rangle$, and that $|14+\langle8\rangle|=|6+\langle8\rangle|$. We know that for any two cosets in a factor group that
+\[
+	(a+H)+(b+H)=(a+b)+H
+\]
+where $H$ is the identity coset. If $a=b$ this can be generalized to
+\[
+	\underbrace{(a+H)+\cdots+(a+H)}_{n\text{ times}}=n(a)+H.
+\]
+(A proper proof of this would be given through the use of the principle of Mathematical induction)\\
+Therefore to find the order of $6+\langle 8\rangle$ we need to find the smallest $n$ such that $n6+\langle 8\rangle=\langle 8\rangle$. We can see that if $n=4$, then 
+\[
+	4(6)+\langle 8\rangle =24+\langle 8\rangle =\langle 8\rangle.  
+\]
+Now we need to see if $4$ is the smallest number with this property. The only numbers that divide both 4 and 8 are 1,2,4. We can see that $n=1$ does not work, and neither does $n=2$. So,
+\[
+	|14+\langle8\rangle|=4.
+\]
 
 \stepcounter{section}
 \section*{Question 2 [2 marks]}
-Explain why the correspondence $x \mapsto 3x$ from $\Z_{12}$ to $\Z_{10}$ is not a homomorphism.
+Explain why the correspondence $x \mapsto 3x$ from $\Z_{12}$ to $\Z_{10}$ is not a homomorphism.\\
+Let $\varphi:\Z_{12}\mapsto \Z_{10}$ defined as above. Then if $\varphi$ is a homomorphism we would have
+\[
+	\varphi(a+b)=\varphi(a)+\varphi(b)\quad \forall a,b\in \Z_{12}.
+\]
+Take $a=6,b=6$, then
+\[
+	\varphi(6+6)=\varphi(0)=0
+\]
+\[
+	\varphi(6)+\varphi(6)=6.
+\]
+Thus, $\varphi$ is not a homomorphism.
 
 \stepcounter{section}
 \section*{Question 3 [2 marks]}
-Let $H$ be a normal subgroup of a finite group $G$, and let $a$ belong to $G$. If the element $aH$ has order 3 in the group $G/H$ and $|H| = 10$, what are the possibilities for the order of $a$ in $G$?
+Let $H$ be a normal subgroup of a finite group $G$, and let $a$ belong to $G$. If the element $aH$ has order 3 in the group $G/H$ and $|H| = 10$, what are the possibilities for the order of $a$ in $G$?\\
+Let $|a|=n$. Then $3\vert n$. Let $h=a^3\in H$, then $h^{10}=a^{3(10)}=e$. This shows that $n\vert30$. Putting these two together we see that the possible values of $n$ are 1,3,6,15,30.
 
 \stepcounter{section}
 \section*{Question 4 [3 marks]}
 Prove that a factor group of a cyclic group is cyclic.
+\begin{proof}
+	Let $G=\langle g\rangle G=\langle g\rangle$ be cyclic and $N\unlhd G.$. Then every element $n\in G/N$ is of the form $n=xN$, For some $x\in G$. Since $G$ is cyclic we have $x=g^n$, for some $n\in\Z$. That is for all $xN$, we have $xN=g^kN=(gN)^K$ for some $k\in\Z$. Thus every coset in $G/N$ is a power of $gN$, so $G/N=\langle g\rangle$, hence $G/N$ is cyclic.
+\end{proof}
 
 \stepcounter{section}
 \section*{Question 5 [3 marks]}
 Let $H$ and $K$ be normal subgroups of a group $G$. Prove that $HK$ is also a normal subgroup of $G$.
+\begin{proof}
+	First we must show that $HK$ is a subgroup of $G$. Let $a,b\in HK$, then for each of these elements in either in $H$, $K$ or both (becuase $HK=\left\{ hk: h\in H, k\in K\right\}$). So $ab\in HK$. We also have $a^{-1}\in HK$ becuase $a$ is in either $H$, $K$ or both, and each of those is a subgroup. So $HK\leq G$.
+	We know that a subgroup is normal if and only if $xJx^{-1}\subset J$ for all $x\in G.$ Let $x$ be any element of the group $G$. Then since $H$ and $K$ are nomal in $G$ we have
+	\[
+		xHKx^{-1}=(xHx^{-1})(xKx^{-1})=HK.
+	\]
+	Therefore, $HK\unlhd G.$
+\end{proof}
 
 \stepcounter{section}
 \section*{Question 6 [3 marks]}
-Let $G$ be a group acting on a set $X$. Suppose that the stabilizer $G_x$ of a certain point $x \in X$ is a proper normal subgroup of $G$. Prove that every element of $G_x$ fixes every element $y \in G_ x$.
+Let $G$ be a group acting on a set $X$. Suppose that the stabilizer $G_x$ of a certain point $x \in X$ is a proper normal subgroup of $G$. Prove that every element of $G_x$ fixes every element $y \in G.x$.
+\begin{proof}
+	
+\end{proof}
+
 
 \stepcounter{section}
 \section*{Question 7 [5 marks]}
