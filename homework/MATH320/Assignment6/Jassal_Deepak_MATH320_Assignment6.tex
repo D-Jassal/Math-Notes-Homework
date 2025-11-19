@@ -94,7 +94,7 @@ Let $|a|=n$. Then $3\vert n$. Let $h=a^3\in H$, then $h^{10}=a^{3(10)}=e$. This 
 \section*{Question 4 [3 marks]}
 Prove that a factor group of a cyclic group is cyclic.
 \begin{proof}
-	Let $G=\langle g\rangle G=\langle g\rangle$ be cyclic and $N\unlhd G.$. Then every element $n\in G/N$ is of the form $n=xN$, For some $x\in G$. Since $G$ is cyclic we have $x=g^n$, for some $n\in\Z$. That is for all $xN$, we have $xN=g^kN=(gN)^K$ for some $k\in\Z$. Thus every coset in $G/N$ is a power of $gN$, so $G/N=\langle g\rangle$, hence $G/N$ is cyclic.
+	Let $G=\langle g\rangle G=\langle g\rangle$ be cyclic and $N\unlhd G$. Then every element $n\in G/N$ is of the form $n=xN$, For some $x\in G$. Since $G$ is cyclic we have $x=g^n$, for some $n\in\Z$. That is for all $xN$, we have $xN=g^kN=(gN)^K$ for some $k\in\Z$. Thus every coset in $G/N$ is a power of $gN$, so $G/N=\langle g\rangle$, hence $G/N$ is cyclic.
 \end{proof}
 
 \stepcounter{section}
@@ -113,17 +113,58 @@ Let $H$ and $K$ be normal subgroups of a group $G$. Prove that $HK$ is also a no
 \section*{Question 6 [3 marks]}
 Let $G$ be a group acting on a set $X$. Suppose that the stabilizer $G_x$ of a certain point $x \in X$ is a proper normal subgroup of $G$. Prove that every element of $G_x$ fixes every element $y \in G.x$.
 \begin{proof}
-	
+	An element $y\in G.x$ looks like $y=gx$ for some $g\in G$. Elements $h\in G_x$ have the unique property that $hx=x$ for all $h\in G_x$. For some arbitrary element $y\in G.x$ we have 
+	\begin{align*}
+		h\cdot y&=h\cdot (y \cdot x)\\
+		&=(hg)\cdot x\\
+		&=(g^{-1}hg)\cdot x.
+	\end{align*}
+	Since $h\in G_x$ and $G_x$ is a proper normal subgroup we have $g^{-1}hg\in G_x$. Since $G_x$ is the stabilizer of $x$ we have
+	\[
+		(g^{-1}hg)\cdot x=x.
+	\]
 \end{proof}
-
 
 \stepcounter{section}
 \section*{Question 7 [5 marks]}
 In what follows, you prove the third isomorphism theorem. Let $M, N$ be normal sub-groups of a group $G$ such that $N$ is a subgroup of $M$.
 \begin{enumerate}[label=(\alph*)]
 	\item Show that $N$ is a normal subgroup of $M$.
+	\begin{proof}
+		Since $N\unlhd G$ we have $aN=Na\,\forall a\in G$. Since $M\leq G \Rightarrow M\subseteq G$, and $N\leq M$, then for all $m\in M$ we have $mN=Nm$. Therefore, $N\unlhd M.$
+	\end{proof}
 	\item Show that $(G/N )/(M/N ) \cong G/M $.
+	\begin{proof}
+		The quotient groups $G/N,M/N,G/M$ are well defined as the group's are normal in the correct order. Define $\varphi: G/N\mapsto G/M$ by 
+		\[
+			\varphi(gN)=gM.
+		\]
+		\begin{claim}
+			$\varphi$ is a surjective homomorphism.
+		\end{claim}
+		\begin{proof}[Proof of claim.]
+			For any $gM\in G/M$, we have $gN\in G/N$ with $\varphi(gN)=gM$.\\
+			Let $g_1N,g_2N\in G/N$ then 
+			\[
+				\varphi(g_1Ng_2N)=\varphi(g_1g_2N)=g_1g_2M
+			\]
+			and
+			\[
+				\varphi(g_1N)\varphi(g_2N)=g_1Mg_2M=g_1g_2M=\varphi(g_1Ng_2N). \qedhere
+			\]
+		\end{proof}
+		The kernel of $\varphi$ is 
+		\[
+			\ker\varphi=\left\{ gN\in G/N : \varphi(gN)=gM=M \right\},
+		\]
+		but if $gM=M$, then $g\in M$. So we can rewrite the kernel as
+		\[
+			\ker\varphi=\left\{ gN\in G/N : g\in M \right\}.
+		\]
+		That is kernel consists of all $gN$ such that $g\in M$, which is precisely $M/N$ viewed as a subgroup of $G/N.$
+		\[
+			(G/N )/(M/N ) \cong G/M.
+		\]
+	\end{proof}
 \end{enumerate}
-
-
 \end{document}
