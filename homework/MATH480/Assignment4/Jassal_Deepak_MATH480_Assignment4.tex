@@ -1,0 +1,97 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../preambles/hw-preamble.tex}
+\input{../../../preambles/homework-macros.tex}
+\input{../../../preambles/homework-title.tex}
+\input{../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Number Theory}
+\renewcommand{\coursecode}{MATH 480}
+\renewcommand{\assignment}{Assignment 4}
+\renewcommand{\instructor}{Dr. Alia Hamieh}
+\renewcommand{\duedate}{November 20\textsuperscript{th}, 2025}
+
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Question 1 [2 marks]}
+Find all the primitive roots modulo 27.
+
+\stepcounter{section}
+\section*{Question 2 [2 marks]}
+Evaluate $\displaystyle{ \left(\frac{105}{1009}\right)}$. 
+
+\stepcounter{section}
+\section*{Question 3 [3 marks]}
+Let $m$ be a positive integer with a primitive root. Suppose that $(a,m)=1$. Prove that then the congruence $x^n\equiv a\mod m$ has exactly $(n,\phi(m))$  solutions if and only if $a^{\frac{\phi(m)}{(\phi(m),n)}}\equiv 1\mod m$.
+
+\stepcounter{section}
+\section*{Question 4 [3 marks]}
+Let $p$ be an odd prime number, and suppose that $h \geq 2$. Denote by $g$ a primitive root modulo $p^{h}$.
+\begin{enumerate}[label=(\alph*)]
+    \item List all the solutions of the congruence $x^{p} \equiv 1 \pmod{p^{h}}$  using the primitive root $g$ modulo $p^{h}$.
+    \item  List all the solutions of the congruence $x^{2p} \equiv 1 \pmod{p^{h}}$ using the primitive root $g$ modulo $p^{h}$.
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Question 5 [2 marks]}
+Let $n$ be a positive integer with a primitive root. Using this primitive root, prove that the product of all positive integers less than $n$ and relatively prime to $n$ is congruent to $-1$ modulo $n$.
+
+\stepcounter{section}
+\section*{Question 6 [2 marks]}
+Let $p_{1},p_{2},\ldots,p_{r}$ be distinct prime numbers. Show that there exists an integer $g$ such  that $g$ is a primitive root modulo $p_{i}$ for all $1 \leq i \leq r$.
+
+\stepcounter{section}
+\section*{Question 7 [2 marks]}
+\begin{enumerate}[label=(\alph*)]
+    \item Let $a$ be an integer with $a \geq 2$, and suppose that $q \in \mathbb{N}$. What is the smallest positive integer $d$ satisfying the property that $a^{d} \equiv 1 \pmod{a^{q}-1}$? Deduce that $q$ divides
+    $\varphi(a^{q}-1)$.
+    \item Let $q$ be a prime number. By considering the prime factorisation of the integer $N = a^{q}-1$, show that either $N$ is divisible by $q$, or else $N$ is divisible by a prime number $p$ with $p \equiv 1 \pmod{q}$.
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Question 8 [3 marks]}
+Let $q$ be a prime number. Prove that there are infinitely many prime
+numbers $p$ with $p \equiv 1 \pmod{q}$.
+
+\stepcounter{section}
+\section*{Question 9 [3 marks]}
+Let $p\geq 5$ be an odd prime, show that
+\[ 
+    \left(\frac{3}{p}\right)=\begin{cases} 1\:\:\: \text{if}\:\:\: p\equiv \pm1\mod{12}\\ -1\:\:\: \text{if}\:\:\: p\equiv \pm5\mod{12}.\end{cases}
+\] 
+
+\stepcounter{section}
+\section*{Question 10 [6 marks]}
+Let $n>1$ be an odd integer. Write $n=p_1^{e_1}\cdots p_k^{e_k}$. Let $a$ be an integer. We define the {\bf Jacobi symbol} $\left(\frac{a}{n}\right)$ as follows:
+\[\left(\frac{a}{n}\right)=\left(\frac{a}{p_1}\right)^{e_1}\cdots \left(\frac{a}{p_k}\right)^{e_k}.\]
+Prove the following properties:
+\begin{enumerate}[label=(\alph*)]
+    \item If $a\equiv b\mod n$, then $\left(\frac{a}{n}\right)=\left(\frac{b}{n}\right)$.
+    \item If $a$ and $b$ are integers, then $\left(\frac{a}{n}\right)\left(\frac{b}{n}\right)=\left(\frac{ab}{n}\right)$.
+    \item If $x^2\equiv a\mod n$ has a solution, then $\left(\frac{a}{n}\right)=1$. Provide an example that shows that the converse of this statement isn't always true. 
+    \item If $m,n$ are relatively prime odd integers, then \[\left(\frac{m}{n}\right)\left(\frac{n}{m}\right)=(-1)^{\frac{m-1}{2}}(-1)^{\frac{n-1}{2}}.\]
+\end{enumerate}
+\end{document}
