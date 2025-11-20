@@ -27,7 +27,7 @@
     {\large\instructor\par}
 	\vspace{1.5cm}
 	{\huge\bfseries\assignment\par}
-	\vspace{1cm}
+	\vspace{1cm}  
 	{\LARGE\itshape\author\par}
     \vspace{2cm}
 	{\large\bfseries Due Date:\par}
@@ -37,11 +37,52 @@
 \end{titlepage}
 \stepcounter{section}
 \section*{Question 1 [2 marks]}
-Find all the primitive roots modulo 27.
+Find all the primitive roots modulo 27.\\
+$27=3^3$. $\varphi(3)=2$, by \textit{lemma 2.8.13} the number of integers less than 3 of order 2 do not exceed $\varphi(2)=1$. Also, by \textit{theorem 2.8.9} we know that 3 has a primitive root. Since $2^1\not\equiv 1 \mod 3$ and $2^2\equiv 1 \mod 3$ we have 2 as a primitive root of 3. By \textit{theorem 2.8.15} we know that either $2$ or $2+3=5$ is a primitive root(s) for 9. $\varphi(9)=6$, so we need to check to see if the order of 2 or 5 are 6 in modulo 9. 
+\[
+	2^1=2,\,2^2=4,\,2^3=8,\,2^4=16\equiv 7,\,2^5=32\equiv 5\mod 9,\,2^6\equiv 5\times2\equiv1\mod 9,
+\]
+and 
+\begin{align*}
+	5^1=5,\,5^2=25\equiv 7,\,5^3\equiv 7\times5=&35\equiv8\mod 9,\,5^4\equiv8\times5\equiv 4,\\5^5\equiv4\times5\equiv 2\mod 9,&\,5^6\equiv 2\times5\equiv1\mod 9.	
+\end{align*}
+So, both 2 and 5 are primitive roots of 9. From \textit{theorem 2.8.16} we know that both 2 and 5 are primitive roots of 27. The other primitive roots of 27 are of the form $2^a$ where $a$ is any integer mod 27 such that $\gcd(a,\phi(27))=\gcd(a,18)=1$. These integers are 1,5,7,11,13,17.
+\[
+	\begin{aligned}
+		2^1 &\equiv 2 \\
+		2^5 &\equiv 32 \equiv 5 \\
+		2^7 &\equiv 2^5 \cdot 2^2 \equiv 5 \cdot 4 = 20 \\
+		2^{11} &= 2^9 \cdot 2^2 \equiv (-1) \cdot 4 \equiv 23 \\
+		2^{13} &= 2^9 \cdot 2^4 \equiv (-1) \cdot 16 \equiv 11 \\
+		2^{17} &= 2^9 \cdot 2^8 \equiv (-1) \cdot 13 \equiv 14
+	\end{aligned}
+\]
+So the primitive roots of 27 are 2,5,20,23,11,14.
+
 
 \stepcounter{section}
 \section*{Question 2 [2 marks]}
-Evaluate $\displaystyle{ \left(\frac{105}{1009}\right)}$. 
+Evaluate $\displaystyle{ \left(\frac{105}{1009}\right)}$.\\
+\[
+	\left(\frac{105}{1009}\right)=\left(\frac{3}{1009}\right)\left(\frac{5}{1009}\right)\left(\frac{7}{1009}\right)
+\] 
+By \textit{theorem 3.2.1} we have
+\[
+	\left(\frac{105}{1009}\right)=\left(\frac{1009}{3}\right)\left(\frac{1009}{5}\right)\left(\frac{1009}{7}\right)
+\] 
+\[
+	\left(\frac{105}{1009}\right)=\left(\frac{1}{3}\right)\left(\frac{4}{5}\right)\left(\frac{1}{7}\right)
+\] 
+\[
+	\left(\frac{105}{1009}\right)=\left(\frac{1}{3}\right)\left(\frac{2}{5}\right)\left(\frac{2}{5}\right)\left(\frac{1}{7}\right)
+\] 
+\[
+	\left(\frac{105}{1009}\right)=\left(\frac{-1}{3}\right)\left(\frac{-1}{3}\right)\left(-1\right)\left(-1\right)\left(\frac{-1}{7}\right)\left(\frac{-1}{7}\right)
+\]
+\[
+	\left(\frac{105}{1009}\right)=\left(-1\right)\left(-1\right)\left(-1\right)\left(-1\right)\left(-1\right)\left(-1\right)=1
+\] 
+
 
 \stepcounter{section}
 \section*{Question 3 [3 marks]}
