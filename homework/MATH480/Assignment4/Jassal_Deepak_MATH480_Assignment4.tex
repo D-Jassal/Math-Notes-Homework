@@ -113,7 +113,7 @@ Let $m$ be a positive integer with a primitive root. Suppose that $(a,m)=1$. Pro
 	\]
 	So $k\vert y$. Then $ln\equiv k \mod m$ has $y$ solutions. Then 
 	\[
-		r^{ln}\equiv r^k \Leftrightarrow x^n\equiv a \mod m
+		r^{ln}\equiv r^k \Leftrightarrow x^n\equiv a \mod m\qedhere
 	\]
 \end{proof}
 \stepcounter{section}
@@ -124,14 +124,14 @@ Let $p$ be an odd prime number, and suppose that $h \geq 2$. Denote by $g$ a pri
     \begin{proof}
 		Let $x\equiv g^k\mod p^h$ for some $k\in\Z.$ Then $g^{kp}\equiv 1 \mod p^h$ and $\varphi(p^h)=p^(h-1)(p-1)$. So 
 		\[
-			k=t(p^{h-2}(p-1)),\, 1\leq t\leq p-1.
+			k=t(p^{h-2}(p-1)),\, 1\leq t\leq p-1. \qedhere
 		\]
 	\end{proof}
     \item  List all the solutions of the congruence $x^{2p} \equiv 1 \pmod{p^{h}}$ using the primitive root $g$ modulo $p^{h}$.
     \begin{proof}
 		Let $x\equiv g^k\mod p^h$ for some $k\in\Z.$ Then $g^{2kp}\equiv 1 \mod p^h$ and $\varphi(p^h)=p^(h-1)(p-1)$. So 
 		\[
-			k=\frac{t}{2}(p^{h-2}(p-1)),\, 1\leq t\leq p-1.
+			k=\frac{t}{2}(p^{h-2}(p-1)),\, 1\leq t\leq p-1. \qedhere
 		\]
 	\end{proof}
 \end{enumerate}
@@ -164,7 +164,7 @@ Let $n$ be a positive integer with a primitive root. Using this primitive root, 
 	\]
 	This is an element of order 2, so we have
 	\[
-		\prod_{r=0}^{\varphi(n)-1}g^r=g^{1+2+\cdots+\varphi(n)-1}=g^{\frac{(\varphi(n)-1)\varphi(n)}{2}}\equiv -1\mod n.	
+		\prod_{r=0}^{\varphi(n)-1}g^r=g^{1+2+\cdots+\varphi(n)-1}=g^{\frac{(\varphi(n)-1)\varphi(n)}{2}}\equiv -1\mod n.	\qedhere
 	\]
 \end{proof}
 
@@ -193,6 +193,7 @@ Let $p_{1},p_{2},\ldots,p_{r}$ be distinct prime numbers. Show that there exists
 	\end{proof}
 \end{enumerate}
 
+\newpage
 \stepcounter{section}
 \section*{Question 8 [3 marks]}
 Let $q$ be a prime number. Prove that there are infinitely many prime
@@ -206,7 +207,8 @@ numbers $p$ with $p \equiv 1 \pmod{q}$.
 	\[
 		a=\prod^n_{i=1}p_i,\,N=a^q-1.
 	\]
-	
+	Then $a\equiv 0 \mod q,$ and $a\equiv 0\mod p_i$ ($1\leq i \leq n$). Since $N>1$ we have $\exists p$ prime such that $p\vert N$.\\
+	Then $N\equiv -1\mod q$ and $N\equiv -1\mod p_i$ ($1\leq i \leq n$). So we have $p\neq q$ and $p\not\in \{p_1,p_2,\dots,p_n\}$. In 7b we showed that all prime divisors of $N$ are of the form $p=q$ or $p\equiv 1 \mod q$. Since $p\neq q$ it must be that $p\equiv 1\mod q$. But $p\not\in \{p_1,p_2,\dots,p_n\}$, so the assumption is false.
 \end{proof}
 
 \stepcounter{section}
@@ -215,6 +217,29 @@ Let $p\geq 5$ be an odd prime, show that
 \[ 
     \left(\frac{3}{p}\right)=\begin{cases} 1\:\:\: \text{if}\:\:\: p\equiv \pm1\mod{12}\\ -1\:\:\: \text{if}\:\:\: p\equiv \pm5\mod{12}.\end{cases}
 \] 
+\begin{proof}
+	By \textit{theorem 3.1.8} we know that 
+	\[ 
+		\left(-1\right)^{\frac{p-1}{2}}=\begin{cases} 1\:\:\: \text{if}\:\:\: p\equiv 1\mod{4}\\ -1\:\:\: \text{if}\:\:\: p\equiv 3\mod{4}.\end{cases}
+	\] 
+	Since $p\geq 5$ we have $p\not\equiv 0 \mod3.$\\
+	For $p$ modulo 12 we have $p\equiv 1,5,7,11\mod 12$.
+	\begin{figure}[h!]
+		\centering
+		\begin{tabular}{c|c|c|c}
+			$p$ mod 12 & $p$ mod 4 & $p$ mod 3 & $\left(\frac{3}{p}\right)$\\
+			\hline
+			1&1&1&1\\
+			5&1&2&-1\\
+			7=-5&3&1&-1\\
+			11=-1&3&2&1
+		\end{tabular}
+	\end{figure}
+	So we have 
+	\[
+		\left(\frac{3}{p}\right)=\begin{cases} 1\:\:\: \text{if}\:\:\: p\equiv \pm1\mod{12}\\ -1\:\:\: \text{if}\:\:\: p\equiv \pm5\mod{12}.\end{cases}\qedhere
+	\]
+\end{proof}
 
 \stepcounter{section}
 \section*{Question 10 [6 marks]}
@@ -223,8 +248,83 @@ Let $n>1$ be an odd integer. Write $n=p_1^{e_1}\cdots p_k^{e_k}$. Let $a$ be an 
 Prove the following properties:
 \begin{enumerate}[label=(\alph*)]
     \item If $a\equiv b\mod n$, then $\left(\frac{a}{n}\right)=\left(\frac{b}{n}\right)$.
+    \begin{proof}
+		$a\equiv b\mod n\Leftrightarrow a\equiv b\mod p_i$, where $n=p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}$, with $p_i$ distinct primes and $e_i\in\Z$ ($1\leq i\leq k$). That is to say that
+		\[
+			\left(\frac{a}{p_i}\right)=\left(\frac{b}{p_i}\right)
+		\]
+		So,
+		\[
+			\left(\frac{a}{p_1}\right)^{e_1}\left(\frac{a}{p_i}\right)^{e_2}\cdots\left(\frac{a}{p_k}\right)^{e_k}=\left(\frac{b}{p_1}\right)^{e_1}\left(\frac{b}{p_i}\right)^{e_2}\cdots\left(\frac{b}{p_k}\right)^{e_k}.
+		\]
+		Therefore if $a\equiv b \mod n$
+		\[
+			\left(\frac{a}{n}\right)=\left(\frac{b}{n}\right).\qedhere
+		\]
+	\end{proof}
     \item If $a$ and $b$ are integers, then $\left(\frac{a}{n}\right)\left(\frac{b}{n}\right)=\left(\frac{ab}{n}\right)$.
+    \begin{proof}
+		Using the prime factorization of $n$ given in part (a) we have
+		\[
+			\left(\frac{a}{n}\right)=\left(\frac{a}{p_1}\right)^{e_1}\left(\frac{a}{p_i}\right)^{e_2}\cdots\left(\frac{a}{p_k}\right)^{e_k},
+		\]
+		and
+		\[
+			\left(\frac{b}{n}\right)=\left(\frac{b}{p_1}\right)^{e_1}\left(\frac{b}{p_i}\right)^{e_2}\cdots\left(\frac{b}{p_k}\right)^{e_k}.
+		\]		
+		So
+		\[
+			\left(\frac{a}{n}\right)\left(\frac{b}{n}\right)=\left(\frac{a}{n}\right)=\left(\frac{a}{p_1}\right)^{e_1}\left(\frac{a}{p_i}\right)^{e_2}\cdots\left(\frac{a}{p_k}\right)^{e_k}\left(\frac{b}{n}\right)\left(\frac{b}{p_1}\right)^{e_1}\left(\frac{b}{p_i}\right)^{e_2}\cdots\left(\frac{b}{p_k}\right)^{e_k}=\left(\frac{ab}{n}\right).\qedhere
+		\]
+	\end{proof}
+	\newpage
     \item If $x^2\equiv a\mod n$ has a solution, then $\left(\frac{a}{n}\right)=1$. Provide an example that shows that the converse of this statement isn't always true. 
+    \begin{proof}
+		Given that $x^2\equiv a\mod n$ has a solution we have $x^2\equiv 1\mod p_i$ where $p_i$ is from the prime factorization of $n$ given in part (a). We can then see that 
+		\[
+		\left(\frac{a}{p_i}\right)=1\quad \text{for all } 1\leq i\leq k.
+		\]
+		Then 
+		\[
+			\left(\frac{a}{n}\right)=\left(\frac{a}{p_1}\right)^{e_1}\left(\frac{a}{p_i}\right)^{e_2}\cdots\left(\frac{a}{p_k}\right)^{e_k}=1^{e_1}1^{e_2}\cdots1^{e_k}.\qedhere
+		\]
+	\end{proof}
     \item If $m,n$ are relatively prime odd integers, then \[\left(\frac{m}{n}\right)\left(\frac{n}{m}\right)=(-1)^{\frac{m-1}{2}}(-1)^{\frac{n-1}{2}}.\]
+    \begin{proof}
+		Let $m=p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}$ for distinct primes $p_i$ and $e_i\in\Z$ for ($1\leq i\leq r$), and $n=q_1^{f_1}q_2^{f_2}\cdots q_k^{f_k}$ for distinct primes $q_i$ and $f_i\in\Z$ for ($1\leq i\leq r$).\\
+		Then,
+		\[
+			\left(\frac{m}{n}\right)\prod_{i=1}^{k}\prod_{j=1}^{r}\left(\frac{p_i^{e_i}}{q_j^{f_j}}\right),
+		\]
+		and
+		\[
+			\left(\frac{n}{m}\right)\prod_{i=1}^{r}\prod_{j=1}^{k}\left(\frac{q_i^{f_i}}{p_j^{e_j}}\right),
+		\]		
+		Taking their product we obtain
+		\[
+			\left(\frac{m}{n}\right)\left(\frac{n}{m}\right)=\prod_{i=1}^{k}\prod_{j=1}^{r}\left[\left(\frac{p_i^{e_i}}{q_j^{f_j}}\right)\left(\frac{q_i^{f_i}}{p_j^{e_j}}\right)\right]
+		\]
+		this can be rearranged to give
+		\[
+			\left(\frac{m}{n}\right)\left(\frac{n}{m}\right)=\prod_{i=1}^{k}\prod_{j=1}^{r}\left(-1\right)^{e_i f_j\left(\frac{p_i-1}{2}\right)\left(\frac{q_i-1}{2}\right)}		
+		\]
+		Moving the product into the exponent we obtain
+		\[
+			\sum_{i=1}^{k}\sum_{j=1}^{r}e_i f_j\left(\frac{p_i-1}{2}\right)\left(\frac{q_i-1}{2}\right)
+		\]
+		another rearrangement yields
+		\[
+			\sum_{i=1}^{k}e_i \left(\frac{p_i-1}{2}\right)\sum_{j=1}^{r}f_j\left(\frac{q_i-1}{2}\right).
+		\]
+		Put
+		\[
+			a=\sum_{i=1}^{k}e_i \left(\frac{p_i-1}{2}\right)\sum_{j=1}^{r}f_j\left(\frac{q_i-1}{2}\right),
+		\]
+		then
+		\[
+			(-1)^a=(-1)^{\sum_{i=1}^{k}e_i \left(\frac{p_i-1}{2}\right)\sum_{j=1}^{r}f_j\left(\frac{q_i-1}{2}\right)}.
+		\]
+		\textit{This is as far as I got before class started, I'm not so sure that the last step is the right direction to finish the proof.}
+	\end{proof}
 \end{enumerate}
 \end{document}
