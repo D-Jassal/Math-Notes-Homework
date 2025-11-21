@@ -87,35 +87,127 @@ By \textit{theorem 3.2.1} we have
 \stepcounter{section}
 \section*{Question 3 [3 marks]}
 Let $m$ be a positive integer with a primitive root. Suppose that $(a,m)=1$. Prove that then the congruence $x^n\equiv a\mod m$ has exactly $(n,\phi(m))$  solutions if and only if $a^{\frac{\phi(m)}{(\phi(m),n)}}\equiv 1\mod m$.
-
+\begin{proof}
+	$(\Rightarrow)$ $x^n\equiv a\mod m$ has $\gcd(n,\varphi(m))$ solutions. Let $y=\gcd(n,\varphi(m))$. We know that $a^{\varphi(m)}\equiv 1 \mod m$. Let $r$ be the primitive root, then $a\equiv r^k\mod m$, and $x^n\equiv r^kl\mod m$ for some $k,l \in \Z$. So 
+	\[
+		r^{nl}\equiv r^k\mod m
+	\]
+	then
+	\[
+		nl\equiv k \mod \varphi(m)
+	\]
+	this implies that
+	\[
+		y \vert k
+	\]
+	then $k/y\in \Z$. So 
+	\[
+		r^k\equiv r^{k\cdot \frac{\varphi(m)}{y}}\equiv a^{\frac{\phi(m)}{y}}.
+	\] 
+	$(\Leftarrow)$ $a^{\frac{\varphi{m}}{y}}\equiv 1$. Let $a\equiv r^k\mod m$, and $x^n\equiv r^kl\mod m$ for some $k,l \in \Z$. then
+	\[
+		r^{\frac{k\varphi(m)}{y}}\equiv 1 \mod m.
+	\]
+	\[
+		r^{\frac{k}{y}\varphi(m)}\equiv 1 \mod m.
+	\]
+	So $k\vert y$. Then $ln\equiv k \mod m$ has $y$ solutions. Then 
+	\[
+		r^{ln}\equiv r^k \Leftrightarrow x^n\equiv a \mod m
+	\]
+\end{proof}
 \stepcounter{section}
 \section*{Question 4 [3 marks]}
 Let $p$ be an odd prime number, and suppose that $h \geq 2$. Denote by $g$ a primitive root modulo $p^{h}$.
 \begin{enumerate}[label=(\alph*)]
     \item List all the solutions of the congruence $x^{p} \equiv 1 \pmod{p^{h}}$  using the primitive root $g$ modulo $p^{h}$.
+    \begin{proof}
+		Let $x\equiv g^k\mod p^h$ for some $k\in\Z.$ Then $g^{kp}\equiv 1 \mod p^h$ and $\varphi(p^h)=p^(h-1)(p-1)$. So 
+		\[
+			k=t(p^{h-2}(p-1)),\, 1\leq t\leq p-1.
+		\]
+	\end{proof}
     \item  List all the solutions of the congruence $x^{2p} \equiv 1 \pmod{p^{h}}$ using the primitive root $g$ modulo $p^{h}$.
+    \begin{proof}
+		Let $x\equiv g^k\mod p^h$ for some $k\in\Z.$ Then $g^{2kp}\equiv 1 \mod p^h$ and $\varphi(p^h)=p^(h-1)(p-1)$. So 
+		\[
+			k=\frac{t}{2}(p^{h-2}(p-1)),\, 1\leq t\leq p-1.
+		\]
+	\end{proof}
 \end{enumerate}
 
 \stepcounter{section}
 \section*{Question 5 [2 marks]}
 Let $n$ be a positive integer with a primitive root. Using this primitive root, prove that the product of all positive integers less than $n$ and relatively prime to $n$ is congruent to $-1$ modulo $n$.
+\begin{proof}
+	There are $\varphi(n)$ integers that are less than $n$ and relatively prime to $n$. Let these integers be
+	\[
+		\{
+			m_1,m_2,\dots,m_{\varphi(n)}.
+		\}
+	\]
+	We can rewrite these using the primitve root
+	\[
+		\{
+			g^{k_1},g^{k_2},\dots,g^{k_{\varphi(m)}}.
+		\}
+	\]
+	These can be further rewritten as 
+	\[
+		\{
+			g^0,g^1,\dots,g^{\varphi(n)-1}.
+		\}
+	\]
+	So this product is 
+	\[
+		\prod_{r=0}^{\varphi(n)-1}g^r=g^{1+2+\cdots+\varphi(n)-1}=g^{\frac{(\varphi(n)-1)\varphi(n)}{2}}
+	\]
+	This is an element of order 2, so we have
+	\[
+		\prod_{r=0}^{\varphi(n)-1}g^r=g^{1+2+\cdots+\varphi(n)-1}=g^{\frac{(\varphi(n)-1)\varphi(n)}{2}}\equiv -1\mod n.	
+	\]
+\end{proof}
 
 \stepcounter{section}
 \section*{Question 6 [2 marks]}
 Let $p_{1},p_{2},\ldots,p_{r}$ be distinct prime numbers. Show that there exists an integer $g$ such  that $g$ is a primitive root modulo $p_{i}$ for all $1 \leq i \leq r$.
+\begin{proof}
+	Let $g_i$ be a primitive root modulo $p_i$ for $1\leq i\leq r$. By CRT there exists
+	\[
+		g\equiv g_i\mod p_i\quad 1\leq i\leq r.
+	\]
+	And this $g$ is a primitive root for all moduli because $g\equiv g_i\mod p_i$ for all $i$.
+\end{proof}
 
 \stepcounter{section}
 \section*{Question 7 [2 marks]}
 \begin{enumerate}[label=(\alph*)]
-    \item Let $a$ be an integer with $a \geq 2$, and suppose that $q \in \mathbb{N}$. What is the smallest positive integer $d$ satisfying the property that $a^{d} \equiv 1 \pmod{a^{q}-1}$? Deduce that $q$ divides
-    $\varphi(a^{q}-1)$.
+    \item Let $a$ be an integer with $a \geq 2$, and suppose that $q \in \mathbb{N}$. What is the smallest positive integer $d$ satisfying the property that $a^{d} \equiv 1 \pmod{a^{q}-1}$? Deduce that $q$ divides $\varphi(a^{q}-1)$.
+    \begin{proof}
+		$a^{d} \equiv 1 \pmod{a^{q}-1}\Leftrightarrow a^{d}-1 \equiv 0 \pmod{a^{q}-1}\Leftrightarrow a^q-1\vert a^d-1\Leftrightarrow q\vert d$. The smallest $d$ is $d=q$. $\gcd(a^q-1,a)=1$ so $a^{\varphi(a^q-1)}\equiv 1 \mod a^q-1$ and $a^q\equiv 1 \mod a^q-1$ so $\varphi(a^q-1)=wq$ for some $w\in\Z$. Therefore, $q\vert \varphi(a^q-1)$.
+	\end{proof}
     \item Let $q$ be a prime number. By considering the prime factorisation of the integer $N = a^{q}-1$, show that either $N$ is divisible by $q$, or else $N$ is divisible by a prime number $p$ with $p \equiv 1 \pmod{q}$.
+    \begin{proof}
+		\[\varphi(N)=\prod_{p^e\vert N}p^{e-1}(p-1).\]
+		Assume for contradiction that no prime divisor of $N$ is of the form $p=q$ or $p\equiv 1\mod q$. Then for all $p$ that divide $N$ we habe $q\nmid p-1$ which shows that $q\nmid \varphi(N)$. But in 7a we shows that $q\vert \varphi(N)$, this is a contradiction. So either $p=q$ or $p\equiv 1\mod q$.
+	\end{proof}
 \end{enumerate}
 
 \stepcounter{section}
 \section*{Question 8 [3 marks]}
 Let $q$ be a prime number. Prove that there are infinitely many prime
 numbers $p$ with $p \equiv 1 \pmod{q}$.
+\begin{proof}
+	Assume there are finitely many primes $p$ with $p\equiv 1 \mod q$. Let these primes be
+	\[
+		p_1,p_2,\dots,p_n.
+	\]
+	Let 
+	\[
+		a=\prod^n_{i=1}p_i,\,N=a^q-1.
+	\]
+	
+\end{proof}
 
 \stepcounter{section}
 \section*{Question 9 [3 marks]}
