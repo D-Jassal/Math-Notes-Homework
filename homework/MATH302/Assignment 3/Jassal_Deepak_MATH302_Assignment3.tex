@@ -1,0 +1,105 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../preambles/hw-preamble.tex}
+\input{../../../preambles/homework-macros.tex}
+\input{../../../preambles/homework-title.tex}
+\input{../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{ Introductory Mathematical Analysis }
+\renewcommand{\coursecode}{MATH 302}
+\renewcommand{\assignment}{Assignment 3}
+\renewcommand{\instructor}{Dr. Stanley Yao Xiao}
+\renewcommand{\duedate}{December 3\textsuperscript{rd}, 2025}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Question 1}Let $\{f_{n}:n\geq 1\}$ be a sequence in ${\cal C}([0,1],{\mathbb{R}})$. Define a function $F_{n}$ by
+\[
+    F_{n}(x)=\int_{0}^{x}\sin(f_{n}(t))dt,\quad x\in[0,1].
+\]
+Use the Arzela-Ascoli theorem to prove that $\{F_{n}:n\geq 1\}$ has a uniformly convergent subsequence.
+\begin{proof}
+    \[
+        \Q\cap [0,1]\subset [0,1]
+    \]
+    \[
+        \Q\cap [0,1]\subset \Q
+    \]
+    Since $\Q$ is countable and dense then so is $\Q\cap [0,1]$. So, $[0,1]$ has a countable dense subset. $\R$ is a complete metric space. 
+\end{proof}
+
+\stepcounter{section}
+\section*{Question 2}
+\begin{enumerate}[label=(\alph*)]
+    \item Prove that every open subset of ${\mathbb{R}}$ (with respect to the standard topology $\tau_{\mathbb{R}}$) is a countable union of disjoint open intervals.
+    \item Explain why this statement cannot be true for ${\mathbb{R}}^{n}$ for any $n\geq 2$.
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Question 3}Let $f$ be an integrable function on the unit circle (so $f$ is $2\pi$-periodic).
+\begin{enumerate}[label=(\alph*)]
+    \item Suppose that $f(\theta+\pi)=f(\theta)$ for all $\theta\in{\mathbb{R}}$. Prove that $\hat{f}(n)=0$ for all odd integers $n$.
+    \item Find an example of a metric space $(X,d)$ and a subset $S\subset X$ such that $S=L(S)$, where $L(S)$ is the set of limit points of $S$.
+\end{enumerate}
+
+
+\stepcounter{section}
+\section*{Question 4} Consider the sequence
+\[
+    f_{n}(x)=\frac{\pi n+\sin(nx)}{2n+\cos(n^{2}x)},\quad x\in[0,1].
+\]
+\begin{enumerate}[label=(\alph*)]
+    \item Prove that $(f_{n})$ converges uniformly on $[0,1]$.
+    \item Hence, or otherwise, evaluate the limit
+\[
+    \lim_{n\to\infty}\int_{0}^{1}\frac{\pi n+\sin(nx)}{2n+\cos(n^{2}x)}dx.
+\]    
+\end{enumerate}
+
+
+\stepcounter{section}
+\section*{Question 5}Consider a second-order differential equation of the form
+\[
+    x^{\prime\prime}(t)+5x(t)=F(t),
+\]
+where
+\[
+    F(t)=a_{0}+\sum_{n=1}^{\infty}b_{n}\cos(n\pi t)+\sum_{n=1}^{\infty}c_{n}\sin(n \pi t).
+\]
+\begin{enumerate}[label=(\alph*)]
+    \item Solve this differential equation by considering a potential solution $x(t)$ given as a Fourier series:
+\[
+    x(t)=A_{0}+\sum_{n=1}^{\infty}B_{n}\cos(n\pi t)+\sum_{n=1}^{\infty}C_{n}\sin(n \pi t),
+\]
+and obtain relations for $A_{0},B_{n},C_{n}$ in terms of the coefficients $a_{0},b_{n},c_{n}$ of $F(t)$.
+    \item Suppose
+\[
+    F(t)=\begin{cases}-1&\text{if }-1<t<0\\ 1&\text{if }0<t<1\end{cases}.
+\]
+Solve for $x(t)$.
+\end{enumerate}
+
+
+\end{document}
