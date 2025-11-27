@@ -37,7 +37,7 @@
 \stepcounter{section}
 \section*{Question 1}Let $\{f_{n}:n\geq 1\}$ be a sequence in ${\cal C}([0,1],{\mathbb{R}})$. Define a function $F_{n}$ by
 \[
-    F_{n}(x)=\int_{0}^{x}\sin(f_{n}(t))dt,\quad x\in[0,1].
+    F_{n}(x)=\int_{0}^{x}\sin(f_{n}(t))\,dt,\quad x\in[0,1].
 \]
 Use the Arzela-Ascoli theorem to prove that $\{F_{n}:n\geq 1\}$ has a uniformly convergent subsequence.
 \begin{proof}
@@ -47,13 +47,33 @@ Use the Arzela-Ascoli theorem to prove that $\{F_{n}:n\geq 1\}$ has a uniformly 
     \[
         \Q\cap [0,1]\subset \Q
     \]
-    Since $\Q$ is countable and dense then so is $\Q\cap [0,1]$. So, $[0,1]$ has a countable dense subset. $\R$ is a complete metric space. 
+    Since $\Q$ is countable and dense then so is $\Q\cap [0,1]$. So, $[0,1]$ has a countable dense subset. $\R$ is a complete metric space.\\
+    Pick $\delta=\varepsilon$ then whenever $|x-y|<\delta$
+    \[
+        |F_n(x)-F_n(y)|\leq \left|\int_{0}^{x}\sin\left(f_n(t)\right)\,dt-\int_{0}^{y}\sin\left(f_n(t)\right)\,dt\right|=\left|\int_{x}^{y}\sin\left(f_n(t)\right)\,dt\right|
+    \]
+    \[
+        \left|\int_{x}^{y}\sin\left(f_n(t)\right)\,dt\right|\leq \int_{x}^{y}\left|\sin\left(f_n(t)\right)\right|\,dt\leq\int_{x}^{y}\left|1\right|\,dt=|y-x|<\varepsilon.
+    \]
+    Thus, $F_n(x),\,x\in[0,1]$ is equicontinuous.\\
+    \[
+        \left|F_n(x)\right|=\left|\int_{0}^{x}\sin\left(f_n(t)\right)\,dt\right|=\int_{0}^{x}\left|\sin\left(f_n(t)\right)\right|\,dt\leq\int_{0}^{x}\left|\sin\left(f_n(t)\right)\right|\,dt\leq1.
+    \]
+    Since $F_n(x)$ is bounded we have that the closure of $\left\{F_n(x)\right\}$ is compact.\\
+    Therefore, by the general \textit{Arzela-Ascoli} theorem, $\left\{F_n(x):n\geq1\right\}$ has a convergent subsequence. Furthermore, since [0,1] is compact, this convergence is uniform.
 \end{proof}
 
 \stepcounter{section}
 \section*{Question 2}
 \begin{enumerate}[label=(\alph*)]
-    \item Prove that every open subset of ${\mathbb{R}}$ (with respect to the standard topology $\tau_{\mathbb{R}}$) is a countable union of disjoint open intervals.
+    \item Prove that every open subset of ${\mathbb{R}}$ (with respect to the standard topology $\tau_{\R}$) is a countable union of disjoint open intervals.
+    \begin{proof}
+        A special property of $\R$ is that all intervals in $\R$ happen to also be a connected set. We can write any subset $E\subset\R$ as 
+        \[
+            E=E_1\cup E_2\cdots\cup E_n,
+        \]
+        where each $E_i$ ($1\leq i\leq n$) is a connected set. Furthermore, each of these connected sets are disjoint, for if they were not, we could simply make a new connected set that is the union of the non-disjoint connected sets. Due to the density of $\Q\in\R$ each of these connected sets (which are also open intervals) has a rational number in them. Since $\Q$ is a countable set, we have that the number of number of disjoint open intervals is countable. 
+    \end{proof}
     \item Explain why this statement cannot be true for ${\mathbb{R}}^{n}$ for any $n\geq 2$.
 \end{enumerate}
 
@@ -61,7 +81,42 @@ Use the Arzela-Ascoli theorem to prove that $\{F_{n}:n\geq 1\}$ has a uniformly 
 \section*{Question 3}Let $f$ be an integrable function on the unit circle (so $f$ is $2\pi$-periodic).
 \begin{enumerate}[label=(\alph*)]
     \item Suppose that $f(\theta+\pi)=f(\theta)$ for all $\theta\in{\mathbb{R}}$. Prove that $\hat{f}(n)=0$ for all odd integers $n$.
-    \item Find an example of a metric space $(X,d)$ and a subset $S\subset X$ such that $S=L(S)$, where $L(S)$ is the set of limit points of $S$.
+    \begin{proof}
+        \[
+            \hat{f}(n)=\frac{1}{2\pi}\int_{0}^{2\pi}f(x)e^{-inx}\,dx=\frac{1}{2\pi}\left[\int_{0}^{\pi}f(x)e^{-inx}\,dx+\int_{\pi}^{2\pi}f(x)e^{-inx}\,dx\right]
+        \]
+        Let 
+        \[
+            I_1=\int_{0}^{\pi}f(x)e^{-inx}\,dx,
+        \]
+        \[
+            I_2=\int_{\pi}^{2\pi}f(x)e^{-inx}\,dx,
+        \]
+        \[
+            u=x-\pi,\,du=dx,\,x=\pi\Rightarrow0,\,x=2\pi\Rightarrow\pi.
+        \]
+        then
+        \[
+            I_2=\int_{0}^{\pi}f(u+\pi)e^{-in(u+\pi)}\,du=e^{-in\pi}\int_{0}^{\pi}f(u)e^{-inu}\,du=(-1)^n I_1.
+        \]
+        Thus,
+        \[
+            \hat{f}(n)=I_1+(-1)^nI_1=
+            \begin{cases}
+                2I_1, & \text{if $x$ is even} \\
+                0, & \text{if $x$ is odd} 
+            \end{cases}.
+        \]
+    \end{proof}
+    \item Compute the Fourier series of a trigonometric polynomial of the form
+    \begin{equation}\label{eqn:trigpoly}
+        a_0+a_1\cos(x)+\cdots+a_k\cos(kx).
+    \end{equation}
+        
+    \textit{Solution.} There are no $\sin(nx)$ terms in (\ref{eqn:trigpoly}), so $b_n=0$ for all $n$. It is then easy to see that the Fourier series of (\ref{eqn:trigpoly}) is 
+    \[
+        a_0+\sum_{n=1}^{k}a_n\cos(nx).
+    \]
 \end{enumerate}
 
 
@@ -72,10 +127,27 @@ Use the Arzela-Ascoli theorem to prove that $\{F_{n}:n\geq 1\}$ has a uniformly 
 \]
 \begin{enumerate}[label=(\alph*)]
     \item Prove that $(f_{n})$ converges uniformly on $[0,1]$.
+    \begin{claim}
+        $f_n(x)$ converges to $\dfrac{\pi}{2}$ uniformly.
+    \end{claim}
+    \begin{proof}
+        \[
+            \left|f_n(x)-\frac{\pi}{2}\right|=\left|\frac{\pi n+\sin(nx)}{2n+\cos(n^{2}x)}-\frac{\pi}{2}\right|\leq\left|\frac{\pi n+1}{2n-1}-\frac{\pi}{2}\right|=\left|\frac{2(\pi n+1)-\pi(2n-1)}{2(2n-1)}\right|=\left|\frac{2+\pi}{4n-2}\right|
+        \]
+        Let $\varepsilon>0$, pick $N=\dfrac{\frac{2+\pi}{\varepsilon}+2}{4}$, then whenever $n>N$ we have 
+        \[
+            \left|\frac{2+\pi}{4n-2}\right|<\left|\frac{2+\pi}{4N-2}\right|=\left|\frac{2+\pi}{4\left(\dfrac{\frac{2+\pi}{\varepsilon}+2}{4}\right)-2}\right|=\left|\frac{2+\pi}{\frac{2+\pi}{\varepsilon}}\right|=\varepsilon.
+        \]
+    \end{proof}
     \item Hence, or otherwise, evaluate the limit
-\[
-    \lim_{n\to\infty}\int_{0}^{1}\frac{\pi n+\sin(nx)}{2n+\cos(n^{2}x)}dx.
-\]    
+
+    \[
+        \lim_{n\to\infty}\int_{0}^{1}\frac{\pi n+\sin(nx)}{2n+\cos(n^{2}x)}dx.
+    \]
+    \textit{Solution.} We know that $f_n(x)$ converges uniformly to $\frac{\pi}{2}$, due to this we can switch the order of integration and the limit.
+    \[
+        \lim_{n\to\infty}\int_{0}^{1}\frac{\pi n+\sin(nx)}{2n+\cos(n^{2}x)}\,dx=\int_{0}^{1}\lim_{n\to\infty}\frac{\pi n+\sin(nx)}{2n+\cos(n^{2}x)}\,dx=\int_{0}^{1}\frac{\pi}{2}\,dx=\left[\frac{\pi}{2}x\right]_0^1=\frac{\pi}{2}.
+    \]    
 \end{enumerate}
 
 
@@ -90,15 +162,74 @@ where
 \]
 \begin{enumerate}[label=(\alph*)]
     \item Solve this differential equation by considering a potential solution $x(t)$ given as a Fourier series:
-\[
-    x(t)=A_{0}+\sum_{n=1}^{\infty}B_{n}\cos(n\pi t)+\sum_{n=1}^{\infty}C_{n}\sin(n \pi t),
-\]
-and obtain relations for $A_{0},B_{n},C_{n}$ in terms of the coefficients $a_{0},b_{n},c_{n}$ of $F(t)$.
+    \[
+        x(t)=A_{0}+\sum_{n=1}^{\infty}B_{n}\cos(n\pi t)+\sum_{n=1}^{\infty}C_{n}\sin(n \pi t),
+    \]
+    and obtain relations for $A_{0},B_{n},C_{n}$ in terms of the coefficients $a_{0},b_{n},c_{n}$ of $F(t)$.\\
+    \textit{Solution.} 
+    \[
+        x''(t)=-\left[\sum_{n=1}^{\infty}B_n n^2\pi^2\cos(n\pi t)+C_n n^2\pi^2\sin(n\pi t)\right].
+    \]
+    \[
+        -\left[\sum_{n=1}^{\infty}B_n n^2\pi^2\cos(n\pi t)+C_n n^2\pi^2\sin(n\pi t)\right]+5\left[A_{0}+\sum_{n=1}^{\infty}B_{n}\cos(n\pi t)+\sum_{n=1}^{\infty}C_{n}\sin(n \pi t)\right]=F
+    \]
+    \[
+        a_{0}+\sum_{n=1}^{\infty}b_{n}\cos(n\pi t)+\sum_{n=1}^{\infty}c_{n}\sin(n \pi t)=5A_0+\sum_{n=1}^{\infty}(5-n^2\pi^2)\left[B_n\cos(n\pi t)+C_n\sin(n\pi t)\right].
+    \]
+    It can be seen that 
+    \[
+        A_0=\frac{a_0}{5},\quad B_n=\frac{b_n}{5-n^2\pi^2},\quad C_n=\frac{c_n}{5-n^2\pi^2}.
+    \]
+    Then we have 
+    \[
+        x(t)=\frac{a_0}{5}+\sum_{n=1}^{\infty}\frac{b_n}{5-n^2\pi^2}\cos(n\pi t)+\sum_{n=1}^{\infty}\frac{c_n}{5-n^2\pi^2}\sin(n \pi t).
+    \]
     \item Suppose
-\[
-    F(t)=\begin{cases}-1&\text{if }-1<t<0\\ 1&\text{if }0<t<1\end{cases}.
-\]
-Solve for $x(t)$.
+    \[
+        F(t)=\begin{cases}-1&\text{if }-1<t<0\\ 1&\text{if }0<t<1\end{cases}.
+    \] so
+    Solve for $x(t)$.\\
+    \textit{Solution.} Period $T=2$ so $L=1$.
+    \[
+        F(t)=a_{0}+\sum_{n=1}^{\infty}b_{n}\cos\left(\frac{n\pi t}{L}\right)+\sum_{n=1}^{\infty}c_{n}\sin\left(\frac{n \pi t}{L}\right)=a_{0}+\sum_{n=1}^{\infty}b_{n}\cos(n\pi t)+\sum_{n=1}^{\infty}c_{n}\sin(n \pi t).
+    \]
+    Since $F(-t)=-F(t)$ for all $t$, $F(t)$ is odd $a_0=0$ and $b_n=0$ for all $n$.
+    \[
+        c_n=\frac{2}{T}\int_{-1}^{1}F(t)\sin(n\pi t)\,dt=\int_{-1}^{0}F(t)\sin(n\pi t)\,dt+\int_{0}^{1}F(t)\sin(n\pi t)\,dt
+    \]
+    \[
+        c_n=-1\left[\frac{-\cos(n\pi t)}{n\pi}\right]_{-1}^0+\left[\frac{-\cos(n\pi t)}{n\pi}\right]_0^1
+    \]
+    \[
+        c_n=\frac{1}{n\pi}\left[1-\cos(n\pi)\right]+\frac{1}{n\pi}\left[-\cos(n\pi)+1\right]
+    \]
+    \[
+        c_n=\frac{2}{n\pi}\left[1-\cos(n\pi)\right]
+    \]
+    \[
+        c_n=\frac{2}{n\pi}\left[1-(-1)^n\right].
+    \]
+    \[
+        c_n=\begin{cases}\frac{4}{n\pi}&\text{if $n$ is even}\\ 0&\text{if $n$ is odd}\end{cases}
+    \]
+    \[
+        F(n)=\sum_{n=1}^{\infty}\frac{2(1-(-1)^n)}{(n)\pi}\sin(n\pi t).
+    \]
+    We know from part a that 
+    \[
+        C_n=\frac{c_n}{5-n^2\pi^2}=\frac{\frac{2}{n\pi}\left[1-(-1)^n\right]}{5-n^2\pi^2}=\frac{2[1-(-1)^n]}{n\pi[5-n^2\pi^2]}.
+    \]
+    Then,
+    \[
+        x(t)=\sum_{n=1}^{\infty}\frac{2[1-(-1)^n]}{n\pi[5-n^2\pi^2]}\sin(n\pi t).
+    \]
+    Let $n=2k-1$,
+    \[
+        x(t)=\sum_{k=1}^{\infty}\frac{4}{(2k-1)\pi[5-(2k-1)^2\pi^2]}\sin((2k-1)\pi t).
+    \]
+    \[
+        x(t)=\frac{4}{\pi}\sum_{k=1}^{\infty}\frac{\sin((2k-1)\pi t)}{(2k-1)(5-(2k-1)^2\pi^2)}.
+    \]
 \end{enumerate}
 
 
