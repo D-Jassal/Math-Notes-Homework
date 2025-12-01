@@ -13,6 +13,7 @@
 *.nav
 *.snm
 *.vrb
+*.pdf
 
 # Backup files
 *~
