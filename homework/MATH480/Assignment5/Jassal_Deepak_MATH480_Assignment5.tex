@@ -1,0 +1,183 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../preambles/hw-preamble.tex}
+\input{../../../preambles/homework-macros.tex}
+\input{../../../preambles/homework-title.tex}
+\input{../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Number Theory}
+\renewcommand{\coursecode}{MATH 480}
+\renewcommand{\assignment}{Assignment 5}
+\renewcommand{\instructor}{Dr. Alia Hamieh}
+\renewcommand{\duedate}{December 4\textsuperscript{th}, 2025}
+
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Question 1 [3]}
+The Mangoldt function $\Lambda$ is defined for all positive integers as follows:
+\[
+\Lambda(n) =
+\begin{cases}
+\log p & \text{if } n = p^k \text{ where } p \text{ is prime and } k \text{ is a positive integer} \\
+0 & \text{otherwise.}
+\end{cases}
+\]
+Show that $\Lambda(n) = -\sum_{d|n} \mu(d) \log(d)$.
+\begin{proof}
+    \begin{claim}
+        \[
+            \log(n)=\sum_{d\mid n}\Lambda(d)
+        \]
+    \end{claim}
+    \begin{proof}[Proof of Claim]
+        If $p$ is prime we have
+        \[
+            \sum_{d\mid p^k}\Lambda(d)=\Lambda(1)+\Lambda(p)+\cdots+\Lambda(p^k)=k\log(p)=\log(p^k).
+        \]
+        If $n=p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}$ we have,
+        \[
+            \sum_{d\mid p^k}\Lambda(n)=\sum_{i=1}^{k}\left(\sum_{d\mid p_i^{e_i}}\Lambda(n)\right)=\sum_{i=1}^{k}\log(p_i)=\log(n).
+        \]
+    \end{proof}
+    Recall that 
+    \[
+        \mu(n)=
+        \begin{cases}
+            1 & \text{if } n=1\\
+            0 & \text{if } n=0\\
+            (-1^k)& \text{if } n=p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}.
+        \end{cases}
+    \]
+    So we can see that $\log(n)$ is the summatory function of $\Lambda(n)$. Using Mobius inversion,
+    \[
+        \Lambda(n)=\sum_{d\vert n} \mu(d)\log\left(\frac{n}{d}\right)=\sum_{d\vert n} \mu(d)\log\left(n\right)-\sum_{d\vert n} \mu(d)\log\left(d\right),
+    \] 
+    \[
+        \sum_{d\vert n} \mu(d)\log\left(n\right)=
+        \begin{cases}
+            \text{if } n=1,\log(1)=0\\
+            \text{if } n>1,\mu(n)=0.
+        \end{cases}       
+    \]
+    \[
+        \Lambda(n)=\sum_{d\vert n} \mu(d)\log\left(\frac{n}{d}\right)=-\sum_{d\vert n} \mu(d)\log\left(d\right),        
+    \]
+\end{proof}
+
+\section*{Question 2 [3]}
+Show that $\sum_{e|n} \frac{n\sigma(e)}{e} = \sum_{e|n} e d(e)$ for all positive integers $n$.
+\begin{proof}
+    \[
+        \sum_{e|n} \frac{n\sigma(e)}{e} =(\sigma\ast \mathrm{id})(n).
+    \]
+    Recall that
+    \[
+        (1\ast\mathrm{id})(n)=\sigma(n),
+    \]
+    and
+    \[
+        d(n)n=((1\ast\mathrm{id})\ast\mathrm{id})(n)=(\sigma\ast\mathrm{id})(n)=\sum_{e|n} \frac{n\sigma(e)}{e}.
+    \]
+\end{proof}
+\section*{Question 3 [3]}
+If $n$ is a positive integer, let $\sigma_{-1}(n) = \sum_{\substack{d|n \\ d>0}} \frac{1}{d}$. Prove that $n$ is perfect if and only if $\sigma_{-1}(n) = 2$.
+\begin{proof}
+    $(\Rightarrow)$ We are given that $\sigma(n)=2n$ then,
+    \[
+        \sum_{d\mid n}d=2n
+    \]
+    \[
+        \sigma_{-1}(n)\sum=\frac{1}{n}m_{d\mid n}d=\frac{1}{n} 2n=2.
+    \]
+    $(\Leftarrow)$ We are given that $\sigma_{-1}(n)=2$ then,
+    \[
+        \sum_{d\mid n}\frac{1}{d}=2
+    \]
+    \[
+        n\sum_{d\mid n}\frac{1}{d}=\sum_{d\mid n}\frac{n}{d}=\sigma(n)=2n.
+    \]   
+\end{proof}
+\newpage
+\section*{Question 4 [4]}
+Suppose that $n$ is an odd perfect number. Show that $n = p^a m^2$ where $m$ is an integer and $p$ is an odd prime with $p \equiv a \equiv 1 \mod 4$.
+
+\section*{Question 5 [4]}
+Let $a$ and $b$ be positive integers. We say $a$ and $b$ are amicable numbers if $\sigma(a) = \sigma(b) = a + b$.
+
+(a) Let $n > 1$ be an integer. Suppose that $p = 3 \times 2^{n-1} - 1$, $q = 3 \times 2^n - 1$, $r = 9 \times 2^{2n-1} - 1$ are prime numbers. Prove that
+\[
+a = 2^n p q, \quad b = 2^n r
+\]
+is a pair of amicable numbers.
+\begin{proof}
+    \[
+        \sigma(a)=\sigma(2^n)\sigma(p)\sigma(q)=(2^{n+1}-1)(3\times2^{n-1})(3\times2^n)
+    \]
+    \[
+        (2^{n+1}-1)(9\times2^{2n-1})=9\times2^{3n}-9\times2^{2n-1}
+    \]
+    \[
+        \sigma(a) =9\times2^{n-1}(2^{2n+1}-2^n)
+    \]
+    \[
+        \sigma(b)=\sigma(2^n)\sigma(9\times2^{2n-1}-1)=(2^{n+1}-1)(9\times2^{2n-1})
+    \]
+    \[
+        \sigma(b)=(p\times2^{3m}-9\times2^{2n-1})=9\times2^{n-1}(2^{2n+1}-2^n)
+    \]
+    \[
+        a+b=2^n(3\times2^{n-1}-1)(3\times2^n-1)+2^n(9\times2^{2n-1}-1)
+    \]
+\end{proof}
+(b) Find two pairs of amicable numbers by finding such prime numbers $p$, $q$ and $r$.
+
+\section*{Question 6 [4]}
+Let $f$ be an arithmetic function.
+
+(a) Prove that $\sum_{\substack{1 \leq a \leq n \\ (a,n)=1}} f(a) = \sum_{d|n} \mu(d) \sum_{\substack{1 \leq a \leq n \\ d|a}} f(a)$.
+
+(b) Prove that when $n > 1$, we have
+\[
+\sum_{\substack{1 \leq a \leq n \\ (a,n)=1}} a = \frac{1}{2} n\phi(n).
+\]
+
+\section*{Question 7 [3]}
+Let $n$ be a positive integer. Prove that
+\[
+\sum_{\substack{a=1 \\ (a,n)=1}}^n e^{\frac{2\pi i a}{n}} = \mu(n).
+\]
+Note that here $i$ is the complex number satisfying $i^2 = -1$, and by Euler's formula, we have $e^{2\pi i} = 1$. You may use without proof the fact that for a positive integer $k$, we have the following:
+\[
+\sum_{a=1}^k e^{\frac{2\pi i a}{k}} = 1 \text{ if } k = 1 \quad \text{and} \quad \sum_{a=1}^k e^{\frac{2\pi i a}{k}} = 0 \text{ if } k \neq 1.
+\]
+
+\section*{Question 8 [3]}
+Solve the diophantine equation $x^2 + y^2 = 2z^2$.
+
+\section*{Question 9 [3]}
+Prove that the equation $x^3 + 2y^3 = 4z^3$ has no solution in the positive integers.
+
+\end{document}

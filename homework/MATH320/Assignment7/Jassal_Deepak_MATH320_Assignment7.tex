@@ -14,6 +14,7 @@
 \renewcommand{\instructor}{Dr. Alia Hamieh}
 \renewcommand{\duedate}{December 4\textsuperscript{th}, 2025}
 
+\usepackage{float}
 
 \begin{document}
 \begin{titlepage}
@@ -35,5 +36,110 @@
 	{\Large \duedate}\\
 	\pgfornament{84}
 \end{titlepage}
+
+\section*{Question 1 [2 marks]}
+Suppose that $\varphi$ is an isomorphism from $\mathbb{Z}_3 \oplus \mathbb{Z}_5$ to $\mathbb{Z}_{15}$ and $\varphi(2, 3) = 2$. Find an element in $\mathbb{Z}_3 \oplus \mathbb{Z}_5$ that maps to 1.\\
+\textit{Solution.} The order of 2 in $\Z_3$ is 3, and the order of 3 in $\Z_5$ is 5. So $|(2,3)|=\mathrm{lcm}(3,5)=15$. Thus $\Z_3\oplus\Z_5=\langle(2,3)\rangle$. Then since, 
+\[
+	2^15\equiv 30\equiv1\mod 15 
+\]
+we have
+\[
+	2^{15}=\varphi\left((2,3)^15\right)=\varphi((2^{15},3^{15}))=\varphi((1,1)).
+\]
+\section*{Question 2 [3 marks]}
+Prove that there is no homomorphism from $\mathbb{Z}_8 \oplus \mathbb{Z}_2$ onto $\mathbb{Z}_4 \oplus \mathbb{Z}_4$.
+\begin{proof}
+	Assume for contradicition that $\varphi:\Z_8\oplus\Z_2\mapsto \Z_4\oplus\Z_4$ is an onto homomorphism. Since $\varphi$ is a homomorphism we have that $\Z_8\oplus\Z_2\setminus\ker(\varphi)=H$. Then by the first isomorphism theorem we have that 
+	\[
+		\psi:\Z_8\oplus\Z_2\setminus\ker(\varphi)\mapsto\Z_4\oplus\Z_4
+	\]  
+	is an isomorphism. Since $|\Z_8\oplus\Z_2|=16$ and $|\Z_2\oplus\Z_4|=16$ we have that $|\ker(\varphi)|=1$ so the kernel of the homomorphism $\varphi$ is trivial kernel. This means that $\varphi$ is also an isomorphism, but $\Z_8\oplus\Z_2$ has an element of order 8 and $\Z_4\oplus\Z_4$ has an element with order at most 4, this is a contradicition and no such homomorphism or isomosrphism exists.
+\end{proof}
+\newpage
+\section*{Question 3 [3 marks]}
+Show that $\mathbb{Z}_6 \oplus \mathbb{Z}_2$ has subgroups of orders 1, 2, 3, 4, 6, and 12. Suppose that $\varphi$ is a homomorphism from a group $G$ onto $\mathbb{Z}_6 \oplus \mathbb{Z}_2$ and that $|\text{Ker}(\varphi)| = 5$. Show that $G$ has subgroups of order 5, 10, 15, 20, 30, and 60.
+\begin{proof}
+	The following elements in $\Z_6\oplus\Z_2$ have orders
+	\begin{figure}[h!]
+		\centering
+		\begin{tabular}{c|c}
+			Element&order\\
+			\hline
+			(0,0)&1\\
+			(0,1)&2\\
+			(2,0)&3\\
+			(2,1)&6\\
+			(1,1)&12\\
+		\end{tabular}
+	\end{figure}
+	These elements generate subgroups of $\Z_6\oplus\Z_2$ with orders equal to their own orders. For a subgroup of order 4 observe that \\$\langle (3,0), (0,1) \rangle=\{(0,0),(3,0),(0,1),(3,1)\}$ is a subgroup of $\Z_6\oplus\Z_2$ and has order 4.\\
+	Since $\varphi:G\mapsto \Z_6\oplus\Z_2$ is a homomorphism we have
+	\[
+		G\setminus\ker(\varphi)\cong\Z_6\oplus\Z_2.
+	\]
+	We know that for finite groups (which these are), 
+	\[
+	\frac{|G|}{|\ker(\varphi)|}=|\Z_6\oplus\Z_2|
+	\]
+	\[
+	|G|=|\Z_6\oplus\Z_2|\ker(\varphi)=12\times5=60.
+	\]
+	For any subgroup $H$ os $G$ we know that $|H|=5,10,15,20,30,60$. We also know that $\Z_6\oplus\Z_2$ has subgroups of orders 1,2,3,4,6,12. Since $G\setminus\ker(\varphi)\cong\Z_6\oplus\Z_2$ we know that for some $\bar{H}\leq \Z_6\Z_2$, $\varphi(\bar{H})\vert|H|$ where $H\leq G$. This means that $|H|=k|\varphi(\bar{H})|$. Since we know the possible orders of $\varphi(\bar{H})$ we have the possible corresponding values of $|H|$ as
+	\begin{figure}[H]
+		\centering
+		\begin{tabular}{c|c}
+			$|\bar{H}|$&$|H|$\\
+			\hline
+			1&5\\
+			2&10\\
+			3&15\\
+			6&30\\
+			12&60\\
+		\end{tabular}
+	\end{figure}	 
+	Thus, $G$ has subgroups of order 5,10,15,20,30,60.
+\end{proof}
+
+
+\section*{Question 4 [3 marks]}
+Consider the set $G = \{1, 7, 17, 23, 49, 55, 65, 71\}$ under multiplication modulo 96. This is a group (no need to prove that). Determine the isomorphism class of $G$.\\
+\textit{Solution.} Since $|G|=8=2^3$, the isomorphism classes of $G$ are
+\[
+	\Z_2\oplus\Z_2\oplus\Z_2
+\]
+\[
+	\Z_4\oplus\Z_2
+\]
+\[
+	\Z_8.
+\]
+\section*{Question 5 [3 marks]}
+Determine the possible isomorphism classes of an Abelian group of order 792 that contains at least two elements of order 2 and an element of order 9.\\
+\textit{Solution.} $792=2^3\times3^2\times11$. For there to be two elements of order 2 we need the isomorphism classes coming from $\Z_2^3$ to have at least two elements of order two, those are $\Z_4\oplus\Z_2$ or $\Z_2\oplus\Z_2\oplus\Z_2$. For the element of order 9 we need the isomorphism classes coming from $\Z_9$ to have an element of order 9, the only option for this is $\Z_9$. So the possible isomorphism classes of an Abelian group with order 792 are 
+\[
+	\Z_4\oplus\Z_2\oplus\Z_9\oplus\Z_{11}
+\]
+and 
+\[
+	\Z_2\oplus\Z_2\oplus\Z_2\oplus\Z_9\oplus\Z_{11}.
+\]
+These groups are Abelian by the \textit{Fundamental Theorem of Finite Abelian Groups.}
+\section*{Question 6 [3 marks]}
+Let $p$ and $q$ be distinct odd prime numbers. How many non-isomorphic Abelian groups of order $4p^3q^4$ are there?
+\textit{Solution.} We can break this problem down to finding the number of non-isomorphic Abelian groups of orders $4=2^2$, $p^3$ and $q^4$. For groups of order 4 we have 2, groups of order $p^3$ we have 3, and groups of order $q^4$ we have 5. This gives a total of $2\times3\times5=30$ groups. The values were calculated by looking at the partition of 2, 3, and 5. 
+\newpage
+\section*{Question 7 [3 marks]}
+Prove that a group of order 351 has a normal Sylow $p$-subgroup for some prime $p$ dividing its order.
+\begin{proof}
+	$351=3^3\times13$. We know that if the number of Sylow $p$-subgroups of a group $G$ is 1 then that subgroup is normal. If the numer of Sylow 13-subgroups of $G$ are one, then we are done. Let $n_{13}>1$ be the number of Sylow 13-subgroups of $G$. Then $n_{13}\equiv1 \mod 13$, and $n_{13}\vert 27$. The divisors of 27 are 1,3,9,27. The only divisors which satify the congruence relationship are 1 or 27. Since $n_{13}>1$ we have $n_{13}=27$. Each of these subgroups have 13 elements in total, and 12 of these elements have order 13. Each of subgroups are disjoint so each elements are disjoint. This means that a total of $27\times12=324$ elements are in the Sylow 13-subgroups (the identity element needs to be in each subgroup). Then 351-324=27=$3^3$. These remaining 27 elements make a subgroup by the first Sylow theorem. So either there is one Sylow 13-subgroup or one Sylow 3-subgroup in this group, in which ever case has one subgroup that subgroup is normal. 
+\end{proof}
+\section*{Question 8 [5 marks]}
+Consider $n \in \mathbb{N}$ and $p$ a prime number. Let $G = GL_n(\mathbb{Z}_p)$, and let $P$ be the subgroup of strictly upper triangular matrices in $G$ (strictly means 1's along the diagonal).
+
+\begin{enumerate}[label=(\alph*)]
+    \item Determine the order of $G$.
+    \item Show that $P$ is a Sylow $p$-subgroup of $G$.
+\end{enumerate}
 
 \end{document}

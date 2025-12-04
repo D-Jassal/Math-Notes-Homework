@@ -59,6 +59,7 @@ Use the Arzela-Ascoli theorem to prove that $\{F_{n}:n\geq 1\}$ has a uniformly 
     \[
         \left|F_n(x)\right|=\left|\int_{0}^{x}\sin\left(f_n(t)\right)\,dt\right|=\int_{0}^{x}\left|\sin\left(f_n(t)\right)\right|\,dt\leq\int_{0}^{x}\left|\sin\left(f_n(t)\right)\right|\,dt\leq1.
     \]
+    Thus $F_n(x)$ is uniform bounded in [0,1].
     Since $F_n(x)$ is bounded we have that the closure of $\left\{F_n(x)\right\}$ is compact.\\
     Therefore, by the general \textit{Arzela-Ascoli} theorem, $\left\{F_n(x):n\geq1\right\}$ has a convergent subsequence. Furthermore, since [0,1] is compact, this convergence is uniform.
 \end{proof}
@@ -74,7 +75,8 @@ Use the Arzela-Ascoli theorem to prove that $\{F_{n}:n\geq 1\}$ has a uniformly 
         \]
         where each $E_i$ ($1\leq i\leq n$) is a connected set. Furthermore, each of these connected sets are disjoint, for if they were not, we could simply make a new connected set that is the union of the non-disjoint connected sets. Due to the density of $\Q\in\R$ each of these connected sets (which are also open intervals) has a rational number in them. Since $\Q$ is a countable set, we have that the number of number of disjoint open intervals is countable. 
     \end{proof}
-    \item Explain why this statement cannot be true for ${\mathbb{R}}^{n}$ for any $n\geq 2$.
+    \item Explain why this statement cannot be true for ${\mathbb{R}}^{n}$ for any $n\geq 2$.\\
+    This is not possible in $\R^n$ for $n\geq2$ because the connected property of intervals in $\R$ does not extend to $\R^n$ for $n>1$. This can be seen in $\R^2$ since an interval in $\R^2$ is either a rectangle or a ball in the plane. These cannot be used to express all sets in $\R^2$ as unions that are disjoint. 
 \end{enumerate}
 
 \stepcounter{section}
