@@ -59,7 +59,7 @@ Show that $\Lambda(n) = -\sum_{d|n} \mu(d) \log(d)$.
         \]
         If $n=p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}$ we have,
         \[
-            \sum_{d\mid p^k}\Lambda(n)=\sum_{i=1}^{k}\left(\sum_{d\mid p_i^{e_i}}\Lambda(n)\right)=\sum_{i=1}^{k}\log(p_i)=\log(n).
+            \sum_{d\mid p^k}\Lambda(n)=\sum_{i=1}^{k}\left(\sum_{d\mid p_i^{e_i}}\Lambda(n)\right)=\sum_{i=1}^{k}\log(p_i)=\log(n).\qedhere
         \]
     \end{proof}
     Recall that 
@@ -83,7 +83,7 @@ Show that $\Lambda(n) = -\sum_{d|n} \mu(d) \log(d)$.
         \end{cases}       
     \]
     \[
-        \Lambda(n)=\sum_{d\vert n} \mu(d)\log\left(\frac{n}{d}\right)=-\sum_{d\vert n} \mu(d)\log\left(d\right),        
+        \Lambda(n)=\sum_{d\vert n} \mu(d)\log\left(\frac{n}{d}\right)=-\sum_{d\vert n} \mu(d)\log\left(d\right).     \qedhere   
     \]
 \end{proof}
 
@@ -99,7 +99,7 @@ Show that $\sum_{e|n} \frac{n\sigma(e)}{e} = \sum_{e|n} e d(e)$ for all positive
     \]
     and
     \[
-        d(n)n=((1\ast\mathrm{id})\ast\mathrm{id})(n)=(\sigma\ast\mathrm{id})(n)=\sum_{e|n} \frac{n\sigma(e)}{e}.
+        d(n)n=((1\ast\mathrm{id})\ast\mathrm{id})(n)=(\sigma\ast\mathrm{id})(n)=\sum_{e|n} \frac{n\sigma(e)}{e}.\qedhere
     \]
 \end{proof}
 \section*{Question 3 [3]}
@@ -123,7 +123,41 @@ If $n$ is a positive integer, let $\sigma_{-1}(n) = \sum_{\substack{d|n \\ d>0}}
 \newpage
 \section*{Question 4 [4]}
 Suppose that $n$ is an odd perfect number. Show that $n = p^a m^2$ where $m$ is an integer and $p$ is an odd prime with $p \equiv a \equiv 1 \mod 4$.
-
+\begin{proof}
+    Let $n=p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}$. Because $n$ is perfect we have that $\sigma(n)=2n$. This is an even number.
+    \[
+        \sigma(n)=\sigma(p_1^{e_1}p_2^{e_2}\cdots +p_k^{e_k})=\sigma(p_1^{e_1})\sigma(p_2^{e_2})\cdots \sigma(p_k^{e_k})
+    \]
+    \[
+        \sigma(p_1^{e_1}p_2^{e_2}\cdots +p_k^{e_k})=(1+p_1+\cdots +p_1^{e_1})(1+p_2+\cdots +p_2^{e_2})\cdots(1+p_k+\cdots +p_k^{e_k}).
+    \]
+    Becuase there is only one multiple of 2 in $\sigma(n)$ only one of these \[(1+p_1+\cdots p_1^{e_1})(1+p_2+\cdots p_2^{e_2})\cdots(1+p_k+\cdots p_k^{e_k})\] is even, with a single multiple of 2. Without loss of generality let $(1+p_1+\cdots p_1^{e_1})=2w$ for some $w\in\Z^+$. Since all other values in 
+    \[
+        (1+p_1+\cdots p_1^{e_1})(1+p_2+\cdots +p_2^{e_2})\cdots(1+p_k+\cdots +p_k^{e_k})
+    \]
+    aside from $(1+p_1+\cdots +p_1^{e_1})$ is odd, we have that $e_i$ is even for all $2\leq i\leq k$. This is because each $p_i$ is odd for all $1\leq i\leq k$, and each value in the sum $(1+pi+\cdots +p_i^{e_i})$ is odd for $1\leq i\leq k$ we need to sum an odd number of odd numbers to obtain an odd number.\\
+    Let 
+    \[
+        r=p_2^{e_2}p_3^{e_3}\cdots p_k^{e_k}.
+    \]
+    Then set 
+    \[
+        m^2=r.
+    \]
+    Now we have $n=p^{e_1}m^2$.\\
+    It remains to show that $p\equiv e_1\equiv a\mod4$. Using the reasoning above we have that $e_1\equiv1 \text{ or } 3\mod 4$, since it has to be odd. If $p\equiv 1\mod 4$ we have $p^k\equiv 1\mod4$ for all $k\in\Z$. Then,
+    \[
+        \sigma(p^a)=1+p+\cdots+p^a\equiv 1+a\mod 4.
+    \]
+    Since $\sigma(p^a)\equiv 2\mod 4$ we have $a\equiv 1\equiv p\mod 4$.\\
+    If $p\equiv 3\mod 4$ we have 
+    \[
+        p^k=\begin{cases}
+            3 \mod 4\text{ if $k$ odd},\\1 \mod 4\text{ if $k$ even}.
+        \end{cases}
+    \]
+    Since $a$ is odd the sum $1+p+\cdots+p^a$ has $\frac{a+1}{2}$ odd and even exponents, so we have $\frac{a+1}{2}$ pairs of 1$+$3=4, so $\sigma(p^k)\equiv4q\equiv4\equiv0\mod4$. But, we have $\sigma(p^k)\equiv2\mod 4$, so we have $n=p^am^2$, where $p\equiv a\equiv 1\mod 4$.
+\end{proof}
 \section*{Question 5 [4]}
 Let $a$ and $b$ be positive integers. We say $a$ and $b$ are amicable numbers if $\sigma(a) = \sigma(b) = a + b$.
 
@@ -149,21 +183,87 @@ is a pair of amicable numbers.
         \sigma(b)=(p\times2^{3m}-9\times2^{2n-1})=9\times2^{n-1}(2^{2n+1}-2^n)
     \]
     \[
-        a+b=2^n(3\times2^{n-1}-1)(3\times2^n-1)+2^n(9\times2^{2n-1}-1)
+    a + b = 2^{n} p q + 2^{n} r = 2^{n} \big( p q + r \big).
+    \]
+    Substitute \( p, q, r \):
+    \[
+    a + b = 2^{n} \big[ \left( 3 \times 2^{n-1} - 1 \right) \left( 3 \times 2^{n} - 1 \right) + \left( 9 \times 2^{2n-1} - 1 \right) \big].
+    \]
+    Simplifying inside the bracket:
+    \begin{align*}
+    p q &= \left( 3 \times 2^{n-1} - 1 \right) \left( 3 \times 2^{n} - 1 \right) \\
+    &= 9 \times 2^{2n-1} - 3 \times 2^{n} - 3 \times 2^{n-1} + 1.
+    \end{align*}
+    Adding \( r = 9 \times 2^{2n-1} - 1 \):
+    \[
+    pq + r = \left[ 9 \times 2^{2n-1} - 3 \times 2^{n} - 3 \times 2^{n-1} + 1 \right] + \left[ 9 \times 2^{2n-1} - 1 \right].
+    \]
+    \[
+    pq + r = 18 \times 2^{2n-1} - 3 \times 2^{n} - 3 \times 2^{n-1}.
+    \]
+    Factor \( 3 \times 2^{n-1} \):
+    \[
+    pq + r = 3 \times 2^{n-1} \left( 6 \times 2^{n-1} - 2 - 1 \right).
+    \]
+    Since \( 6 \times 2^{n-1} = 3 \times 2^{n} \), we have
+    \[
+    pq + r = 3 \times 2^{n-1} \left( 3 \times 2^{n} - 3 \right)
+    = 9 \times 2^{n-1} \left( 2^{n} - 1 \right).
+    \]
+    Thus
+    \[
+    a + b = 2^{n} \times 9 \times 2^{n-1} \left( 2^{n} - 1 \right)
+    = 9 \times 2^{2n-1} \left( 2^{n} - 1 \right).\qedhere
     \]
 \end{proof}
-(b) Find two pairs of amicable numbers by finding such prime numbers $p$, $q$ and $r$.
+\newpage
+(b) Find two pairs of amicable numbers by finding such prime numbers $p$, $q$ and $r$.\\
+Substitute $n=2$, then
+    \[p=3\cdot2^1-1=5,\]
+\[q=3\cdot4-1=11q=3\cdot4-1=11,\]
+\[r=9\cdot2^3-1=72-1=71r=9\cdot2^3-1=72-1=71.\] $p=5,q=11,r=71p=5,q=11,r=71$ are all prime.
 
+\[a=22\cdot5\cdot11=4\cdot55=220a=22\cdot5\cdot11=4\cdot55=220,\]
+\[b=4\cdot71=284b=4\cdot71=284.\]
+(220,284) are a pair of amicable numbers.
 \section*{Question 6 [4]}
 Let $f$ be an arithmetic function.
 
 (a) Prove that $\sum_{\substack{1 \leq a \leq n \\ (a,n)=1}} f(a) = \sum_{d|n} \mu(d) \sum_{\substack{1 \leq a \leq n \\ d|a}} f(a)$.
-
+\begin{proof}
+    \begin{align*}
+        \sum_{\substack{1 \leq a \leq n \\ (a,n)=1}} f(a) &=\sum_{1 \leq a \leq n} f(a) \sum_{d\mid \gcd(n,a)}\mu(d)\\
+        &=\sum_{a=1}^{1}f(a)\sum_{\substack{a\mid n\\ d\mid n}} f(d)\\
+        &=\sum_{d\mid n}\sum_{\substack{a=1 \\ d\mid a}}^{n}f(a)\\
+        &=\sum_{d|n} \mu(d) \sum_{\substack{1 \leq a \leq n \\ d|a}} f(a)\qedhere
+    \end{align*}
+\end{proof}
+\newpage
 (b) Prove that when $n > 1$, we have
 \[
 \sum_{\substack{1 \leq a \leq n \\ (a,n)=1}} a = \frac{1}{2} n\phi(n).
 \]
-
+\begin{proof}
+    Recall that
+    \[
+        (\mu\ast\mathrm{id})(n)=\sum_{d\mid n}\mu(d)\frac{n}{d}=\varphi(n),
+    \]
+    \[
+        \sum_{d\mid n}\frac{\mu(d)}{d}=\frac{\varphi(n)}{n}.
+    \]
+    From part a we have that
+    \begin{align*}
+        \sum_{\substack{1 \leq a \leq n \\ (a,n)=1}} a &= \sum_{d|n} \mu(d) \sum_{\substack{1 \leq a \leq n \\ d|a}} a\\
+        &\text{let }a=dk\\
+        \sum_{\substack{1 \leq a \leq n \\ d|a}} a&=\sum_{k=1}^{\frac{n}{d}}dk=\frac{d}{2}\times\frac{n}{d}\left(\frac{n}{d}+1\right)\\
+        &=\frac{n}{2}\left(\frac{n}{d}+1\right)\\
+        \sum_{\substack{1 \leq a \leq n \\ (a,n)=1}} a&\frac{n}{2}\sum_{d\mid n}\mu(d)\left(\frac{n}{d}+1\right)\\  
+        &=\frac{n}{2}\left[n\sum_{d\mid n}\frac{\mu(d)}{d}+\sum_{d\mid n}\mu(d)\right]\\     
+        &=\frac{n}{2}\left[n\times\frac{\varphi(n)}{n}+0\right] \\
+        &=\frac{n}{2}\varphi(n).\qedhere
+    \end{align*}
+\end{proof}
+\newpage
 \section*{Question 7 [3]}
 Let $n$ be a positive integer. Prove that
 \[
@@ -173,11 +273,92 @@ Note that here $i$ is the complex number satisfying $i^2 = -1$, and by Euler's f
 \[
 \sum_{a=1}^k e^{\frac{2\pi i a}{k}} = 1 \text{ if } k = 1 \quad \text{and} \quad \sum_{a=1}^k e^{\frac{2\pi i a}{k}} = 0 \text{ if } k \neq 1.
 \]
-
+\begin{proof}
+    Recall that the order of $e^{\frac{2\pi i a}{k}}=d$ if and only if gcd($a,n$)=$\frac{n}{d}$. We are given that gcd$(a,n)=1$, so we have $n=d.$ This means that we are summing over the roots of unity which generate the other roots of unity, that is the primitive roots of unity. We can rewrite the sum as,
+    \[
+        \sum_{\substack{a=1 \\ (a,n)=1}}^n e^{\frac{2\pi i a}{n}} =\sum_{d\mid n}\sum_{\substack{a=1\text{ord}(e^{\frac{2\pi i a}{n}}=d)}}^{n}e^{\frac{2\pi i a}{n}}.
+    \]
+    The rightmost sum can be rewritten as,
+    \[
+        P(d)=\begin{cases}
+            1 &\text{if } n=1\\
+            0 &\text{if } n>1.
+        \end{cases}
+    \]
+    So we have
+    \[
+        \sum_{\substack{a=1 \\ (a,n)=1}}^n e^{\frac{2\pi i a}{n}} =\sum_{d\mid n}P(d).
+    \]
+    Applying M\"obius inversion we obtain
+    \begin{align*}
+        P(d)&=\sum_{d\mid n}\mu(n)\sum_{d_n}p\left(\frac{n}{d}\right)\\
+        &=\mu(n)(1)+\mu(d_1)(0)+\cdots\\
+        &=\mu(n).\qedhere
+    \end{align*}
+\end{proof}
+\newpage
 \section*{Question 8 [3]}
 Solve the diophantine equation $x^2 + y^2 = 2z^2$.
-
+\textit{Solution.} Let $x=u-v$, $y=u+v$ for some $u,v\in\Z$. Using this substitution we obtain
+\begin{align*}
+    (u-v)^2+(u+v)^2&=2z^2\\
+    2z^2&=u^2-2uv+v^2+u^2+2uv+v^2\\
+    z^2=u^2+v^2.
+\end{align*}
+This is a Pythagorean triple, we know that the primitive root is of the form
+\[
+    u=r^2-s^2
+\]
+\[
+    v=2rs
+\]
+\[
+    z=r^2+s^2
+\]
+where $r,s\in\Z$ have opposire parrities and gcd$(r,s)=1$. We then see that the solution to the original diophantine equation is
+\[
+    x=r^2-s^2-2rs,
+\]
+\[
+    y=r^2-s^2+2rs,
+\]
+\[
+    z=r^2+s^2.
+\]
 \section*{Question 9 [3]}
 Prove that the equation $x^3 + 2y^3 = 4z^3$ has no solution in the positive integers.
-
+\begin{proof}
+    Assume that some $(x,y,z)\in\Z^+$ is the minimal solution to the equation.\\
+    Now consider the equation modulo 2
+    \[
+        x^3 + 2y^3 \equiv 0 \mod2,
+    \]
+    \[
+        x^3\equiv 0\mod2.
+    \]
+    Let $x=2x_1$ for some $x_1\in\Z^+$. Then the original equation becomes
+    \[
+        8x_1^3+ 2y^3 = 4z^3\Leftrightarrow4x_1^3+ y^3 = 2z^3.
+    \]
+    Considering this equation modulo 2
+    \[
+        4x_1^3+ y^3 \equiv 0\mod 2
+    \]
+    \[
+        y^3\equiv 0\mod 2.
+    \]
+    Let $y=2y_1$ for some $y_1\in\Z^+$. Again we can rewrite the original equation
+    \[
+        8x_1^3+ 16y_1^3 = 4z^3\Leftrightarrow2x_1^3+4y^3 = z^3.
+    \]
+    Considering this equation module 2
+    \[
+        z^3\equiv 0\mod2.
+    \]
+    Let $z=2z_1$ for some $z_1\in\Z^+$. The we obtain
+    \[
+        8x_1^3+ 16y_1^3 = 32z_1^3\Leftrightarrow x_1^3 + 2y_1^3 = 4z_1^3.
+    \]
+    So we have the equation $x_1^3 + 2y_1^3 = 4z_1^3$, with $x_1<x,$ $y_1<y$, $z_1<z$. This contradicts the original assumption that $(x,y,z)$ was a minimal solution. By Fermat's method of inifinite descent we have shown that there is no solution to the equation $x^3 + 2y^3 = 4z^3$ in the positive integers.
+\end{proof}
 \end{document}
