@@ -1,0 +1,355 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../preambles/hw-preamble.tex}
+\input{../../../preambles/homework-macros.tex}
+\input{../../../preambles/homework-title.tex}
+\input{../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Number Theory}
+\renewcommand{\coursecode}{MATH 480}
+\renewcommand{\assignment}{Final}
+\renewcommand{\instructor}{Dr. Alia Hamieh}
+\renewcommand{\duedate}{December 16\textsuperscript{th}, 2025}
+
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+
+\stepcounter{section}
+\section*{Question 1 [7 marks]}
+Answer by True or False. There is no need to justify your answers.
+\begin{enumerate}[label=(\alph*)]
+    \item For some positive integer \( n \), one has \(\gcd(n(n^2 - 1), 6) = 2\).\\ False
+    \item The reduced residue 7 is a primitive root modulo \(2^{2026}\).\\ False
+    \item There exist integers \( x \) and \( y \) having the property that \( 2025x + 81y = 1 \).\\ False
+    \item The integer \( n! + 1 \) is composite for infinitely many positive integers \( n \).\\ False
+    \item If \( g \) is a multiplicative function then \( g(140) = g(10)g(14) \).\\ False
+    \item For a positive integer \( n \), let \( \omega(n) \) be the number of distinct prime divisors of \( n \). Then \( \omega(n) \) is a multiplicative function.\\ False
+    \item Let \( p \) be an odd prime with \( p \equiv 3 \mod 4 \). Then the congruence \( x^{2p} + 1 \equiv 0 \mod p \) has a solution.\\ False
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Question 2 [15 marks]}
+Answer the following questions:
+\begin{enumerate}[label=(\alph*)]
+    \item Compute the least nonnegative residue of \( 7^{1203} \) modulo 1500.\\
+    \textit{Solution.} 
+	\[
+		1500=2^2\times3\times5^3,
+	\]
+	\[
+		\varphi(1500)=\varphi(2^2)\times\varphi(3)\times\varphi(5^3)=2\times2\times100=400.
+	\]
+	Since $\gcd(7,1500)=1$, by Euler's theorem we have
+	\[
+		7^{400}\equiv 1 \mod1500,
+	\]
+	this gives
+	\[
+		7^{1203}=7^{3(400)+3}\equiv 7^3\equiv 343 \mod 1500.
+	\]
+	\newpage
+    \item Let \( n \) be a positive integer such that \( n \) has 77 positive divisors (1 and \( n \) included). How many distinct prime divisors can \( n \) have?\\
+    \textit{Solution.} 
+	\[
+		n=p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k},
+	\]
+	\[
+		d(n)=(e_1+1)(e_2+1)\cdots(e_k+1)=77.
+	\]
+	So the question reduces to how many ways can we write 77. Since $77=7\times11$, $n$ can have up to 2 distinct prime divisors. 
+    \item Compute \( \left(\frac{111}{991}\right) \).\\
+    \textit{Solution.} 
+	\[
+		111=3\times37.
+	\]
+	\[
+		\left(\frac{111}{991}\right)=\left(\frac{3}{991}\right)\left(\frac{37}{991}\right)
+	\]
+	By \textit{Theorem 3.2.1}
+	\[
+		\left(\frac{111}{991}\right)=-\left(\frac{991}{3}\right)\times-\left(\frac{991}{37}\right)=\left(\frac{1}{3}\right)\left(\frac{29}{37}\right)
+	\]
+	\[
+		\left(\frac{111}{991}\right)=-1\left(\frac{37}{29}\right)=-\left(\frac{8}{29}\right)=-\left(\frac{29}{8}\right)=-\left(\frac{3}{8}\right)=-(-1)=1
+	\]
+    \item Use the fact that 5 is a primitive root modulo 54 and that \( 5^6 \equiv 19 \mod 54 \) to solve the polynomial congruence \( x^{12} \equiv 19 \mod 54 \).
+    \textit{Solution.} We are given that 5 is a primitive root modulo 54, so we can rewrite $x\equiv 5^b\mod54$ for some $b\in\N$. This yields
+	\[
+		x^{12} \equiv 5^{12b} \equiv 5^6 \equiv19 \mod 54.
+	\]
+	This reduces our problem into solving the congruence 
+	\[
+		12b\equiv6\mod\varphi(54)=18.
+	\]
+	Since $\gcd(12,18)=6$ we get
+	\[
+		2b\equiv1\mod3,
+	\]
+	multiplying both sides by 2
+	\[
+		b\equiv 2 \mod3.
+	\]
+	This $b$ correspond to the values $2,5,8,11,14,17$ modulo 18. So the solutions to the original congruence are of the form
+	\[
+		5^k\mod 54
+	\]
+	wtih $k\in\{2,5,8,11,14,17\}$.
+	\newpage
+    \item Show that if \( 6a^2 \equiv b^2 \mod 17 \) for some \( a, b \in \mathbb{Z} \), then \( 6a^2 \equiv b^2 \mod 289 \). (Notice that 6 is a quadratic non-residue mod 17.)\\
+    \textit{Solution.} We can rewrite the first congruence as
+	\[
+		6a^2-b^2\equiv 0\mod17.
+	\]
+	Since $17\nmid6$ we have $17\mid a^2$ and $17\mid b^2$, since 17 is prime $17\mid a$ and $17\mid b$. So, $a=17a_1$ and $b=17b_1$ for some $a_1,b_1\in\Z$. We then get
+	\[
+		6\times289a_1^2-289b_1^2=289(6a_1^2-b_1^2)=6a^2-b^2.
+	\]
+	Taking this modulo 289
+	\[
+		6a^2-b^2\equiv 0\mod289
+	\]
+	\[
+		6a^2\equiv b^2\mod289.
+	\]
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Question 3 [4 marks]}
+Suppose that \((a,p)=1\). Show that the congruence \(x^{2}\equiv a\pmod{p^{2}}\) is solvable if and only if \(a^{p(p-1)/2}\equiv 1\pmod{p^{2}}\).
+\begin{proof}
+	$(\Rightarrow)$ Assuming that $x^2\equiv a \mod p^2$ we can rewrite the second congruence as 
+	\[
+		x^{p(p-1)}\equiv 1\pmod{p^2}.
+	\]
+	$\varphi(p^2)=p^2-p=p(p-1)$. By Euler's theorem we have
+	\[
+		x^{p(p-1)}=x^{\varphi(p^2)}\equiv1\pmod{p^2}.
+	\]
+	$(\Leftarrow)$ In the case where $p$ is an odd prime
+	\[
+		a^{\frac{p(p-1)}{2}}=\left(a^{\frac{p-1}{2}}\right)^p=(w+mp)^p
+	\]
+	where $w=\pm1$ (by Euler's criterion) and $m\in\Z$. Using the binomial theorem
+	\[
+		a^{p(p-1)/2}=(w+mp)^p=w^p+\binom{p}{1}w^{p-1}mp\equiv w \pmod{p^2}.
+	\]
+	Using the fact that $a^{p(p-1)/2}\equiv1 \pmod{p^2}$, we have $w=1$. So 
+	\[
+		a^{\frac{p-1}{2}}\equiv1\pmod{p}.
+	\]
+	Thus, there exists an $r\in\Z$ such that 
+	\[
+		r^2\equiv a\pmod{p}.
+	\]
+	$p\nmid r$ since $\gcd(p,a)=1$, this solution lifts to a solution $\pmod{p^2}$ by Hensel's lemma. Thus,
+	\[
+		x^2\equiv a\pmod{p^2},
+	\] 
+	for some $x\in\Z$.\\
+	In the case where $p=2$ we have
+	\[
+		a^{p(p-1)/2}\equiv 1\pmod{4}.
+	\]
+	$\gcd(a,2)=1$ only for 1 and 3 $\pmod{4}$
+	\begin{figure}[h!]
+		\begin{center}
+			\begin{tabular}{c|c}
+				$a$&$a^{\frac{2(1)}{2}}=a$\\
+				\hline
+				1 & 1\\
+				3 & 3
+			\end{tabular}
+		\end{center}
+	\end{figure}\\
+	The quadratic residues $\pmod{4}$ are 0 and 1. So this reverse direction holds.
+\end{proof}
+\stepcounter{section}
+\section*{Question 4 [4 marks]}
+Show that there are infinitely many primes of the form \(12k+11\). \emph{Hint: Consider an integer of the form \(3n^{2}-4\) and recall that \(\left(\frac{3}{p}\right)=1\) if and only if \(p\equiv\pm 1\mod 12\).}
+\begin{proof}
+	Assume for contradiction that there a finite number of primes of the form $12k+11$ with $k\in\Z$. Denote these primes by $p_1,p_2,\dots,p_n$. We have 
+	\[
+		p_i\equiv11\equiv-1\mod 12.
+	\]
+	Let 
+	\[
+		N=\prod_{i=1}^{n}p_i.
+	\]
+	Then $N^2\equiv1\mod 12.$ Let 
+	\[
+		M=3N^2-4.
+	\]
+	We have
+	\[
+		M\equiv 3-4\equiv -1\equiv 11 \mod 12.
+	\]
+	So $M>1$ and is an odd number. That tells us that $M$ has an odd prime divisor, say $p$. If $p\mid N$ then $p\mid4$ but this cannot be the case since $p$ is odd. Considering the equation mod$p$ we obtain
+	\[
+	3N^2\equiv2^2\mod p
+	\]
+	\[
+		3\equiv (2N)^2\mod p
+	\]
+	that is $3$ is a quadratic residue mod$p$. This tells us that $p\equiv \pm 1\mod12$ for all prime divisors of $M$. But we have $M\equiv 11\mod12$ so all of the prime divisors cannot be congruent to $\pm1\mod12.$ So atleast one prime divisor of $M$ is congruent to 11 $\mod12$ and this prime number is not in our original list.
+\end{proof}
+\stepcounter{section}
+\section*{Question 5 [8 marks]}
+Let \(\phi\) be the Euler function.
+\begin{enumerate}[label=(\alph*)]
+    \item Let \(F(n)\) be the summatory function of \(\frac{\phi(n)}{n}\), i.e. \(F(n)=\sum_{d|n}\frac{\phi(d)}{d}\). For a prime number \(p\) and \(k\in\mathbb{N}\), prove that \(F(p^{k})=1+k\left(1-\frac{1}{p}\right)\).
+    \begin{proof}
+		The divisors of $p^k$ are $1, p, p^2, \cdots, p^k$. We can then rewrite $F(n)$ as
+		\[
+			F(p^k) = \sum_{i = 0}^k \frac{\phi(p^i)}{p^i}.
+		\]
+		$\phi(1) = 1$. Thus when $i=0$ we add 1 to the sum. When $i \geq 1, \phi(p^i) = p^i - p^{i-1}$, this gives us
+		\[
+			\frac{\phi(p^i)}{p^i} = 1 - \frac{1}{p}.
+		\]
+		Therefore,
+		\[
+			F(p^k) = 1 + \sum_{i = 1}^k \left( 1 - \frac{1}{p} \right) = 1 + k\left( 1 - \frac{1}{p} \right).\qedhere
+		\]
+    \end{proof}
+    \item Verify that \(F(n)\) is a multiplicative function.
+    \begin{proof}
+		We have $F(1)=1$ so we only need to verify $F(ab)=F(a)F(b)$ whenever $\gcd(a,b)=1$.\\
+ 		For some $a\in\N$ where $a=p_1^{e_1}p_2^{e_2}\cdots p_n^{e_n}$ where each $p_i$ $1\geq i\geq n$ are distinct primes.
+		\[
+			F(a)=\sum_{d|a}\frac{\phi(d)}{d}=\sum_{t_1=0}^{e_1}\cdots\sum_{t_n=0}^{e_n}\prod_{i=1}^{n}\frac{\phi(p_i^{t_i})}{p_i^{t_i}}.
+		\]
+		Factoring the sums into a product of independant sums we have
+		\[
+			F(a)=\prod_{i=1}^{n}\left(\sum_{t_i=0}^{e_i}\frac{\phi(p_i^{t_i})}{p_i^{t_i}}\right),
+		\]
+		but 
+		\[
+			\sum_{t_i=0}^{e_i}\frac{\phi(p_i^{t_i})}{p_i^{t_i}}=F(p_i^{e_i}),
+		\]
+		so
+		\[
+			F(a)=F(p_1^{e_1}p_2^{e_2}\cdots p_n^{e_n})=\prod_{i=1}^{n}F(p_i^{e_i}).
+		\]
+		So for $a,b\in\N$ with $\gcd(a,b)=1$ we have with $a$ as above and $b=q_1^{f_1}q_2^{f_2}\cdots q_j^{f_j}$
+		\[
+			F(ab)=\prod_{i=1}^{n}F(p_i^{e_i})\prod_{j=1}^{k}F(q_j^{f_j})=F(a)F(b).\qedhere
+		\]
+	\end{proof}
+	\begin{proof}
+		Alternatively for $a,b\in\N$ with $\gcd(a,b)=1$ we have
+		\[
+			F(ab)=\sum_{d\mid ab}\frac{\phi(d)}{d}=\sum_{\substack{d_1\mid a\\ d_2\mid b}}\frac{\phi(d_1d_2)}{d_1d_2}.
+		\] 
+		Furthermore we have
+		\[
+			F(ab)=\sum_{d_1\mid a}\sum_{d_2\mid b}\frac{\phi(d_1)}{d_1}\frac{\phi(d_2)}{d_2}=\sum_{d_1\mid a}\frac{\phi(d_1)}{d_1}\sum_{d_2\mid b}\frac{\phi(d_2)}{d_2}=F(a)F(b).
+		\]
+		\item Compute \(F(2592)\). (You may use the fact that \(2592=2^{5}\times 3^{4}\))\\
+		\textit{Solution.} 
+		\[
+			F(2592)=F(2^5)F(3^4)=\left(1+5\left(\frac{1}{2}\right)\right)\left(1+4\left(\frac{2}{3}\right)\right)=\left(\frac{7}{2}\right)\left(\frac{11}{3}\right)=\frac{77}{6}
+		\]
+	\end{proof}
+
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Question 6 [6 marks]}
+In this question, we prove that there are infinitely many integers that cannot be written as the sum of three squares.
+\begin{enumerate}[label=(\alph*)]
+    \item Prove that \(x^{2}+y^{2}+z^{2}=8007\) has no solutions in the integers. \emph{Hint: Work modulo 8 and observe that the squares mod 8 are 0,1, and 4}
+    \begin{proof}
+		Taking the congruence mod 8 we obtain
+		\[
+			x^{2}+y^{2}+z^{2}\equiv 7\mod 8.
+		\]
+		Since the only squares mod 8 are 0,1 and 4 the only possible sums of 3 squares mod 8 are, 0,1,2,3,4,5,6,8,12 none of these are 7 mod 8, so this congruence has no solutions.
+	\end{proof}
+    \item Prove that any number of the form \(4^{n}\times 8007\) where \(n\in\mathbb{N}\) cannot be written as the sum of three squares.
+    \begin{proof}
+		We can write this problem as 
+		\[
+			x^2+y^2+z^2=4^n\times 8007.
+		\]
+		Writing this equation mod 4 we obtain
+		\[
+			x^2+y^2+z^2=4^n\times 8007\equiv 0\mod 4.
+		\]
+		We can rewrite $x=2x_1$, $y=2y_1$, $z=2z_1$. Substituting
+		\[
+			4x_1^2+4y_1^2+4z_1^2=4^n\times8007,
+		\]
+		dividing by 4 on both sides
+		\[
+			x_1^2+y_1^2+z_1^2=4^{n-1}\times8007.
+		\]
+		We can repeat this process until we obtain
+		\[
+			x'^2+y'^2+z'^2=8007,
+		\]and we showed in part a that this equation has no solutions.
+	\end{proof}
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Question 7 [6 marks]}
+Let \(q\) be an odd prime number and suppose that \(p=4q+1\) is also prime.
+\begin{enumerate}[label=(\alph*)]
+    \item Prove that the congruence \(x^{2}\equiv-1\mod p\) has exactly two solutions each of which is a quadratic non-residue mod \(p\).
+    \begin{proof}
+		$p\equiv1\mod4$, then $-1$ is a quadratic residue $\mod p$ by Euler's criterion. The congruence $x^2\equiv-1\mod p$ has 2 solutions (this is from either the notes, or an assignment). Say these solutions are $\pm a$. We have that $q=\frac{p-1}{4}$ is odd.
+		\[
+			a^{\frac{p-1}{2}}\equiv \left(a^2\right)^{\frac{p-1}{4}}\equiv(-1)^{\frac{p-1}{4}}=(-1)^q\mod p.
+		\]
+		Since $q$ is odd we have 
+		\[
+			\left(\frac{a}{p}\right)a^{\frac{p-1}{2}}\equiv(-1)^q\equiv -1\mod p.
+		\]
+		Thus, $a$ is not a quadratic residue $\mod p$ by Euler's criterion. For $-a$ we have
+		\[
+			\left(\frac{-a}{p}\right)=\left(\frac{-1}{p}\right)\left(\frac{a}{p}\right)=1\times-1=-1.
+		\]
+		Thus, both solutions to the congruence
+		\[
+			x^2\equiv -1\mod p
+		\]
+		are quadratic non-residues.
+	\end{proof}
+	\newpage
+    \item Prove that every quadratic non-residue modulo \(p\) is a primitive root mod \(p\) with the exception of the two non-residues in part (a).
+    \begin{proof}
+		Since $p$ is a prime, we know that there exists primitive roots $\mod p$. The group $\left(\Z/p\Z\right)^\times$ is a cylic group with order $p-1=4q$. Any elements $x$ in this group with order 4 have the property
+		\[
+			x^2\equiv -1\mod p.
+		\]
+		We showed above that this congruence has 2 solutions, this shows that these 2 are not primitive roots $\mod p$.\\
+		A primitive root $\mod p$ has order $p-1=4q$. The possible orders of an element $x\in\left(\Z/p\Z\right)^\times$ are 1,2,4,$q,2q,4q$. We only need to show that all quadratic non-residues $\mod p$ have order 4 or order $4q.$ If the order of a non-residue is 4, it is not a primitive root as shown above. If the order of $x$ is 1 we have $x\equiv 1 \mod p$. If he order of $x$ is 2, $x$ is a quadratic residue. If the order of $x$ is $2q$ then we have 
+		\[
+			-1=\left(\frac{a}{p}\right)=x^{\frac{p-1}{2}}=x^{2q}\equiv 1\mod p,
+		\]
+		this contradicts the fact that $x$ is a non-residue $\mod p$ by Euler's theorem. So we have that the only quadratic non-residues $\mod p$ have order 4 or order $4q$. But those with order 4 have been shown to not be primitive roots. So all the primitive roots $\mod p=4q+1$ are quadratic non-residues.
+	\end{proof}
+\end{enumerate}
+
+\end{document}
