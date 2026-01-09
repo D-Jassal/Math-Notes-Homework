@@ -1,5 +1,26 @@
-
 \usepackage{import}
+
+\usepackage{titlesec}
+
+% For all section levels
+\titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {\textsection\ \thesection}
+  {0.5em}
+  {}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}
+  {\textsection\ \thesubsection}
+  {0.5em}
+  {}
+
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries}
+  {\textsection\ \thesubsubsection}
+  {0.5em}
+  {}
+
 
 % Math notation shortcuts for notes
 \newcommand{\R}{\mathbb{R}}
@@ -7,6 +28,8 @@
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\Oh}{\mathcal{O}}
+\newcommand{\oh}{\text{o}}
 
 % Calculus
 \newcommand{\diff}{\mathop{}\!\mathrm{d}}
@@ -21,7 +44,10 @@
 \newcommand{\rank}{\operatorname{rank}}
 \newcommand{\nullity}{\operatorname{nullity}}
 
+% Number Theory
+\DeclareMathOperator{\Li}{Li}
 
 % Custom commands for notes
 \newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
 \newcommand{\important}[1]{\textbf{\textcolor{blue}{#1}}}
+

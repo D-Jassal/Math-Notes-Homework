@@ -1,0 +1,177 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+
+\title{MATH 481 Lecture 1}
+\author{Deepak Jassal}
+\date{January 8\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle   
+Motivating questions in analytic number theory.\\
+What is the ``probability'' that a randomly chosen integer is 
+\begin{itemize}
+    \item prime?
+    \item square free?
+    \item has an odd number of prime factors?
+\end{itemize}
+Given a multiplicative function $(f:\N\to\C,\,f(mn)=f(m)f(n),\,\gcd(m,n=1))$, $\varphi(n),\,d(n),\,\sigma(n),$ etc.\\
+What is the distribution of such functions on ``randomly'' chosen integers
+\begin{itemize}
+    \item minimum/maximum
+    \item average value
+    \item typical value
+\end{itemize}
+To make some of these questions more rigorous:\\
+Let $x\geq 1$ be a real parameter\\
+The answer for the questions for $n\in\{1,2,3,\dots,\left\lfloor x\right\rfloor \}$ will depend on our choice of $x$.\\
+For example, consider $\dfrac{1}{x}\sum_{n\leq x}f(n)$ where $f(n)$ is a multiplicative function, and study it's behaviour in terms of $x$ for large values of $x$.
+\ex{The average value $d(n)$
+\[
+    \lim_{x\to\infty}\frac{1}{x}\sum_{n\leq x}d(n)=\log(x), \quad \frac{1}{x}\sum_{n\leq x}d(n)\sim\log(x) 
+\]}
+Let $\pi(x)$ be the number of prime numbers less than or equal to $x$.
+\[
+    \pi(x)=\sum_{\substack{p\leq x\\ p\text{ prime}}}1.
+\]
+The (weak form) of the prime number theorem states that:
+\[
+    \pi(x)\sim\frac{x}{\log(x)}
+\]
+for large values of $x$.\\
+In other words that is 
+\[
+    \lim_{x\to\infty}\frac{\pi(x)}{\frac{x}{\log(x)}}=1.
+\]
+A stronger version of the prime number theorem asserts that 
+\[
+    \pi(x)=\Li(x)+\Oh\left(e^{-c\sqrt{\log(x)}}\right)
+\]
+where
+\[
+    \Li(x)=\int_{2}^{x}\frac{dt}{\log(t)},
+\]
+is the logarithmic integral function.\\\
+Using integration by parts we can see that 
+\[
+    \Li(x)=\frac{x}{\log(x)}+\Oh\left(\frac{x}{(\log(x))^3}\right).
+\]
+For a review of arithmetic and multiplicative functions please refer to chatper 1 of Hilderbrand's notes.\\
+\setcounter{section}{1}
+\section{Asymptotic Notation \& Average Values of Arithmetic Functions}
+\subsection*{``Big Oh'' Notation}
+Let $f:A\to\C$ be a function, and let $g(x)$ be a non-negative function.\\
+We write $f(x)=\Oh(g(x))$ or $f(x)<<g(x)$ is there exists $C>0$ such that
+\[
+    |f(x)|\leq Cg(x)
+\]
+for all $x\in A$.\\
+In this course we will mostly be interested in teh asymptotic behaviour of a function $f(x)$ for large values of $x$ (i.e., $x\to\infty$). In this case, the ``big oh'' notation can be understoof as follows
+\[
+    f(x\Oh(g(x)))
+\]
+whenever therre exists $C>0$ and $x_0>0$ such that
+\[
+    |f(x)|\leq Cg(x)
+\]
+for all $x\geq x_0$.
+\subsection*{``Little Oh'' Notation}
+We say $f(x)=\oh(g(x))$ if 
+\[
+    \lim_{x\to\infty}\frac{f(x)}{g(x)}=0
+\] provided that $g(x)>0$ for large enough $x$.
+In other words, given $\varepsilon>0$, there exists $x_0>1$ such that 
+\[
+    \left|\frac{f(x)}{g(x)}\right|\leq \varepsilon
+\]
+for all $x\geq x_0$.
+Rearranging this expression we see that 
+\[
+    |f(x)|\leq \varepsilon g(x)\Leftrightarrow f(x)=\Oh(g(x).)
+\]
+\ex{
+\begin{enumerate}
+    \item $\log(x)=\Oh(x)$ because $\lim_{x\to\infty}\frac{\log(x)}{x}=0$.
+    \item $\lim_{x\to\infty}f(x)=0\Leftrightarrow f(x)=\Oh(1)$. 
+\end{enumerate}}
+\subsection*{Asymptotic Equivalence}
+We write
+\[
+    f(x)\sim g(x)
+\]
+if 
+\[
+    \lim_{x\to\infty}\frac{f(x)}{g(x)}=1.
+\]
+\subsection*{Order of Magnitude}
+We write 
+\[
+    f(x)\asymp g(x)
+\]
+if
+\[
+    f(x)<<g(x),\text{ and} g(x)<<f(x).
+\]
+In other words, there exists $c_1,c_2\geq 0$ such that
+\[
+    c_1g(x)\leq f(x)\leq c_2g(x)
+\]
+\rmkb{$f(x)\sim g(x) \Rightarrow f(x)\asymp g(x)$ but the backwards implication is not always true.}
+\ex{$x^2\asymp x^2,$ but $\lim_{x\to\infty}\frac{2x^2}{x^2}=2\neq1.$}
+\subsection*{Asymptotic Formula}
+\[
+    f(x)=\underbrace{g(x)}_{\text{main term}}+\underbrace{\Oh(\mathcal{R}(x))}_{\text{error term}}
+\]
+\[
+    |f(x)-g(x)|=\Oh(\mathcal{R}(x))\Leftrightarrow \exists C>0 \text{ such that} |f(x)-g(x)|\leq C\Oh(\mathcal{R}(x)).
+\]
+An asymptotic formula is only meaningful if 
+\[
+    \mathcal{R}(x)=\oh(g(x))
+\]
+i.e., the error term is much smaller than the main term.
+\ex{$\cos(x)=1+\Oh(x^2)$ for $|x|<1$.}
+\begin{proof}
+    By the mean value theorem
+    \[
+    \left|\frac{\cos(x)-\cos(0)}{x-0}\right|=|\sin(c)|
+    \]
+    for some $0\leq c<|x|$. From here we can see that
+    \[
+    \left|\frac{1-\cos(x)}{|x|}\right|=|\sin(c)|\leq \max_{0\leq y\leq |x|}\{\sin(y)\}\leq |x|.
+    \]
+    Hence, 
+    \begin{align*}
+        1-\cos(x)&\leq x^2\\
+        &=\Oh(x^2)\\
+        \cos(x)&=1+\Oh(x^2).\qedhere 
+    \end{align*}
+\end{proof}
+\subsection*{Dependance on Paramters}
+Suppose that $f$ and $g$ depend on a parameter $\lambda$. Then, the notation 
+\[
+    f(x)=\Oh_{\lambda}(g(x))
+\]
+\[
+    f(x)\underset{\lambda}{<<}(g(x))
+\]
+means that the implicit constant depends on $\lambda$.
+\ex{
+\begin{enumerate}
+    \item $\log(x)=\Oh_\varepsilon(x^\varepsilon)$ for any $\varepsilon>0$.
+    \item Given $0<\alpha<1$ then for any $A>0$ and $\varepsilon>0$ we have
+    \[
+        x^{-\varepsilon}\underset{\alpha,\varepsilon}{<<}e^{-c(\log(x))^\alpha}\underset{\alpha,A}{<<} (\log(x))^{-A}.
+    \]
+\end{enumerate}
+}
+\subsection*{Next Time}
+Next time we will consdier 
+\[
+    \frac{1}{x}\sum_{n\leq x}\mu(n),
+\]
+and then move on to developing the summation formulas that allow us to compute average values ($\frac{1}{x}\sum{n\leq x}f(n)$) of arithmetic functions.
+\end{document}
