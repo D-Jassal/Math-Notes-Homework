@@ -1,0 +1,201 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+
+\title{MATH 301 Lecture 1}
+\author{Deepak Jassal}
+\date{January 9\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle  
+\section*{16\textsuperscript{th} Century} 
+Gerolamo Cardano solved the cubic equation\\
+Ludovico Ferrari solved the quadratic equation.
+\setcounter{section}{1}
+\subsection{Casus Irreducibles}
+\[
+    x^3+bx^2+x+d=0
+\]
+If the polynomial does not have rational roots, but does have three real roots then the Cardano formula must use imaginary numbers.\\
+\defn{$\C$, (W.R.Hamilton 1833)}{
+    $\C=\{(a,b):a,b\in\R\}$, $z=a+bi,$ $a,b\in\R$.
+}
+\defn{Complex Addition and Multiplication}{
+    \begin{itemize}
+        \item $(a,b)+(c,d)=(a+c,b+d)$;
+        \item $(a,b)\times(c,d)=(ac-bd,ad+bc)$.
+    \end{itemize}
+}
+\[
+    i=(0,1),\quad 1=(1,0),\quad \R\subseteq\C. 
+\]
+Given that $z=a+bi$ is a complex number, then $\operatorname{Re}(z)=a$ and $\operatorname{Im}(z)=b$.\\
+$(\C,+,\times)$ is a field.\\
+Given that $z=a+bi\neq0$, then we have $z^{-1}=\dfrac{1}{a+bi}=\dfrac{1}{a+bi}\times\dfrac{a-bi}{a-bi}=\underbrace{\dfrac{a}{a^2+b^2}}_A+\underbrace{\left(\dfrac{-b}{a^2+b^2}\right)}_{Bi}$.
+\newpage
+\ex{
+    \begin{align*}
+        z&=\frac{(2+i)^2}{3-i}=\frac{3+4i}{3-i}\times\frac{3+i}{3+i}\\
+        &=\frac{9+3i+12i-4}{9-1}\\
+        &=\frac{5}{10}+\frac{15}{10}i.
+    \end{align*}
+}
+\ex{
+    \begin{align*}
+        (a+bi)^2&=12-5i\\
+        a^2-b^2+2abi&=12-5i
+    \end{align*}
+    \[
+        \begin{cases}
+            a^2-b^2=12\\
+            2ab=-5
+        \end{cases}\Rightarrow z=\frac{5\sqrt{2}}{2}-\frac{\sqrt{2}}{2}i.
+    \]
+}
+\subsection{Geometric Representation of $\C$}
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=1.5]
+        % Complex plane axes
+        \draw[->, thick] (-2.5,0) -- (2.5,0) node[right] {$\operatorname{Re}$ (real axis)};
+        \draw[->, thick] (0,-2.5) -- (0,2.5) node[above] {$\operatorname{Im}$ (imaginary axis)};
+        
+        % Grid lines
+        \draw[gray!30, thin] (-2.5,-2.5) grid (2.5,2.5);
+        
+        % Tick marks
+        \foreach \x in {-2,-1,1,2}
+            \draw (\x,0.05) -- (\x,-0.05) node[below] {$\x$};
+        \foreach \y in {-2,-1,1,2}
+            \draw (0.05,\y) -- (-0.05,\y) node[left] {$\y i$};
+        
+        % Vector from origin to point (a,b)
+        \def\a{1.5}  % real part
+        \def\b{1.2}  % imaginary part
+        
+        % Vector with arrow
+        \draw[->, very thick, blue] (0,0) -- (\a,\b) 
+            node[midway, above, sloped] {$\vec{r}$};
+        
+        % Point at (a,b)
+        \fill[red] (\a,\b) circle (2pt) node[right] {$z = a + bi$};
+        
+        % Dashed lines to axes
+        \draw[dashed, gray] (\a,\b) -- (\a,0) node[below] {$a$};
+        \draw[dashed, gray] (\a,\b) -- (0,\b) node[left] {$bi$};
+        
+        % Angle arc from positive real axis to vector
+        \draw[thick, red] (0.5,0) arc (0:{atan(\b/\a)}:0.5);
+        
+        % Angle label
+        \node[red] at ({0.6*cos(atan(\b/\a)/2)},{0.6*sin(atan(\b/\a)/2)}) {$\theta$};
+        
+        % Unit circle (optional, shows relationship)
+        \draw[orange, dashed, thick] (0,0) circle ({sqrt(\a*\a + \b*\b)});
+        
+        % Polar form label
+        \node[below left] at (0,0) {$0$};
+
+    \end{tikzpicture}
+    \caption{Complex plane $\C$, with a complex number $z=a+bi$ represented as a vector.}
+\end{figure}
+Here $\vec{r}=|z|=\sqrt{a^2+b^2}$, $\theta=\mathrm{arg}(z)$, and for convenience we restrict $0\leq \theta<2\pi.$\\
+\prop{Given $z_1=a_1+b_1i,z_2=a_2+b_2i\in\C$ 
+    \begin{enumerate}
+        \item $|z_1z_2|=|z_1|\times|z_2|$
+        \item $\mathrm{arg}(z_1z_2)=\mathrm{arg}(z_1)\mathrm{arg}(z_2) \mod{2\pi}$ 
+    \end{enumerate}
+    }
+\begin{proof}
+    \begin{enumerate}
+        \item Proof of part 1.
+        \begin{align*}
+            z_1z_2&=(a_1+b_1i)\times(a_2+b_2i)\\
+            &=a_1a_2-b_1b_2+(a_1b_2+a_2b_1)i\\
+            |z_1z_2|&=\sqrt{(a_1a_2-b_1b_2)^2+(a_1b_2+a_2b_1)^2}\\
+            &=\sqrt{(a_1^2a_2^2-2a_1a_2b_1b_2+b_1^2b_2^2)+(a_1^2b_2^2+2a_1a_2b_1b_2+a_2^2b_1^2)}\\
+            &=\sqrt{a_1^2a_2^2+b_1^2b_2^2+a_1^2b_2^2+a_2^2b_1^2}\\
+            &= \sqrt{a_1^2(a_2^2 + b_2^2) + b_1^2(a_2^2 + b_2^2)} \\
+            &= \sqrt{(a_1^2 + b_1^2)(a_2^2 + b_2^2)} \\
+            &= \sqrt{a_1^2 + b_1^2} \cdot \sqrt{a_2^2 + b_2^2} \\
+            &= |z_1| \cdot |z_2|
+        \end{align*}
+        \item Proof of part 2.
+        \begin{align*}
+            z_1&=|z_1|(\cos(\alpha)+i\sin(\alpha))\\
+            z_2&=|z_2|(\cos(\beta)+i\sin(\beta))\\
+            z_1z_2&=|z_1z_2|\left[(\cos(\alpha)\cos(\beta)-\sin(\alpha)\sin(\beta))+i(\cos(\alpha)\sin(\beta)+\cos(\beta)\sin(\alpha))\right]\\
+            &=|z_1|\times|z_2|(\cos(\alpha+\beta)+i\sin(\alpha+\beta))\\
+            \cos(\alpha+\beta)&=\cos(\alpha+\beta\mod(2\pi))\\
+            \sin(\alpha+\beta)&=\sin(\alpha+\beta\mod(2\pi))
+        \end{align*}
+        Therefore, $\mathrm{arg}(z_1z_2)=\mathrm{arg}(z_1)\times\mathrm(z_2)\mod2\pi$.\qedhere
+    \end{enumerate}
+\end{proof}
+\subsection{De Moivre's Formula}
+If $z=r(\cos(\theta)+i\sin(\theta))$ then $z^n=r^n(\cos(n\theta)+i\sin(n\theta))$. This can be proven by induction after showing the first case for $n=2.$
+\ex{
+    Use De Moivre's formula to express $\cos(5\theta)$ and $\sin(5\theta)$ in terms of $\cos(\theta)$ and $\sin(\theta)$.\\
+    Let $z=\cos(\theta)+i\sin(\theta)$ ($|z|=1$). Then
+    \begin{align*}
+        z^5&=\cos(5\theta)+i\sin(5\theta)\\
+        &=(\cos(\theta)+i\sin(\theta))^5\\
+        &=\cos^5(\theta)+5i\cos^4(\theta)\sin(\theta)-10\cos^3(\theta)\sin^2(\theta)-10i\cos^2(\theta)\sin^3(\theta)+\cos(\theta)\sin^4(\theta)+i\sin^5(\theta).
+    \end{align*}
+    Comparing coefficients we obtain
+    \[
+        \cos(5\theta)=\cos^5(\theta)-10\cos^3(\theta)sin^2(\theta)+5\cos(\theta)\sin^4(\theta),
+    \]
+    \[
+        \sin(5\theta)=-5\cos^4(\theta)-10\cos^2\sin^3(\theta)+\sin^5(\theta).
+    \]
+}
+\ex{Find all $n^{\text{th}}$ roots of 1 ($n\in\N$).\\ We have $z^n=1$ where $z\in\C$, and we want to find the value of $z$.\\
+Let $z=\cos(\theta)+i\sin(\theta)$, then 
+\[
+    z^n=\cos(n\theta)+i\sin(n\theta)=1.
+\]
+From here we can see that $\cos(n\theta)=1$ and $\sin(n\theta)=0$. From here we get
+\[
+    n\theta=2k\pi\Rightarrow\theta=\frac{2k\pi}{n},\quad k=1,2,3,\dots,n-1.
+\]
+Therefore, the solution is 
+\[
+    z_k=\cos\left(\frac{2k\pi}{n}\right)+i\sin\left(\frac{2k\pi}{n}\right).
+\]
+To obtain the other roots: let $\omega=\cos\left(\frac{2\pi}{n}\right)+i\sin\left(\frac{2\pi}{n}\right)$. Then, the other roots are
+\[
+    \left\{1,\omega,\omega^2,\cdots,\omega^{n-1} \right\}.
+\]
+}
+\subsection{Complex Conjugation}
+\defn{Complex Conjugate}{
+    If $z=a+bi$ with $a,b\in\R$, then we define the complex conjugate of $z$ as $\bar{z}=a-bi$.
+}
+\props{
+    \begin{enumerate}
+        \item $\overline{z_1+z_2}=\overline{z_1}+\overline{z_1}$
+        \item $\overline{z_1\times z_2}=\overline{z_1}\times\overline{z_1}$
+        \item $z\overline{z}=|z|^2$
+        \item $\operatorname{Re}(z)=\frac{z+\overline{z}}{2}$\\
+              $\operatorname{Im}(z)=\frac{z-\overline{z}}{2i}$
+        \item $\overline{\overline{z}}=z$.
+    \end{enumerate}
+}
+\rmkb{$\mathrm{arg}(z)=\mathrm{arg}(\overline{z})$.}
+\props{Properties of the modulus of $z$ $|z|$.
+\begin{enumerate}
+    \item $|z_1z_2|=|z_1|\times|z_2|$
+    \item $-z\leq\operatorname{Re}(z)\leq z$\\
+          $|-z|\leq\operatorname{Im}(z)\leq |z|$
+    \item $|\overline{z}|=|z|$
+    \item $|z_1+z_2|\leq |z_1|+|z_2|$
+    \item $||z_1|-|z_2||\leq |z_1-z_2|$
+    \item $\left|\displaystyle\sum_{i=1}^{n}z_i\omega_i\right|\leq\sqrt{\displaystyle\sum_{i=1}^{n}|z_i^2|}\times\sqrt{\displaystyle\sum_{i=1}^{n}|\omega_i^2|}$\\\\
+        This inequality is Cauchy-Schwarz in $\C$.
+\end{enumerate}
+}
+\end{document}

@@ -1,0 +1,52 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+
+\title{MATH 420 Lecture 1}
+\author{Deepak Jassal}
+\date{January 9\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle  
+\section{Rings}
+Rings are a particular kind of algebraic structure.\\
+What is the point in considering ``algebraic structures''?\\
+Algebraic structures are abstractions that clarify some essential feature of a problem, and provide a language to describe issues and how they may be resolved.\\
+\\
+Rings ``come from'' groups.\\
+Groups are in some sense the simplest kind of abstract algebraic structures.\\
+Groups are however, already \underline{very} hard structures to understand.\\
+However groups simply cannot capture many objects we come about, which fundamentally may have more than one operation.\\
+From a group $G=(G,\ast)$ we can always form a ring called the \underline{group-ring}.\\
+\defn{Ring}{
+    A sert $\mathcal{R}$ together with two binary operations $``+''$ and $``\times''$ such that
+    \begin{enumerate}
+        \item $(\mathcal{R},+)$ is an Abelian group;
+        \item $\times$ is associative;
+        \item $a\times(b+c)=a\times b + a\times c,$ $\forall a,b,c\in \mathcal{R}$\\;
+              $(b+c)\times a=b\times a + c\times a$ $\forall a,b,c\in \mathcal{R}$\\;
+    \end{enumerate}
+    forms a ring $\mathcal{R}=(\mathcal{R},+,\times)$.\\
+    A ring with a multiplicative identity $1_\mathcal{R}$ such that $1_\mathcal{R}\times a=a\times1_\mathcal{R}=a$ is called a \underline{unital} ring.
+}
+\ex{
+    \begin{enumerate}
+        \item $(\Z,+,\times)$ is a unital ring,
+        \item $(2\Z,+,\times)$ is a ring, but it is not a unital ring.
+    \end{enumerate}
+    Both are examples of \underline{commutative} rings, because $\times$ commutes in both cases.
+}
+\newpage
+\ex{
+    $
+        M_{2\times2}(\Z)=\left\{ \begin{bmatrix}
+            1&b\\c&d
+        \end{bmatrix}: a,b,c,d\in\Z \right\}
+    $
+    with respect to matrix adidtion and multiplication is a non-commutative ring.
+}
+The jury is out on whether non-commutative rings are important. Heavily context dependant.
+\end{document}

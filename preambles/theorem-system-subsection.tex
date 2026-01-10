@@ -235,6 +235,22 @@
     \end{example}
 }
 
+% Properties 
+\newenvironment{properties}{
+    \par\vspace{5pt}
+    \noindent\textbf{Properties.}\par\nopagebreak
+    \begin{list}{}{\setlength\leftmargin{1em}\setlength\rightmargin{0em}}
+    \item\relax
+}{
+    \end{list}\vspace{5pt}
+}
+
+\NewDocumentCommand{\props}{+m}{
+    \begin{example}
+        #1
+    \end{example}
+}
+
 % Remark
 \NewDocumentCommand{\rmk}{+m}{
     {\it \color{blue!50!white}#1}
