@@ -1,0 +1,148 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+
+\title{MATH 204 Lecture 1}
+\author{Deepak Jassal}
+\date{January 12\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle  
+\setcounter{section}{1}
+\setcounter{subsection}{1}
+\section*{\textsection 1.1 Parametric Equations}
+
+
+\begin{figure}[h]
+    \centering
+    
+    \begin{tikzpicture}
+
+    \begin{axis}[
+        trig format plots=rad,
+        axis equal, axis x line=middle, axis y line=
+        middle, xlabel={$x$}, ylabel={$y$},xmin=-3,xmax=3,ymin=-4,ymax=4] 
+
+    \addplot [domain=-1:180, smooth,samples=2000, red,very thick]({(3*x)/(1+x^3)},{(3*x^2)/(1+x^3)}); 
+
+    \addplot [domain=-180:-1, smooth,samples=2000, red,very thick]({(3*x)/(1+x^3)},{(3*x^2)/(1+x^3)}); 
+
+    \end{axis} 
+
+
+    \end{tikzpicture}
+    
+    \label{fig:simple_curve}
+    
+\end{figure}
+Some curves such as this one cannot be expressed as $y=y(x)$. However, we can express this in terms of a third variable, say $t$.
+\ex{A particle moving in the plane having a trajectory that could possibly ``self intersect''.}
+The variable (in this case $t$) is called the parameter. In such a case we express $x$ and $y$ in terms of $t$ as $x=x(t)$, $y=y(t)$.
+\defn{Parametric Curve}{A parametric curve is a path in the $xy$-plane that consists of points of the form
+\[
+    (x(t),y(t))\quad a\leq t\leq b
+\]
+where $t$ is called the parameter.
+}
+\newpage
+\ex{
+\[
+\begin{cases}
+    x(t)=3t+2\\
+    y(t)=-t+5;\quad 0\leq t \leq 2
+\end{cases}
+\]
+We notice, here that $t=-y+5$. Hence, 
+\[
+    x=-3y+17 \Leftrightarrow y=-\frac{x}{3}+\frac{17}{3}.
+\]
+}
+This is an equation of a straight line. However, as $0\leq t\leq 2$, we see that the ``initial'' location of the particle is (2,5), and the ``terminal'' location is (8,3).
+\defn{Initial and Terminal Points}{
+    In \textit{definition 1.1.1} the point $(x(a),y(a))$ is called the ``initial'' point, and the point $(x(b),y(b))$ is called the ``termial'' point.
+}
+\ex{Analyze the parametic equations
+\[
+\begin{cases}
+    x(t)=\cos(5\theta)\\
+    y(t)=\sin(5\theta);\quad 0\leq t\leq \frac{\pi}{10}
+\end{cases}
+\]
+Since $x^2+y^2=1$, the curve starts at (1,0) and ends at (0,1).\\
+So, the parametric equation given is the first quarter of a circle with centre (0,0) and radius 1.
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        % Draw axes
+        \draw[->] (-0.5,0) -- (2.5,0) node[right] {$x$};
+        \draw[->] (0,-0.5) -- (0,2.5) node[above] {$y$};
+        
+        % Draw the quarter circle arc with counterclockwise arrow
+        \draw[thick, blue, ->] (2,0) arc[start angle=0, end angle=90, radius=2];
+        
+        % Mark points
+        \filldraw (2,0) circle (1.5pt) node[below right] {$(1,0)$};
+        \filldraw (0,2) circle (1.5pt) node[above left] {$(0,1)$};
+        \node at (0,0) [below left] {$O$};
+    \end{tikzpicture}
+\end{figure}
+}
+\rec{
+\begin{enumerate}
+    \item The Euclidean distance between points $A=(x_1,y_1)$, $B=(x_2,y_2)$ is
+            \[
+                ||\overrightarrow{AB}||=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}.
+            \]
+    \item Let $A=(x_0,y_0)$. Then we can make a circle with centre $A$ in the $xy-$plane with radius $R$. Then a point is on the circle $P$ \textit{iff} $||\overrightarrow{AP}||=R$.
+    \begin{figure}[h]
+        \centering
+        \begin{tikzpicture}
+            % Center and radius
+            \def\x0{3}
+            \def\y0{2}
+            \def\R{1.5}
+            
+            % Draw axes
+            \draw[->] (-0.5,0) -- (5,0) node[right] {$x$};
+            \draw[->] (0,-0.5) -- (0,4) node[above] {$y$};
+            
+            % Draw circle
+            \draw[thick] (\x0,\y0) circle (\R);
+            
+            % Mark center
+            \filldraw[red] (\x0,\y0) circle (2pt) 
+                node[below] {$A=(x_0,y_0)$};
+            
+            % Draw an arbitrary point on the circle
+            \coordinate (P) at ($(\x0,\y0) + (30:\R)$);
+            \filldraw[blue] (P) circle (2pt) node[above right] {$P=(x,y)$};
+            
+            % Draw radius
+            \draw[thick, dashed] (\x0,\y0) -- (P);
+            \node at ($(\x0,\y0)!0.5!(P) + (0,0.3)$) {$R$};
+            
+            % Label equation
+            \node at (4,4) {$(x-x_0)^2 + (y-y_0)^2 = R^2$};
+        \end{tikzpicture}
+    \end{figure}
+\end{enumerate}    
+
+That is 
+\begin{align*}
+    R^2&=||\overrightarrow{AP}||\\
+    &=(x_0-x)^2+(y_0-y)^2.
+\end{align*}
+}
+\ex{
+\[
+\begin{cases}
+    x(t)=\cos(5\theta)+5\\
+    y(t)=\sin(5\theta)-2;\quad -\frac{\pi}{40}\leq t\leq \frac{\pi}{20}. 
+\end{cases}
+\]
+This equation can be solved by moving the constants to the other side and applying the identity used in the first exmaple.
+}
+\end{document}

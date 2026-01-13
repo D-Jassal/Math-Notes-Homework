@@ -235,6 +235,22 @@
     \end{example}
 }
 
+% Recall 
+\newenvironment{recall}{
+    \par\vspace{5pt}
+    \noindent\textbf{Recall.}\par\nopagebreak
+    \begin{list}{}{\setlength\leftmargin{1em}\setlength\rightmargin{0em}}
+    \item\relax
+}{
+    \end{list}\vspace{5pt}
+}
+
+\NewDocumentCommand{\rec}{+m}{
+    \begin{recall}
+        #1
+    \end{recall}
+}
+
 % Properties 
 \newenvironment{properties}{
     \par\vspace{5pt}

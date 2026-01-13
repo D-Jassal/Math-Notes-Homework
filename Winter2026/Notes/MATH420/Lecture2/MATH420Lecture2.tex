@@ -1,0 +1,72 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+
+\title{MATH 420 Lecture 2}
+\author{Deepak Jassal}
+\date{January 12\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle  
+Last time: Defined a ring  and introduced same examples of commutative and non-commutative rings.\\
+Two most important examples are polynomial rings and matrix rings. Polynomial rings are commutative and matrix rings are non-commutative rings. These two types of rings make up a large portion of rings which are studied.
+\ex{
+    Let $S\subseteq\C$ be a (possibly finte) set, and $f:\C\mapsto\C$ be a meromorphic function. Then $f$ is regular on $\C\setminus S$ if f has no poles outside of $S$.\\
+    Let $R(S)$ be the set of functions regular on $\C\setminus S$. $R(S)$ forms a ring with respect to function addition and multiplication.
+}
+\subsection*{One Point Compactification}
+Place the unit sphere into the complex plane. Then, if we use the point (0,0,1) we can uniquely map each point in $\C$ to a point on the unit sphere. All but one point on the unit sphere is mapped to, the missing point is (0,0,1). If we append $\{\infty\}$ to $\C$ we can make this function a bijection between the unit sphere and $\C\cup\{\infty\}$.\\
+However interesting this might be it makes it so the only holomorphic functions are the constand functions.
+\ex{
+    The following is an exmaple of a quotient ring,
+    \[
+        \R[x,y]=\{p(x,y):p\text{ is a polynomial with real coefficients}\}.
+    \]
+    One can obtain the quotient ring
+    \[
+        \underbrace{\R[x,y]\setminus(x^2-y)}_{\text{Corresponds to } y=x^2}
+    \]
+}
+\ex{
+    For any $n\in\N$ the set $T_n(\C)$ of upper triangular (respectively lower triangular) $n\times n$ matrices forms a ring with respect to matrix addition and matrix multiplication.
+}
+\rmkb{
+    Matrices have a group structure under rotation, however reflections break this structure.
+}
+Symmetries are usually described by certain matrix groups, called \textit{Lie groups}. Associated to Lie groups are \textit{Lie algebras}. These are \underline{matrix rings}.
+\[
+    \text{Lie group}\underset{\text{exponential map}}{\overset{\frac{d}{dx}}{\rightleftharpoons}}\text{Lie algebras}
+\]
+\ex{
+    Number rings i.e.,
+    \[
+        \Z[\sqrt{2}]=\{a+b\sqrt{2}:a,b\in\Z\}\subseteq\R.
+    \]
+    The addition and multiplication is inherited from $\R$.
+    To see that this is a ring we need only to check that it closed under the adidtion and multiplication inherited from $\R$, the other properties are given from $\R$.\\
+    Let $a_1+b_1\sqrt{2},a_2+b_2\sqrt{2}\in\Z[\sqrt{2}]$. Then,
+    \[
+        a_1+b_1\sqrt{2}+a_2+b_2\sqrt{2}=\underbrace{a_1+a_2}_{\in\Z}+\underbrace{(b_1+b_2)}_{\in\Z}\sqrt{2}.
+    \]
+    \begin{align*}
+        (a_1+b_1\sqrt{2})(a_2+b_2\sqrt{2})&=a_1a_2+a_1b_2\sqrt{2}+a_2b_1\sqrt{2}+\sqrt{2}^2b_1b_2\\
+        &=\underbrace{a_1a_2+2b_1b_2}_{\in\Z}+\underbrace{(a_1b_2+a_2b_1)}_{\in\Z}\sqrt{2}.
+    \end{align*}
+    Not all number rings have unique factorization (ex. $\Z[\sqrt{-5}]$).\\
+}
+\rmkb{
+    We refer to the ``dimension'' of a ring as the rank of a ring.
+}
+\begin{center}
+    Integers $\leftrightarrow$ quadratic rings\\
+    Binary cubic forms acted on by $GL_2(\Z)$ $\leftrightarrow$ cubic rings 
+\end{center}
+\rmkb{
+    Binary cubic forms:$ax^3+bx^2+cxy^2+dy^3,a,b,c,d\in\Z.$
+}
+
+
+\end{document}

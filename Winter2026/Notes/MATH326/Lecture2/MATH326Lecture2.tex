@@ -1,0 +1,114 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+\usepackage{blkarray}
+\title{MATH 326 Lecture 2}
+\author{Deepak Jassal}
+\date{January 12\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle
+\section{Vector Spaces}
+\setcounter{subsection}{1}
+\setcounter{subsubsection}{1}  
+\subsection{Subspaces}
+\prop{\label{prop1}
+Subspace Test\\
+Let $V$ be a vector space over $F$, and $U\subseteq V$. Then $U$ is a subspace of $V$ if 
+\begin{enumerate}
+    \item $0\in U$;
+    \item If $u,v\in U$ hten $u+v\in U$;
+    \item If $u\in U$ and $c\in F$, then $cu\in U$.
+\end{enumerate}
+}
+The last two conditions in \textit{prop 1.2.1} is equivalent to the condition 
+\begin{itemize}
+    \item For all $a,b\in F$ and for all $u,v\in U$, $au+bv\in U$. That is, $U$ is closed under linear combinations.
+\end{itemize}
+\ex{
+Let $A=M_{n\times n}(F)$
+\begin{enumerate}
+    \item $\mathrm{null}(A)=\{x\in F^n: AX=0\}$
+    Check: If $x,y\in \mathrm{null}(A),$ $a,b\in F$, then 
+    \[
+        Ax=0,Ay=0\Rightarrow A(ax+by)=a(Ax)+b(Ay)=a0+b0=0\Rightarrow aX+bY\in \mathrm{null}(A).
+    \]
+    \item $\mathrm{col}(A)=\{x_1a_1+x_2a_2+\dots+x_na_n:x_1,\dots,x_n\in F\}$.
+\end{enumerate}
+}
+\prop{
+    Span of $U$ is always a subspace of $V$.
+}
+\thm{Properties of Column Spaces}{
+    Let $Y=[y_1,y_2,\dots,y_p]$ be and $m\times p$ matrix with entries in $F$, and let $A\in M_{m\times n}(F)$. Then 
+    \[
+        \mathrm{col}(Y)\subseteq \mathrm{col}(A)
+    \] 
+    if and only if there exists $X\in M_{n\times p}(F)$ such that $Y=AX$.
+}
+\pf[Proof of Theorem 1.2.3]{
+    $(\Rightarrow)$ Suppose $\mathrm{col}(Y)\subseteq \mathrm{col}(A)$ then each column of $Y$, say $y_j\in \mathrm{col}(A)$ implies 
+    \begin{align*}
+        y_j&=x_{j_1}a_1+\cdots+x_{j_n}a_n\\
+        &=A\begin{bmatrix}
+            x_{j_1}\\
+            \vdots\\
+            x_{j_n}
+        \end{bmatrix}=AX
+    \end{align*}
+    which in turn implies
+    \begin{align*}
+        [y_1\;y_2\;\dots\;y_n]=[Ax_1\;Ax_2\;\dots\;Ax_n]=AX
+    \end{align*}
+    $(\Leftarrow)$ Suppose $Y=AX$, this implies that for all $a\leq j\leq n$ $y_j=Ax_j$. This implies that $y_j=x_{j_1}a_1+\cdots+x_{j_n}a_n$. From here we see that $y_j\in\mathrm{col}(A)$ for all $1\leq j \leq n$. But $\mathrm{col}(A)\leq F^m$ meaning it is closed under linear combinations of $y_1,\cdots,y_n$. Thus, $\mathrm{col}(Y)\leq\mathrm{col}(A)$.
+}
+\subsection*{Properties of Span}
+Let $V$ be a vector space over $F$ and $U\subseteq V$. Then 
+\begin{enumerate}
+    \item $\mathrm{span}(U)\leq V$;
+    \item $U\subset \mathrm{span}(U)$;
+    \item $U=\mathrm{span}(U)\Leftrightarrow U\leq V$;
+    \item $U_1\subseteq U_2\Rightarrow \mathrm{span}(U_1)\leq \mathrm{span}(U_2)$;
+    \item $\mathrm{span}(\mathrm{span}(U))=\mathrm{span}(U)$
+\end{enumerate}
+\subsection*{Operations on Subspaces}
+\begin{enumerate}
+    \item If $U,W\leq V$ then $U\cap W\leq V$
+    \item $U+W\overset{\text{def}}{=}\{u+w:u\in U,w\in W\}$.
+    If $U,W\leq V$ then 
+    \begin{align*}
+        U+W&=\{au+bw:a,b\in F,u\in U,w\in W\}\\
+        &=\mathrm{span}(U\cup W)\leq W.
+    \end{align*} 
+\end{enumerate}
+\defn{Direct Sums of Subspaces}{
+    Let $V$ be a vectore space over $F$, and $U,W\leq V$ and $U\cap W=\{0\}$. Then we write $U+W=U\oplus W$, and say $V$ is a direct sum of $U$ and $W$.
+}
+\ex{
+    Let $V=\R^2$, $U=\left\{\begin{bmatrix}
+        x\\0
+    \end{bmatrix}:x\in\R\right\}$,
+    $W=\left\{\begin{bmatrix}
+        0\\x
+    \end{bmatrix}:x\in\R\right\}$, then $U,W\subseteq \R^2$. Since $U\cap W=\begin{bmatrix}
+        0\\0
+    \end{bmatrix}=\{0\}$. So, $\R^2=V\oplus W$.
+}
+\propp{
+    Let $V$ be a vector space over $F$, Is $V=U\oplus W$ then for every vector $v\in V$, there are unique vectors $u\in U$ and $w\in W$ such that $v=u+w$.
+}{
+    Clearly $v=u+w$. Suppose that $v=u_1+w_1=u_2+w_2$ such that $u_1,u_2\in U$ and $w_1,w_2\in W$. Then 
+    \[
+        \underbrace{u_1-u_2}_{\in U}=\underbrace{w_2-w_1}_{\in W}=z
+    \]
+    this implies that   
+    \[
+        z\in U\cap W\Rightarrow z=0.
+    \]
+    Hence, $u_1-u_2=0\Rightarrow u_1=u_2$ and $w_2-w_1=0\Rightarrow w_1=w_2$.
+}
+\subsection*{Finding a Spanning Set of $\mathrm{col}(A)$}
+\end{document}
