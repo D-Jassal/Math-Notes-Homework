@@ -1,0 +1,182 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 481 Lecture 2}
+\author{Deepak Jassal}
+\date{January 13\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle   
+\setcounter{section}{2}
+\setcounter{subsection}{1}
+Many important problems in analytic number theory reduce to evaluating (partial) sums of the form
+\[
+    \sum_{n\leq x}a_n
+\]
+where $a_n$ is an arithmetic function.
+\ex{
+    \begin{enumerate}
+        \item Let $\Psi(x)=\sum_{n\leq x}\Lambda(n)$ where $\Lambda(n)$ is the Von Mangoldt function. The prime number theorem (PNT) is equivalent to $\Psi(x)\sim x$.\\ Under the Reimann hypothesis we have
+        \[
+            \Psi(x)=x+\Oh\left(x^{\frac{1}{2}+\varepsilon}\right)
+        \]
+        for any $\varepsilon>0$.
+        \item The PNT is equivalent to 
+        \[
+            \sum_{n\leq x}\mu(n)=\oh(x).
+        \]
+        i.e.,
+        \[
+            \lim_{x\to\infty}\frac{1}{x}\sum_{n\leq x}\mu(n)=0.
+        \]
+        Where $\mu(n)$ is the M\"{o}bius function.\\
+        Some interesting facts about $\sum_{n\leq x}\mu(n)$. Merten's conjectured that $|\sum_{n\leq x}\mu(n)|\leq\sqrt{x}$. In 1985 Odlyzko proved that $|\sum_{n\leq x}\mu(n)|>1.06\sqrt{x}$ for infinitely many $x$.\\
+        $\sum_{n\leq x}\mu(n)$ is not a straighforward or easy sum to work with and get significant results on it's asymptotic growth.\\
+        Instead of considering this sum we will consider the weighted sum
+        \[
+        \sum_{n\leq x}\frac{\mu(n)}{n}.
+        \]
+        This is a common trick in analytic number theory (ANT). If $\sum_{n\leq x}f(n)$ is a difficult sum to work with, instead work with $\sum_{n\leq x}\frac{\mu(n)}{\omega(n)}$ where $\omega(n)$ is a ``nice'' weight function.
+        \item Special Case of the Hardy Littlewood Conjecture
+        \[
+            \sum_{n\leq x}\Lambda(n)\Lambda(n+2)\sim Cx
+        \]
+        Where $C$ is given by \[C=\prod_{\substack{p\geq 3\\p\text{ prime}}}\left(1-\frac{1}{(p-1)^2}\right).\]
+        This is a special case of the twin prime conjecture.
+    \end{enumerate}
+}
+Let's consider some partial suns that bac be dealt with without the use of summation formulas.
+\ex{
+    \begin{enumerate}
+        \item $\sum_{n\leq x}n=\left\lfloor x\right\rfloor$, where $\left\lfloor x\right\rfloor=x-\{x\}=x+\Oh(x)$ and $\{x\}$ is the fractional part of $x$.
+        \item 
+        \begin{align*}
+            \sum_{n\leq x}d(n)&=\sum_{n\leq x}\sum_{d\mid n}1\\
+            &=\sum_{d\leq x}\sum_{n\leq x}1\\
+            &=\sum_{d\leq x}\left\lfloor\frac{x}{d}\right\rfloor\\
+            &=\sum_{d\leq x}\left(\frac{x}{d}+\Oh(x)\right)\\
+            &=x\sum_{d\leq x}\frac{1}{d}+\Oh(x)\\
+            &=x(\log x +\Oh(x))+\Oh(x)\\
+            \sum_{n\leq x}d(n)&=x\log x +\Oh(x).
+        \end{align*}
+        From here it is clear to see that
+        \[
+            \frac{1}{x}\sum_{n\leq x}d(n)=\log x + \Oh(1).
+        \]
+        \item We prove that
+        \[
+            \left|\sum_{n\leq x}\frac{\mu(n)}{n}\right|\leq 1.
+        \]
+        We have
+        \begin{align*}
+            \left|\sum_{n\leq x}\frac{\mu(n)}{n}\right|&=\frac{1}{x}\left|\sum_{n\leq x}\mu(n)\frac{x}{n}\right|\\
+            &=\frac{1}{x}\left|\sum_{n\leq x}\mu(n)\left(\left\lfloor \frac{x}{n}\right\rfloor + \left\{\frac{x}{n}\right\}\right)\right|\\
+            &\leq\frac{1}{x}\left|\sum_{n\leq x}\mu(n)\left\lfloor \frac{x}{n}\right\rfloor\right| + \frac{1}{x}\left|\sum_{n\leq x}\mu(n)\left\{ \frac{x}{n}\right\}\right|.
+        \end{align*}
+        We will first deal with the sum on the right
+        \begin{align*}
+            \frac{1}{x}\left|\sum_{n\leq x}\mu(n)\left\{ \frac{x}{n}\right\}\right|&\leq\frac{1}{x}\sum_{n\leq x}\left|\mu(n)\right|\left\{ \frac{x}{n}\right\}\\
+            &\leq\sum_{n\leq x}\left\{\frac{x}{n}\right\}\\
+            &=\sum_{n\leq \lfloor x\rfloor}\left\{\frac{x}{n}\right\}\\
+            &=\sum_{n\leq \lfloor x\rfloor -1}\left\{\frac{x}{n} \right\}+\left\{\frac{x}{\lfloor x\rfloor} \right\}\\
+            &\leq\floor{x}-1+\left\{\frac{\floor{x}+\{x\}}{\floor{x}}\right\}\\
+            &\leq \floor{x}-1+\left\{1+\frac{\{x\}}{\floor{x}} \right\}\\
+            &\leq \floor{x}-1+\frac{\fract{x}}{\floor{x}}\\
+            &\leq \floor{x}-1+\fract{x}=x-1.
+        \end{align*}
+        Now for the left hand sum
+        \begin{align*}
+            \sum_{n\leq x}\mu(n)\floor{\frac{x}{n}}&=\sum_{n\leq x}\mu(n)\sum_{m\leq \frac{x}{n}\Leftrightarrow l=mn\leq x}1\\
+            &\sum_{l\leq x}\sum_{n\mid l}\mu(n)\\
+            &=1
+        \end{align*}
+        From MATH480 we know that 
+        \[
+            \sum_{n\mid l}\mu(n)=
+            \begin{cases}
+                1& \text{if } l=1\\
+                0& \text{otherwise}.
+            \end{cases}
+        \]
+        Combining these two results we arrive at
+        \begin{align*}
+            \left|\sum_{n\leq x}\frac{\mu(n)}{n}\right|&=\frac{1}{x}\left|\sum_{n\leq x}\mu(n)\frac{x}{n}\right|\\
+            &\leq \frac{1}{x}(1+x-1)\\
+            =1.
+        \end{align*}
+    \end{enumerate}
+}
+\subsection{Summation of Smooth Functions (Euler's Summation Formula)}
+\thmr{Euler's Summation Formula}{eulersum}{
+    Let $o<y\leq x$ be real numbers and $f\in\mathcal{C}[y,x]$. Then,
+    \[
+        \sum_{y<n\leq x}f(n)=\int_{y}^{x}f(t)\,dt+\int_{y}^{x}\fract{t}f'(t)dt-\fract{x}f(x)+\fract{y}f(y).
+    \]
+}
+\corp{
+    Let $x\geq 1$ be a real number, $f\in\mathcal{C}[1,x]$. Then \ref{thm:eulersum} gives
+    \[
+        \sum_{n\leq x}f(n)=\int_{1}^{x}f(t)\,dt+\int_{1}^{x}\fract{t}f'(t)dt-\fract{x}f(x)+f(1)
+    \]
+}{
+    Apply theorem \ref{thm:eulersum} with $y=1$.
+}
+Before proving theorem \ref{thm:eulersum} we establish the following application which was stated earlier.
+\thmr{Partial Sums of the Harmonic Series}{harmonic}{
+    \[
+        \sum_{n\leq x}\frac{1}{n}=\log x +\gamma +\Oh\left(\frac{1}{x}\right)
+    \]
+    where $\gamma$ is the Euler-Mascheroni constant defined asymptotic
+    \[
+        \gamma=\lim_{x\to\infty}\left(\sum_{n\leq x}\frac{1}{n}-\log x\right)=0.5772\dots
+    \]
+}
+\pf{
+    Applying corollary 2.2 with $f(n)=\frac{1}{n}$ we get the following
+    \begin{align*}
+        \sum_{n\leq x}\frac{1}{n}&=\int_{1}^{x}\frac{1}{t}\,dt+\int_{1}^{x}\fract{t}\left(\frac{-1}{t^2}\right)\,dt-\fract{x}\frac{1}{x}+1\\
+        &=\log x +1 -\int_{1}^{x}\frac{\fract{t}}{t^2}\,dt+\Oh\left(\frac{1}{x}\right).
+    \end{align*}
+    Set $I(x)=\int_{1}^{x}\frac{\fract{t}}{t^2}\,dt$. Then,
+    \begin{align*}
+        I(x)&=\int_{1}^{\infty}\frac{\fract{t}}{t^2}\,dt-\int_{x}^{\infty}\frac{\fract{t}}{t^2}\,dt\\
+        &=I-\int_{x}^{\infty}\frac{\fract{t}}{t^2}\,dt.
+    \end{align*}    
+    Observe that
+    \[
+        \int_{x}^{\infty}\frac{\fract{t}}{t^2}\,dt\leq \int_{x}^{\infty}\frac{1}{t^2}\,dt=\left[\frac{-1}{t}\right]^\infty_x=\frac{1}{x}.
+    \]
+    Thus,
+    \[
+        I(x)=I+\Oh\left(\frac{1}{x}\right).
+    \]
+    We now have
+    \[
+        \sum_{n\leq x}\frac{1}{n}=\log x -I + 1+\Oh\left(\frac{1}{x}\right).    
+    \]
+    Rearranging this we see that
+    \[
+    \lim_{x\to\infty}\left(\sum_{n\leq x}\frac{1}{n}-\log x\right)=\gamma=\lim_{x\to\infty}\left(1-I+\Oh\left(\frac{1}{x}\right)\right).
+    \]
+    Hence,
+    \[
+        \sum_{n\leq x}\frac{1}{n}=\log x +\gamma +\Oh\left(\frac{1}{x}\right). \qedhere
+    \]
+}
+\pf[Proof of Theorem \ref{thm:eulersum}]{
+    Set $k=\floor{x}$ and $m=\floor{y}$. Then we rewrite the sum asymptotic
+    \[
+        \sum_{y<n\leq x}f(n)=\sum_{m+1\leq n\leq k}f(n).
+    \]
+    Consider $n$ such that $n-1,n\in[y,x]$. Then,
+    \begin{align*}
+    \int_{n-1}^{n}\floor{t}f(t)\,dt&=\int_{n-1}^{n}(n-1)f'(t)\,dt\\
+    &=(n-1)(f(n)-f(n-1))\\
+    &=nf(n)-(n-1)f(n-1)-f(n)
+    \end{align*}
+}
+\end{document}
