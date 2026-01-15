@@ -1,0 +1,65 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+
+\title{MATH 301 Lecture 2}
+\author{Deepak Jassal}
+\date{January 14\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle  
+\setcounter{section}{1}
+\subsection{Equation in $\C$}
+\begin{enumerate}
+    \item Straight lines in $\C$ $L$ can be written as $L:z=z_0+tw$ where $t\in\R$ and $z,z_0,w\in\C$.
+    \item Cricles can be written as $|z_0-z|=r$ for some $r>0$ and $z_0,z\in\C$ where $z_0$ is the centre of the cirle.
+    \item Ellipses can be written as $|z-w_1|+|z-w_2|=2a$ where $w_1,w_2$ are the foci of the ellipse.
+\end{enumerate}
+\subsection{Elementary Functions}
+Given $z\in\C$, $e^{iz}=\cos z+i\sin z$. This us proven by manipulating the Taylor expansion of $e^x,\cos x,$ and $\sin x$.
+\defn{Complex Exponential}{
+    Let $Z=x+iy$. Then we define $e^z$ by
+    \[
+        e^z=e^x\left(\cos y+i\sin y\right).
+    \]
+}
+$e^z$ as defined above is a periodic function with periodicity $2\pi$.
+\subsection*{Properties of $e^z$}
+\begin{enumerate}
+    \item $e^{z_1+z_2}=e^{z_1}e^{z_2}$;
+    \item $|e^{x+iy}|=e^x$;
+    \item $e^z\neq 0,$ for all $z\in\C$;
+    \item $e^z=1$ \textit{if and only if} $z=2n\pi i,$ where $n\in\Z$.
+\end{enumerate}
+\subsection*{Trigonometric Function}
+$e^{iy}=\cos y+i\sin y$\\
+$e^{-iy}=\cos y-i\sin y$\\
+then we can see that
+\[
+    \cos y=\frac{e^{iy}+e^{-iy}}{2}
+\]
+and
+\[
+    \sin y=\frac{e^{iy}-e^{-iy}}{2i}
+\]
+\defn{Complex Trigonometric Functions}{Given $z\in\C$ we have
+    \[
+    \cos z=\frac{e^{iz}+e^{-iz}}{2}
+\]
+and
+\[
+    \sin z=\frac{e^{iz}-e^{-iz}}{2i}.
+\]
+}
+\subsection*{Trigonometric Identities}
+\begin{enumerate}
+    \item $\cos^2 z+\sin^2 z=1$ for all $z\in\C$;
+    \item $\cos(z+w)=\cos z\cos w+\sin z\sin w$ for all $z,w\in\C$;
+    \item $\sin(z+w)=\cos z\sin w+\sin w\cos z$ for all $z,w\in\C$.
+\end{enumerate}
+
+
+\end{document}

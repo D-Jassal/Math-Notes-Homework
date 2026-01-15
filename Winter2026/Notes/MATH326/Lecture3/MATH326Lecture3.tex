@@ -1,0 +1,88 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+\usepackage{blkarray}
+\title{MATH 326 Lecture 3}
+\author{Deepak Jassal}
+\date{January 14\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle
+\setcounter{section}{1}
+\setcounter{subsection}{2}
+\setcounter{subsubsection}{5}
+\defn{Basis of a Vector Space}{
+    Let $\mathcal{V}$ be a vector space, $\mathcal{B}\subseteq \mathcal{V}$, then $\mathcal{B}$ is a basis of $\mathcal{V}$ if
+    \begin{enumerate}
+        \item $\mathrm{span}(\mathcal{B})=\mathcal{V}$;
+        \item $\mathcal{B}$ is linearily independant (LI).
+    \end{enumerate}
+}
+\ex{
+    Let $\mathcal{V}=P_\R$ (vector space of all polynomial equations with real coefficients). Then 
+    \[
+        \mathcal{B}=1,x,x^2,x^3,\dots
+    \]
+}
+\prop{
+    If $\beta=v_1,v_2,\cdots,v_n$ is a basis of $\mathcal{V}$, then every vector $u\in\mathcal{V}$ can be expressed as a unique linear combination of vectors in $\beta$.
+}
+\defn{Finite Dimensional Vector Spaces}{
+    A vector space is called finite dimensional if it has a finite basis.
+}
+\propp{
+    Every vector space has a basis.
+}
+{
+    Involves Zorn's lemma.
+}
+\thm{Equivalence of Basis Vectors}{
+    Let $\mathcal{V}$ be a vector space and $\mathcal{B}$ a basis of $\mathcal{V}$. Then the following statements are equivalent
+    \begin{enumerate}
+        \item $\mathcal{B}$ is a basis of $\mathcal{V}$;
+        \item $\mathcal{B}$ is a maximal LI subset of $\mathcal{V}$;
+        \item $\mathcal{B}$ is a minimal span set of $\mathcal{V}$.
+    \end{enumerate}
+}
+\pf[Proof of Theorem 1.2.5]{
+    $(1\Rightarrow 2)$ Suppose that $\mathcal{B}$ is a basis of $\mathcal{V}$. Then $\mathcal{B}$ is L.I. Further suppose $v\not\in \mathcal{B}$.
+    \textit{Claim.} $\mathcal{B}\cup v$ is not L.I.
+    \pf[Proof of the Claim]{
+        $\mathrm{span}(\mathcal{B})=V$ so $v=c_1v_1+\cdots+c_n+v_n\Rightarrow \mathcal{B}\cup v$ is not L.I.
+    }
+    $(2\Rightarrow 1)$ Suppose that $S\subseteq \mathcal{V}$ is maximal L.I. Then for any $v\in\mathcal{V}$ $v=c_1v_1+\cdots+c_n+v_n$. Since this is true for any arbitrary $v\in\mathcal{V}$ we have $\mathrm{span}(\mathcal{S})=\mathcal{V}$.
+}
+\thm{}{Every spannign set of a vector space $\mathcal{V}$ can be made into a basis}
+\thm{Cardinalioty of Basis}{Let $\mathcal{V}$ be a vector space, and $\mathcal{B}_1$, $\mathcal{B}_2$ a basis of $\mathcal{V}$. Then $|\mathcal{B}_1|=|\mathcal{B}_2|$.}
+The proof of this theorem uses the following lemma
+\lem{Steinitz's Exchange Lemma}{
+    Let $\mathcal{V}$ be a vector space over $\mathbb{F}$, $\mathcal{I}=\{v_1,v_2,\dots v_m\}$ be a L.I subset of $\mathcal{V}$, $\mathcal{S}=\{w_1,w_1,\dots,w_n\}$ be such that $\mathrm{span}(\mathcal{S})=V$. then
+    \begin{enumerate}
+        \item $m\leq n$;
+        \item we can replace $m$ vectors in $\mathcal{S}$ with the vectors in $\mathcal{I}$, and the new set is a spanning set.
+    \end{enumerate}
+}
+\pf[Proof of Lemma 1.28]{
+    \begin{enumerate}
+        \item This is trivial from the properties of L.I and spanning sets.
+        \item Exchange some $w_i$ with $v_1$.\\
+        Since $\mathrm{span}(\mathcal{S})=\mathcal{V}$ then $v_1\in\mathrm{span}(\mathcal{V})\Rightarrow v_1=c_1w_1+\dots+c_nw_n$ and $v_1\neq0$ (due to L.I). This tells us that not all of the $c_1,\dots,c_n$ are equal to zero. Without loss of generality let $i=1$, then replace $w_1$ with $v_1$. From here we obtain
+        \[
+            w_1=\frac{1}{c_1}v_1-\frac{1}{c_2}w_2-\cdots-\frac{1}{c_n}w_n.
+        \]
+        We claim that $\mathrm{span}(\{v_1,w_2,w_3,\dots,w_n\})=\mathcal{V}$.\\
+        Assume that we have exchanged $k$ vectors in $\mathcal{S}$ with vectors from $\mathcal{I}$. Without loss of generality set
+        \[
+            \widehat{\mathcal{S}}=\{v_1,v_2\dots,v_k,w_{k+1},w_{k+2},\dots,w_{n}\}. 
+        \]
+        So we have $v_{k+1}\in\mathrm{span}(\mathcal{\widehat{S}})$, and since $v_{k+1}$ is L.I with $\{v_1,v_2\dots,v_k\}$ we know that $v_{k+1}=c_{k+1}w_{k+1}+c_{k+2}w_{k+2}+\cdots+c_{n}w_n$ where not all $c_{k+1}\dots c_n$ are equal to zero. This means that we can replace a vector from $\{w_{k+1},\dots,w_n\}$ with $v_{k+1}$. Repeat until we obtain the desired result. $\qedhere$
+    \end{enumerate}
+}
+\cor{$|\mathcal{B}_1|=|\mathcal{B}_2|$ if both are basis sets for $\mathcal{V}$.}
+\pf[Proof of Corollary 1.2.9]{
+    Suppose $|\mathcal{B}_1|=m$ and $|\mathcal{B}_1|=n$. Then applying Steinitz'x lemme with $I=\mathcal{B}_1$ and $S=\mathcal{B}_2$ we get $m\leq n$. Applying the lemma agin with $I=\mathcal{B}_2$ and $S=\mathcal{B}_1$ we get $n\leq m$. Thus, $m=n\Rightarrow |\mathcal{B}_1|=|\mathcal{B}_2|$.
+}
+\end{document}
