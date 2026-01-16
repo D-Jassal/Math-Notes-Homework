@@ -1,0 +1,82 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 420 Lecture 3}
+\author{Deepak Jassal}
+\date{January 14\textsuperscript{th}, 2026}
+
+\begin{document}
+\setcounter{section}{1}
+\maketitle  
+\textit{Recall.} Qoutients in ring theory were briefly mentioned.\\
+The original motivation for this phenomenon came from modular arithmetic.\\
+Consider the (OG ring) $(\Z,+,\times)$, We can consider an arithmetic induced by a positive integer $m$, through remainders when divied by m.\\
+\ex{
+    If $m=3$, every integer can be written as $3x$, $3x+1$ or $3x+2$.
+    \[
+      (3x+1)(3y+2)=\underbrace{9x+6x+3y}_{3z}+2.  
+    \]
+}
+The modern way to define modular arithmetic modula $m$:
+\begin{enumerate}
+    \item Introduce an equivalence relation $\sim_m$ on $\Z$:\\
+    $a\sim_m b$ \textit{if and only if} $a-b$ is divisible by $m$.
+    \item Introduce addition and multiplication to the equivalence classes with respect to $\sim_m$
+    \[
+        [a]_m+[b]_m:=[a+b]_m,
+    \]
+    \[
+        [a]_m[b]_m:=[a\times b]_m.
+    \]
+    \item Check this is well defined. That is if the representative of a class changes, output does not chance under addition or multiplication.
+\end{enumerate}
+Then we get a new ring $(\Z/m\Z,+,\times)$.\\\\
+Can this be done in general?\\
+If the ring is commutative we get a very nice thoery. If the ring is not commutative this becomes much more complicated; more interpretations.\\
+Even for commutative rings quotients of the form $R/S$ with $S$ an arbitrary subring are not necessarily well behaved.\\
+For $R/S$ to inherit the ring structure on $R$ we need that $[a]_S[b]_S=[ab]_S$ to be well defined. If there exists $s\in S$ and $r\in R$, then
+\[
+    [r]_S\underbrace{[s]_S}_{=[0]_S}=[rs]_S\neq0.
+\]
+Thus $S$ needs to satisfy a much stronger condition, that being $sr\in S$ for all $s\in S$ and $r\in R$. Such subrings are called ``ideals''.
+\defn{Ideals}{
+    Let $(R,+,\times)$ be a commutative ring. A subset $S\subset R$ togeth with $+,\times$ is said to be \underline{ideal} if 
+    \begin{enumerate}
+        \item $(S,+)$ is an Abelian group;
+        \item for all $s\in S$ and $r\in R$ we have $sr\in S$. 
+    \end{enumerate}
+}
+\propp{
+    Let $(R,+,\times)$ be a commutative ring and $I\subseteq R$ an ideal. Then $R/I,+,\times$ is a ring.
+}{
+    \textit{Sketch}.\\
+    We have to show that 
+    \[
+        [a_1]_I[b_1]_I=[a_2]_I[b_2]_I.
+    \]
+    Hypothesis implies that there exists $s_1,s_2\in I$ such that $a_2=a_1+s_1$ and $b_2=b_1+s_2$. Then,
+    \begin{align*}
+        [a_2]_I[b_2]_I&=[a_2b_2]_I\\
+        &=[(a_1+s_1)(b_1+s_2)]_I\\
+        &=[a_1b_1+s_1b_1+s_2a_1+s_1s_2]_I\\
+        [a_1]_I[b_1]_I&=[a_1b_1]_I
+    \end{align*}
+}
+To study rings, just like vector spaces we want to understand the \underline{maps} between rings.
+\defn{Ring Homomorphisms}{
+    Let $(R,+,\times)$,$(S,\oplus,\otimes)$ be rings.\\
+    A function $f:R\mapsto S$ is said to be a homomorphism If
+    \begin{enumerate}
+        \item $f(0_R)=0_S$;
+        \item $f(a+b)=f(a)\oplus f(b)$;
+        \item $f(ab)=f(a)\otimes f(b)$.
+    \end{enumerate}
+}
+\fact{
+    If $R,S$ are commutative rings, and $f:R\mapsto S$ is a homomorphism, then the kernel fo $f$ is an ideal.
+}
+\end{document}

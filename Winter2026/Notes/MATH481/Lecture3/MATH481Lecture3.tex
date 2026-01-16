@@ -1,0 +1,167 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 481 Lecture 3}
+\author{Deepak Jassal}
+\date{January 15\textsuperscript{th}, 2026}
+
+\begin{document}
+\setcounter{section}{2}
+\setcounter{tcb@cnt@mydefinition}{3}
+\maketitle   
+\textit{Recall.} Eulers summation formula which states that for $f\in\mathcal{C}[y,x]$ we have
+\[
+    \sum_{y\leq n\leq x}f(n)=\int_{y}^{x}f(t)\,dt+\int_{x}^{y}\fract{t}f'(t)\,dt-\fract{t}f(x)+\fract{y}f(y).
+\]
+\pf[Continuation of Proof for Theorem 2.1]{
+    Set $k=\floor{x}$ and $m=\floor{y}$. We observe that
+    \[
+        \sum_{y\leq n\leq x}f(n)=\sum_{m+1\leq n\leq k}f(n).
+    \]
+    We also have for $n-1,n\in[y,x]$
+    \[
+        \int_{n-1}^{n}\floor{t}f'(t)\,dt=nf(n)-(n-1)f(n-1)-f(n).
+    \]
+    Hence,
+    \begin{align*}
+        \int_{m+1}^{k}\floor{t}f'(t)\,dt=&\int_{m+1}^{m+2}\floor{t}f(t)\,dt+\int_{m+2}^{m+3}\floor{t}f(t)\,dt+\cdots+\int_{k-1}^{k}\floor{t}f(t)\,dt\\
+        =&(m+2)f(m+2)-(m+1)f(m+1)-f(m+2)\\
+        &+(m+3)f(m+3)-(m+2)f(m+1)-f(m+3)\\
+        &+\;\,\vdots\\
+        &+kf(k)-(k-1)f(k-1)-f(k)\\
+        =&-mf(m+1)+kf(k)-\sum_{m-1\leq n\leq k}f(n).
+    \end{align*}
+    It follows that
+    \begin{align*}
+        \sum_{m-1\leq n\leq k}f(n)&=kf(k)-mf(m+1)-\int_{m+1}^{k}\floor{k}f'(t)\,dt\\
+        &=kf(k)-mf(m+1)-\int_{y}^{x}\floor{t}f'(t)\,dt+\int_{y}^{m+1}\floor{t}f'(t)\,dt+\int_{k}^{x}\floor{t}f'(t)\,dt\\
+        &=kf(k)-mf(m+1)-\int_{y}^{x}\floor{t}f'(t)\,dt+m\int_{y}^{m+1}f'(t)\,dt+k\int_{k}^{x}f'(t)\,dt\\
+        &=kf(k)-mf(m+1)-\int_{y}^{x}\floor{t}f'(t)\,dt+m(f(m+1)-f(y))+k(f(x)-f(k))\\
+        &=kf(x)-mf(y)-\int_{y}^{x}tf'(t)\,dt+\int_{y}^{x}\fract{t}f'(t)\,dt\\
+        &=kf(x)-mf(y)-[tf(t)]_y^x+\int_{x}^{y}f(t)\,dt+\int_{y}^{x}\fract{t}f'(t)\,dt\\
+        &=xf(x)-\fract{x}f(x)-yf(y)+\fract{y}f(y)-xf(x)+yf(y)+\int_{y}^{x}f(t)\,dt+\int_{y}^{x}\fract{t}f(t)\,dt.
+    \end{align*}
+    Cancelling the terms we arrive at 
+    \[
+                \sum_{y\leq n\leq x}f(n)=\int_{y}^{x}f(t)\,dt+\int_{x}^{y}\fract{t}f'(t)\,dt-\fract{t}f(x)+\fract{y}f(y)
+    \]
+    which is the desired result.
+}
+\thm{Sum of Logartihm's}{
+    Let $N\in\N$ then we have
+    \[
+    \sum_{n\leq N}\log n=Nlog N-N+\frac{1}{2}\log N + c+\Oh\left(\frac{1}{N}\right).
+    \]
+}
+
+Observe that the above formula can be written as
+\[
+    \log N!=Nlog N-N+\frac{1}{2}\log N + c+\Oh\left(\frac{1}{N}\right),
+\]
+exponentiating we obtain
+\begin{equation}\label{eqn:stirling}
+    N!=N^Ne^{-N}\sqrt{N}e^ce^{\Oh\left(\frac{1}{N}\right)}.
+\end{equation}
+What can be said about $e^{\Oh\left(\frac{1}{N}\right)}$?\\
+Let $g(N)$ be a function such that $g(N)=\Oh\left(\frac{1}{N}\right)$. i.e., $|g(N)|\leq C\frac{1}{N}$ for some $C>0$.
+\begin{align*}
+    \left|e^{g(N)}\right|&=\left|a+g(N)+\frac{g(N)^2}{2!}++\frac{g(N)^3}{3!}+\cdots\right|\\
+    &\leq1+\left|g(N)\right|+\left|\frac{g(N)^2}{2!}\right|+\cdots\\
+    &\leq1+\frac{C}{N}+\frac{C^2}{N}\\
+    &=1+\frac{C}{N}\left(1+\frac{1}{2!}\frac{C}{N}+\frac{1}{3!}\frac{C^2}{N^2}+\cdots\right)\\
+    &=1+\Oh\left(\frac{1}{N}\right).
+\end{align*}
+It follows that $e^{\Oh\left(\frac{1}{N}\right)}=1+\Oh(\frac{1}{N})$. Furthermore,
+\[
+    e^x=1+\Oh\left(x\right),\quad \text{if } |x|<1.
+\]
+Going back to \ref{eqn:stirling} we have
+\[
+    N!=N^Ne^{-N}\sqrt{N}e^c\left(1+\Oh\left(\frac{1}{N}\right)\right).
+\]
+Hence, we arrive at stirlin's formula.
+\corp{
+    \[
+        N!=C_1N^Ne^{-N}\sqrt{N}\left(1+\Oh\left(\frac{1}{N}\right)\right).
+    \]
+}{
+By Euler's summation formula we have
+\begin{align*}
+    \sum_{n\leq N}\log n&=\int_{1}^{N}\log t\,dt+\int_{1}^{t}\fract{t}\frac{1}{t}\,dt-\fract{N}\log N\\
+    &=N\log N-N+\int_{1}^{N}\frac{\fract{t}}{t}\,dt.
+\end{align*}
+Now let's consider $\int_{1}^{N}\frac{\fract{t}}{t}\,dt$.
+\begin{align*}
+    \int_{1}^{N}\frac{\fract{t}}{t}\,dt&=\int_{1}^{N}\frac{\fract{t}+\frac{1}{2}-\frac{1}{2}}{t}\,dt\\
+    &=\frac{1}{2}\log N+\int_{1}^{N}\frac{\fract{t}-\frac{1}{2}}{t}\,dt.
+\end{align*}
+Out problem is now reduced to showing that $\int_{1}^{N}\frac{\fract{t}-\frac{1}{2}}{t}\,dt=c+\Oh\left(\frac{1}{N}\right)$, for some explicitly given constant $c$.\\
+Let $\rho(t)=\frac{t}-\frac{1}{2}$, then we have
+\[
+    \int_{1}^{N}\frac{\rho(t)}{t}\,dt
+\]
+let $u=\frac{1}{t}$, $dv=\rho(t)\,dt$, $du=\frac{1}{t^2}\,dt$, $v=\int_{1}^{t}\rho(x)\,dx=R(t)$. Then the above integral becomes
+\[
+    \left[\frac{R(t)}{t}\right]_1^N+\int_{1}^{N}\frac{1}{t^2}\,dt.
+\]
+Notice a property of $R(t)$.
+\begin{align*}
+    R(N)=\int_{1}^{N}\rho(x)\,dx&=\int_{1}^{2}\rho(x)\,dx+\int_{2}^{3}\rho(x)\,dx+\cdots+\int_{N-1}^{N}\rho(x)\,dx\\
+    &=\int_{1}^{2}\fract{x}-\frac{1}{2}\,dx+\int_{2}^{3}\fract{x}-\frac{1}{2}\,dx+\cdots+\int_{N-1}^{N}\fract{x}-\frac{1}{2}\,dx\\
+    &=\int_{0}^{1}x-\frac{1}{2}\,dx+\int_{0}^{1}x-\frac{1}{2}\,dx+\cdots+\int_{0}^{1}x-\frac{1}{2}\,dx\\
+    &=\left[\frac{x^2}{2}-\frac{x}{2}\right]_0^1+\left[\frac{x^2}{2}-\frac{x}{2}\right]_0^1+\cdots+\left[\frac{x^2}{2}-\frac{x}{2}\right]_0^1\\
+    &=0+0+\cdots+0\\
+    &=0.
+\end{align*}
+Hence, $R(N)=0$ for all $N\in\N$.\\
+Observe that
+\begin{align*}
+    \left|R(t)\right|&=\left|\int_{1}^{t}\rho(x)\,dx\right|\\
+    &=\left|\int_{\floor{t}}^{t}\rho(x)\,dx\right|\\
+    &\leq\int_{\floor{t}}^{t}\left|\rho(x)\right|\,dx\\
+    &\leq \frac{1}{2}\left(t-\floor{t}\right)=\frac{1}{2}\fract{t}\leq\frac{1}{2}.
+\end{align*}
+Hence, $\int_{1}^{\infty}\frac{R(t)}{t^2}\,dt=c$ for some constant $c$, and 
+\[
+    \int_{N}^{\infty}\frac{R(t)}{t^2}\,dt\leq \int_{N}^{\infty}\frac{\frac{1}{2}}{t^2}\,dt\ll\frac{1}{N}.
+\]
+Thus we have
+\[
+    \sum_{n\leq N}\log n =N\log N-N+\frac{1}{2}\log N+c+\Oh\left(\frac{1}{N}\right)
+\]
+which yields the descired result.
+}{}
+\newpage
+\corp{Given $x\in\R$ and $x\geq1$ we have
+\[
+    \sum_{n\leq N}\log n=x\log x-x+\Oh(\log x).
+\]}{
+    The result can be derived directly from Euler's summation formula, we will instead use another approach.\\
+    Applying theorem 2.4 with $N=\floor{x}$
+    \begin{align*}
+        \sum_{n\leq x}\log n&=\sum_{n\leq N}\log n\\
+        &=\floor{x}\log\floor{x}-\floor{x}+c+\frac{1}{2}\log\floor{x}+\Oh\left(\frac{1}{\floor{x}}\right)\\
+        &=(x-\fract{x})\log(x-\fract{x})-(x-\fract{x})+c+\frac{1}{2}\log(x-\fract{x})+\Oh\left(\frac{1}{(x-\fract{x})}\right)
+    \end{align*}
+    Given $|t|<1$
+    \begin{align*}
+        \log t&=-\sum_{n=1}^{\infty}\frac{t^n}{n}=1-t-\frac{t^2}{2}-\cdots\\
+        &=-1-t\left(1+\frac{t}{2}+\frac{t^2}{3}+\cdots\right)=-1+\Oh(t).
+    \end{align*}
+    Since $|t|<1$ we further have $\log t=\Oh(1)$.\\
+    Hence,
+    \[
+        \log(x-\fract{x})=\log x+\Oh(1).
+    \]
+}{}
+    
+
+
+
+
+
+\end{document}

@@ -16,6 +16,7 @@
 %   p:              Add a short proof block for Lemma, Corollary, Proposition or Claim, e.g. lemp
 %                   For theorems, use \pf for proof blocks
 
+
 % Definition - section numbering for 1.1, 1.2
 \newtcbtheorem[number within=section]{mydefinition}{Definition}
 {
@@ -37,7 +38,7 @@
     \end{mydefinition}
 }
 
-% Theorem - subsection numbering
+% Theorem - section numbering
 \newtcbtheorem[use counter from=mydefinition]{mytheorem}{Theorem}
 {
     colbacktitle=cyan!20!white,
@@ -58,7 +59,7 @@
     \end{mytheorem}
 }
 
-% Lemma - subsection numbering
+% Lemma - section numbering
 \newtcbtheorem[use counter from=mydefinition]{mylemma}{Lemma}
 {
     colbacktitle=violet!20!white,
@@ -91,7 +92,7 @@
     \end{lempf}
 }
 
-% Corollary - subsection numbering
+% Corollary - section numbering
 \newtcbtheorem[use counter from=mydefinition]{mycorollary}{Corollary}
 {
     colbacktitle=orange!20!white,
@@ -123,7 +124,7 @@
     \end{corpf}
 }
 
-% Proposition - subsection numbering
+% Proposition - section numbering
 \newtcbtheorem[use counter from=mydefinition]{myproposition}{Proposition}
 {
     colbacktitle=yellow!30!white,
@@ -155,7 +156,7 @@
     \end{proppf}
 }
 
-% Claim - subsection numbering
+% Claim - section numbering
 \newtcbtheorem[use counter from=mydefinition]{myclaim}{Claim}
 {
     colbacktitle=pink!30!white,
@@ -187,7 +188,7 @@
     \end{clmpf}
 }
 
-% Fact - subsection numbering
+% Fact - section numbering
 \newtcbtheorem[use counter from=mydefinition]{myfact}{Fact}
 {
     colbacktitle=purple!20!white,
