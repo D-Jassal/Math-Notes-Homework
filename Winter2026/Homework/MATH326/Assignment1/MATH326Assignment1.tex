@@ -1,0 +1,81 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../../preambles/hw-preamble.tex}
+\input{../../../../preambles/homework-macros.tex}
+\input{../../../../preambles/homework-title.tex}
+\input{../../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Advanced Linear Algebra}
+\renewcommand{\coursecode}{MATH 326}
+\renewcommand{\assignment}{Assignment 1}
+\renewcommand{\instructor}{Dr. Edward Dobrowolski}
+\renewcommand{\duedate}{January 23\textsuperscript{th}, 2026}
+
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Problem 1}
+Let $V = \R^2$. Define on $V$ addition of vectors by
+\[
+(x_1, x_2) \oplus (y_1, y_2) = \left( \sqrt[3]{x_1^3 + y_1^3 + 1},\ \sqrt[3]{x_2^3 + y_2^3 + 2} \right),
+\]
+and multiplication by scalar by
+\[
+c \odot (x_1, x_2) = \left( \sqrt[3]{cx_1^3 + c - 1},\ \sqrt[3]{cx_2^3 + 2c - 2} \right).
+\]
+Show that $V$ with addition of vectors $\oplus$ and multiplication by scalars $\odot$ is a vector space over $\R$.
+
+\stepcounter{section}
+\section*{Problem 2}
+Let $U = \operatorname{span}\{(1, 2, 3, 4), (-1, 2, 0, 5), (-3, -6, -9, -12), (-1, 10, 6, 23), (1, 1, 1, 1)\}$. Find a basis of $U$ in two different ways:
+\begin{enumerate}
+    \item[(a)] By selecting the basis from among the spanning vectors of $U$.
+    \item[(b)] By row reducing the matrix whose rows are the vectors listed in the span.
+\end{enumerate}
+
+
+\stepcounter{section}
+\section*{Problem 3}
+Complete the set $\{(1, 2, 3, 4), (2, 2, 3, 4)\}$ to a basis of $\R^4$.
+
+
+
+\stepcounter{section}
+\section*{Problem 4}
+Let $V$ be the set of all $2 \times 2$ matrices with real entries of the form $v = \begin{pmatrix} 1 & v \\ 0 & 1 \end{pmatrix}$. Define vector addition by
+\[
+v + w = \begin{pmatrix} 1 & v \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 1 & w \\ 0 & 1 \end{pmatrix}
+\]
+and scalar multiplication by $cv = \begin{pmatrix} 1 & cv \\ 0 & 1 \end{pmatrix}$. Show that $V$ together with these operations is a real vector space. In particular state what is zero and $-v$ in this space.
+
+
+
+\stepcounter{section}
+\section*{Problem 5}
+Suppose that $A$ is a $2 \times 2$ invertible matrix with real entries. Show that $U = \operatorname{span}\{A^n : n \in \Z\} \neq M_{2\times 2}(\R)$.
+
+\noindent\textbf{Hint:} Let $B \in U$. Do we have $AB = BA$? If so...
+
+\end{document}

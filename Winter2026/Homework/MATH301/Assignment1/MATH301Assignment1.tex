@@ -12,7 +12,7 @@
 \renewcommand{\coursecode}{MATH 301}
 \renewcommand{\assignment}{Assignment 1}
 \renewcommand{\instructor}{Dr. Edward Dobrowolski}
-\renewcommand{\duedate}{January 26\textsuperscript{th}, 2026}
+\renewcommand{\duedate}{January 23\textsuperscript{th}, 2026}
 
 
 \begin{document}
@@ -40,16 +40,75 @@
 Express in the form $a+bi$, $a,b\in\R$
 \begin{enumerate}[label=(\alph*)]
     \item $(2+i)^4$
+    \begin{align*}
+		(2+4i)^4&=((2+4i)^2)^2\\
+		&=(4+4i+i^2)^2\\
+		&=(3+4i)^2\\
+		&=9+24i^16i^2\\
+		&=-7+24i.
+	\end{align*}
     \item $\frac{3+4i}{4+3i}$
+    \begin{align*}
+		\frac{3+4i}{4+3i}&=\frac{3+4i}{4+3i}\cdot\frac{4-3i}{4-3i}\\
+		&=\frac{12+7i-12i^2}{4^2+3^2}\\
+		&=\frac{24+7i}{25}\\
+		&=\frac{24}{25}+\frac{7}{25}i.
+	\end{align*}
 \end{enumerate}
 \stepcounter{section}
 \section*{Problem 2}
 Find the three roots of $z^3-4=0$.
+\[
+	z^3-4=0\Leftrightarrow z^3=4.
+\]
+\begin{align*}
+	z^3&=4\cdot e^{i2\pi n},\quad n \in\Z\\
+	z_n&=4^{\frac{1}{3}}\cdot e^{\frac{i2\pi n}{3}},\quad k=0,1,2\\
+	&=2^{\frac{2}{3}}\cdot e^{\frac{i2\pi n}{3}}\\
+	\intertext{For $n=0$}
+	z_0&=2^{\frac{2}{3}}\cdot e^{0i}=2^{\frac{2}{3}}\\
+	\intertext{For $n=1$}
+	z_1&=2^{\frac{2}{3}}\cdot e^{\frac{i2\pi 1}{3}}=2^{\frac{2}{3}}\left(-\frac{1}{2}+i\frac{\sqrt{3}}{2}\right)\\
+	\intertext{For $n=2$}
+	z_2&=2^{\frac{2}{3}}\cdot e^{\frac{i2\pi 2}{3}}=2^{\frac{2}{3}}\left(-\frac{1}{2}-i\frac{\sqrt{3}}{2}\right).
+\end{align*}
 \stepcounter{section}
 \section*{Problem 3}
 Assuming that either $|z| = 1$ or $|w| = 1$ and $\overline{z}w\neq1$, prove that
 \[
     \left|\frac{z-w}{1-\overline{z}w}\right|=1.
+\]
+Let $E=\frac{z-w}{1-\overline{z}w}$. Then we have
+\begin{align*}
+	|E|^2&=E\overline{E}\\
+	&=\frac{z-w}{1-\overline{z}w}\cdot\frac{\overline{z}-\overline{w}}{1-z\overline{w}}\\
+	&=\frac{z\overline{z}-z\overline{w}-w\overline{z}+w\overline{w}}{1-z\overline{w}-\overline{z}w+\overline{z}w\cdot z\overline{w}}\\
+	&=\frac{|z|^2-z\overline{w}-\overline{z}w+|w|^2}{1+|z|^2|w|^2-z\overline{w}-\overline{z}w}.
+\end{align*}
+Since both the numerator and the denominator are both positive real numbers we can take there difference, and if the difference is 0 then then we have $|E|^2=1$.
+\[
+	|z|^2-z\overline{w}-\overline{z}w+|w|^2-(1+|z|^2|w|^2-z\overline{w}-\overline{z}w)
+\]
+\[
+	(|z|^2+|w|^2)-(1+|z|^2|w|^2)=|z|^2+|w|^2-1-|z|^2|w|^2.
+\]
+Case 1: $|z|=1$
+\begin{align*}
+	|z|^2+|w|^2-1-|z|^2|w|^2&=1+|w|^2-1-|w|^2\\
+	&=0.
+\end{align*}
+Case 2: $|w|=1$
+\begin{align*}
+	|z|^2+|w|^2-1-|z|^2|w|^2&=1+|z|^2-1-|z|^2\\
+	&=0.
+\end{align*}
+Since the difference between the numerator and denominator is 0 in both cases we have
+\[
+	|E|^2=1.
+\]
+Since $|E|\geq 0$ we have 
+\[
+	|E|=\left|\frac{z-w}{1-\overline{z}w}\right|=1.
 \]
 \stepcounter{section}
 \section*{Problem 4}
@@ -59,17 +118,70 @@ Use complex numbers to prove identity:
 \]
 \stepcounter{section}
 \section*{Problem 5}
-Solve $\sin(z)=\frac{3}{4}+i/4$.
+Solve $\sin(z)=\frac{3}{4}+i/4$.\\
+\[
+	\sin(z)=\frac{e^{ix}-e^{-ix}}{2i}=\frac{3}{4}+i/4.
+\]
+Set $w=e^{ix}$. Then,
+\[
+	\frac{w-w^{-1}}{2i}=\frac{3}{4}+i/4.
+\]
+Multiply both sides by $2i$.
+\[
+w-\frac{1}{w}=2i\left(\frac{3}{4} + \frac{i}{4}\right) = \frac{3i}{2} - \frac{1}{2}.
+\]
+Let $b=\frac{3i}{2} - \frac{1}{2}$ and multiply both sides by $w$.
+\[
+w^2-1=bw
+\]
+\[
+	w^2-bw-1=0.
+\]
+Solving for $w$
+\[
+	w=\frac{b \pm \sqrt{b^2 + 4}}{2}.
+\]
+\[
+	b^2=\left(\frac{3i}{2} - \frac{1}{2}\right)^2= \frac{1}{4} - \frac{3i}{2} + \frac{9i^2}{4}= \frac{1}{4} - \frac{3i}{2} - \frac{9}{4} = -2 - \frac{3i}{2}.
+\]
+\[
+	b^2+4=2 - \frac{3i}{2}=\frac{4-3i}{2}.
+\]
 \stepcounter{section}
 \section*{Problem 6}
 Find all values of $\log(-i)$.
+\begin{align*}
+	\log(-i)&=\log|-i|-i\frac{\pi}{2}+2\pi ni,\quad n\in\Z,\\
+	&=-i\frac{\pi}{2}+2\pi ni,\quad n\in\Z.
+\end{align*}
 \stepcounter{section}
 \section*{Problem 7}
-Find all values of $1^i$.
+Find all values of $1^i$.\\
+$1=e^{0i+2\pi ni},$ $n\in\Z$. Thus, we can rewrite $1^i$ as 
+\[
+	1^i=e^{i(0i+2\pi ni)}=e^{-2\pi n}
+\]
+where $n\in\Z$.
 \stepcounter{section}
 \section*{Problem 8}
 Prove that $1-\cos(2z)=2\sin^2(z)$.
 \stepcounter{section}
 \section*{Problem 9}
-Use De Moivre's formula to express $\cos(7\theta)$ in terms of $\cos(\theta)$ and $sin(\theta)$.
+Use De Moivre's formula to express $\cos(7\theta)$ in terms of $\cos(\theta)$ and $sin(\theta)$.\\
+Let $z=\cos(\theta)+i\sin(\theta)$. Then by De Moivre's theorem:
+\begin{align*}
+    z^7 &= \cos(7\theta) + i\sin(7\theta) \\
+    &= (\cos(\theta) + i\sin(\theta))^7.
+\end{align*}
+Using the binomial expansion:
+\begin{align*}
+    (\cos\theta + i\sin\theta)^7 &= \sum_{k=0}^{7} \binom{7}{k} (i\sin\theta)^k (\cos\theta)^{7-k} \\
+    &= \cos^7\theta + 7i\cos^6\theta\sin\theta - 21\cos^5\theta\sin^2\theta - 35i\cos^4\theta\sin^3\theta \\
+    &\quad + 35\cos^3\theta\sin^4\theta + 21i\cos^2\theta\sin^5\theta - 7\cos\theta\sin^6\theta - i\sin^7\theta.
+\end{align*}
+$\cos(7\theta)$ consists of the real parts of the above equation, so we have
+\[
+	\cos(7\theta)= \cos^7\theta- 21\cos^5\theta\sin^2\theta + 35\cos^3\theta\sin^4\theta - 7\cos\theta\sin^6\theta.
+\]
+
 \end{document}
