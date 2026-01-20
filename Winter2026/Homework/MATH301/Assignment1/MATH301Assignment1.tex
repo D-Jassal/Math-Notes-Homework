@@ -114,8 +114,36 @@ Since $|E|\geq 0$ we have
 \section*{Problem 4}
 Use complex numbers to prove identity:
 \[
-    1+\cos(\theta)+\cos(2\theta)+\cdots+\cos(n\theta)=\frac{1}{2}+\frac{\sin\left(n+\frac{1}{2}\theta\right)}{2\sin\left(\frac{\theta}{2}\right)}.
+    1+\cos(\theta)+\cos(2\theta)+\cdots+\cos(n\theta)=\frac{1}{2}+\frac{\sin\left(\left(n+\frac{1}{2}\right)\theta\right)}{2\sin\left(\frac{\theta}{2}\right)}.
 \]
+\begin{proof}
+	Let $z=\cos\theta+i\sin\theta$, then by De Moivre's formula $z^k=\cos^k\theta+i\sin^k\theta$. We can rewrite the sum as 
+	\[
+		S_n=1+\cos(\theta)+\cos(2\theta)+\cdots+\cos(n\theta)=\sum_{k=0}^{n}\cos(k\theta)=\sum_{k=0}^{n}\Re(z^k)=\Re\left(\sum_{k=0}^{n}z^k\right).
+	\]
+	\begin{align*}
+		S_n&=\sum_{k=0}^{n}\Re(z^k)=\Re\left(\sum_{k=0}^{n}z^k\right)\\
+		&=\Re(1+z+z^2+\cdots+z^n)\\
+		&=\Re(1+z(1+z+\cdots+z^{n-1}))\\
+		&=\Re\left(1+z\left(\frac{1-z^n}{1-z}\right)\right)\\
+		&=\Re\left(1+\left(\frac{z-z^{n+1}}{1-z}\right)\right)\\
+		&=\Re\left(1+\left(\frac{z-z^{n+1}}{1-z}\right)\cdot\frac{1-\overline{z}}{1-\overline{z}}\right)\\
+		&=\Re\left(1+\left(\frac{z-z\overline{z}-z^{n+1}+z^nz\overline{z}}{1-\overline{z}-z+z\overline{z}}\right)\right)\\
+		&=\Re\left(1+\left(\frac{z-z\overline{z}-z^{n+1}+z^nz\overline{z}}{2-2\cos\theta}\right)\right)\\
+		&=\left[1+\left(\frac{\cos\theta -1 -\cos[(n+1)\theta]+\cos(n\theta)}{2-2\cos\theta}\right)\right]
+	\end{align*}
+	\[
+		\cos(n\theta)-\cos[(n+1)\theta]=-2\sin\left(\frac{n\theta+n\theta+\theta}{2}\right)\sin\left(\frac{n\theta-n\theta-\theta}{2}\right)=2\sin[(n+1)\theta]\sin\left(\frac{\theta}{2}\right)
+	\]
+	\[
+		1-\cos\theta=2\sin^2\left(\frac{\theta}{2}\right)\Leftrightarrow -2\sin^2\left(\frac{\theta}{2}\right)=\cos\theta-1
+	\]
+	\begin{align*}
+		S_n&=\left[1+\frac{\cos\theta-1+2\sin\left(\left(n+\frac{1}{2}\right)\theta\right)\sin\left(\frac{\theta}{2}\right)}{2(1-\cos\theta)}\right]\\
+		&=1-\frac{1}{2}+\frac{\sin\left(\left(n+\frac{1}{2}\right)\theta\right)}{2\sin\left(\frac{\theta}{2}\right)}\\
+		\sum_{k=0}^{n}\cos(k\theta)&=\frac{1}{2}+\frac{\sin\left(n+\frac{1}{2}\theta\right)}{2\sin\left(\frac{\theta}{2}\right)}.\qedhere
+	\end{align*}
+\end{proof}	
 \stepcounter{section}
 \section*{Problem 5}
 Solve $\sin(z)=\frac{3}{4}+i/4$.\\
@@ -147,6 +175,76 @@ Solving for $w$
 \[
 	b^2+4=2 - \frac{3i}{2}=\frac{4-3i}{2}.
 \]
+To find $\sqrt{b^2+4}$ assume that for some $x,y\in\R$ we have $(x+iy)^2=4-3i$. Then,
+\[
+	(x+iy)^2=x^2 - y^2 + 2ixy=4-3i.
+\]
+\begin{align*}
+x^2 - y^2 &= 4, \\
+2xy &= -3 \quad \Rightarrow \quad xy = -\frac{3}{2}.
+\end{align*}
+Also $|x+iy|^2 = \sqrt{4^2 + (-3)^2} = \sqrt{16+9} = \sqrt{25} = 5$, so $x^2+y^2 = 5$.
+\begin{align*}
+x^2 - y^2 &= 4, \\
+x^2 + y^2 &= 5.
+\end{align*}
+\[
+	2x^2 = 9 \Rightarrow x^2 = \frac{9}{2} \Rightarrow x = \pm \frac{3}{\sqrt{2}}
+\]
+\[
+	2y^2 = 1 \Rightarrow y^2 = \frac{1}{2} \Rightarrow y = \pm \frac{1}{\sqrt{2}}.
+\]
+$xy=-\frac{3}{2}$ being negative implies that $x,y$ have opposite signs, this then gives
+\[
+	\sqrt{4-3i} = \pm\left(\frac{3}{\sqrt{2}} - \frac{i}{\sqrt{2}}\right) = \pm\frac{3-i}{\sqrt{2}}.
+\]
+Thus,
+\[
+\sqrt{b^2+4} = \sqrt{\frac{4-3i}{2}} = \frac{\sqrt{4-3i}}{\sqrt{2}} = \frac{\pm\frac{3-i}{\sqrt{2}}}{\sqrt{2}} = \pm\frac{3-i}{2}.
+\]
+Solving for $w$
+\[
+	w = \frac{b \pm \sqrt{b^2+4}}{2} = \frac{-\frac{1}{2} + \frac{3i}{2} \pm \frac{3-i}{2}}{2}.
+\]
+Taking $+\frac{3-i}{2}$
+\[
+w_1 = \frac{-\frac{1}{2} + \frac{3i}{2} + \frac{3-i}{2}}{2} = \frac{\frac{2}{2} + \frac{2i}{2}}{2} = \frac{1+i}{2}.
+\]
+Taking $-\frac{3-i}{2}$
+\[
+w_2 = \frac{-\frac{1}{2} + \frac{3i}{2} - \frac{3-i}{2}}{2} = \frac{-\frac{4}{2} + \frac{4i}{2}}{2} = \frac{-2+2i}{2} = -1+i.
+\]
+Recall $w = e^{iz}$, so $iz = \log(w)$
+\[
+z = -i\log(w) = -i\left[\ln|w| + i\arg(w) + 2\pi i n\right] = -i\ln|w| + \arg(w) + 2\pi n, \quad n \in \mathbb{Z}.
+\]
+$w_1$
+\[
+|w_1| = \frac{\sqrt{1^2+1^2}}{2} = \frac{\sqrt{2}}{2}, \quad \arg(w_1) = \arctan\left(\frac{1}{1}\right) = \frac{\pi}{4}.
+\]
+So
+\[
+z_1 = -i\ln\left(\frac{\sqrt{2}}{2}\right) + \frac{\pi}{4} + 2\pi n
+= -i\left(\ln(1) - \ln\sqrt{2}\right) + \frac{\pi}{4} + 2\pi n
+= i\ln\sqrt{2} + \frac{\pi}{4} + 2\pi n.
+\]
+Since $\ln\sqrt{2} = \frac{1}{2}\ln 2$
+\[
+z_1 = \frac{\pi}{4} + \frac{i}{2}\ln 2 + 2\pi n.
+\]
+$w_2$
+\[
+|w_2| = \sqrt{(-1)^2+1^2} = \sqrt{2}, \quad \arg(w_2) = \arctan\left(\frac{1}{-1}\right) + \pi = -\frac{\pi}{4} + \pi = \frac{3\pi}{4}.
+\]
+So
+\[
+z_2 = -i\ln\sqrt{2} + \frac{3\pi}{4} + 2\pi n
+= -\frac{i}{2}\ln 2 + \frac{3\pi}{4} + 2\pi n.
+\]
+Thus,
+\[
+z = \frac{\pi}{4} + \frac{i}{2}\ln 2 + 2\pi n \quad \text{or} \quad z = \frac{3\pi}{4} - \frac{i}{2}\ln 2 + 2\pi n, \quad n \in \mathbb{Z}.
+\]
 \stepcounter{section}
 \section*{Problem 6}
 Find all values of $\log(-i)$.
@@ -165,15 +263,36 @@ where $n\in\Z$.
 \stepcounter{section}
 \section*{Problem 8}
 Prove that $1-\cos(2z)=2\sin^2(z)$.
+\begin{proof}
+From the double angle formula we know that 
+\[
+	\cos(2z)=\cos^2z-\sin^2z,
+\]
+the Pythagorean identity also tells us that
+\[
+	\cos^2z+\sin^2z=1.
+\]
+Rearranging we have
+\[
+	\cos^2z=1-\sin^2z.
+\]
+Substituting this into the double angle identity 
+\[
+	\cos(2z)=1-\sin^2(z)-\sin^2(z).
+\]
+Rearranging
+\[
+	1-\cos(2z)=2\sin^2(z). \qedhere
+\]
+\end{proof}
 \stepcounter{section}
 \section*{Problem 9}
 Use De Moivre's formula to express $\cos(7\theta)$ in terms of $\cos(\theta)$ and $sin(\theta)$.\\
-Let $z=\cos(\theta)+i\sin(\theta)$. Then by De Moivre's theorem:
+Let $z=\cos(\theta)+i\sin(\theta)$. Then by De Moivre's formula:
 \begin{align*}
     z^7 &= \cos(7\theta) + i\sin(7\theta) \\
     &= (\cos(\theta) + i\sin(\theta))^7.
 \end{align*}
-Using the binomial expansion:
 \begin{align*}
     (\cos\theta + i\sin\theta)^7 &= \sum_{k=0}^{7} \binom{7}{k} (i\sin\theta)^k (\cos\theta)^{7-k} \\
     &= \cos^7\theta + 7i\cos^6\theta\sin\theta - 21\cos^5\theta\sin^2\theta - 35i\cos^4\theta\sin^3\theta \\

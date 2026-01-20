@@ -1,0 +1,109 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 420 Lecture 4}
+\author{Deepak Jassal}
+\date{January 19\textsuperscript{th}, 2026}
+
+\begin{document}
+\setcounter{section}{1}
+\maketitle  
+\textit{Last time:} Ring Homomorphisms
+\[
+    f: R\to S
+\]
+\[
+    f(a+b)=f(a)+f(b)
+\]
+\[
+    f(ab)=f(a)f(b)
+\]
+\[
+\ker(f)=\{r\in R: f(r)=0\}
+\]
+What properties for $\ker(f)$ have?\\
+In linear algebra, $\ker(f)$ is a \underline{subspace}. In group theory we know that it is a normal \underline{subgroup}.
+\lemp{Ring Homomorphism Kernel's}{
+    $\ker(f)$ ($f$ is a homomorphism) is a subring of $R$.
+}{
+    Suppose $a,b\in\ker(f)$.
+    \begin{enumerate}
+        \item $a+b\in\ker(f)$
+        \[
+            f(a+b)=f(a)\oplus f(b)=0_S\oplus 0_S=0_S.
+        \]
+        \[
+            f(ab)=f(a)\otimes f(b)=\underbrace{0_S\otimes 0_S=0_S}_{\substack{\text{requires proof} \\ \text{Excersize}}}.
+        \]
+        \begin{align*}
+            f(-a)&=f((-1)a)\\
+            &=f(-1)\otimes \underbrace{f(a)}_{\in \ker(f)}\\
+            f(-1)\otimes 0_S&=0_S
+        \end{align*}
+        \begin{align*}
+            f(0_R)&=0_S\\
+            f(a+(-a))&=f(a)\oplus f(-a)\\
+            \Rightarrow f(-a)=-f(a)&=-0_S=0_S.
+        \end{align*}
+    \end{enumerate}
+}
+\defn{Subring}{
+    Let $(R,+,\times)$ be a ring. A subset $S\subseteq R$ is said to be a subring of $R$ if $(S,+,\times)$ is a ring.
+}
+Looking to group theory, kernels are not just subgroups by \underline{normal} subgroups.
+\propp{
+    Let $R,S$ be rings and $f:R\to S$ be a homomorphism. Then $\ker(f)$ is an ideal of $R$. (Note: if $R$ is not commutative, then a (two-sided) ideal $I$ is one where $sr,rs\in I$ for all $s\in I$ and $r\in R$).
+}{
+    Already proved that it is a subring. Suffice to prove that for all $s\in I=\ker(f)$ and $r\in R$, $rs,sr\in I$.
+    \[
+        f(sr)=f(s)\otimes f(r)=0_S,
+    \]
+    \[
+        f(rs)=f(r)\otimes f(s)=0_S.
+    \]
+}
+Since $\ker(f)$ is an ideal, $R\setminus\ker(f)$ is a (quotient) ring.\\
+In linear alegbra, there is the \textit{rank-nullity} theorem:
+\thm{Rank-Nullity Theorem}{
+    If $V,W$ are vector spaces over the same scalar field $F$, and $L:V\to W$ a linear map, then $\mathrm{dim}(L(V))+\mathrm{dim}(\ker(L))=\mathrm{dim}(V).$
+}
+The analogy of this is the \underline{First Isomorphism Theorem}.
+\thm{First Isomorphism Theorem}{
+    Let $R,S$ be rings and $f:R\to S$ a homomorphism. Then $R\setminus\ker(f)\cong f(R)$. Here $\cong$ means isomorphic.
+}
+\defn{Isomorphic}{
+    A ring homomorphism is an isomorphism if it is invertible and the inverse map is also a homomorphism.
+}
+\lem{Homorphic Image of Rings}{
+    The homorphic image of a ring is a ring.
+}
+\pf[Proof for Lemma]{
+    Suppose $x,y\in f(R)$, by definition there exists $a,b\in R$ such that $f(a)=x$, and $f(b)=y$.
+    \[
+        x\oplus y=f(a)\oplus f(b)=f(a+b)\Rightarrow x\oplus y\in f(R).
+    \]
+    \[
+        x\otimes y=f(a)\otimes f(b)=f(a\times b)\Rightarrow x\otimes y\in f(R).
+    \]
+    Prove there exists an inverse map as an excersize. \qedhere
+}
+\pf[Proof of the First Isomorphism Theorem]{
+   Recall $r\setminus\ker(f)$ is a set of cosets (or representatives of equivalence classes). $[a]_{\ker(f)}:=a+\ker(f).$ We want to write down a map, say $\tau$, mapping each coset to an element in $f(R)$.\\
+   Define 
+   \[
+        \tau:r\setminus\ker(f)\to f(R)
+   \]
+   by $\tau(a+\ker(f))=f(a)$.\\
+   Check well-definedness:\\
+   If $a-a'\in\ker(f)$, then 
+   \begin{align*}
+        \tau(a+\ker(f))&=\tau(a+(a-a')+\ker(f))\\
+        f(a)&=\tau(a'+\ker(f))\\
+        &=f(a').
+   \end{align*}
+}
+\end{document}

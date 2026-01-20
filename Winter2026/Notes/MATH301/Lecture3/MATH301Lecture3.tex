@@ -1,0 +1,94 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+
+\title{MATH 301 Lecture 2}
+\author{Deepak Jassal}
+\date{January 14\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle
+\stepcounter{section}
+\subsection{$\log z$}
+$e^z$ is a periodic function with period $2\pi i$ ($e^{z+2\pi i}=e^z$). 
+\[
+    \C\overset{e^z}{\mapsto}\C\setminus \{0\}.
+\]
+However this is not one-to-one.\\
+In the real case 
+\[
+    \R\underset{\ln x}{\overset{e^x}{\xleftrightharpoons{\hspace{1cm}}}}\R_{>0},
+\]
+\[
+    e^{\ln x}=x,\quad x>0,
+\]
+\[
+    \ln e^x=x,\quad x>0.
+\]
+
+Let $A_{y_0}=\{x+iy:x,y\in\R,y_o\leq y<y_0+2\pi\}$. In this case we have 
+\[
+    A_{y_0}\underset{\ln x}{\overset{e^x}{\xleftrightharpoons{\hspace{1cm}}}}\C\setminus \{0\},
+\]
+this function is one-to-one and onto.
+\defn{Complex Logarithm}{
+    Given $y_0\in\R$ we can define
+    \[
+        \log: \C\setminus \{0\}\mapsto A_{y_0}.
+    \]
+    We say that this is a particulae branch of the logarithm, corresponding to $A_{y_0}$ or $y_0$.\\
+    If we don't indicate the branch, then we can consider $\log z$ as a multivalued ``function''.
+}
+\defn{Branch of the Logarithm}{
+    If \[y_o\leq \mathrm{arg}z< y_0+2\pi,\] then \[\log z =\log|z|+i\mathrm{arg}z.\] If the branch is not specified then \[\log z =\log|z|+i\mathrm{arg}z+2\pi in,\quad n\in\Z.\]
+}
+\ex{
+    State all the values of $\log1$.
+    \[
+        \log1=0+2\pi in,\quad n\in\Z
+    \]
+}
+\ex{
+    State all the values of $\log1$.
+    \[
+        \log i=\log|i|+\frac{i\pi}{2}+2\pi in,\quad n\in\Z
+    \]
+    \[
+        \log i=\frac{i\pi}{2}+2\pi in,\quad n\in\Z.
+    \]
+}
+\textit{Note.} $\log z$ is the ``inverse'' of $e^z$ in the following way
+\begin{enumerate}
+    \item $e^{\log z}=z$ no matter which branch of $\log$ we take.
+    \item $\log e^z=z$ \textit{if and only if} $z$ is the branch of a $\log$ $y_0\leq \mathrm{arg}z< y_0+2\pi$.
+\end{enumerate} 
+The branch of a $\log z$ is the image of $\log z$ to the range to which it maps.
+\prop{
+    $\log(z_1z_2)=\log z_1+\log z_2$ modulo $2\pi i$.
+}
+\defn{Complex $a^b$}{
+    $a^b=e^{b\log a}$ is a multivalued function
+    \begin{enumerate}
+        \item $a^b$ is single valued \textit{if and only if} $b\in\Z$.
+        \[
+            e^{b\log a}=e^{b(\log|a|+\mathrm{arg}a+2\pi im)}=e^{b\log|a|+\mathrm{arg}a}e^{2\pi in}=e^{b\log|a|+\mathrm{arg}a}.
+        \]
+        \item If $b\in\R\setminus\Q$ then $e^{b\log a}$ has many values.
+        \item If $\Im b\neq0$
+        \[
+            e^{b2\pi ni}=e^{(b_1+b_2i)2\pi ni}=e^{2b_1\pi ni-2b_2\pi n}.
+        \]
+        \item If $b=\frac{p}{q}$, $(p,q)=1$, $q>0$. Then $a^b$ has exactly $q$ distinct values
+        \[
+            e^{b\log a}=e^{b(\log a +2\pi ni)}=e^{b\log a + \frac{2\pi ni}{p}}.
+        \]
+        Since we have $(p,q)=1$ and $n\in \Z$ $np$ will give all remainders mod $q$.
+        \[
+            np=kq+r,\quad r=1,2,3,\dots,q-1.
+        \]
+    \end{enumerate}
+}
+\end{document}
