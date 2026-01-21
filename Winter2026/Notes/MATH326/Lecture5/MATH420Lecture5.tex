@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+\usepackage{bookmark}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+\usepackage{blkarray}
+\title{MATH 326 Lecture 5}
+\author{Deepak Jassal}
+\date{January 19\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle
+\setcounter{section}{1}
+\thm{Dimensionality of Rows and Columns}{
+    Let $A$ be an $m\times n$ matrix. Then $\mathrm{dim}(\mathrm{col}(A))=\mathrm{dim}(\mathrm{row}(A))$.
+} 
+\pf[Proof of Theorem 1.1.1]{
+    The basis of col$(A)$ corresponds the vectors with elading 1's in r.r.e.f of $A$. \\So $\mathrm{dim}(\mathrm{col}(A))=1$. Row$(A)=$Row(r.r.e.f$(A))=r$.
+}
+\thm{Invertibility of a Matrix}{
+    Let $A\in M_{n}(F)$. Then $A$ is invertible \textit{if and only if} $\mathrm{dim}(\mathrm{col}(A))=\mathrm{dim}(\mathrm{row}(A))=\mathrm{rank}(A)=n$, with $n\neq 0$.
+}
+\defn{Coordinate Vectors}{
+    Let $V$ be a vector space over $F$, and $\beta=v_1,v_2,\dots,v_n$ be a basis of $V$. Let $v\in V$. Then,
+    \[
+        v=c_1v_1+\cdots c_nv_n,
+    \]
+    and the coordinate vector of $v$ in basis $\beta$ is
+    \[
+        [v]_\beta=
+        \begin{bmatrix}
+            c_1\\
+            \vdots\\
+            c_n    
+        \end{bmatrix}.
+    \]
+}
+\ex{
+        $V=\R^3$, $\beta=\begin{bmatrix}1\\0\\0\end{bmatrix},\begin{bmatrix}0\\1\\0\end{bmatrix},\begin{bmatrix}0\\0\\1\end{bmatrix}$.
+        \[
+            v=\begin{bmatrix}2\\5\\8\end{bmatrix}=2e_1+5e_2+8e_3.
+        \]
+}
+\newpage
+\ex{
+    Complete the set $\left\{\begin{bmatrix}1\\2\\3\end{bmatrix},\begin{bmatrix}0\\1\\1\end{bmatrix}\right\}$ to a basis of $\R^3$. We need to find a third vector such that the determinant of the three is nonzero.
+    \[
+        \begin{bmatrix}1\\0\\0\end{bmatrix}
+    \]
+    is a vector that works.
+}
+\defn{Full Rank}{
+    A matrix $A\in M_{m\times n}(F)$ is said to have full rank if
+    \[
+        \mathrm{rank}(A)=\min\{m,n\}.
+    \]
+}
+\thm{Full Rank Theorem}{
+    Let $A\in M_{m\times n}(F)$ and $\mathrm{rank}(A)=r$. Let $X$ be an $m\times r$ matrix whose columns form a basis fo $A$. Then there exists a matrix $Y\in M_{r\times n}$ such that
+    \begin{enumerate}
+        \item $A=XY$;
+        \item $Y$ is unique;
+        \item Rank($Y=r$);
+        \item row($Y$)=row($X$);
+        \item null($A$)=null($Y$).
+    \end{enumerate}
+}
+\end{document}

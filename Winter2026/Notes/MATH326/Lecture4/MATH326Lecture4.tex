@@ -1,0 +1,50 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+\usepackage{bookmark}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+\usepackage{blkarray}
+\title{MATH 326 Lecture 4}
+\author{Deepak Jassal}
+\date{January 16\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle
+\setcounter{section}{1}
+\subsection{Finding the Basis of a Span}
+Let $U=\mathrm{span}\{v_1,v_2,\dots,v_n\}.$ Find a basis for $U$.
+\subsection*{Method 1: Removing unnecessary vectors}
+Steps:
+\begin{enumerate}
+    \item Make a matrix $A$, whose columns are the vectors $v_1,v_2,\dots v_n.$
+    \item Find r.r.e.f($A$).
+    \item Vectors $v_i$ with $i$ corresponding to vectors of r.r.e.f($A$) containing leading 1's (pivot vectors) form a baiss of $\mathrm{col}(A)=\mathrm{span}(v_1,v_2,\dots v_n).$
+\end{enumerate}
+This works because the linear relations of $v_1,v_2,\dots v_n$ are preserved in r.r.e.f($A$).
+\[
+    \mathrm{r.r.e.f}(A)=UA.
+\]
+Where $U$ is an invertible matrix made of elementary matrices.
+\begin{align*}
+    c_1v_1+c_2v_2+\cdots+c_nv_n=0&\Rightarrow U(c_1v_1+c_2v_2+\cdots+c_nv_n)=0\\
+    &=c_1(Uv_1)+c_2(Uv_2)+\cdots+c_n(Uv_n)=0.
+\end{align*}
+\[
+    \mathrm{r.r.e.f}(A)=UA=[Uv_1\dots uv_n].
+\]
+So the columns of r.r.e.f($A$) are lienarly realted to the columns of $A$ and vice versa.
+\subsection*{Method2: ``Pretty'' Basis}
+\begin{enumerate}
+    \item Make a matric whose rows are the given vectors
+    $\begin{bmatrix}
+        \noindent\rule{.5cm}{0.4pt}&v_1&\noindent\rule{.5cm}{0.4pt}\\
+        \noindent\rule{.5cm}{0.4pt}&v_2&\noindent\rule{.5cm}{0.4pt}\\
+        &\vdots&\\
+        \noindent\rule{.5cm}{0.4pt}&v_n&\noindent\rule{.5cm}{0.4pt}\\
+    \end{bmatrix}$
+    \item Find r.r.e.f($A^T$). The non-zero vectors of $A^T$ form a basis of $\mathrm{row}(A^T)=\mathrm{col}(A)$.
+\end{enumerate}
+To complete a given set to a basis of a space say $\R^n$, add the vectors $e_1,e_2,\dots,e_n$ and perform one of the methods to find a basis.
+\end{document}

@@ -83,12 +83,29 @@ The branch of a $\log z$ is the image of $\log z$ to the range to which it maps.
         \]
         \item If $b=\frac{p}{q}$, $(p,q)=1$, $q>0$. Then $a^b$ has exactly $q$ distinct values
         \[
-            e^{b\log a}=e^{b(\log a +2\pi ni)}=e^{b\log a + \frac{2\pi ni}{p}}.
+            e^{b\log a}=e^{b(\log a +2\pi ni)}=e^{b\log a + \frac{2\pi niq}{p}}.
         \]
         Since we have $(p,q)=1$ and $n\in \Z$ $np$ will give all remainders mod $q$.
         \[
             np=kq+r,\quad r=1,2,3,\dots,q-1.
         \]
+        \[
+            e^{\frac{2\pi niq}{p}}=e^{2\pi ik+\frac{2\pi riq}{p}}.
+        \]
     \end{enumerate}
 }
+$e^{ba}$ and $(e^a)^b$ are not necessarily the same thing.
+\[
+    (e^a)^b=\begin{cases}
+        e^{ab} & \text{if $a$ is in the image of log},\\
+        e^{ba+2\pi inb} & \text{otherwise}.
+    \end{cases}
+\]
+\section{The Function $\sqrt[n]{z}=z^\frac{1}{n}$}
+\begin{align*}
+    z^{\frac{1}{n}}=e^{\frac{1}{n}\log z}&=e^{\frac{1}{n}\left(\log |z|+i\arg z +2\pi mi\right)}\\
+    &=e^{\frac{1}{n}\log |z|}e^{\frac{i\arg z}{n}}e^{\frac{2\pi mi}{n}}\\
+    &=|z|^\frac{1}{n}e^\frac{i\theta}{n}e^\frac{2\pi ki}{n}
+\end{align*}
+$k=0,1,\dots,n-1$, and $m\in\Z$.
 \end{document}

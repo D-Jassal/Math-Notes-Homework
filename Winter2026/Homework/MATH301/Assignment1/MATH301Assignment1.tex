@@ -167,7 +167,7 @@ w^2-1=bw
 \]
 Solving for $w$
 \[
-	w=\frac{b \pm \sqrt{b^2 + 4}}{2}.
+	w=\frac{-b \pm \sqrt{b^2 + 4}}{2}.
 \]
 \[
 	b^2=\left(\frac{3i}{2} - \frac{1}{2}\right)^2= \frac{1}{4} - \frac{3i}{2} + \frac{9i^2}{4}= \frac{1}{4} - \frac{3i}{2} - \frac{9}{4} = -2 - \frac{3i}{2}.
@@ -204,15 +204,15 @@ Thus,
 \]
 Solving for $w$
 \[
-	w = \frac{b \pm \sqrt{b^2+4}}{2} = \frac{-\frac{1}{2} + \frac{3i}{2} \pm \frac{3-i}{2}}{2}.
+	w = \frac{-b \pm \sqrt{b^2+4}}{2} = \frac{\frac{1}{2} - \frac{3i}{2} \pm \frac{3-i}{2}}{2}.
 \]
 Taking $+\frac{3-i}{2}$
 \[
-w_1 = \frac{-\frac{1}{2} + \frac{3i}{2} + \frac{3-i}{2}}{2} = \frac{\frac{2}{2} + \frac{2i}{2}}{2} = \frac{1+i}{2}.
+w_1 = \frac{\frac{1}{2} - \frac{3i}{2} + \frac{3-i}{2}}{2} = \frac{\frac{4}{2} - \frac{4i}{2}}{2} = \frac{2-2i}{2}=1-i.
 \]
 Taking $-\frac{3-i}{2}$
 \[
-w_2 = \frac{-\frac{1}{2} + \frac{3i}{2} - \frac{3-i}{2}}{2} = \frac{-\frac{4}{2} + \frac{4i}{2}}{2} = \frac{-2+2i}{2} = -1+i.
+w_2 = \frac{\frac{1}{2} - \frac{3i}{2} - \frac{3-i}{2}}{2} = \frac{-\frac{2}{2} - \frac{2i}{2}}{2} = \frac{-1-i}{2} = -\frac{1}{2}-\frac{1}{2}i.
 \]
 Recall $w = e^{iz}$, so $iz = \log(w)$
 \[
@@ -220,30 +220,30 @@ z = -i\log(w) = -i\left[\ln|w| + i\arg(w) + 2\pi i n\right] = -i\ln|w| + \arg(w)
 \]
 $w_1$
 \[
-|w_1| = \frac{\sqrt{1^2+1^2}}{2} = \frac{\sqrt{2}}{2}, \quad \arg(w_1) = \arctan\left(\frac{1}{1}\right) = \frac{\pi}{4}.
+|w_1| = \sqrt{1^2+(-1)^2}= \sqrt{2}, \quad \arg(w_1) = \arctan\left(\frac{1}{-1}\right) = -\frac{\pi}{4}.
 \]
 So
 \[
-z_1 = -i\ln\left(\frac{\sqrt{2}}{2}\right) + \frac{\pi}{4} + 2\pi n
-= -i\left(\ln(1) - \ln\sqrt{2}\right) + \frac{\pi}{4} + 2\pi n
-= i\ln\sqrt{2} + \frac{\pi}{4} + 2\pi n.
+	z_1 = -i\ln\left(\sqrt{2}\right) - \frac{\pi}{4} + 2\pi n
+	= -i\left(\ln\sqrt{2}\right) - \frac{\pi}{4} + 2\pi n
+	= -i\ln\sqrt{2} - \frac{\pi}{4} + 2\pi n.
 \]
 Since $\ln\sqrt{2} = \frac{1}{2}\ln 2$
 \[
-z_1 = \frac{\pi}{4} + \frac{i}{2}\ln 2 + 2\pi n.
+z_1 = 2\pi n-\frac{\pi}{4} - \frac{i}{2}\ln 2.
 \]
 $w_2$
 \[
-|w_2| = \sqrt{(-1)^2+1^2} = \sqrt{2}, \quad \arg(w_2) = \arctan\left(\frac{1}{-1}\right) + \pi = -\frac{\pi}{4} + \pi = \frac{3\pi}{4}.
+|w_2| = \sqrt{\left(-\frac{1}{2}\right)^2+\left(-\frac{1}{2}\right)^2} = \sqrt{\frac{1}{2}}, \quad \arg(w_2) = \arctan\left(\frac{1}{1}\right)  = \frac{\pi}{4}.
 \]
 So
 \[
-z_2 = -i\ln\sqrt{2} + \frac{3\pi}{4} + 2\pi n
-= -\frac{i}{2}\ln 2 + \frac{3\pi}{4} + 2\pi n.
+z_2 = -i\ln\frac{1}{\sqrt{2}} + \frac{\pi}{4} + 2\pi n
+= -\frac{i}{2}\ln 2 + \frac{\pi}{4} + 2\pi n.
 \]
 Thus,
 \[
-z = \frac{\pi}{4} + \frac{i}{2}\ln 2 + 2\pi n \quad \text{or} \quad z = \frac{3\pi}{4} - \frac{i}{2}\ln 2 + 2\pi n, \quad n \in \mathbb{Z}.
+z = 2\pi n-\frac{\pi}{4} - \frac{i}{2}\ln 2 \quad \text{or} \quad z = -\frac{i}{2}\ln 2 + \frac{\pi}{4} + 2\pi n, \quad n \in \mathbb{Z}.
 \]
 \stepcounter{section}
 \section*{Problem 6}
