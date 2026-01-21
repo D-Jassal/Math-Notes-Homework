@@ -47,6 +47,79 @@ c \odot (x_1, x_2) = \left( \sqrt[3]{cx_1^3 + c - 1},\ \sqrt[3]{cx_2^3 + 2c - 2}
 \]
 Show that $V$ with addition of vectors $\oplus$ and multiplication by scalars $\odot$ is a vector space over $\R$.
 
+
+Closure\\
+Both $\oplus$ and $\odot$ output real numbers, so closure holds.
+
+Commutativity of addition\\
+Since $x_1^3 + y_1^3 = y_1^3 + x_1^3$, we have $(x_1, x_2) \oplus (y_1, y_2) = (y_1, y_2) \oplus (x_1, x_2)$.
+
+Associativity of addition\\
+Let $u = (x_1, x_2)$, $v = (y_1, y_2)$, $w = (z_1, z_2)$. Then
+\[
+(u \oplus v) \oplus w = \left( \sqrt[3]{x_1^3 + y_1^3 + z_1^3 + 2},\ \sqrt[3]{x_2^3 + y_2^3 + z_2^3 + 4} \right)
+\]
+and
+\[
+u \oplus (v \oplus w) = \left( \sqrt[3]{x_1^3 + y_1^3 + z_1^3 + 2},\ \sqrt[3]{x_2^3 + y_2^3 + z_2^3 + 4} \right),
+\]
+so associativity holds.
+
+Additive identity\\
+Let $0_V = (a, b)$. We need
+\[
+(x_1, x_2) \oplus (a, b) = (x_1, x_2) \quad \forall (x_1, x_2).
+\]
+\[\sqrt[3]{x_1^3 + a^3 + 1} = x_1 \Rightarrow a^3 + 1 = 0 \Rightarrow a = -1.\]
+\[\sqrt[3]{x_2^3 + b^3 + 2} = x_2 \Rightarrow b^3 + 2 = 0 \Rightarrow b = -\sqrt[3]{2}.\]
+Thus $0_V = \left(-1, -\sqrt[3]{2}\right)$. 
+\[
+(x_1, x_2) \oplus (-1, -\sqrt[3]{2}) = (x_1, x_2).
+\]
+
+Additive inverses\\
+For $u = (x_1, x_2)$, define $v = (y_1, y_2)$ by
+\[
+y_1 = \sqrt[3]{-x_1^3 - 2}, \quad y_2 = \sqrt[3]{-x_2^3 - 4}.
+\]
+Then $u \oplus v = 0_V$.
+
+Scalar multiplication\\
+Let $u = (x_1, x_2)$, $c, d \in \mathbb{R}$. Then
+\[
+(cd) \odot u = \left( \sqrt[3]{cd\, x_1^3 + cd - 1},\ \sqrt[3]{cd\, x_2^3 + 2cd - 2} \right),
+\]
+\[
+c \odot (d \odot u) = \left( \sqrt[3]{c(d x_1^3 + d - 1) + c - 1},\ \sqrt[3]{c(d x_2^3 + 2d - 2) + 2c - 2} \right) = (cd) \odot u.
+\]
+
+Scalar multiplicative identity\\
+\[
+1 \odot (x_1, x_2) = \left( \sqrt[3]{x_1^3 + 0},\ \sqrt[3]{x_2^3 + 0} \right) = (x_1, x_2). 
+\]
+
+Distributivity over vector addition\\
+For $c \in \mathbb{R}$, $u = (x_1, x_2)$, $v = (y_1, y_2)$,
+\[
+c \odot (u \oplus v) = \left( \sqrt[3]{c(x_1^3 + y_1^3 + 1) + c - 1},\ \sqrt[3]{c(x_2^3 + y_2^3 + 2) + 2c - 2} \right),
+\]
+\[
+(c \odot u) \oplus (c \odot v) = \left( \sqrt[3]{c x_1^3 + c y_1^3 + 2c - 1},\ \sqrt[3]{c x_2^3 + c y_2^3 + 4c - 2} \right),
+\]
+which match.
+
+Distributivity over scalar addition\\
+For $c, d \in \mathbb{R}$, $u = (x_1, x_2)$,
+\[
+(c+d) \odot u = \left( \sqrt[3]{(c+d)x_1^3 + (c+d) - 1},\ \sqrt[3]{(c+d)x_2^3 + 2(c+d) - 2} \right),
+\]
+\[
+(c \odot u) \oplus (d \odot u) = \left( \sqrt[3]{c x_1^3 + d x_1^3 + c + d - 1},\ \sqrt[3]{c x_2^3 + d x_2^3 + 2c + 2d - 2} \right),
+\]
+which are equivalent.
+
+All axioms are satisfied, so $(V, \oplus, \odot)$ is a vector space over $\mathbb{R}$.
+
 \stepcounter{section}
 \section*{Problem 2}
 Let $U = \operatorname{span}\{(1, 2, 3, 4), (-1, 2, 0, 5), (-3, -6, -9, -12), (-1, 10, 6, 23), (1, 1, 1, 1)\}$. Find a basis of $U$ in two different ways:
@@ -76,6 +149,10 @@ and scalar multiplication by $cv = \begin{pmatrix} 1 & cv \\ 0 & 1 \end{pmatrix}
 \section*{Problem 5}
 Suppose that $A$ is a $2 \times 2$ invertible matrix with real entries. Show that $U = \operatorname{span}\{A^n : n \in \Z\} \neq M_{2\times 2}(\R)$.
 
-\noindent\textbf{Hint:} Let $B \in U$. Do we have $AB = BA$? If so...
-
+\noindent\textbf{Hint:} Let $B \in U$. Do we have $AB = BA$? If so...\\
+\textit{Solution.} Notice that $M_{2\times 2}(\R)$ contains matrices that are not invertible, that is matrices with determinant equal to 0. Since it is given that $\det A\neq 0$, by the following property of determinants 
+\[
+	\det(AB)=\det(A)\det(B),
+\] 
+we have that there can be no matrix in $U$ with determinant equal to zero. Therefor, $U\neq M_{2\times 2}(\R)$.
 \end{document}
