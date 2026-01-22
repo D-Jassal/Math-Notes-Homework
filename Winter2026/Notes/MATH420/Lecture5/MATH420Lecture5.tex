@@ -1,0 +1,119 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 420 Lecture 5}
+\author{Deepak Jassal}
+\date{January 21\textsuperscript{th}, 2026}
+
+\begin{document}
+\stepcounter{section}
+\maketitle  
+\textit{Last Time:} Defined a \underline{canonical} isomorphism (candidate) $\tau:R\setminus\ker(f)\to f(R)$.
+\[
+    \tau(a+\underbrace{\ker(f)}_{+I})=f(a)
+\]
+is well defined.\\
+\[
+    \tau((a+I)+(b+I))=\tau((a+b)+I)=f(a+b)=f(a)\oplus f(b)=\tau(a+I)\oplus\tau(b+I),
+\]
+\[
+    \tau((a+I)(b+I))=\tau((ab)+I)=f(a+b)=f(a)\otimes f(b)=\tau(a+I)\otimes\tau(b+I).
+\]
+Thus, $\tau$ is a homomorphism.\\
+Must show that $\tau$ is bijective.\\
+If $y\in f(R)$, then there exists $e\in R$ such that $f(a)=y$. Hence, $\tau(a+I)=f(a)=y$. Thus, $\tau$ is surrjective.\\
+If $\tau(a+I)=\tau(b+I)$, then 
+\begin{align*}
+    0_S&=\tau(a+I)\oplus(-\tau(b+I))\\
+    &=f(a)\oplus f(b)\\
+    &=f(a)\oplus f(-b)\\
+    &=\tau((a-b)+I)\Rightarrow a-b\in I,
+\end{align*}
+thus, $a+I=b+I$. Hence, $\tau$ as a function is bijective. Therefore, $\tau^{-1}$ is well defined.\\
+It remains to show that $\tau^{-1}$ is a homomorphism. Given that $y_1=f(a_1)$ and $y_2=f(a_2)$
+\begin{align*}
+    \tau^{-1}(y_1\oplus y_2)&=\tau^{-1}(f(a_1)\oplus f(a_2))\\
+    &=\tau^{-1}(f(a_1+a_2))\\
+    &=\tau^{-1}(\tau((a_1+a_2)+I))\\
+    &=(a_1+a_2)+I\\
+    &=\tau^{-1}(y_1)+\tau^{-1}(y_2)
+\end{align*}
+Similar process for multiplication. Thus, we have that $\tau^{-1}$ is a homomorphism.\\
+Ideals were actually meant to be ``numbers''. In fact, ``Ideal numbers'' are a thing. This compels and \underline{arithmetic} on the set of ideals.
+\defn{Arithmetic on Ideal}{
+    Let $R$ be a ring, and $I,J$ (2-sided) ideals. Then:
+    \[
+        I+J:=\{i+j:i\in I,j\in J\}
+    \]
+    \[
+        I\cap J=\{m:m\in I\cap J\}
+    \]
+    \[
+        I\cdot J:=\left\{\sum_{\ell=1}^{q}j_\ell i_\ell:j_\ell\in J, i_\ell\in I \right\}
+    \]
+}
+\propp{
+    Let $R$ be a ring and $I,J$ ideals of $R$. Then $I+J$, $I\cap J$ and $I\cdot J$ are ideals.
+}{
+    \begin{enumerate}
+        \item $I+J$ is an ideal. \\
+        Suppose $a_1,a_2\in I+J$. Then there exist $i_1,j_1,i_2,j_2$ such that $a_k=i_k+j_k$ for $k=1,2$. Then
+        \begin{align*}
+            a_1+a_2&=(i_1+j_1)+(i_2+j_2)\\
+            &=\underbrace{(i_1+i_2)}_{\in I}+\underbrace{(j_1+j_2)}_{\in J}\\
+            &\in I+J.
+        \end{align*}
+        \begin{align*}
+            a_1a_2&=(i_1+j_1)(i_2+j_2)\\
+            &=i_1i_2+i_1j_2+i_2j_1+j_1j_2\\
+            &\in I+J.
+        \end{align*}
+        Other details are an exercise.
+        \item $I\cap J$ is an ideal.\\
+        Suppose $a_1,a_2\in I\cap J$. Then $a_1+a_2\in I$ and $a_1+a_2\in J\Rightarrow a_1+a_2\in I\cap J$. Similarly $a_1a_2\in I$ and $a_1a_2\in J\Rightarrow a_1a_2\in I\cap J$. Other details are an exercise.
+        \item $I\cdot J$ is an ideal.
+        $a_1,a_2\in I\cdot J$.
+        \[
+            a_1=\sum_{\ell=1}^{q_1}i_\ell j_\ell,
+        \]
+        \[
+            a_2=\sum_{\ell'=1}^{q_2}i_\ell' j_\ell',
+        \]
+        then
+        \[
+            a_1+a_2=\sum_{\ell=1}^{q_1}i_\ell j_\ell+\sum_{\ell'=1}^{q_2}i_\ell' j_\ell'.
+        \]
+        Define $q=\max\{q_1,q_2\}$, WLOG $q=q_1$, define $i_\ell'=j_\ell'=0$ if $q_2<\ell \leq q_1$. then
+        \[
+            a_1+a_2=\sum_{\ell=1}^{q}(i_\ell j_\ell+i_\ell'+j_\ell').
+        \]
+        \textit{Note.} $i_\ell j_\ell+i_\ell'+j_\ell'\in I\cdot J$ for $1\leq \ell\leq q$. Hence, $a_1+a_2\in I\cdot J$.
+        \begin{align*}
+            a_1a_2&=\left(\sum_{\ell=1}^{q_1}i_\ell j_\ell\right)\left(\sum_{\ell'=1}^{q_2}i_\ell' j_\ell'\right)\\
+            &=\sum_{\ell=1}^{q_1}i_\ell j_\ell\left(\sum_{\ell=1}^{q_2}i_\ell'j_\ell'\right)\\
+            &=\sum_{k=1}^{q_1}\sum_{\ell=1}^{q_2}i_k j_k i_\ell'j_\ell'.
+        \end{align*}
+        Other details are an exercise.
+    \end{enumerate}
+    This is a finite sum of summands of the form $ij$. Hence, $a_1a_2\in I\cdot J$.
+}
+(If $r\in R$, $ra_2=\sum_{\ell=1}^{q}ri_\ell'j_\ell'\Rightarrow ra_2\in I\cdot J$)\\
+Original Motivation: trying to solve diophantine equations (Fermat's last theorem).
+\subsection*{Fermat's Equation}
+\[
+    x^n+y^n=z^n,\quad x,y,z\in\Z,n\geq3
+\]
+\textit{Claim (FLT).} This has no solutions with $xyz\neq0$.\\
+Fermat solved the case for $n=4$. He saw that you can factor the LHS as $(x+\zeta_1y)\cdots(x+\zeta_ny),$ where $\zeta_i$'s are the $n-$th roots of unity. If $x+\zeta_iy$ were all $n-$th powers, then FLT would be easy to prove. Unfortunately this is not case in general. This led to the notion of ``ideal numbers'' to try to recover unique factorization. This ``recovered'' by a theorem of Hilbert. Unfortunately, in practice it does not help.\\
+This is because the arithmetic of ideals just introduced does not behave well with with relevant number theoretic properties. The multiplicative aspect of ideal arithmetic gave rise to so-called \underline{composition laws} in number rings.\\
+This is realted to the \textit{class number problem}. Gauss had two conjectures:
+\begin{enumerate}
+    \item For imaginary quadratic fields, the class numbers go to infiity, and only a specified list of such fields have class \#1 (i.e., unique factorization)
+    \item For real quadratic fields, infiitely many have unique factorization. 
+\end{enumerate}
+1. was proven by showing that if the Reimann hypothesis is true then it is true, and if the Reimann hypothesis is false then the statement is also true.
+\end{document}
