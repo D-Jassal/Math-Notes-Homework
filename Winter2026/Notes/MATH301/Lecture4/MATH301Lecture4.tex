@@ -1,0 +1,86 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+
+\title{MATH 301 Lecture 4}
+\author{Deepak Jassal}
+\date{January 21\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle
+\section{Basic Topology of $\C$}
+\setcounter{subsection}{1}
+\defn{Open Disk}{
+    An open disk $D(z_0,r)=\{z\in\C: |z-z_0|<r\}$ where $r>0$ is called an $r$ neighbourhood of $z_0$.
+}
+\defn{Punctured Disk}{
+    $D_0(z_0,r)=D(z_0,r)\setminus\{z_0\}$
+}
+\defn{Open Sets}{
+    A subset $U$ of $\C$ is called open f for every $z\in U$ there exists $r>0$ such that $D(z,r)\subseteq U$.
+}
+\defn{Closed Set}{
+    A subset $C$ of $\C$ is called a closed set if $C^c=\C\setminus C$ is open. Equivalently, $C$ is closed if it contains the limits points of all convergent sequences in $C$.
+}
+\defn{Limit of a Sequence}{
+    Let $(z_n)_{n=1}^\infty$ be a sequence in $\C$. Then
+    \[
+        \lim_{n\to\infty}z_n=w
+    \]
+    means that for evert $\varepsilon>0$ there exists $N\in\N$ such that if $n\geq N$ then $|z_n-w|<\varepsilon$. Or, for every $\varepsilon>0$ there exists $N\in\N$ such that $z_n\in D(w,\varepsilon)$.
+}
+\pf[Proof of Equivalence for 1.1.5]{
+    Suppose that $C$ is a closed subset of $\C$, and supposed that $(z_n)_{n=1}^\infty$ is a sequence in $C$. Suppose for contradiction suppose that $w\not\in C$, so $w\in C^c$, but this set is open, so there exists a disk $D(w,r)$, $r>0$ such that $D(w,r)\subseteq C^c$. This implies that $\lim_{n\to\infty}z_n\neq w$. Thus, we have a contradiction. Now, suppose that for every sequence $(z_n)_{n=1}^\infty$, $\lim_{n\to\infty}z_n=w$, then $w\in C$. We want to show that $C^c$ is open. For a contradiction, suppose that $C^c$ is not open. That is there exists $z_0\in C^c$ such that no matter how small $r>0$ is $D(z_0,r)\not\subseteq C^c$. The disk contains at least one point from $C$. Then $\lim_{n\to\infty}z_n=z_0$, with our assumption $z_0\in C$. So $z_0\not\in C^c$. Thus we have a contradiction, the two statements are equivalent.
+}
+\prop{
+    Open Sets 
+    \begin{enumerate}
+        \item $\varphi$ and $\C$ are open;
+        \item an arbitrary union of open sets is open;
+        \item an intersection of a finite number of open sets is open.
+    \end{enumerate}
+}
+
+\prop{
+    Closed Sets
+    \begin{enumerate}
+        \item $\varphi$ and $\C$ are closed;
+        \item an arbitrary intersection of closed sets is closed;
+        \item a union of a finite number of closed sets is closed.
+    \end{enumerate}
+}
+\pf[Proof of Open Set 4]{
+    Suppose $U_1,U_2,\dots,U_n$ are open sets. Let $z_0\in U_1\cap U_2\cap\cdots\cap U_n$. Then $z_0\in U_i$ implies that there exists $r_i>0$ such that $D(z_0,r_i)\subseteq U_i$ (for all $1\leq i\leq n$). Let $\rho=\min\{r_1,r_2,\dots,r_n\}$, then $D(z_0,\rho)\subseteq D(z_0,r_i)$ for $1\leq i\leq n$. So $D(z_0,\rho)\subset U_1\cap U_2\cap\cdots\cap U_n$.
+}
+\subsection{Continuity}
+Let $f:A\to\C$ be a function where $A$ is an open subset of $\C$.
+\defn{Point Continuity}{
+    $f$ is a continuous at $z_0\in A$ if for every sequence $(z_n)_{n=1}^\infty\in A$ if 
+    \[
+        \lim_{n\to\infty}z_n=z_0
+    \]
+    implies that
+    \[
+        \lim_{n\to\infty}f(z_n)=f(z_0).
+    \]
+}
+\defn{Continuity}{
+    $f$ is continuous on $A$ if it is continuous at every point of $A$.
+}
+\propp{
+    Let $f:\C\to\C$, then the following statements are equivalent
+    \begin{enumerate}
+        \item $f$ is continuous on $\C$;
+        \item For every open subset $U$ of $\C$, $f^{-1}(U)$ is open;
+        \item for every closed subset $C$ of $\C$, $f^{-1}(C)$ is closed.
+    \end{enumerate}
+}{
+    ($2\Leftrightarrow 3$) If $U$ is open, then $\C\setminus U=U^c$ is closed, let $C=U^c$. $\C=U\cup C$, and $U\cap C=\varphi$. $f^{-1}(\C)=\C$ and $f^{-1}(\C)=f^{-1}(U)\cup f^{-1}(C)$. Since these unions are disjoint, we have that $f^{_1}(U)$ is open \textit{if and only if} $f^{-1}(C)$ is closed.\\
+    ($1\Rightarrow 2$) $z_n\to z_0\Rightarrow f(z_n)\to f(z_0)$. Let $U$ be an open set in $\C$. Let $z_0\in f^{-1}(U)$, so $f(z_0)\in U$. Suppose that $f^{-1}(U)$ is not ope. Then $z_0\in f^{-1}(U)$ such that for all $r>0$ $D(z_0,r)\not\subseteq f^{-1}(U)$, but $f(z_0)\in U$. This implies that $D(z_),r$ contains a point form outside of $(f^{-1}(U))^c$. this is true for all $n\in \N$ $D\left(z_0,\frac{1}{n}\right)$. There exists a sequence $(z_n)_{n=1}^\infty$ putisde of $f^{-1}(U)$ with $\lim_{n\to\infty}z_n=z_0$ and $z_0\in f^{-1}(U)$. So consider $(f(z_n))_{n=1}^\infty$ it is totally outside of $U$, so $(f(z_n))_{n=1}^\infty\subseteq U^c$ which is closed. This implies that $\lim_{n\to\infty}f(z_n)\subseteq U^c$ so $z_n\to z_0$, but since $f$ is continuous $\lim_{n\to\infty}f(z_n)=f(z_0)\subseteq U$, which is a contradiction.\\
+    ($2\Rightarrow1$) Now suppose that $f^{-1}(U)$ is open for every open set in $\C$. We want to show that $z_n\to z_0$ implies that $f(z_n)\to f(z_0)$. Suppose that $z_n\to z_0$ but $f(z_n)\not\to f(z_0)$. $f(z_n)\not\to f(z_0)\Rightarrow \exists r>0, \text{ such that the disk } D(z_0,r)$ does not contain $f(z_n)$ for every $n$ and $f^{-1}(D(f(z_0),r))$ is open and contains $z_0$. $f(z_n)\not\in D(f(z_0),r)$ implies that $z_n\not\in D(z_0,r)$ implies that $z_n\not\to z_0.$
+}
+
+\end{document}

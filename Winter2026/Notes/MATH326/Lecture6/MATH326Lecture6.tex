@@ -1,0 +1,124 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+\usepackage{bookmark}
+\usepackage{tensor}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+\usepackage{blkarray}
+\title{MATH 326 Lecture 6}
+\author{Deepak Jassal}
+\date{January 21\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle
+\section{Linear Transformations}
+\defn{Linear Maps}{A map $T:V\to W$ with $V,W$ linear vector spaces over $F$ is called linear if $T(av+bw)=at(v)+bt(w)$ for all $a,b\in F$ and  $v,w\in V$. So 
+\[
+    T\left(\sum_{i=1}^{k}a_iv_i\right)=\sum_{i=1}^{k}a_iT(v_i),\quad \text{for any }v_1,\dots,v_n\in V\text{ and }a_1,\dots,a_n\in F.
+\]
+}
+Note: $T(0)=0$ is trivial.
+\ex{
+    $V=P_R=R[x]$ all polynomials with real coefficients
+    \[
+        T:V\to V,\quad T(f)\overset{\text{def}}{=}f'.
+    \]
+}
+\ex{
+    $V=\mathcal{C}^\infty(0,1)$ 
+    \[
+        T:V\to V
+    \]
+    is defined by $Tf=f'$.
+}
+\ex{
+    $V=\mathcal{C}[a,b]$
+    \[
+        T:V\to V
+    \]
+    is defined by 
+    \[
+        Tf=\int_{a}^{x}f(t)\,dt=F(x)-F(a).
+    \]
+}
+\newpage
+\ex{
+    Let $g\in\mathcal{C}[a,b]$ be a fixed function and 
+    \[
+        Tf=gf
+    \]
+    is also linear.
+}
+The case when $V=F^n$ and $W=F^m$, and let $A\in M_{m\times n}(F)$. Then $T(X)=AX$ is a linear transformation 
+\[
+    T:F^n\to F^m.
+\]
+We write the linearaity with the following notation $T\in \mathcal{L}(F^n,F^m)$. We say that $T$ is a ``matrix transformation''.
+\propp{
+    Every linear transformation $T:F^n\to F^m$ is a matrix transformation, that is there exists $A_{m\times n}$ such that $T(X)=AX$.
+}{
+    $X\in F\Rightarrow X=\begin{bmatrix}x_1\\ \vdots\\ x_n \end{bmatrix}=x_1e_1+x_2e_2+\cdots+x_ne_n$. So
+    \begin{align}
+        T(X)&=T(x_1e_1+x_2e_2+\cdots+x_ne_n)=x_1T(e_1)+x_1T(e_2)+\cdots x_nT(e_n)\\
+        &=\begin{bmatrix}T(e_1) T(e_2)\dots T(E_n)\end{bmatrix}\begin{bmatrix}x_1\\ \vdots\\ x_n\end{bmatrix}\\
+        &=A_{m\times n}\\
+        TX&=AX.
+    \end{align}
+}
+\subsection{Cordinate Maps}
+Let $V$ be an $n$-dimesional vector space and $\beta=v_1,v_2,\dots,v_n$ its basis.
+\[
+    V\ni v \to C_\beta(v)\in F^n
+\]
+$C_\beta=?$ If $v=\sum_{i=1}^{r}e_iv_i$ then \[C_\beta(v)=\begin{bmatrix}e_1\\ \vdots \\ e_n\end{bmatrix}\]
+\defn{isomorphisms for Vector Spaces}{
+    Let $T$ be a map from $V$ to $W$. $T$ is called an isomorphism if $T$ is a bijection, $T$ is linear, $T^{-1}$ exists and it is linear.\\
+    \textit{Note.} If $T$ is a linear bijection, then $T^{-1}$ is automatically linear. 
+}
+\pf[Proof of Note]{
+    We need to show taht $T^{-1}(aw_1+bw_2)=aT^{-1}(w_1)+bT^{-1}(w_2)$. Every vector of $W$ is the image of a vector in $V$, so $w_1=Tv_1$ and $w_2=Tv_2$ for some $v_1,v_2\in V$.
+    \begin{align*}
+        T^{-1}(aw_1+bw_2)&=T^{-1}(aTv_1+bTv_2)\\
+        &=T^{-1}(T(av_1+bv_2))\\
+        &=av_1+bv_2\\
+        &=aT^{-1}w_1+bT^{-1}w_2.
+    \end{align*} 
+    Which gives the desired result.
+}
+\prop{$C_\beta$ as defined above is linear and invertible, so $C_\beta$ is an isomorphism.}
+Let $V$ be a vector space over $F$ adn $\beta=v_1,v_2.\dots,v_n$ be its basis, so $\mathrm{dim}(V)=n$. Let $W$ be a vector space over $F$ and $\gamma=w_1.w_2,\dots,w_m$ be its basis, so $\mathrm{dim}(W)=m$. Let $T:V\to W$ be a linear transformation
+\[
+    V_\beta\overset{T}{\underset{T^{-1}}{\xrightleftharpoons{\hspace{.5cm}}}}W_\gamma,
+\]
+\[
+    V_\beta\overset{C_\beta}{\underset{C_\beta^{-1}}{\xrightleftharpoons{\hspace{.5cm}}}}F^n,
+\]
+\[
+    W_\gamma\overset{C_\gamma}{\underset{C_\gamma^{-1}}{\xrightleftharpoons{\hspace{.5cm}}}}F^m,
+\]
+and
+\[
+    F^n\overset{\hat{T}}{\to}F^m.
+\]
+We can see that 
+\[
+    \hat{T}:F^n\to F^m,
+\]
+thus it is a matrix map because it is a linear map.
+\[
+    T=C_\gamma \circ T\circ C_\beta^{-1},
+\]
+thus $\hat{T}$ is a linear composition of linear maps. So $\hat{T}$ has a matrix we denote as $\tensor[_\gamma]{[T]}{_\beta}$.
+\subsection*{How to Find $\tensor[_\gamma]{[T]}{_\beta}$}
+It is a matrix of $\hat{T}:F^n\to F^m$
+\[
+    \tensor[_\gamma]{[T]}{_\beta}=[\hat{T}e_1\cdots\hat{T}e_n].
+\]
+A vector $v_j\in V_\beta$ will map to $e_j$ under $C_\beta$. Under $T$ it maps to $Tv_j$. We have $e_j=Tv_j\to [Tv_j]_\gamma$. So
+\[
+    \tensor[_\gamma]{[T]}{_\beta}=\begin{bmatrix} [Tv_1]_\gamma[Tv_2]_\gamma\cdots[Tv_n]_\gamma\end{bmatrix}.
+\]
+Each $[Tv_i]_\gamma=[\hat{T}e_i]$ for $1\leq i\leq n$.
+\end{document}
