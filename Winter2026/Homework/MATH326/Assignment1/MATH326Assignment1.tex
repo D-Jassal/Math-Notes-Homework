@@ -45,10 +45,11 @@ and multiplication by scalar by
 \[
 c \odot (x_1, x_2) = \left( \sqrt[3]{cx_1^3 + c - 1},\ \sqrt[3]{cx_2^3 + 2c - 2} \right).
 \]
-Show that $V$ with addition of vectors $\oplus$ and multiplication by scalars $\odot$ is a vector space over $\R$.
+Show that $V$ with addition of vectors $\oplus$ and multiplication by scalars $\odot$ is a vector space over $\R$.\\
+For the following assume that $(x_1, x_2), (y_1, y_2), (w_1,w_2)\in V$ are arbitrary.
 \begin{enumerate}
 	\item Addition over reals is commutative so we have $(x_1, x_2) \oplus (y_1, y_2)=(y_1, y_2) \oplus (x_1, x_2)$;
-	\item Addition over reals is associative for we have $((x_1, x_2) \oplus (y_1, y_2))\oplus (w_1,w_2)=(x_1, x_2) \oplus ((y_1, y_2)\oplus (w_1,w_2))$;
+	\item Addition over reals is associative so we have $((x_1, x_2) \oplus (y_1, y_2))\oplus (w_1,w_2)=(x_1, x_2) \oplus ((y_1, y_2)\oplus (w_1,w_2))$;
 	\item We need $0_V=(a,b)$ with $(x_1,x_2)\oplus(a,b)=(x_1,x_2),\quad \forall(x_1,x_2)$.
 	\[
 		\sqrt[3]{x_1^3+a^3+1}=x_1\Rightarrow a^3+1=0\Rightarrow a=-1,
@@ -59,8 +60,56 @@ Show that $V$ with addition of vectors $\oplus$ and multiplication by scalars $\
 	Thus, $0_V=(-1,-\sqrt[3]{2})$.
 	\item For any $v\in V$ with $v=(x_1,x_2)$ define $-v$ by $-v=(\sqrt[3]{-x_1^3-2},\sqrt[3]{-x_2^3-4})$. Then,
 	\begin{align*}
-		v\oplus(-v)&=\left( \sqrt[3]{x_1^3 + \sqrt[3]{-x_1^3-2}^3 + 1}, \sqrt[3]{x_2^3 + \sqrt[3]{-x_2^3-4}^3 + 2} \right)\\
+		v\oplus(-v)&=\left( \sqrt[3]{x_1^3 + \left(\sqrt[3]{-x_1^3-2}\right)^3 + 1}, \sqrt[3]{x_2^3 + \left(\sqrt[3]{-x_2^3-4}\right)^3 + 2} \right)\\
 		&=\left( \sqrt[3]{x_1^3 -x_1^3-2 + 1}, \sqrt[3]{x_2^3 + -x_2^3-4 + 2} \right)=(-1,-\sqrt[3]{2})=0_V.
+	\end{align*}
+	\item Let $u=(x_1, x_2)$, $v=(y_1, y_2)$ and $c\in\R$. Then 
+	\begin{align*}
+		c\odot(u\oplus v)&=c\left(\sqrt[3]{x_1^3 + y_1^3 + 1},\ \sqrt[3]{x_2^3 + y_2^3 + 2}\right)\\
+		&=\left( \sqrt[3]{c\left(\sqrt[3]{x_1^3 + y_1^3 + 1}\right)^3 + c - 1},\ \sqrt[3]{c\left(\sqrt[3]{x_2^3 + y_2^3 + 2}\right)^3 + 2c - 2} \right)\\
+		&=\left( \sqrt[3]{c\left(x_1^3 + y_1^3 + 1\right) + c - 1},\ \sqrt[3]{c\left(x_2^3 + y_2^3 + 2\right) + 2c - 2} \right)\\
+		&=\left( \sqrt[3]{cx_1^3 + cy_1^3 + 2c - 1},\ \sqrt[3]{cx_2^3 + cy_2^3 + 4c - 2} \right)\\
+		&=\left( \sqrt[3]{cx_1^3+c + cy_1^3 + 2c - 1},\ \sqrt[3]{cx_2^3 + cy_2^3 + 4c - 2} \right),		
+	\end{align*}
+	and
+	\begin{align*}
+		c\odot u\oplus c\odot v=&\left( \sqrt[3]{cx_1^3 + c - 1},\ \sqrt[3]{cx_2^3 + 2c - 2} \right)\oplus\left( \sqrt[3]{cy_1^3 + c - 1},\ \sqrt[3]{cy_2^3 + 2c - 2} \right)\\
+		=&\bigg( \sqrt[3]{\left(\sqrt[3]{cx_1^3 + c - 1}\right)^3 + \left( \sqrt[3]{cy_1^3 + c - 1}\right)^3 + 1},\\
+		&\sqrt[3]{\left(\sqrt[3]{cx_2^3 + 2c - 2}\right)^3 + \left(\sqrt[3]{cy_2^3 + 2c - 2}\right)^3 + 2} \bigg)\\
+		=&\left(\sqrt[3]{cx_1^3 + c - 1 + cy_1^3 + c - 1 + 1}, \sqrt[3]{cx_2^3 + 2c - 2 + cy_2^3 + 2c - 2 + 2} \right)\\
+		&=\left( \sqrt[3]{cx_1^3+c + cy_1^3 + 2c - 1},\ \sqrt[3]{cx_2^3 + cy_2^3 + 4c - 2} \right)=c\odot(u\oplus v).
+	\end{align*}
+	\item Let $u=(x_1, x_2)$, $a,b\in\R$ and $c=a+b$. Then,
+	\begin{align*}
+		(a+b)\odot u&=\left( \sqrt[3]{cx_1^3 + c - 1},\ \sqrt[3]{cx_2^3 + 2c - 2} \right)\\
+		&=\left( \sqrt[3]{(a+b)x_1^3 + (a+b) - 1},\ \sqrt[3]{(a+b)x_2^3 + 2(a+b) - 2} \right),
+	\end{align*}
+	and
+	\begin{align*}
+		(a\cdot u)\oplus (b\cdot u)=&\left( \sqrt[3]{ax_1^3 + a - 1},\ \sqrt[3]{ax_2^3 + 2a - 2} \right)\odot \left( \sqrt[3]{bx_1^3 + b - 1},\ \sqrt[3]{bx_2^3 + 2b - 2} \right)\\
+		=&\bigg( \sqrt[3]{\left(\sqrt[3]{ax_1^3 + a - 1}\right)^3 + \left(\sqrt[3]{bx_1^3 + b - 1}\right)^3 + 1},\\ 
+		=&\sqrt[3]{\left(\sqrt[3]{ax_2^3 + 2a - 2}\right)^3 + \left(\sqrt[3]{bx_2^3 + 2b - 2}\right)^3 + 2} \bigg)\\
+		=&\left( \sqrt[3]{ax_1^3 + a - 1 + bx_1^3 + b - 1 + 1},\sqrt[3]{ax_2^3 + 2a - 2 + bx_2^3 + 2b - 2 + 2} \right)\\
+		=&\left( \sqrt[3]{(a+b)x_1^3 + (a+b) - 1},\ \sqrt[3]{(a+b)x_2^3 + 2(a+b) - 2} \right)=(a+b)\odot u.
+	\end{align*}
+	\item Let $u=(x_1, x_2)$, $a,b\in\R$, and $ab=c$. Then,
+	\begin{align*}
+		(ab)\odot u&=\left( \sqrt[3]{cx_1^3 + c - 1},\ \sqrt[3]{cx_2^3 + 2c - 2} \right)\\
+		&=\left( \sqrt[3]{(ab)x_1^3 + (ab) - 1},\ \sqrt[3]{(ab)x_2^3 + 2(ab) - 2} \right),
+	\end{align*}
+	and
+	\begin{align*}
+		a\odot(b\odot u)=&a\odot \left( \sqrt[3]{bx_1^3 + b - 1},\ \sqrt[3]{bx_2^3 + 2b - 2} \right)\\
+		&=\left( \sqrt[3]{a\left(\sqrt[3]{bx_1^3 + b - 1}\right)^3 + a - 1},\ \sqrt[3]{a\left(\sqrt[3]{bx_2^3 + 2b - 2}\right)^3 + 2a - 2} \right)\\
+		&=\left( \sqrt[3]{a\left(bx_1^3 + b - 1\right) + a - 1},\ \sqrt[3]{a\left(bx_2^3 + 2b - 2\right) + 2a - 2} \right)\\
+		&=\left( \sqrt[3]{(ab)x_1^3 + (ab) - a + a - 1},\ \sqrt[3]{(ab)x_2^3 + 2ab - 2a + 2a - 2} \right)\\
+		&=\left( \sqrt[3]{(ab)x_1^3 + (ab) - 1},\ \sqrt[3]{(ab)x_2^3 + 2ab - 2} \right)=(ab)\odot u.
+	\end{align*}
+	\item Let $u=(x_1,x_2)$. Then,
+	\begin{align*}
+		1\odot u&=\left( \sqrt[3]{x_1^3 + 1 - 1},\ \sqrt[3]{x_2^3 + 2 - 2} \right)\\
+		&=\left( \sqrt[3]{x_1^3 },\ \sqrt[3]{x_2^3}  \right)\\
+		&=(x_1,x_2).
 	\end{align*}
 \end{enumerate}
 
@@ -69,16 +118,65 @@ Show that $V$ with addition of vectors $\oplus$ and multiplication by scalars $\
 \section*{Problem 2}
 Let $U = \operatorname{span}\{(1, 2, 3, 4), (-1, 2, 0, 5), (-3, -6, -9, -12), (-1, 10, 6, 23), (1, 1, 1, 1)\}$. Find a basis of $U$ in two different ways:
 \begin{enumerate}
-    \item[(a)] By selecting the basis from among the spanning vectors of $U$.
-    \item[(b)] By row reducing the matrix whose rows are the vectors listed in the span.
+    \item[(a)] By row reducing the matrix whose rows are the vectors listed in the span.\\
+    Taking the transpose of the matrix $A$ from part 1 we obtain the following
+	\[
+	\mathrm{r.r.e.f}(A^T) = 
+	\begin{bmatrix}
+		1 & -1 & -3 & -1 & 1 \\
+		2 & 2 & -6 & 10 & 1 \\
+		3 & 0 & -9 & 6 & 1 \\
+		4 & 5 & -12 & 23 & 1
+	\end{bmatrix}=
+	\begin{bmatrix}
+		1 & 0 & -3 & 2 & 0 \\
+		0 & 1 & 0 & 3 & 0 \\
+		0 & 0 & 0 & 0 & 1 \\
+		0 & 0 & 0 & 0 & 0
+	\end{bmatrix}
+	\]
+	So the basis vectors are $\{(1, 2, 3, 4), (-1, 2, 0, 5), (1, 1, 1, 1)\}$
+    \item[(b)] 
+	By selecting the basis from among the spanning vectors of $U$.\\
+    Writing out the vectors of $U$ in a matrix, say $A$ we obtain
+	\[
+	\mathrm{r.r.e.f}(A) = \mathrm{r.r.e.f}
+	\begin{bmatrix}
+		1 & 2 & 3 & 4 \\
+		-1 & 2 & 0 & 5 \\
+		-3 & -6 & -9 & -12 \\
+		-1 & 10 & 6 & 23 \\
+		1 & 1 & 1 & 1
+	\end{bmatrix}
+	= \begin{bmatrix}
+		1 & 0 & 0 & -1.4 \\
+		0 & 1 & 0 & 1.8 \\
+		0 & 0 & 1 & 0.6 \\
+		0 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 0
+	\end{bmatrix}.
+	\]
+	By this method we have that the vectors $\{(1, 2, 3, 4), (-1, 2, 0, 5), (-3, -6, -9, -12)\}$ form a basis of $U$.
 \end{enumerate}
 
 
 \stepcounter{section}
 \section*{Problem 3}
-Complete the set $\{(1, 2, 3, 4), (2, 2, 3, 4)\}$ to a basis of $\R^4$.
-
-
+Complete the set $\{(1, 2, 3, 4), (2, 2, 3, 4)\}$ to a basis of $\R^4$.\\
+We need to find two vectors that are linearly idependant with those in the above listed set, we can do so by computing the following determinant
+\[
+\begin{vmatrix}
+	1&2&a&e\\
+	2&2&b&f\\
+	3&3&c&g\\
+	4&4&d&h\\
+\end{vmatrix}=2(ah-de)-2(bh-df)+2(bg-cf)-2(ag-ce).
+\]
+Now we need to pick values of $a,b,c,d,e,f,g,h$ such that the determinant is non-zero. Take $a=h=d=e=0$, $b=g=1$ and $c=f=2$. Then we get
+\[
+	2(0-0)-2(0-0)+2(1-4)-2(0-0)=-6.
+\]
+So the vectors $(0,1,2,0)$ and $(0,2,1,0)$ complete the set into a basis of $\R^4$.
 
 \stepcounter{section}
 \section*{Problem 4}
@@ -88,21 +186,82 @@ v + w = \begin{pmatrix} 1 & v \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 1 & w \\ 0 
 \]
 and scalar multiplication by $cv = \begin{pmatrix} 1 & cv \\ 0 & 1 \end{pmatrix}$. Show that $V$ together with these operations is a real vector space. In particular state what is zero and $-v$ in this space\\
 \textit{Solution.}
-Each of the vectors is identified with its upper-right entry $a \in \mathbb{R}$.
-
-
-
-
-
+\[
+	\begin{pmatrix} 1 & v \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 1 & w \\ 0 & 1 \end{pmatrix}=\begin{pmatrix} 1 & v+w \\ 0 & 1 \end{pmatrix}.
+\]
+Each of the vectors is identified with its upper-right entry $a \in \mathbb{R}$. For the following assume that $v,w,u\in V$ are arbitrary.
+\begin{enumerate}
+	\item Addition over reals is commutative so we have $v+w=w+v$.
+	\item Addition over reals is associative so we have $(v+w)+u=v+(w+u)$.
+	\item From our defined notation we have that $0_V=\begin{pmatrix}1&0\\0&1\end{pmatrix}=0$. 
+	\[
+		v+0=\begin{pmatrix}1&v\\0&1\end{pmatrix}\begin{pmatrix}1&0\\0&1\end{pmatrix}=\begin{pmatrix}1&v+0\\0&1\end{pmatrix}=\begin{pmatrix}1&v\\0&1\end{pmatrix}=v,
+	\]
+	$0+v=v$ si given by commutativity.
+	\item For $v=\begin{pmatrix}1&v\\0&1\end{pmatrix}$ define $-v$ as $-v=\begin{pmatrix}1&-v\\0&1\end{pmatrix}$.
+	\[
+		v+(-v)=\begin{pmatrix}1&v\\0&1\end{pmatrix}\begin{pmatrix}1&-v\\0&1\end{pmatrix}=\begin{pmatrix}1&v-v\\0&1\end{pmatrix}=\begin{pmatrix}1&0\\0&1\end{pmatrix}=0,
+	\]
+	$-v+v=0$ is given by commutativity.
+	\item Let $c\in\R$. Then
+	\begin{align*}
+		c(v+w)&=c\left(\begin{pmatrix}1&v\\0&1\end{pmatrix}\begin{pmatrix}1&w\\0&1\end{pmatrix}\right)\\
+		&=c\left(\begin{pmatrix}1&v+w\\0&1\end{pmatrix}\right)\\
+		&=\begin{pmatrix}1&c(v+w)\\0&1\end{pmatrix}\\
+		&=\begin{pmatrix}1&cv+cw\\0&1\end{pmatrix}\\
+		&=\begin{pmatrix}1&cv\\0&1\end{pmatrix}\begin{pmatrix}1&cw\\0&1\end{pmatrix}\\
+		&=cv+cw.
+	\end{align*}
+	\item Let $a,b\in\R$ and $(a+b)=c$. Then,
+	\begin{align*}
+		(a+b)v&=cv\\
+		&=\begin{pmatrix}1&cv\\0&1\end{pmatrix}\\
+		&=\begin{pmatrix}1&(a+b)v\\0&1\end{pmatrix}\\
+		&=\begin{pmatrix}1&av+bv\\0&1\end{pmatrix}\\
+		&=av+bv.
+	\end{align*}
+	\item Let $a,b\in\R$ and $(ab)=c$. Then,
+	\begin{align*}
+		(ab)u&=cv\\
+		&=\begin{pmatrix}1&cv\\0&1\end{pmatrix}\\
+		&=\begin{pmatrix}1&a(bv)\\0&1\end{pmatrix}\\
+		&=a\begin{pmatrix}1&bv\\0&1\end{pmatrix}\\
+		&=a(bv).
+	\end{align*}
+	\item Given that $1\in\R$ we have
+	\begin{align*}
+		1v=1\begin{pmatrix}1&v\\0&1\end{pmatrix}=\begin{pmatrix}1&1v\\0&1\end{pmatrix}=\begin{pmatrix}1&v\\0&1\end{pmatrix}=v.
+	\end{align*}
+\end{enumerate}
 
 \stepcounter{section}
 \section*{Problem 5}
 Suppose that $A$ is a $2 \times 2$ invertible matrix with real entries. Show that $U = \operatorname{span}\{A^n : n \in \Z\} \neq M_{2\times 2}(\R)$.
 
 \noindent\textbf{Hint:} Let $B \in U$. Do we have $AB = BA$? If so...\\
-\textit{Solution.} Notice that $M_{2\times 2}(\R)$ contains matrices that are not invertible, that is matrices with determinant equal to 0. Since it is given that $\det A\neq 0$, by the following property of determinants 
-\[
-	\det(AB)=\det(A)\det(B),
-\] 
-we have that there can be no matrix in $U$ with determinant equal to zero. Therefore, $U\neq M_{2\times 2}(\R)$.
+\begin{proof}
+	An element $B\in U$ looks like
+	\[
+		B=\sum_{n}c_nA^n
+	\]
+	where $c_n$ is a finite coefficient determined by the matrix in $U$ in question. We also have
+	\[
+		AB=A\sum_{n}c_nA^{n+1},
+	\]
+	\[
+		BA=\left(\sum_{n}c_nA^n\right)A=\sum_{n}c_nA^{n+1}.
+	\]
+	Since $AB=BA$ we have that 
+	\[
+		U\subseteq \{X\in M_{2\times 2}(\R):XA=AX\}.
+	\]
+	That is, $U$ is a subset of the centralizer of $A$. The only way the centralizer of $A$ is equal to $M_{2\times 2}(\R)$ is if it is a scalar multiple of $I_2$. Assume that $A\neq cI_n$, then $C(A)\neq M_{n\times n}$. Now suppose that $A=cI_2$ for some $c\in\R$, then $U$ would be the span of the identity matrix. If htis were the case then the matrix
+	\[
+		\begin{bmatrix}
+			1&2\\
+			3&4
+		\end{bmatrix},
+	\]
+	does not appear in $U$.
+\end{proof} 
 \end{document}

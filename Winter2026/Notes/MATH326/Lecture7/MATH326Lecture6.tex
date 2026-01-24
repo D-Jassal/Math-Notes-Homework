@@ -1,0 +1,141 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+\usepackage{bookmark}
+\usepackage{tensor}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+\usepackage{blkarray}
+\title{MATH 326 Lecture 7}
+\author{Deepak Jassal}
+\date{January 23\textsuperscript{rd}, 2026}
+
+\begin{document}
+\maketitle
+\setcounter{section}{1}
+\ex{
+    Let $V=P_3=$ polynomials of degree lesser than or equal to 3. $P_3\leq P_\R$. 
+    \[
+        T:V\to V
+    \]
+    the basis is the same for both
+    \[
+        \beta=1,x,x^2,x^3.
+    \]
+    Let $T:V\to V$ be defined by $Tf=f^{-1}$, so $T$ is linear. Find $\tensor[_\beta]{[T]}{_\beta}$.
+    \begin{align*}
+        \tensor[_\beta]{[T]}{_\beta}&=\left[[T1]_\beta[Tx]_\beta[Tx^2]_\beta[Tx^3]_\beta\right]\\
+        &=\left[[0]_\beta[1]_\beta[2x]_\beta[3x^2]_\beta\right]\\
+        &=\begin{bmatrix}
+            0&1&0&0\\
+            0&0&2&0\\
+            0&0&0&3\\
+            0&0&0&0\\
+        \end{bmatrix}.
+    \end{align*}
+    $p(x)=4x^3-8x+10$. $Tp(x)=12x^2-8$
+    \[
+        \begin{bmatrix}
+            0&1&0&0\\
+            0&0&2&0\\
+            0&0&0&3\\
+            0&0&0&0\\
+        \end{bmatrix}
+        \begin{bmatrix}
+            10\\-8\\0\\4
+        \end{bmatrix}=
+        \begin{bmatrix}
+            -8\\0\\12\\0
+        \end{bmatrix}
+    \]
+}
+\ex{
+    $V=M_2(F)$, $\beta=\underbrace{\begin{bmatrix}1&0\\0&0\end{bmatrix}}_{e_1}\underbrace{\begin{bmatrix}0&1\\0&0\end{bmatrix}}_{e_2}\underbrace{\begin{bmatrix}0&0\\1&0\end{bmatrix}}_{e_3}\underbrace{\begin{bmatrix}0&0\\0&1\end{bmatrix}}_{e_4}.$
+    \[
+        \begin{bmatrix}a&b\\c&d\end{bmatrix}=ae_1+be_2+ce_3+d_4.
+    \]
+    \[
+        T:V\to F,\quad T(A)=\tr(A).
+    \]
+    $\gamma=1$ is a basis of $F$.
+    \begin{align*}
+        \tensor[_\gamma]{[T]}{_\beta}&=\left[[Te_1]_\beta[Te_2]_\beta[Te_3]_\beta[Te_4]_\beta\right]\\
+        &=\left[[1]_\gamma[0]_\gamma[0]_\gamma[1]_\gamma\right]\\
+        &=\begin{bmatrix}
+            1&0&0&1
+        \end{bmatrix}.
+    \end{align*}
+    \[
+        \tensor[_\gamma]{[T]}{_\beta}\begin{bmatrix}
+            a&b\\c&d
+        \end{bmatrix}_\gamma=\begin{bmatrix}
+            1&0&0&1
+        \end{bmatrix}\begin{bmatrix}
+            a\\b\\c\\d
+        \end{bmatrix}=a+d=\tr\left(\begin{bmatrix}
+            1&0&0&1
+        \end{bmatrix}\right).
+    \]
+}
+\ex{
+    $V=M_2(F)$ both sides have the standard basis $\beta=e_1,e_2,e_3,e_4$.
+    \[
+        T:V\to V,\quad TA=BA, \text{ where we have } B=\begin{bmatrix}
+            1&2\\3&4
+        \end{bmatrix}.
+    \]
+    Find $\tensor[_\beta]{[T]}{_\beta}$
+    \begin{align*}
+        T(aA_1+bA_2)&=B(aA_1+bA_2)\\
+        &=aBA_1+bBA_2\\
+        &=aT(A_1)+bT(A_2),
+    \end{align*}
+    so $T\in \mathcal{L}(M_2(F);M_2(F)).$
+    \begin{align*}
+        \tensor[_\beta]{[T]}{_\beta}&=[[Te_1]_\beta[Te_2]_\beta[Te_3]_\beta[Te_4]_\beta]\\
+        &=\left[\begin{bmatrix}1&0\\3&0\end{bmatrix}_\beta\begin{bmatrix}0&1\\0&3\end{bmatrix}_\beta\begin{bmatrix}2&0\\4&0\end{bmatrix}_\beta\begin{bmatrix}0&2\\0&4\end{bmatrix}_\beta\right]\\
+        &=\begin{bmatrix}
+            1&0&2&0\\
+            0&1&0&2\\
+            3&0&4&0\\
+            0&3&0&4
+        \end{bmatrix}.
+    \end{align*}
+}
+\subsection{Change of Basis}
+Suppose we have $\tensor[_\gamma]{[T]}{_\beta}$ what does $\tensor[_{\gamma'}]{T}{_{\beta'}}$ look like.\\
+Let $V$ and $W$ be vector spaces, and $V$ has two basis' $\beta=v_1,\dots,v_n$ and $\beta'=v_1',\dots, v_n'$ and $W$ also has two basis' $\gamma=w_1,\dots,w_n$ and $\gamma'=w_1,\dots,w_n$.
+\[
+    V_{\beta'}\overset{I_V}{\to}V_\beta\overset{T}{\to}W_\gamma\overset{I_W}{\to}W_{\gamma'},
+\]
+\[
+    V_\beta\overset{C_\beta}{\to}F^n,
+\]
+\[
+    W_\beta\overset{C_\gamma}{\to}F^m,
+\]
+\[
+    V_{\beta'}\overset{C_{\beta'}}{\to}F^n,
+\]
+\[
+    W_{\gamma'}\overset{C_{\gamma'}}{\to}F^m,
+\]
+\[
+    F^n\overset{\tensor[_{\beta}]{[T]}{_{\beta'}}}{\to}F^n,
+\]
+\[
+    F^m\overset{\tensor[_{\gamma'}]{[T]}{_{\gamma}}}{\to}F^m,
+\]
+\[
+    F^n\overset{\tensor[_{\beta'}]{[T]}{_{\gamma'}}}{\to}F^m,
+\]
+\[
+    \tensor[_{\beta'}]{[T]}{_{\gamma'}}=\tensor[_{\gamma'}]{[T]}{_{\gamma}}\tensor[_{\gamma}]{[T]}{_{\beta}}\tensor[_{\beta}]{[T]}{_{\beta'}}
+\]
+\[
+    I=I_W T I_V.
+\]
+    
+
+\end{document}

@@ -1,0 +1,54 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+
+\title{MATH 301 Lecture 5}
+\author{Deepak Jassal}
+\date{January 23\textsuperscript{rd}, 2026}
+
+\begin{document}
+\setcounter{section}{1}
+\maketitle
+\textit{Recall.} $f:A\to \C$ is continuous at $z_0\in A$ if 
+\[
+    \lim_{z\to z_0}f(z)=f(z_0).
+\]
+That is for all $\varepsilon>0$ there exists $\delta>0$ such that $|z-z_0|<\delta\Rightarrow|f(z)-f(z_0)|<\varepsilon$. Or, for all $\varepsilon>0$ there exists $\delta>0$ such that $z\in D(z_0,\delta)\Rightarrow f(z)\in D(f(z_0),\varepsilon)$.
+\defn{Compact Sets}{
+    Let $A\subset\C$. $A$ is compact if for every cover of open sets of $A$ we can find a finite subcover. That is, let $\mathcal{U}=\{\mathcal{U}_i:i\in\mathcal{I}\}$ be a set of open sets such that 
+    \[
+        A\subseteq \bigcup_{i\in\mathcal{I}}\mathcal{U}_i.
+    \]
+}
+\thm{Heine-Borel Theorem}{
+    A set $K\in\R^n$ is closed \textit{if and only if} $K$ is closed and bounded.
+}
+\pf[Proof of Theorem 1.0.2]{
+    Suppose that $K$ is compact, then $K$ is bounded. Cover $K$ by disks with radius 1, then $K$ can be covered by a finite nunmber of disks. One of these disks will be the furthest away form the centre of $K$. Then the distance between the centre of $K$ and the centre of the furthest away disk will be $R+1$. So we can cover the entire set $K$ witha  disk centered at the centre of $K$ with a disk of radius $R+1$.
+    \begin{claim}
+        $K$ is closed.
+    \end{claim}
+    \pf[Proof of Claim]{
+        Suppose for contradiction that $K$ is not closed. Then there is a sequence in $K$, $z_n$ with $z_n\to z_0$ as $n\to\infty$. But $z_0\not\in K$. For each $z\in K$ find a disk that contains $z$ but does not contain $z_0$. So 
+        \[
+            K\subseteq \bigcup_{z\in K}D(z,r_z),\quad r_z=\frac{|z-z_0|}{2}.
+        \]
+        Since $K$ is compact we have that there is a finite subcover. 
+        \[
+            K\subseteq D(z_1,r_z)\cup\cdots\cup D(z_n,r_z).
+        \]
+        Each of these disks have radius $r_z$ which is the same for all of them. Let $\rho$ be the minimum distance between any of these disks and $z_0$. So $D(z_0,\rho/2)$ will not intersect any of the $D(z_j,r_j)$. No element of $K$ will be in $D(z_0,\rho)$. However $z_n\to z_0$ and $z_n\in K$. No $z_i$ will be in $D(z_0,\rho)$ and that implies that $z_n\not\to z_0$. This is a contradiction, thus $\lim_{n\to\infty}z_n=z_0\in K$, and $K$ is closed.
+    }
+    \textit{Note.} Heine-Borel does not apply in infinite dimensional spaces.\\
+    This gives one direction of the desired result.
+}
+\defn{Sequentially Compact}{
+    A subset $K$ of $\C$ is sequentially compact if every seqeunce in $K$ has a convergent subsequence.
+}
+$K$ is compact $\Leftrightarrow$ $K$ is sequentially compact. This is true in every complete metrix space.
+
+
+\end{document}
