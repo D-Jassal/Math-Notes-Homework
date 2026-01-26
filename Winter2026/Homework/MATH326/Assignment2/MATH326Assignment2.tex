@@ -1,0 +1,173 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../../preambles/hw-preamble.tex}
+\input{../../../../preambles/homework-macros.tex}
+\input{../../../../preambles/homework-title.tex}
+\input{../../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Advanced Linear Algebra}
+\renewcommand{\coursecode}{MATH 326}
+\renewcommand{\assignment}{Assignment 2}
+\renewcommand{\instructor}{Dr. Edward Dobrowolski}
+\renewcommand{\duedate}{January 30\textsuperscript{th}, 2026}
+\usepackage{tensor}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Problem 1}
+Show that the set $\{t^k : k = 0, 1, 2, 3, . . . \}$ is linearly independent in $\mathcal{C}_\R[0,1]$.
+
+
+\stepcounter{section}
+\section*{Problem 2}
+Determine which of the following are subspaces of $\mathcal{C}_\R[0,1]$
+\begin{enumerate}[label=(\alph*)]
+    \item $\{f\in\mathcal{C}_\R[0,1]:\int_{0}^{1}x^2f(x)\,dx=0 \}$\\
+    We need only show that the above mentioned space is non-empty, closed under addition, and is closed under multiplication by scalars. This is because the other axioms which need to be proven are inherited from the vector space $\mathcal{C}_\R[0,1]$.\\
+    \begin{claim}
+        $\{f\in\mathcal{C}_\R[0,1]:\int_{0}^{1}x^2f(x)\,dx=0 \}$ is a subspace of $\mathcal{C}_\R[0,1]$.
+    \end{claim}
+    \begin{proof}
+        Let $V=\{f\in\mathcal{C}_\R[0,1]:\int_{0}^{1}x^2f(x)\,dx=0 \}$. Since $f(x)=0$ is in $\mathcal{C}_\R[0,1]$ we have that $V$ is non-empty. For any two functions $f_1$ and $f_2$ in $V$ we have 
+        \[
+            \int_{0}^{1}x^2(f_1(x)+f_2(x))\,dx=\int_{0}^{1}x^2f_1(x)\,dx+\int_{0}^{1}x^2f_2(x)\,dx=0.
+        \]
+        We also have for any $c\in\R$
+        \[
+            \int_{0}^{1}x^2(cf_1(x))\,dx=c\int_{0}^{1}x^2f_1(x)\,dx=c(0)=0.
+        \]
+        Thus, $V$ is a subspace of $\mathcal{C}_\R[0,1]$.
+    \end{proof}
+    \item $\{f\in\mathcal{C}_\R[0,1]:\int_{0}^{1}f^2(x)\,dx=0 \}$
+    We need only show that the above mentioned space is non-empty, closed under addition, and is closed under multiplication by scalars. This is because the other axioms which need to be proven are inherited from the vector space $\mathcal{C}_\R[0,1]$.\\
+    \begin{claim}
+        $\{f\in\mathcal{C}_\R[0,1]:\int_{0}^{1}f^2(x)\,dx=0 \}$ is a subspace of $\mathcal{C}_\R[0,1]$.
+    \end{claim}
+    \begin{proof}
+        Let $V=\{f\in\mathcal{C}_\R[0,1]:\int_{0}^{1}x^2f(x)\,dx=0 \}$. Since $f(x)=0$ is in $\mathcal{C}_\R[0,1]$ we have that $V$ is non-empty. For any two functions $f_1$ and $f_2$ in $V$ we have 
+        \[
+            \int_{0}^{1}f_1^2(x)+f_2^2(x)\,dx=\int_{0}^{1}f_1^2(x)\,dx+\int_{0}^{1}f_2^2(x)\,dx=0.
+        \]
+        We also have for any $c\in\R$
+        \[
+            \int_{0}^{1}cf_1^2(x)\,dx=c\int_{0}^{1}f_1^2(x)\,dx=c(0)=0.
+        \]
+        Thus, $V$ is a subspace of $\mathcal{C}_\R[0,1]$.
+    \end{proof}
+\end{enumerate}
+
+
+\stepcounter{section}
+\section*{Problem 3}
+Let $x\in\mathbb{F}^n$ and $y\in\mathbb{F}^m$ be (column) vectors. Compute the rank of $xy^T$.
+
+
+\stepcounter{section}
+\section*{Problem 4}
+Let $A \in M_n$ be defined by $a_{ij} = 1$ if $i + j$ is even and 0 if $i + j$ is odd. Find a basis of $\mathrm{col}(A)$ and state the rank of (A).
+
+
+\stepcounter{section}
+\section*{Problem 5}
+If $A \in M_{n\times n}(F)$ is a nonzero matrix and $\rank(A) = r$. Show that
+\begin{enumerate}[label=(\alph*)]
+    \item A has an invertible $r \times r$ submatrix.
+    \item No square submatrix of size greater than $r$ is invertible.
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Problem 6}
+Let $V=M_2(F)$ with basis $\beta=\{E_1,E_2,E_3,E_4\}$ where $E_1=\begin{bmatrix}1&0\\0&0\end{bmatrix}$, $E_2=\begin{bmatrix}0&1\\0&0\end{bmatrix}$, $E_3=\begin{bmatrix}0&0\\1&0\end{bmatrix}$, $E_4=\begin{bmatrix}0&0\\0&1\end{bmatrix}$. Define $T:V\to V$ by $T(A)=BAB^{-1}$, where $B=\begin{bmatrix}5&1\\9&2\end{bmatrix}$. 
+\begin{enumerate}[label=(\alph*)]
+    \item Show that $T$ is linear.
+    \begin{proof}
+        We first have to calculate $B^{-1}$. Det$B=5(2)-9(1)=1$. So 
+        \[
+            B^{-1}=\begin{bmatrix}2&-1\\-9&5\end{bmatrix}.
+        \]
+        Let $A_1=\begin{bmatrix}a_1&b_1\\c_1&d_1\end{bmatrix}$ and $A_2=\begin{bmatrix}a_2&b_2\\c_2&d_2\end{bmatrix}$, with $a_1,a_2,b_1,b_2,c_1,c_2,d_1,d_2\in F$.
+        \begin{align*}
+            T(A_1+A_2)&=B(A_1+A_2)B^{-1}\\
+            &=\begin{bmatrix}5&1\\9&2\end{bmatrix}\left(\begin{bmatrix}a_1&b_1\\c_1&d_1\end{bmatrix}+\begin{bmatrix}a_2&b_2\\c_2&d_2\end{bmatrix}\right)\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\\
+            &=\begin{bmatrix}5&1\\9&2\end{bmatrix}\left(\begin{bmatrix}a_1+a_2&b_1+b_2\\c_1+c_2&d_1+d_2\end{bmatrix}\right)\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\\
+            &=
+            \begin{bmatrix}
+                E_{11} & E_{12} \\
+                E_{21} & E_{22}
+            \end{bmatrix},
+        \end{align*}
+        where
+        \[
+        \begin{aligned}
+            E_{11} &= 10a_1 + 10a_2 + 2c_1 + 2c_2 - 45b_1 - 45b_2 - 9d_1 - 9d_2, \\
+            E_{12} &= -5a_1 - 5a_2 - c_1 - c_2 + 25b_1 + 25b_2 + 5d_1 + 5d_2, \\
+            E_{21} &= 18a_1 + 18a_2 + 4c_1 + 4c_2 - 81b_1 - 81b_2 - 18d_1 - 18d_2, \\
+            E_{22} &= -9a_1 - 9a_2 - 2c_1 - 2c_2 + 45b_1 + 45b_2 + 10d_1 + 10d_2.
+        \end{aligned}
+        \]
+        \begin{align*}
+            T(A_1)+T(A_2)&=BA_1B^{-1}+BAB^{-1}\\
+            &=\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}a_1&b_1\\c_1&d_1\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}+\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}a_2&b_2\\c_2&d_2\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\\
+            &=
+            \begin{bmatrix}
+                10a_1 + 2c_1 - 45b_1 - 9d_1 & -5a_1 - c_1 + 25b_1 + 5d_1 \\
+                18a_1 + 4c_1 - 81b_1 - 18d_1 & -9a_1 - 2c_1 + 45b_1 + 10d_1
+            \end{bmatrix}+
+            \begin{bmatrix}
+                10a_2 + 2c_2 - 45b_2 - 9d_2 & -5a_2 - c_2 + 25b_2 + 5d_2 \\
+                18a_2 + 4c_2 - 81b_2 - 18d_2 & -9a_2 - 2c_2 + 45b_2 + 10d_2
+            \end{bmatrix}\\
+            &=
+            \begin{bmatrix}
+                E_{11} & E_{12} \\
+                E_{21} & E_{22}
+            \end{bmatrix}
+        \end{align*}
+        where
+        \[
+        \begin{aligned}
+            E_{11} &= 10a_1 + 10a_2 + 2c_1 + 2c_2 - 45b_1 - 45b_2 - 9d_1 - 9d_2, \\
+            E_{12} &= -5a_1 - 5a_2 - c_1 - c_2 + 25b_1 + 25b_2 + 5d_1 + 5d_2, \\
+            E_{21} &= 18a_1 + 18a_2 + 4c_1 + 4c_2 - 81b_1 - 81b_2 - 18d_1 - 18d_2, \\
+            E_{22} &= -9a_1 - 9a_2 - 2c_1 - 2c_2 + 45b_1 + 45b_2 + 10d_1 + 10d_2.
+        \end{aligned}
+        \]
+        Thus we have that 
+        \[
+            T(A_1+A_2)=T(A_1)+T(A_2)
+        \]
+        for all $A\in M_2(F)$.
+    \end{proof}
+
+    \item Find the matrix of $T$. The bases at both ends are the same.\\
+    \textit{Solution. }
+    \begin{align*}
+        \tensor[_\beta]{{[T]}}{_\beta}=&[T(E_1)T(E_2)T(E_3)T(E_4)]\\
+        =&\bigg[\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}1&0\\0&0\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}0&1\\0&0\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\\
+        &\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}0&0\\1&0\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}0&0\\0&1\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\bigg]
+    \end{align*}
+\end{enumerate}
+
+\end{document}

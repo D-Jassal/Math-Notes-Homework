@@ -1,0 +1,192 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../../preambles/hw-preamble.tex}
+\input{../../../../preambles/homework-macros.tex}
+\input{../../../../preambles/homework-title.tex}
+\input{../../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Introductory Complex Analysis}
+\renewcommand{\coursecode}{MATH 301}
+\renewcommand{\assignment}{Assignment 2}
+\renewcommand{\instructor}{Dr. Edward Dobrowolski}
+\renewcommand{\duedate}{January 30\textsuperscript{th}, 2026}
+
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Problem 1}
+Show that is $w\in\C$ then 
+\begin{enumerate}[label=(\alph*)]
+    \item $|\Re w|\leq |w|$
+    \begin{proof}
+        Let $w=a+bi$ with $a,b\in\R$. Then we have
+        \begin{align*}
+            a^2&\leq a^2+b^2\\
+            \sqrt{a^2}&\leq \sqrt{a^2+b^2}\\
+            |\Re w|&\leq |w|.\qedhere
+        \end{align*}
+    \end{proof}
+    \item $|\Im w|\leq |w|$
+    \begin{proof}
+        Let $w=a+bi$ with $a,b\in\R$. Then we have
+        \begin{align*}
+            b^2&\leq a^2+b^2\\
+            \sqrt{b^2}&\leq \sqrt{a^2+b^2}\\
+            |\Im w|&\leq |w|.\qedhere
+        \end{align*}
+    \end{proof}
+    \item $|w|\leq |\Re w|+|\Im w|$
+    \begin{proof}
+        Let $w=a+bi$ with $a,b\in\R$. Then we have
+        \begin{align*}
+            x+y&\leq x+2\sqrt{xy}+y\\
+            x+y&\leq(\sqrt{x}+\sqrt{y})^2\\
+            \sqrt{x+y}&\leq\sqrt{x}+\sqrt{y},
+        \end{align*}
+        set $x=a^2$ and $y=b^2$ and we get
+        \begin{align*}
+            \sqrt{a^2+b^2}&\leq\sqrt{a^2}+\sqrt{b^2}\\
+            |w|&\leq|\Re w|+|\Im w|.\qedhere
+        \end{align*}
+    \end{proof}
+\end{enumerate}
+\newpage
+\stepcounter{section}
+\section*{Problem 2a}
+Show that 
+\[
+    |\Re z_1-\Re z_2|\leq |z_1-z_2|\leq |\Re z_1-\Re z_2|+|\Im z_1-\Im z_2|
+\]
+\begin{proof}
+    Let $z_1=a_1+b_1i$, $z_2=a_2+b_2i$ and $z=z_1-z_2=(a_1-a_2)+(b_1-b_2)i$, with $a_1,a_2,b_1,b_2\in\R$.\\
+    Set $p=a_1-a_2$ and $q=b_1-b_2$, then we have from $1c$ we know that 
+    \begin{align*}
+        \sqrt{p^2+q^2}&\leq\sqrt{p^2}+\sqrt{q^2}\\
+        \sqrt{(a_1-a_2)^2+(b_1-b_2)^2}&\leq\sqrt{(a_1-a_2)^2}+\sqrt{(b_1-b_2)^2}\\
+        |z|&\leq|\Re z|+|\Im z|\\
+        |z_1-z_2|&\leq|\Re z_1-\Re z_2|+|\Im z_1-\Im z_2|.
+    \end{align*}
+    \begin{align*}
+        (a_1-a_2)^2&\leq(a_1-a_2)^2+(b_1-b_2)^2\\
+        \sqrt{(a_1-a_2)^2}&\leq\sqrt{(a_1-a_2)^2+(b_1-b_2)^2} \\
+        |\Re z|&\leq|z|\\
+        |\Re z_1-\Re z_2|&\leq|z_1-z_2|.
+    \end{align*}
+    Combining the two inequalities we arrive at the desired result.
+\end{proof}
+\stepcounter{section}
+\section*{Problem 3}
+Prove: If $f$ is continuous and $f(z_0)\neq 0$ then there exists a neighbourhood of $z_0$ on which $f\neq 0$.
+\begin{proof}
+    Let $f(z_0)$. Set $r=\frac{|f(z_0)-0|}{2}$. We know that all points $f(z)\in D(f(z_0),r)$ are not equal to 0 since they are at most half the distance between $f(z_0)$ and 0. By the continuity of $f$ we we can find $\delta_r>0$ such that $D(z_0,\delta_r)$ is a neighbourhood of $z_0$, and $z\in D(z_0,\delta_r)\Rightarrow f(z)\in D(f(z_0),r)$. Thus, we have that there exists a neighbourhood of $z_0$ such that $f\neq0$. 
+\end{proof}
+\stepcounter{section}
+\section*{Problem 8}
+Show that $f(z)=|z|$ is continuous.
+\begin{proof}
+    Let $z=a+bi$ with $a,b\in\R$, then $f(z)=|z|=\sqrt{a^2+b^2}$. This question degrades to showing that $g:\R_{\geq0}\to \R_{\geq0}$ with $g(x)=\sqrt{x}$ is continuous. Let $\varepsilon>0$ and $\delta>0$ then
+    \[
+        |g(x)-g(x_0)|=|\sqrt{x}-\sqrt{x_0}|.
+    \]
+    It is obvious that 
+    \[
+        |\sqrt{x}-\sqrt{x_0}|=\left|\frac{x-y}{\sqrt{x}+\sqrt{x_0}}\right|\leq\left|\frac{x-y}{\sqrt{x_0}}\right|.
+    \]
+    Assuming that $|x-x_0|<\delta$ then we have
+    \[
+        |\sqrt{x}-\sqrt{x_0}|<\left|\frac{\delta}{\sqrt{x_0}}\right|.
+    \]
+    If $x_0\neq0$ then set $\delta=\varepsilon\sqrt{x_0}$. Then whenever $|x-x_0|<\delta$ we have
+    \[
+        |g(x)-g(x_0)|<\left|\frac{\delta}{\sqrt{x_0}}\right|=\left|\frac{\varepsilon\sqrt{x_0}}{\sqrt{x_0}}\right|=\varepsilon.
+    \]
+    In the case where $x_0=0$, set $\delta=\varepsilon^2$, then whenever $|x-x_0|<\delta$ we have
+    \[
+        |g(x)-g(x_0)|=|g(x)|=\sqrt{x}<\sqrt{\delta}=\sqrt{\varepsilon^2}+\varepsilon.
+    \]
+    Since we have shown that $g$ is continuous on $\R_{\geq0}$ we have also show that $f$ is continuous.
+\end{proof}
+\stepcounter{section}
+\section*{Problem 9}
+What is the largest set on which the function $f(z)=1/(1-e^z)$ is continuous.\\
+\textit{Solution.} $f(z)$ is not continuous for values of $z$ at which $1-e^z=0$. Those values of $z$ lie on the unit circle in $\C$, that is points of the form $e^z=1$. This function is continuous everywhere else. The largest set on which it is continuous if $\C\setminus\{z:|e^z|\leq1\}$. It does not suffice to only remove values on the unit cirle in $\C$ because we would have a discontinuity jump when $z$ goes from inside the unit circle to outside the unit circle.
+\stepcounter{section}
+\section*{Problem 14}
+For each of the following sets, state $(i)$ whether or not the set is open and $(ii)$ whether or not the set is closed.
+\begin{enumerate}[label=(\alph*)]
+    \item $\{z\,|\, \Im z>2\}$
+    \begin{enumerate}[label=(\roman*)]
+        \item Yes
+        \item No
+    \end{enumerate}
+    \item $\{z\,|\, 1<|z|\leq2\}$
+    \begin{enumerate}[label=(\roman*)]
+        \item No
+        \item No
+    \end{enumerate}
+    \item $\{z\,|\, -1< \Re z\leq2\}$
+    \begin{enumerate}[label=(\roman*)]
+        \item No
+        \item No
+    \end{enumerate}
+\end{enumerate}
+\stepcounter{section}
+\section*{Problem 16}
+For each of the following sets, state $(i)$ whether or not the set is connected and $(ii)$ whether or not the set is compact.
+\begin{enumerate}[label=(\alph*)]
+    \item $\{z\,|\, -1< \Re z\leq2\}$
+    \begin{enumerate}[label=(\roman*)]
+        \item Yes
+        \item No
+    \end{enumerate}
+    \item $\{z\,|\, 2\leq |z|\leq3\}$
+    \begin{enumerate}[label=(\roman*)]
+        \item Yes
+        \item Yes
+    \end{enumerate}
+    \item $\{z\,|\, |z|\leq 5, \Im z\geq 1\}$
+    \begin{enumerate}[label=(\roman*)]
+        \item Yes
+        \item Yes
+    \end{enumerate}
+\end{enumerate}
+\stepcounter{section}
+\section*{Problem 19}
+Show the union of any collection of open subsets of $\C$ is open.\\
+We want to show that given any collection of open sets $\{G_\alpha\}$ we have that $\bigcup_\alpha G_\alpha$ is also open.
+\begin{proof}
+    Let $G=\bigcup_\alpha G_\alpha$. If $x\in G$, then $x\in G_\alpha$ for some $\alpha$. Since $G_\alpha$ is open for all $\alpha$ we have that $x$ is an interior point of $G_\alpha$, then we have that $x$ is an interior point of $G$.
+\end{proof}
+\stepcounter{section}
+\section*{Problem 20}
+Show that the intersection of any finite collection of open subsets of $\C$ is open.
+\begin{proof}
+    Let $G_\alpha$ be some finite collection of open sets. Set $H=\bigcap_{\alpha=1}^n G_{\alpha}$. For any $x\in H$ we know that there exists a neighbourhood $N_i$ with radii $r_i$ such that $N_i\subset G_\alpha$ for some $\alpha$. Put
+    \[
+        r=\min\{r_1,r_2,\dots,r_n\},
+    \]
+    and $N$ a neighbourhood of $x$ with radius $r$. Then $N\subset G_\alpha$ for $1\leq\alpha\leq n$. Thus, we have that $H$ is open.
+\end{proof}
+\end{document}
