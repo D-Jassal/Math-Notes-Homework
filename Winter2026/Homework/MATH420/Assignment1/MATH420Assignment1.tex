@@ -37,7 +37,111 @@
 \end{titlepage}
 \stepcounter{section}
 \section*{Problem 1}
+\begin{enumerate}[label=(\alph*)]
+	\item Let \((\mathbb{Z}, + ,\times)\) be the ring of integers with the standard arithmetic operations. Prove that every subring of \(\mathbb{Z}\) is also an ideal.
+	\item Consider the polynomial ring \(\mathbb{R}[x]\) . Prove that every subring of \(\mathbb{R}[x]\) which forms an \(\mathbb{R}\) - vector space and is not equal to \(\mathbb{R}\) is an ideal of \(\mathbb{R}[x]\).
+\end{enumerate}
 
+
+\stepcounter{section}
+\section*{Problem 2}
+
+For each of the following statements, either prove that it is true, or provide a counterexample. In each case \(R\) is a ring, with addition and multiplication understood.
+\begin{enumerate}[label=(\alph*)]
+	\item If \(R\) is unital, then the additive inverse of the multiplicative identity is also a unit.
+
+	\item If \(R\) is unital, then \(R\) has at least two units.
+
+	\item If \(R\) is a unital ring which is infinite, then \(R\) has infinitely many units.	
+\end{enumerate}
+
+
+\stepcounter{section}
+\section*{Problem 3}
+
+Consider the matrices
+
+\[
+\bf P=\left\{\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix},
+\begin{pmatrix}
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 1
+\end{pmatrix}, 
+\begin{pmatrix}
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 0
+\end{pmatrix},
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 0 & 1 \\
+0 & 1 & 0
+\end{pmatrix},
+\begin{pmatrix}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+1 & 0 & 0
+\end{pmatrix},
+\begin{pmatrix}
+0 & 0 & 1 \\
+1 & 0 & 0 \\
+0 & 1 & 0
+\end{pmatrix}\right\}.
+\]
+
+Call the elements of \(\mathbf{P}\) as \(p_{e},p_{(12)},p_{(13)},p_{(23)},p_{(123)},p_{(132)}\) respectively (as labelled above). Consider the set
+
+\[
+\mathbb{Z}[\mathbf{P}] = \{a_0p_e + a_1p_{(12)} + a_2p_{(13)} + a_3p_{(23)} + a_4p_{(123)} + a_5p_{(132)}:a_0,\dots ,a_5\in \mathbb{Z}\}.
+\]
+\begin{enumerate}[label=(\alph*)]
+	\item Prove that \(\mathbb{Z}[\mathbf{P}]\) is closed under (matrix) addition.
+	\item Prove that \(\mathbb{Z}[\mathbf{P}]\) is closed under (matrix) multiplication.
+	\item Prove that \(\mathbb{Z}[\mathbf{P}]\) is a ring with respect to matrix addition and matrix multiplication. Is it commutative?
+\end{enumerate}
+
+
+\stepcounter{section}
+\section*{Problem 4}
+
+Suppose that \(R\) is a principal ideal domain (that is, \(R\) has no zero divisors, is commutative, and every ideal is a principal ideal). Consider the set of \(n\times n\) matrices with coefficients in \(R\) , namely \(M_{n\times n}(R)\) .
+\begin{enumerate}
+	\item Prove that \(M_{n\times n}(R)\) is a ring with respect to matrix addition and matrix multiplication.
+
+	\item Let \(J\) be a two-sided ideal of \(M_{n\times n}(R)\) . Prove that there exists an ideal \(I\) of \(R\) such that \(J = M_{n\times n}(I)\).
+\end{enumerate}
+
+
+\stepcounter{section}
+\section*{Problem 5}
+
+We consider the polynomial ring \(\mathbb{Z}[x]\) . We note that \(\mathbb{Z}\) is a principal ideal domain.
+\begin{enumerate}[label=(\alph*)]
+	\item Let \(f(x)\in \mathbb{Z}[x]\) be an irreducible polynomial. Prove that the ideal \((f(x))\) is a prime ideal.
+	\item Let \(p\) be a rational prime. Prove that the principal ideal \((p)\) is still a prime ideal in \(\mathbb{Z}[x]\) .
+	\item Let \(p\) be a rational prime and \(f(x)\) a polynomial in \(\mathbb{Z}[x]\) which is irreducible over the finite field \(\mathbb{F}_p\) (such a polynomial exists for every prime \(p\) ). Determine when the ideal \((p,f(x))\) is prime.
+	\item Prove that the principal ideals in part (a) and part (b) are never maximal.
+	\item Prove that the ideal \((3,x^{2} + 1)\) is a prime ideal in \(\mathbb{Z}[x]\) . Is it a maximal ideal?
+\end{enumerate}
+
+
+\stepcounter{section}
+\section*{Problem 6}
+
+Find a ring \(R\) (meaning a set with suitable addition and multiplication operations) with the following properties:
+\begin{enumerate}[label=(\alph*)]
+	\item \(R\) is uncountable.
+	\item \(R\) has uncountably many units.
+	\item \(R\) has a unique maximal ideal, which is principal.
+\end{enumerate}
+
+
+Note: any uncountable field like \(\mathbb{R}\) would satisfy the first two conditions. However, fields do not satisfy the third condition. Rings like \(\mathbb{R}[x]\) do not have unique maximal ideals.
 
 
 
