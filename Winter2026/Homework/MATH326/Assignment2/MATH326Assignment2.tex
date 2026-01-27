@@ -111,7 +111,7 @@ Let $V=M_2(F)$ with basis $\beta=\{E_1,E_2,E_3,E_4\}$ where $E_1=\begin{bmatrix}
         \begin{align*}
             T(A_1+A_2)&=B(A_1+A_2)B^{-1}\\
             &=\begin{bmatrix}5&1\\9&2\end{bmatrix}\left(\begin{bmatrix}a_1&b_1\\c_1&d_1\end{bmatrix}+\begin{bmatrix}a_2&b_2\\c_2&d_2\end{bmatrix}\right)\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\\
-            &=\begin{bmatrix}5&1\\9&2\end{bmatrix}\left(\begin{bmatrix}a_1+a_2&b_1+b_2\\c_1+c_2&d_1+d_2\end{bmatrix}\right)\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\\
+            &=\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}a_1+a_2&b_1+b_2\\c_1+c_2&d_1+d_2\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\\
             &=
             \begin{bmatrix}
                 E_{11} & E_{12} \\
@@ -129,17 +129,17 @@ Let $V=M_2(F)$ with basis $\beta=\{E_1,E_2,E_3,E_4\}$ where $E_1=\begin{bmatrix}
         \]
         \begin{align*}
             T(A_1)+T(A_2)&=BA_1B^{-1}+BAB^{-1}\\
-            &=\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}a_1&b_1\\c_1&d_1\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}+\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}a_2&b_2\\c_2&d_2\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\\
-            &=
+            =&\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}a_1&b_1\\c_1&d_1\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}+\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}a_2&b_2\\c_2&d_2\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\\
+            =&
             \begin{bmatrix}
                 10a_1 + 2c_1 - 45b_1 - 9d_1 & -5a_1 - c_1 + 25b_1 + 5d_1 \\
                 18a_1 + 4c_1 - 81b_1 - 18d_1 & -9a_1 - 2c_1 + 45b_1 + 10d_1
-            \end{bmatrix}+
+            \end{bmatrix}\\&+
             \begin{bmatrix}
                 10a_2 + 2c_2 - 45b_2 - 9d_2 & -5a_2 - c_2 + 25b_2 + 5d_2 \\
                 18a_2 + 4c_2 - 81b_2 - 18d_2 & -9a_2 - 2c_2 + 45b_2 + 10d_2
             \end{bmatrix}\\
-            &=
+            =&
             \begin{bmatrix}
                 E_{11} & E_{12} \\
                 E_{21} & E_{22}
@@ -166,7 +166,14 @@ Let $V=M_2(F)$ with basis $\beta=\{E_1,E_2,E_3,E_4\}$ where $E_1=\begin{bmatrix}
     \begin{align*}
         \tensor[_\beta]{{[T]}}{_\beta}=&[T(E_1)T(E_2)T(E_3)T(E_4)]\\
         =&\bigg[\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}1&0\\0&0\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}0&1\\0&0\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\\
-        &\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}0&0\\1&0\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}0&0\\0&1\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\bigg]
+        &\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}0&0\\1&0\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\begin{bmatrix}5&1\\9&2\end{bmatrix}\begin{bmatrix}0&0\\0&1\end{bmatrix}\begin{bmatrix}2&-1\\-9&5\end{bmatrix}\bigg]\\
+        &=\left[\begin{bmatrix} 10 & -5 \\ 18 & -9 \end{bmatrix}\begin{bmatrix} -45 & 25 \\ -81 & 45 \end{bmatrix}\begin{bmatrix} 2 & -1 \\ 4 & -2 \end{bmatrix}\begin{bmatrix} -9 & 5 \\ -18 & 10 \end{bmatrix}\right]\\
+        &=\begin{bmatrix}
+            10&-45&2&-9\\
+            -5&25&-1&5\\
+            18&-81&4&-18\\
+            -9&45&-2&10
+        \end{bmatrix}.
     \end{align*}
 \end{enumerate}
 

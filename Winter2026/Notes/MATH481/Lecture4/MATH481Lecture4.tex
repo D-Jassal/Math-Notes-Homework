@@ -88,7 +88,7 @@ Recall PNT
         \underbrace{\int_{2}^{\sqrt{x}}\frac{dt}{(\log t)^k}}_{I_1}+\underbrace{\int_{\sqrt{x}}^{x}\frac{dt}{(\log t)^k}}_{I_2}.
     \]
     \[
-        I_2\leq\int_{2}^{\sqrt{x}}\frac{dt}{(\log2)^k}=\frac{\sqrt{x}-2}{(\log2)^k}\ll_k\sqrt{x}\ll\frac{x}{(\log x)^k},
+        I_1\leq\int_{2}^{\sqrt{x}}\frac{dt}{(\log2)^k}=\frac{\sqrt{x}-2}{(\log2)^k}\ll_k\sqrt{x}\ll\frac{x}{(\log x)^k},
     \]
     for $\sqrt{x}< t< x$
     \[
@@ -112,7 +112,7 @@ Recall PNT
 }
 \thm{Summation of Logarithmic Integral}{
     \[
-        \mathrm{Li(x)}=\int_{2}^{x}\frac{dt}{\log t}=\frac{x}{\log x}\left(\sum_{i=1}^{k-1}\frac{i!}{(\log x)^i+\Oh\left(\frac{1}{(\log x)^k}\right)}\right).
+        \mathrm{Li(x)}=\int_{2}^{x}\frac{dt}{\log t}=\frac{x}{\log x}\left(\sum_{i=1}^{k-1}\frac{i!}{(\log x)^i}+\Oh\left(\frac{x}{(\log x)^k}\right)\right).
     \]
 }
 \pf[Proof of Theorem 2.9]{
@@ -128,7 +128,7 @@ Recall PNT
         &=\frac{x}{\log x}-\frac{2}{\log2}+\frac{x}{(\log x)^2}-\frac{2}{(\log 2)^2}+2\int_{2}^{x}\frac{dt}{(\log t)^3}\\
         &=\frac{x}{\log x}+\frac{x}{(\log x)^2}+\frac{2x}{(\log x)^3}+\cdots+k\int_{2}^{x}\frac{dt}{(\log t)^{k+1}}+\Oh_k(1)\\
         &=\frac{x}{\log x}+\frac{x}{(\log x)^2}+\frac{2x}{(\log x)^3}+\cdots+(k-1)!\frac{x}{(\log x)^k}+\Oh_k\left(\frac{x}{(\log x)^{k+1}}\right)\\
-        &=\frac{x}{\log x}\left(\sum_{i=1}^{k-1}\frac{i!}{(\log x)^i+\Oh\left(\frac{1}{(\log x)^k}\right)}\right).
+        &=\frac{x}{\log x}\left(\sum_{i=1}^{k-1}\frac{i!}{(\log x)^i}+\Oh\left(\frac{1}{(\log x)^k}\right)\right).
     \end{align*}
     Thus we have arrived at the desired result.
 }
@@ -138,6 +138,6 @@ We can use Euler's summation formula for sum continuous functions. Abel's Summat
     \[
         \sum_{y<n\leq x}a(n)f(n)=A(n)f(x)-A(y)f(y)-\int_{y}^{x}A(t)f'(t)\,dt,
     \]
-    where $A(n)$ is the summatory fuction for $a(n)$ $\left(A(n\sum_{n\leq x}a(n))\right)$.
+    where $A(n)$ is the summatory fuction for $a(n)$ $\left(A(n)=\sum_{n\leq x}a(n)\right)$.
 }
 \end{document}

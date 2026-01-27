@@ -12,7 +12,7 @@
 \renewcommand{\coursecode}{MATH 481}
 \renewcommand{\assignment}{Assignment 1}
 \renewcommand{\instructor}{Dr. Alia Hamieh}
-\renewcommand{\duedate}{January 29\textsuperscript{th}, 2026}
+\renewcommand{\duedate}{February 3\textsuperscript{rd}, 2026}
 
 
 \begin{document}
@@ -76,7 +76,7 @@
 	\item it is not necessarily true that $\exp(f(x)) \sim \exp(g(x))$.
 	\begin{proof}
 		\begin{align*}
-			\lim_{x\to\infty}\frac{e^{f(x)}}{e^{g(x)}}&=\lim_{x\to\infty}e^{f(x)-g(x)}.
+			\lim_{x\to\infty}\frac{e^{f(x)}}{e^{g(x)}}&=\lim_{x\to\infty}e^{f(x)-g(x)}=e^{\lim_{x\to\infty}(f(x)-g(x))}.
 		\end{align*}
 		The above limit is equal to $1$ if we have $f(x)-g(x)=0$, which is not necessarily true with out given assumption that $\lim_{x\to\infty}\frac{f(x)}{g(x)}=1$. This is because if we have $\lim_{x\to\infty}f(x)=\infty$ and $\lim_{x\to\infty}f(x)=\infty$ then we cannot say anything about $\lim_{x\to\infty}f(x)-g(x)$. If the limits were however finite then we would be able to say $\exp(f(x)) \sim \exp(g(x))$, because we would have $\lim_{x\to\infty}f(x)=L$ and $\lim_{x\to\infty}f(x)=L$.
 	\end{proof}
@@ -176,6 +176,18 @@
 
 \stepcounter{section}
 \section*{Problem 6 [5 marks]} For $x\geq e$, define $I(x)=\int_{e}^{x}\log\log t \;dt$. Obtain an estimate for $I(x)$ to within an error term $O(x/\log^2 x)$.
+\begin{proof}
+	We first apply integration by parts
+	\begin{align*}
+		I(x)&=\int_{e}^{x}\log\log t \;dt\\
+		u=\log\log t,\quad dv=dt,\quad& du =\frac{1}{t\log t},\quad v=t\\
+		&=\left[t\log\log t\right]^x_e-\int_{e}^{x}t\frac{1}{t\log t}\,dt\\
+		&=\log\log x-\int_{e}^{x}\frac{1}{\log t}\,dt\\
+		&=\log\log x-\int_{2}^{x}\frac{1}{\log t}\,dt+\int_{2}^{e}\frac{1}{\log t}\,dt\\
+		&=\log\log x+\int_{2}^{e}\frac{1}{\log t}\,dt-\mathrm{Li}(x)\\
+		&=\log\log x+\int_{2}^{e}\frac{1}{\log t}\,dt-\frac{2}{\log x}+O\left(\frac{x}{\log^2x}\right).\qedhere
+	\end{align*}
+\end{proof}
 
 \stepcounter{section}
 \section*{Problem 7 [5 marks]} Obtain an estimate for the sum \[\sum_{n\leq x}\frac{\log n}{n}\] with error term $O\left(\frac{\log x}{x}\right)$.
