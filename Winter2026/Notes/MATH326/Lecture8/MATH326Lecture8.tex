@@ -1,0 +1,113 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+\usepackage{bookmark}
+\usepackage{tensor}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+\usepackage{blkarray}
+\usepackage{tensor}
+\title{MATH 326 Lecture 8}
+\author{Deepak Jassal}
+\date{January 26\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle
+\ex{
+    $V=\R^4$, basis $\beta=e_1,e_2,e_3,e_4$, $W=\R^3$ basis $\gamma=e_1,e_2,e_3$.
+    \[
+        \beta'=\begin{bmatrix}1\\2\\3\\1\end{bmatrix},\begin{bmatrix}0\\1\\1\\1\end{bmatrix},\begin{bmatrix}1\\3\\5\\1\end{bmatrix},\begin{bmatrix}1\\1\\1\\2\end{bmatrix},
+    \]
+    \[
+        \gamma'=\begin{bmatrix}2\\1\\0\end{bmatrix},\begin{bmatrix}1\\2\\3\end{bmatrix},\begin{bmatrix}5\\4\\1\end{bmatrix}.
+    \]
+    Suppose that 
+    \[
+        \tensor[_\gamma]{[T]}{_\beta}=\underset{3\times 4}{A}=\begin{bmatrix}1&2&1&2\\2&1&8&0\\0&2&1&3\end{bmatrix}.
+    \]
+    Find $\tensor[_{\gamma'}]{[T]}{_{\beta'}}=\tensor[_{\gamma'}]{[T]}{_{\gamma}}\tensor[_{\gamma}]{[T]}{_{\beta}}\tensor[_{\beta}]{[T]}{_{\beta'}}$
+    \[
+        \tensor[_{\beta}]{[T]}{_{\beta'}}=\left[[V_1]_e[V_2]_e[V_3]_e[V_4]_e\right]=\begin{bmatrix}
+            1&0&1&1\\2&1&3&1\\3&1&5&1\\1&1&1&2
+        \end{bmatrix}
+    \]
+    \[
+        \tensor[_{\gamma'}]{[T]}{_{\gamma}}=\tensor[_{\gamma}]{[T]}{_{\gamma'}}^{-1}=\begin{bmatrix}
+            2&1&5\\1&2&4\\0&3&1
+        \end{bmatrix}
+    \]
+    \begin{align*}
+        \tensor[_{\gamma'}]{[T]}{_{\beta'}}&=\tensor[_{\gamma'}]{[T]}{_{\gamma}}A\tensor[_{\beta}]{[T]}{_{\beta'}}\\
+        &=\tensor[_{\gamma}]{[T]}{_{\gamma'}}^{-1}A\tensor[_{\beta}]{[T]}{_{\beta'}}\\
+        &=\begin{bmatrix}
+            2&1&5\\1&2&4\\0&3&1
+        \end{bmatrix}
+        \begin{bmatrix}1&2&1&2\\2&1&8&0\\0&2&1&3\end{bmatrix}
+    \begin{bmatrix}
+            1&0&1&1\\2&1&3&1\\3&1&5&1\\1&1&1&2
+        \end{bmatrix}
+    \end{align*}
+}
+\textit{Note:} Finding $I_V$ if $\beta$ and $\gamma$ are nonstandard basis
+\[
+    \tensor[_{\gamma}]{[I_V]}{_{\beta}}=\tensor[_{\gamma}]{[I_V]}{_{e}}\tensor[_{e}]{[I_V]}{_{\beta}}=\tensor[_{e}]{[I_V]}{_{\gamma}}^{-1}\tensor[_{e}]{[I_V]}{_{\beta}}.
+\]
+\subsection{Similarity}
+\textit{Recall. } Let $A,B\in M_n(F)$.
+\defn{Similar Matrices}{
+    Let $A,B\in M_n(F)$. Then, $A,B$ are called similar is there exists an invertible matrix $P$ such that $B=P^{-1}AP$ ($A=PBP^{-1}$). 
+}
+\ex{
+    If $A,B$ are similar then, 
+    \begin{enumerate}
+        \item $\tr(A)=\tr(B)$
+        \item $\chi_A(x)=\chi_B(x)$
+        \item $\rank(A)=\rank(B)$
+    \end{enumerate}
+}
+\ex{
+    \[
+        V_\beta\overset{T}{\to} V_\beta
+    \]
+    vs
+    \[
+        V_\gamma\overset{T}{\to} V_\gamma.
+    \]
+    How are $\tensor[_{\beta}]{[T]}{_{\beta}}$ and $\tensor[_{\gamma}]{[T]}{_{\gamma}}$ related?
+    \begin{align*}
+        \tensor[_{\gamma}]{[T]}{_{\gamma}}&=\tensor[_{\gamma}]{[I_V]}{_{\beta}}\tensor[_{\beta}]{[T]}{_{\beta}}\tensor[_{\beta}]{[I_V]}{_{\gamma}}\\
+        &=\tensor[_{\beta}]{[I_V]}{_{\gamma}}^{-1}\tensor[_{\beta}]{[T]}{_{\beta}}\tensor[_{\beta}]{[I_V]}{_{\gamma}}\\
+        &=P^{-1}AP.
+    \end{align*}
+}
+\begin{claim}
+Also, if $B=P^{-1}AP$ then there are basis' of $V$ such that $A=\tensor[_{\beta}]{[T]}{_{\beta}}$ and $B=\tensor[_{\gamma}]{[T]}{_{\gamma}}$
+\end{claim}
+\pf[Proof of Claim]{
+    Let $T=T_A$ , $TX=AX$, $T\in\mathcal{L}(F^n,F^m)$, $A_{n\times m}X\in F^n$.
+    \[
+        F^n_\beta \underset{\tensor[_{\beta}]{[I_{T_V}]}{_{e}}}{\overset{I_V}{\to}} F^n_e \underset{A}{\overset{TX}{\to}} F^n_e \underset{\tensor[_{e}]{[I_{F^n}]}{_{\beta}}}{\overset{I_{F^n}}{\to}} F_\beta    
+    \]
+    Chose $\beta=p_1,\dots,p_n$ so $P=[p_1,\dots,p_n]$. Then $\tensor[_e]{[I_{F^n}]}{_\beta}=P$, and $P=\tensor[_e]{[I_{F^n}]}{_\beta}$.
+}
+\pf[Proof of Properties of Similar Matrices]{
+    \begin{enumerate}
+        \item $\tr(A)=\tr(B)$.\\
+        The proof is based on $\tr(CD)=\tr(DC)$
+        \begin{align*}
+            \tr(P^{-1}AP)&=\tr(P^{-1}AP)\\
+            &=\tr(APP^{-1})\\
+            &=\tr(A)
+        \end{align*}
+        \item $\chi_A(x)=\chi_B(x)$
+        \[
+            \chi_A(x)=\det(xI-A)
+        \]
+        \[
+            \chi_B(x)=\det(xI_P^{-1}AP)
+        \]
+        but $\det(P(xI_P^{-1}AP)P^{-1})=\det(xI_P^{-1}AP)\det(P^{-1})\det(P)=\chi_B(x)$, which is also $\det((PxI_P^{-1}AP)P^{-1})=\det((xIP-AP)P^{-1})=\det(xI-A)=\chi_A(x).$
+    \end{enumerate}
+}
+\end{document}

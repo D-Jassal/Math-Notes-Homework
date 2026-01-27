@@ -45,12 +45,125 @@
 \section*{Problem 3 [15 marks]}  Let $f,g$ be positive functions defined on $\mathbb{R}$. Suppose $f(x)\sim g(x)$. Prove that
 \begin{enumerate}
 	\item $f(x)^r \sim g(x)^r$ for any  real $r$,
+	\begin{proof}
+		\begin{align*}
+			\lim_{x\to\infty}\frac{f^r(x)}{g^r(x)}&=\lim_{x\to\infty}\left(\frac{f(x)}{g(x)}\right)^r\\
+			&=\left(\lim_{x\to\infty}\frac{f(x)}{g(x)}\right)^r\\
+			&=1^r\\
+			&=1.
+		\end{align*}
+		Thus $f(x)^r \sim g(x)^r$.
+	\end{proof}
 	\item $\log (f (x)) \sim \log(g(x))$ if  $\ \lim_{x\to\infty} g(x) =\infty$,
+	\begin{proof}
+		Write 
+		\[
+			f(x)=g(x)(1+h(x))
+		\]
+		where $h(x)\to 0$ as $x\to\infty$. Then,
+		\begin{align*}
+			\log(f(x))&=\log(g)+\log(1+h(x))\\
+			\frac{\log(f(x))}{\log(g)}&=1+\frac{\log(1+h(x))}{\log(g)}.
+		\end{align*}
+		From here we see that
+		\begin{align*}
+			\lim_{x\to\infty}\frac{\log(f(x))}{\log(g(x))}&=\lim_{x\to\infty}1+\frac{\log(1+h(x))}{\log(g)}\\
+			&=1+\lim_{x\to\infty}\frac{\log(1+h(x))}{\log(g)}\\
+			&=1.
+		\end{align*}
+		Thus, $\log (f (x)) \sim \log(g(x))$ if  $\ \lim_{x\to\infty} g(x) =\infty$.
+	\end{proof}
 	\item it is not necessarily true that $\exp(f(x)) \sim \exp(g(x))$.
+	\begin{proof}
+		\begin{align*}
+			\lim_{x\to\infty}\frac{e^{f(x)}}{e^{g(x)}}&=\lim_{x\to\infty}e^{f(x)-g(x)}.
+		\end{align*}
+		The above limit is equal to $1$ if we have $f(x)-g(x)=0$, which is not necessarily true with out given assumption that $\lim_{x\to\infty}\frac{f(x)}{g(x)}=1$. This is because if we have $\lim_{x\to\infty}f(x)=\infty$ and $\lim_{x\to\infty}f(x)=\infty$ then we cannot say anything about $\lim_{x\to\infty}f(x)-g(x)$. If the limits were however finite then we would be able to say $\exp(f(x)) \sim \exp(g(x))$, because we would have $\lim_{x\to\infty}f(x)=L$ and $\lim_{x\to\infty}f(x)=L$.
+	\end{proof}
 \end{enumerate}
 
 \stepcounter{section}
-\section*{Problem 4 [5 marks]} Show that if $f(x)$ satisfies $f(x) = x^2+O(x)$, and $f$ is differentiable with nondecreasing derivative $f'(x)$ for sufficiently large $x$, then $f'(x) = 2x + O(\sqrt{x})$.\\
+\section*{Problem 4 [5 marks]} Show that if $f(x)$ satisfies $f(x) = x^2+O(x)$, and $f$ is differentiable with nondecreasing derivative $f'(x)$ for sufficiently large $x$, then $f'(x) = 2x + O(\sqrt{x})$.
+\begin{proof}
+	We want to show that 
+	\[
+		|f'(x)-2x|\leq C\sqrt{x}
+	\]
+	for some constant $C\in\R$.\\
+	We know that $|f(x)-x^2|\leq Mx$ for some $x_0>0$, $M\in\R$ and all $x\geq x_0$. Comparing this bound for $f(x)$ and $f(x+h)$ ($h>0$) we obtain
+	\begin{align*}
+		f(x+h)-f(x)&=[(x+h)^2-x2]+[f(x+h)-(x+h)2]-[f(x)-x^2]\\
+		&=2xh+h^2+O(x)
+	\end{align*}
+	\begin{align*}
+		|f(x+h)-f(x)-2xh-h^2|&\leq M(x+h)+Mx\\
+		&\leq 2Mx+Mh.
+	\end{align*}
+	We know by the mean value there exists $c\in[x,x+h]$ such that $f(x+h)-f(x)=hf'(c)$.
+	\begin{align*}
+		\left|hf'(c)-f(x+h)-f(x)\right|&=\left|hf'(c)-2xh-h^2\right|\\
+		\left|hf'(c)-2xh-h^2\right|&\leq2Mx+Mh\\
+		\left|f'(c)-2x-h\right|&\leq \frac{2Mx}{h}+M.
+	\end{align*}
+	Thus we have
+	\[
+		f'(c)=2x+h+C_1,
+	\]
+	with $C_1\leq \frac{2Mx}{h}+M$.\\
+	Since $f'$ is non-decreasing for $c\in[x,x+h]$ we have
+	\[
+		f'(x)\leq f'(c)\leq f'(x+h).
+	\]
+	Using the previous bound for $f(c)$ we Obtain
+	\[
+		f(x)\leq 2x+h+\frac{2Mx}{h}+M
+	\]
+	for any $h>0$.\\
+	We also need a lower bound to obtain a bound for the absolute value.\\
+	Again by monotonicity for $c\in[x-h,x]$, $h>0$ we have
+	\[
+		f'(x-h)\leq f'(c)\leq f'(x).
+	\]
+	Here we proceed in a differnt manner than the first bound
+	\[
+		hf'(c)=f(x)-f(x-h)=[x^2-(x-h)^2]=2xh-h^2+O(x)
+	\]
+	\[
+		|f(x)-f(x-h)-(2xh-h^2)|\leq Mx+M(x-h)\leq2Mx
+	\]
+	\[
+		|hf'(c)-(2xh-h^2)|\leq2Mx
+	\]
+	\[
+		|f'(c)-2x+h|\leq\frac{2Mx}{h}.
+	\]
+	Thus, by the monotonicity of $f'$ we have
+	\[
+		f'(x)\geq 2x-h-\frac{2Mx}{h}.
+	\]
+	Comparing the two bounds we obtain
+	\[
+		 2x-h-\frac{2Mx}{h}\leq f'(x)\leq 2x+h+\frac{2Mx}{h}+M,
+	\]
+	\[
+		|f'(x)-2x|\leq h+\frac{2Mx}{h}+M.
+	\]
+	Now we need to pick an $h>0$ that gives us the desired error term.\\
+	Pick $h=\sqrt{2M}\sqrt{x}$, then we have
+	\begin{align*}
+		|f'(x)-2x|&\leq h+\frac{2Mx}{h}+M\\
+		&\leq \sqrt{2M}\sqrt{x}+\frac{2Mx}{\sqrt{2M}\sqrt{x}}+M\\
+		&\leq 2\sqrt{2M}\sqrt{x}+M,
+	\end{align*}
+	as $x\to\infty$ we get $2\sqrt{2M}\sqrt{x}>M$ so we have
+	\[
+		|f'(x)-2x|\leq 2\sqrt{2M}\sqrt{x},
+	\]
+	if we take $C=2\sqrt{2M}$ we get 
+	\[
+		f'(x)=2x+O(\sqrt{x}). \qedhere
+	\]
+\end{proof}
 
 \stepcounter{section}
 \section*{Problem 5 [10 marks]} The Ramanujan sum is defined as 

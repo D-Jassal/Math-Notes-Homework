@@ -1,0 +1,72 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 420 Lecture 6}
+\author{Deepak Jassal}
+\date{January 26\textsuperscript{th}, 2026}
+
+\begin{document}
+\stepcounter{section}
+\maketitle 
+\thm{Second Isomorphism Theorem}{
+    Let $R$ be a ring and $I,J$ ideals of $R$. Then $I$ is an ideal of $I+J$, and $I\cap J$ is an ideal of $J$ then
+    \[
+        I+J\setminus J\cong I\setminus I\cap J
+    \]
+}
+\pf[Proof of the Second Isomorphism Theorem]{
+    Clearly $I\subseteq I+J$, and also a subring. For $r\in I+J\Rightarrow r\in R$, so $r\cdot i\in I$ for $i,r\in I$ for all $i\in I$, since $I\subseteq R$ is an ideal in $R$. Similar argument shows $I\cap J$ is an ideal in $J$. Now define
+    \[
+        \tau:I+J\to J\setminus I\cap J,
+    \]
+    \[
+        \tau(i+j)=i+(I\cap J)=[I]_{I\cap J}.
+    \]
+    It is possible that $i_1+j_1=i_2+j_2$ so we must check that this is well-defined.
+    \[
+        \underset{\in I}{i_1-i_2}=\underset{\in J}{j_2-j_1}\Rightarrow i_1-i_2,j_2-j_1\in I\cap J.
+    \]
+    \[
+        \tau(i_1+j_2)=i_1+(I\cap J)=i_1-(i_1-i_2)+(I\cap J)=i_2+(I\cap J)=\tau(i_2+j_2).
+    \]
+    Next, we must show that $\tau$ is a homomorphism.
+    \begin{align*}
+        \tau(i_1+j_2+i_2+j_2)&=\tau(i_1+i_2+j_1+j_2)\\
+        &=i_1+i_2+(I\cap J)\\
+        &=i_1+(I\cap J)+i_2+(I\cap J)\\
+        &=\tau(i_1+j_1)+\tau(i_2+j_2),
+    \end{align*}
+    \begin{align*}
+        \tau((i_1+j_1)(i_2+j_2))&=\tau(i_1i_2+i_1j_2+j_1i_2+j_1j_2)\\
+        &=i_1i_2+(I\cap J)\\
+        &=(i_1+(I\cap J))(i_2+(I\cap J))\\
+        &=\tau(i_1+j_1)\tau(i_2+j_2).
+    \end{align*}
+    Since $\tau(i+j)=i+I\cap J$ we have that $\tau$ is surrjective.\\
+    Now we need only show that $\ker(\tau)=J$.\\
+    Suppose $j\in J$. Then $\tau(0+j)=0+(I\cap J)$, so $j\in\ker(\tau)$ ($J\subseteq\ker(\tau)$).\\
+    Now suppose that $j\in\ker(\tau)$. Then $\tau(i+j)=i+I\cap J=0+(I\cap J)$. Hence, $i\in (I\cap J)$, to $i\in J$. Therefore, $i+j\in J$. So $\ker(\tau)\subseteq J$. Thus, $J=\ker(\tau)$. Hense, by the first isomorphism theorem we have our desired result. 
+}
+\thm{Third Isomorphism Theorem}{
+    Let $R$ be a a ring and $I,J$ ideals of $R$ such that $I\subseteq J$. Then,
+    \[
+        R\setminus J\cong \frac{R\setminus I}{J\setminus I}.
+    \]
+}
+\pf[Proof of the Third Isomorphism Theorem]{
+    Left as an excersize.
+}
+The earliest\footnote{Probably the earliest} rings to be considered are close cousins of $\Z:$ (integral) domains.
+\defn{Integral Domains}{
+    A ring $(D,+,\times)$ is siad to be an \textit{integral domain} if
+    \begin{enumerate}
+        \item $D$ is unital (has multiplicative identity $1\neq 0$);
+        \item $D$ is commutative;
+        \item for $a,b\in D$, if $ab=0$, then $a=0$ or $b=0$.
+    \end{enumerate}
+}
+\end{document}

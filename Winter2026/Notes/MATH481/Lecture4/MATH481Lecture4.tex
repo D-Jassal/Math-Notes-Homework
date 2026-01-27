@@ -13,8 +13,131 @@
 \setcounter{section}{2}
 \setcounter{tcb@cnt@mydefinition}{6}
 \maketitle
+Another application of Euler's summation formula.\\
+The Reimann zeta function is defined as 
+\[
+    \zeta(s)=\sum_{n=1}^{\infty}\frac{1}{n^s},\quad s\in\C,\; \Re(s)>1.
+\]
+This is defined as an analytic function in the complex variable $s$ on the half plane $\Re(s)>1$. $\zeta(s)$ converges absolutely for $\Re(s)>1$.
+\ex{
+    \[
+        \zeta(2)=\sum_{n=1}^{\infty}\frac{1}{n^2}=\frac{\pi^2}{6}
+    \]
+}
+\ex{
+    \[
+        \zeta(2k)\in\Q^{2k},\quad k\in\N.
+    \]
+}
+\thm{Integral Form of the Reimann Zeta Function}{
+    \[
+        \zeta(s)=\frac{s}{s-1}-s\int_{1}^{\infty}\frac{\fract{x}}{x^{s+1}}\,dx,\quad \Re(s)>0.
+    \]
+}
+\pf[Proof of Theorem 2.7]{
+    Consider for $x\geq1$
+    \[
+        S(x)=\sum_{n\leq x}\frac{1}{n^s},
+    \]
+    observe that 
+    \[
+        \lim_{x\to\infty}S(x)=\zeta(s).
+    \]
+    By Euler's summation formula we have
+    \begin{align*}
+        S(x)&=\sum_{n\leq x}\frac{1}{n^s}\\
+        &=\int_{1}^{x}\frac{1}{t^s}\,dt-s\int_{1}^{x}\fract{t}t^{-s-1}\,dt-\fract{x}f(x)+f(1)\\
+        &=\frac{1}{s-1}-\frac{x^{-s+1}}{s-1}-s\int_{1}^{\infty}\fract{t}t^{-s-1}\,dt+\int_{x}^{\infty}+\int_{x}^{\infty}\fract{t}t^{-s-1}\,dt-\fract{x}x^{-s}+1.
+    \end{align*}
+    Note that
+    \begin{align*}
+        \left|\int_{x}^{\infty}\fract{t}t^{-s-1}\,dt\right|&\leq\int_{x}^{\infty}\fract{t}|t^{-s-1}|\,dt\\
+        &=\int_{x}^{\infty}\fract{t}t^{\Re(s)-1}\,dt\\
+        &\leq\int_{x}^{\infty}t^{\Re(s)-1}\,dt\\
+        &=\left(\frac{t^{-\Re(s)}}{-\Re(s)}\right)^\infty_x=\frac{x^{-\Re(s)}}{-\Re(s)}.
+    \end{align*}
+    Hence, 
+    \[
+        S(x)=\frac{1}{s-1}-\frac{x^{-s-1}}{s-1}-s\left(\int_{1}^{\infty}\fract{t}t^{-s-1}\,dt+\Oh\left(\frac{x^{-\Re(s)}}{-\Re(s)}\right)\right).
+    \]
+    As $x\to\infty$ we get $\zeta(s)$
+    \begin{align*}
+        \zeta(s)&=\frac{1}{s-1}-s\int_{1}^{\infty}\fract{t}t^{-s-1}\,dt+1\\
+        &=\frac{s}{s-1}-s\int_{1}^{\infty}\fract{t}t^{-s-1}\,dt.
+    \end{align*}
+    Which is the desired result.
+}
+Recall PNT
+    \[
+        \pi(x)=
+    \]
 
-
-
-
+\lemp{Logarithmic Integral}{
+    \[
+        \mathrm{Li}_k(x)=\int_{2}^{x}\frac{1}{(\log t)^k}\,dt\ll_k\frac{x}{(\log x)^k}.
+    \]
+}{
+    \[
+        \int_{2}^{x}\frac{1}{(\log x)^k}\,dt
+    \]
+    we have
+    \[
+        \log t\geq\log2,\quad \frac{1}{\log t}\leq\frac{1}{\log2},\quad \frac{1}{(\log t)^k}<\frac{x-2}{(\log2)^k}\ll x-2\ll x.
+    \]
+    \[
+        \underbrace{\int_{2}^{\sqrt{x}}\frac{dt}{(\log t)^k}}_{I_1}+\underbrace{\int_{\sqrt{x}}^{x}\frac{dt}{(\log t)^k}}_{I_2}.
+    \]
+    \[
+        I_2\leq\int_{2}^{\sqrt{x}}\frac{dt}{(\log2)^k}=\frac{\sqrt{x}-2}{(\log2)^k}\ll_k\sqrt{x}\ll\frac{x}{(\log x)^k},
+    \]
+    for $\sqrt{x}< t< x$
+    \[
+        \log t\geq \log\sqrt{2}=\frac{1}{2}\log x
+    \]
+    \[
+        \frac{1}{(\log t)^k}\leq\frac{2^k}{(\log x)^k}.
+    \]
+    \[
+        I_2\leq \int_{\sqrt{x}}^{x}\frac{2^k}{(\log t)^k}\,dt=\frac{2^k(x-\sqrt{x})}{(\log x)^k}\ll_k\frac{x}{(\log x)^k}.
+    \]
+    Hence, 
+    \[
+        \int_{2}^{x}\frac{2^k}{(\log t)^k}\,dt=\Oh\left(\frac{x}{(\log x)^k}\right),\quad x\geq 4.
+    \]
+    For $2\leq x\leq 4$ we have
+    \[
+        \int_{2}^{x}\frac{1}{(\log t)^k}\,dt\leq\int_{2}^{x}\frac{1}{(\log 2)^k}\,dt=\frac{x-2}{(\log 2)^k}\leq\frac{x}{(\log 2)^k}\leq\left(\frac{\log x}{\log2}\right)\frac{x}{(\log x)^k}\ll\frac{x}{(\log x)^k}.
+    \]
+    Which is the desired result.
+}
+\thm{Summation of Logarithmic Integral}{
+    \[
+        \mathrm{Li(x)}=\int_{2}^{x}\frac{dt}{\log t}=\frac{x}{\log x}\left(\sum_{i=1}^{k-1}\frac{i!}{(\log x)^i+\Oh\left(\frac{1}{(\log x)^k}\right)}\right).
+    \]
+}
+\pf[Proof of Theorem 2.9]{
+    We have 
+    \[
+        \int_{2}^{x}\frac{dt}{\log t}
+    \]
+    \[
+        u=\frac{1}{\log t},\quad dv=dt,\quad du=\frac{-1}{(\log t)^2},\quad v=t
+    \]
+    \begin{align*}
+        \int_{2}^{x}\frac{dt}{\log t}&=\left[\frac{t}{\log t}\right]^x_2+\int_{2}^{x}\frac{dt}{t(\log t)^2}\\
+        &=\frac{x}{\log x}-\frac{2}{\log2}+\frac{x}{(\log x)^2}-\frac{2}{(\log 2)^2}+2\int_{2}^{x}\frac{dt}{(\log t)^3}\\
+        &=\frac{x}{\log x}+\frac{x}{(\log x)^2}+\frac{2x}{(\log x)^3}+\cdots+k\int_{2}^{x}\frac{dt}{(\log t)^{k+1}}+\Oh_k(1)\\
+        &=\frac{x}{\log x}+\frac{x}{(\log x)^2}+\frac{2x}{(\log x)^3}+\cdots+(k-1)!\frac{x}{(\log x)^k}+\Oh_k\left(\frac{x}{(\log x)^{k+1}}\right)\\
+        &=\frac{x}{\log x}\left(\sum_{i=1}^{k-1}\frac{i!}{(\log x)^i+\Oh\left(\frac{1}{(\log x)^k}\right)}\right).
+    \end{align*}
+    Thus we have arrived at the desired result.
+}
+We can use Euler's summation formula for sum continuous functions. Abel's Summation Formula allows for us to sum arithmetic functions.
+\thm{Abel's Summation Formula}{
+    Let $0<y\leq x$, $f\in\mathcal{C}[y,x]$ and $a(n)$ an arithmetic function, then
+    \[
+        \sum_{y<n\leq x}a(n)f(n)=A(n)f(x)-A(y)f(y)-\int_{y}^{x}A(t)f'(t)\,dt,
+    \]
+    where $A(n)$ is the summatory fuction for $a(n)$ $\left(A(n\sum_{n\leq x}a(n))\right)$.
+}
 \end{document}

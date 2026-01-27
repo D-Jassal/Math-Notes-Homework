@@ -1,0 +1,26 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 481 Lecture 5}
+\author{Deepak Jassal}
+\date{January 22\textsuperscript{th}, 2026}
+
+\begin{document}
+\setcounter{section}{2}
+\setcounter{tcb@cnt@mydefinition}{9}
+\maketitle
+\thm{Abel's Summation Formula}{
+    Let $0<y\leq x$, $f\in\mathcal{C}[y,x]$ and $a(n)$ an arithmetic function, then
+    \[
+        \sum_{y<n\leq x}a(n)f(n)=A(n)f(x)-A(y)f(y)-\int_{y}^{x}A(t)f'(t)\,dt,
+    \]
+    where $A(n)$ is the summatory fuction for $a(n)$ $\left(A(n\sum_{n\leq x}a(n))\right)$.
+}
+
+
+
+\end{document}
