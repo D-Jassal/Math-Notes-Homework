@@ -60,15 +60,15 @@
 		\[
 			f(x)=g(x)(1+h(x))
 		\]
-		where $h(x)\to 0$ as $x\to\infty$. Then,
+		where $h(x)>1$, $h(x)\to 0$ as $x\to\infty$. Then,
 		\begin{align*}
-			\log(f(x))&=\log(g)+\log(1+h(x))\\
-			\frac{\log(f(x))}{\log(g)}&=1+\frac{\log(1+h(x))}{\log(g)}.
+			\log(f(x))&=\log(g(x))+\log(1+h(x))\\
+			\frac{\log(f(x))}{\log(g(x))}&=1+\frac{\log(1+h(x))}{\log(g(x))}.
 		\end{align*}
 		From here we see that
 		\begin{align*}
-			\lim_{x\to\infty}\frac{\log(f(x))}{\log(g(x))}&=\lim_{x\to\infty}1+\frac{\log(1+h(x))}{\log(g)}\\
-			&=1+\lim_{x\to\infty}\frac{\log(1+h(x))}{\log(g)}\\
+			\lim_{x\to\infty}\frac{\log(f(x))}{\log(g(x))}&=\lim_{x\to\infty}1+\frac{\log(1+h(x))}{\log(g(x))}\\
+			&=1+\lim_{x\to\infty}\frac{\log(1+h(x))}{\log(g(x))}\\
 			&=1.
 		\end{align*}
 		Thus, $\log (f (x)) \sim \log(g(x))$ if  $\ \lim_{x\to\infty} g(x) =\infty$.
@@ -190,8 +190,56 @@
 \end{proof}
 
 \stepcounter{section}
-\section*{Problem 7 [5 marks]} Obtain an estimate for the sum \[\sum_{n\leq x}\frac{\log n}{n}\] with error term $O\left(\frac{\log x}{x}\right)$.
-
+\section*{Problem 7 [5 marks]} Obtain an estimate for the sum \[\sum_{n\leq x}\frac{\log n}{n}\] with error term $O\left(\frac{\log x}{x}\right)$.\\
+\textit{Solution.}\\
+Let $a(x)=1$, and $f(x)=\frac{\log x}{x}$, then $f'(x)=\frac{1-\log x}{x^2}$, and $A(x)=\sum_{n\leq x}1=\floor{x}$. Using Abel's summation formula we can write the sum as
+\[
+	S(x)=\sum_{n\leq x}\frac{\log n}{n}=A(x)f(x)-\int_{1}^{x}A(t)f'(t)\,dt.
+\]
+Focusing on the integral
+\[
+	I=\int_{1}^{x}A(t)f'(t)\,dt=\int_{1}^{x}\floor{t}\frac{1-\log t}{t^2}\,dt
+\]
+writing $\floor{t}=t-\fract{t}$
+\begin{align*}
+	I&=\int_{1}^{x}(t-\fract{t})\frac{1-\log t}{t^2}\,dt\\
+	&=\int_{1}^{x}\frac{1-\log t}{t}\,dt+\int_{1}^{x}\fract{t}\frac{\log t-1}{t^2}\,dt.
+\end{align*}
+\begin{align*}
+	I_1&=\int_{1}^{x}\frac{1-\log t}{t}\,dt\\
+	&=\int_{1}^{x}\frac{1}{t}\,dt-\int_{1}^{x}\frac{\log t}{t}\,dt
+\end{align*}
+\begin{align*}
+	I_1'&=-\int_{1}^{x}\frac{\log t}{t}\,dt\\
+	&=-\left[\frac{(\log t)^2}{2}\right]_1^x=-\frac{\log^2x}{2}.
+\end{align*}
+\[
+	I_1=\log x-\frac{\log^2x}{2}.
+\]
+\begin{align*}
+	I_2&=\int_{1}^{x}\fract{t}\frac{\log t-1}{t^2}\,dt\\
+	&\leq\int_{1}^{x}\frac{\log t-1}{t^2}\,dt\\
+	&\leq\int_{1}^{x}\frac{\log t}{t^2}\,dt
+\end{align*}
+\[
+	\int_{1}^{x}\frac{\log t}{t^2}\,dt=\int_{1}^{\infty}\frac{\log t}{t^2}\,dt-\int_{x}^{\infty}\frac{\log t}{t^2}\,dt
+\]
+\begin{align*}
+	\int_{1}^{\infty}\frac{\log t}{t^2}\,dt&=\left[-\frac{\log t+1}{t}\right]_1^\infty\\
+	&=0+\frac{\log1+1}{1}\\
+	&=1.
+\end{align*}
+\begin{align*}
+	-\int_{x}^{\infty}\frac{\log t}{t^2}\,dt&=-\left[-\frac{\log t+1}{t}\right]_x^\infty\\
+	&=0-\frac{\log x+1}{x}\\
+	&=-\frac{\log x+1}{x}.
+\end{align*}
+As $x\to\infty$ $\log x+1\sim\log x$. Thus we have
+\begin{align*}
+	S(x)&=A(x)f(x)+I_1+I_2\\
+	&\leq\floor{x}\frac{\log x}{x}+\log x-\frac{\log^2x}{2}+1-\frac{\log x+1}{x}\\
+	&=\floor{x}\frac{\log x}{x}+\log x-\frac{\log^2x}{2}+O\left(\frac{\log x}{x}\right).
+\end{align*}
 \stepcounter{section}
 \section*{Problem 8 [5 marks]} Prove
 \[
@@ -199,7 +247,45 @@
 \]
 where $\gamma$ is Euler's constant. 
 
-{\it{Hint: Usethe estimate proven in class for $\sum_{n\le x} d(n) $.}}
+{\it{Hint: Use the estimate proven in class for $\sum_{n\le x} d(n) $.}}
+\begin{proof}
+	Let $a(x)=d(x)$, $f(x)=x^{-1}$, then $f'(x)=-x^{-2}$, and $A(x)=\sum_{n\leq x}d(n)=x\log x+(2\gamma-1)x+O(\sqrt{x})$. Using Abel's summation formula to write the sum
+	\begin{align*}
+		S(x)=\sum_{n \le x} \frac{d(n)}{n}&=A(x)f(x)-\int_{1}^{x}A(t)f'(t)\,dt\\
+		&=\frac{\sum_{n\leq x}d(n)}{x}+\int_{1}^{x}\sum_{n\leq x}d(t)t^{-2}\,dt\\
+		&=\frac{x\log x+(2\gamma-1)x+O(\sqrt{x})}{x}+\int_{1}^{x}\frac{t\log t+(2\gamma-1)t+O(\sqrt{t})}{t^2}\,dt\\
+		&=\log x+(2\gamma-1)+O\left(\frac{1}{\sqrt{x}}\right)+\int_{1}^{x}\frac{\log t}{t}+\frac{(2\gamma-1)}{t}+\frac{O(\sqrt{t})}{t^2}\,dt.
+	\end{align*}
+	Computing the first of these integrals
+	\begin{align*}
+		\int_{1}^{x}\frac{\log t}{t}\,dt&=\left[\frac{1}{2}\log^2t\right]^x_1\\
+		&=\frac{1}{2}\log^2x.
+	\end{align*}
+	The second integral
+	\begin{align*}
+		\int_{1}^{x}\frac{(2\gamma-1)}{t}\,dt&=(2\gamma-1)\left[\log t\right]^x_1\\
+		&=(2\gamma-1)\log x.
+	\end{align*}
+	For the third integral note that
+	\[
+		\frac{O(\sqrt{t})}{t^2}\leq\frac{\sqrt{t}}{t}=t^{-\frac{3}{2}}.
+	\]
+	This yields
+	\begin{align*}
+		\int_{1}^{x}\frac{O(\sqrt{t})}{t^2}&\leq\int_{1}^{x}t^{-\frac{3}{2}}\,dt\\
+		&\leq\left[-2t^{-\frac{1}{2}}\right]_1^x\\
+		&\leq2-2x^{-\frac{1}{2}}.
+	\end{align*}
+	Thus we have an error of $O(2-2x^{-\frac{1}{2}})$. As $x\to\infty$ $2-2x^{-\frac{1}{2}}\to2$, so our error term is $O(1)$. This also absorbs the $O\left(\frac{1}{\sqrt{x}}\right)$ error. Putting together all of the terms 
+	\begin{align*}
+		S(a)&=\log x+(2\gamma-1)+\frac{1}{2}\log^2x+(2\gamma-1)\log x+O(1)\\
+		&=\frac{1}{2}\log^2x+2\gamma\log x+O(1)-1.
+	\end{align*}
+	The error absorbs the $-1$ and thus we have
+	\[
+		\sum_{n \le x} \frac{d(n)}{n} = \frac{1}{2} (\log  x)^2 + 2\gamma \log x  + O(1).\qedhere
+	\]
+\end{proof}
 
 \stepcounter{section}
 \section*{Problem 9 [10 marks]} Prove that 
@@ -213,7 +299,62 @@ as $x\to\infty$.
 \[
     S(x) =\sum_{2\leq n\leq x}\frac{1}{n\log n}
 \] 
-with error term $O(1/(x \log x))$.
-
-
+with error term $O(1/(x \log x))$.\\
+\textit{Solution.}\\
+Let $a(n)=1$ and $f(n)=\frac{1}{n\log n}$, then by Abel's summation formula we have
+\[
+	S(x) =\sum_{2\leq n\leq x}\frac{1}{n\log n}=\sum_{2< n\leq x}\frac{1}{n\log n}+f(2)=\frac{\floor{x}}{x\log x}-\frac{2}{2\log 2}+\frac{1}{2\log2}+\int_{2}^{x}\floor{t}\left(\frac{\log t+1}{t^2\log^2t}\right)\,dt.
+\]
+Let
+\[
+	I=\int_{2}^{x}\floor{t}\left(\frac{\log t+1}{t^2\log^2t}\right)\,dt,
+\]
+and write $\floor{t}=t-\fract{t}$. Then, we obtain
+\[
+	I=\int_{2}^{x}(t-\fract{t})\left(\frac{\log t+1}{t^2\log^2t}\right)\,dt.
+\]
+Observe that
+\[
+	\frac{\log t+1}{t^2\log^2t}=\frac{1}{t^2\log t}+\frac{1}{t^2\log^2t},
+\]
+this gives
+\[
+	I=\int_{2}^{x}(t-\fract{t})\left(\frac{1}{t^2\log t}+\frac{1}{t^2\log^2t}\right)\,dt.
+\]
+Splitting the two integrals
+\begin{align*}
+	\int_{2}^{x}t\left(\frac{1}{t^2\log t}+\frac{1}{t^2\log^2t}\right)\,dt&=\int_{2}^{x}\frac{1}{t\log t}+\frac{1}{t\log^2t}\,dt\\
+	&=\left[\log\log t -\frac{1}{\log t}\right]_2^x\\
+	&=\log\log x-\log\log 2-\frac{1}{\log x}+\frac{1}{\log2}.
+\end{align*}
+As for the second integral
+\[
+	-\int_{2}^{x}\fract{t}\frac{\log t+1}{t^2\log^2t}\,dt=-\int_{2}^{\infty}\fract{t}\frac{\log t+1}{t^2\log^2t}\,dt+\int_{x}^{\infty}\fract{t}\frac{\log t+1}{t^2\log^2t}\,dt,
+\]
+the first of these two integrals is convergent since 
+\[
+	\int_{2}^{\infty}\fract{t}\frac{\log t+1}{t^2\log^2t}\,dt=\int_{2}^{5}\fract{t}\frac{\log t+1}{t^2\log^2t}\,dt+\int_{5}^{\infty}\fract{t}\frac{\log t+1}{t^2\log^2t}\,dt
+\]
+and $\frac{\log t+1}{t^2\log^2t}<\frac{1}{t^{\frac{3}{2}}}$ for $t\geq5$. We will call this constant $C$.\\
+As for the second integral notice that for large enough $t$ we have $\log t+1\leq 2\log t$, this gives
+\[
+	\fract{t}\frac{\log t+1}{t^2\log^2t}\leq\fract{t}\frac{2\log t}{t^2\log^2t}=\frac{2}{t^2\log t}.
+\]
+Also note that for $t\in[x,\infty]$ we have
+\[
+	\frac{1}{\log t}\leq\frac{1}{\log x}.
+\]
+Combining these two facts we obtain
+\begin{align*}
+	\int_{x}^{\infty}\fract{t}\frac{\log t+1}{t^2\log^2t}\,dt&\leq \int_{x}^{\infty}\fract{t}\frac{2}{t^2\log x}\,dt\\
+	&\leq \frac{1}{\log x}int_{x}^{\infty}\fract{t}\frac{2}{t^2}\,dt\\
+	&\leq\frac{1}{\log x}\left[\frac{1}{t}\right]^\infty_x\\
+	&\leq\frac{1}{x\log x}\\
+	&=O\left(\frac{1}{x\log x}\right).
+\end{align*}
+Adding all of the terms
+\begin{align*}
+	S(x)&=\frac{\floor{x}}{x\log x}-\frac{1}{2\log 2}+\log\log x-\log\log 2-\frac{1}{\log x}+\frac{1}{\log2}-C+O\left(\frac{1}{x\log x}\right)\\
+	\sum_{2\leq n\leq x}\frac{1}{n\log n}&=\log\log x+\frac{1}{2\log2}-\log\log2-C+O\left(\frac{1}{x\log x}\right)
+\end{align*}
 \end{document}

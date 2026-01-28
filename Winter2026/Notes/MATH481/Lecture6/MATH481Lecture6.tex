@@ -1,0 +1,28 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 481 Lecture 6}
+\author{Deepak Jassal}
+\date{January 27\textsuperscript{th}, 2026}
+
+\begin{document}
+\setcounter{section}{2}
+\setcounter{tcb@cnt@mydefinition}{13}
+\maketitle
+\thm{Convergence of Dirichlet Series}{
+    Let $f:\N\to\C$ be an arithmetic function, $F(s)$ the associated Dirichlet series and $s_f(x)=\sum_{n\leq x}f(n)$ the associated summatory function. Then,
+    \begin{enumerate}[label=(\roman*)]
+        \item For any $s\in\C$ with $\Re(s)>0$ such that $F(s)$ converges we have
+        \[
+            F(s)=s\int_{1}^{\infty}\frac{s_f(x)}{x^{s+1}}\,dx.\tag{$\ast$} \label{ast}
+        \]
+        \item If $S_f(x)=\Oh(x^\alpha)$ for some $\alpha\geq0$, then $F(s)$ converges then for all $s$ with $\Re(s)>\alpha$ and \eqref{ast} holds for all such $s$.
+    \end{enumerate}
+}
+
+
+\end{document}

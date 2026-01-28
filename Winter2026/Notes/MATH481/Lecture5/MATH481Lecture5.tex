@@ -20,7 +20,183 @@
     \]
     where $A(n)$ is the summatory fuction for $a(n)$ $\left(A(n\sum_{n\leq x}a(n))\right)$.
 }
+\corp{
+    Let $x\leq 1$, $f\in\mathcal{C}[1,x]$ and $a(n)$ be an atrithmetic function. Then,
+    \[
+        \sum_{n\leq x}a(n)f(n)=A(n)f(x)-\int_{y}^{x}A(t)f'(t)\,dt.
+    \]
+}{Apply \textit{theorem 2.10}.}{}
+\ex{
+    Deduce Euler's summation formula from Abel's summation formula. (Use $a(n)=1$, $A(t)=\floor{t}$.)
+}
 
-
-
+\pf[Proof of Theorem 2.10]{
+    Consider 
+    \[
+        I=\int_{y}^{x}A(t)f't\,dt=\int_{y}^{x}\sum_{x\leq t}a(n)f't\,dt.
+    \]
+    Let 
+    \[
+        \chi(x,n)=\begin{cases}
+            1&\text{if } n\leq t\\
+            0&\text{otherwise}
+        \end{cases}.
+    \]
+    Using $\chi$ we Obtain
+    \begin{align*}
+        I&=\int_{y}^{x}\sum_{n\leq x}a(n)\chi(n,t)f'(t)\,dt\\
+        &=\sum_{n\leq x}a(n)\int_{y}^{x}\chi(n,t)f'(t)\,dt\\
+        &=\sum_{n\leq x}a(n)\int_{\max{n,y}}^{x}f'(t)\,dt\\
+        &=\sum_{n\leq x}a(n)\left(f(x)-f(\max{n,y})\right)\\
+        &=\sum_{n\leq x}a(n)f(x)-\left(\sum_{n\leq y}a(n)f(y)+\sum_{y<n\leq x}a(n)f(n)\right)\\
+        \int_{y}^{x}A(t)f'(t)\,dt&=A(x)f(x)-A(y)f(y)-\sum_{y<n\leq x}a(n)f(n)\\
+        \sum_{y<n\leq x}a(n)f(n)&=A(n)f(x)-A(y)f(y)-\int_{y}^{x}A(t)f'(t)\,dt.
+    \end{align*}
+    Thus, we have the desired result.
+}
+\thm{Kronecker's Lemma}{
+    Let $f:\N\to\C$ be an arithmetic function, let $s\in\C$ with $\Re(s)>0$. Suppose that
+    \[
+        F(s)=\sum_{n=1}^{\infty}\frac{f(n)}{n^s}
+    \]
+    converges. Then, 
+    \[
+        \frac{1}{x^s}\sum_{n\leq x}f(s)\to0\text{ as } x\to\infty.
+    \]
+    In particular if $\sum_{n=1}^{\infty}\frac{f(s)}{n}$ converges then we have $\frac{1}{x}\sum_{n\leq x}f(s)\to 0$ as $x\to\infty$.\\
+    i.e., $\sum_{n\leq x}=\oh(x).$
+}
+\pf[Proof of Theorem 2.12]{
+    Let 
+    \[
+        S_f(x)=S(x)=\sum_{n\leq x}f(n), 
+    \]
+    and 
+    \[
+        T(x)=\sum_{n\leq x}\frac{f(n)}{n^s}.
+    \]
+    We know that $\lim_{x\to\infty}T(x)=T(s)$. We want to prove that 
+    \[
+        \lim_{x\to\infty}\frac{S(x)}{x^s}=0.
+    \]
+    \begin{align*}
+        S(x)=\sum_{n\leq x}\frac{f(n)}{n^s}n^s&=\left(\sum_{n\leq x}\frac{f(n)}{n^s}\right)x^s-s\int_{1}^{x}\left(\sum_{n\leq t}\frac{f(n)}{n^s}\right)t^{s-1}\,dt\\
+        &=T(x)x^s-s\int_{0}^{x}T(t)t^{s-1}\,dt\\
+        &=T(x)\int_{0}^{x}st^{s-1}\,dt-s\int_{0}^{x}T(t)t^{s-1}\,dt\\
+        &=\int_{0}^{x}st^{s-1}(T(x)-T(t))\,dt
+    \end{align*}
+    Hence, since $\lim_{x\to\infty}T(x)=T$ we have
+    \[
+        |S(x)|\leq\int_{0}^{x}|s|t^{\Re(s)-1}(|T(x)-T|+|T(t)-T|)\,dt.
+    \]
+    Given $\varepsilon>0$, there exists $x_0>1$ such that $|T(t)-T|<\varepsilon$ whenever $x>x_0$. Given $\varepsilon>0$ we have
+    \begin{align*}
+        |S(x)|\leq&\int_{0}^{x_0}|s|t^{\Re(s)-1}(|T(x)-T|+|T(t)-T|)\,dt\\
+        &+\int_{x_0}^{x}|s|t^{\Re(s)-1}(|T(x)-T|+|T(t)-T|)\,dt.
+    \end{align*}
+    So for $0<t<x_0$, we have
+    \begin{align*}
+        |T(x)-T|+|T(t)-T|&\leq\varepsilon +|T(t)|+|T|\\
+        &\leq\varepsilon+|T|+\sum_{n\leq t}\frac{|f(n)|}{n^{\Re(s)}}
+        &\leq\varepsilon+|T|+\sum_{n\leq x_0}\frac{|f(n)|}{n^{\Re(s)}}\\
+        &=M(\varepsilon).
+    \end{align*}
+    For $x_0<t<x$
+    \[
+        |T(x)-T|+|T(t)-T|\leq2\varepsilon.
+    \]
+    Putting the two together we get
+    \begin{align*}
+        |S(x)|&\leq\int_{0}^{x_0}|s|t^{\Re(s)-1}M(\varepsilon)\,dt+\int_{x_0}^{x}|s|t^{\Re(s)}2\varepsilon\,dt\\
+        &\leq|s|\left[M(\varepsilon)\frac{x_0\Re(s)}{\Re(s)}+2\varepsilon\left(\frac{x^{\Re(s)}-x_0^{\Re(s)}}{\Re(s)}\right)\right]
+    \end{align*}
+    dividing by $|x^s|=x^{\Re(s)}$
+    \begin{align*}
+        \frac{|S(x)|}{x^{\Re(s)}}&\leq\frac{|s|}{\Re(s)}\left[M(\varepsilon)\left(\frac{x_0}{x}\right)^{\Re(s)}+2\varepsilon-2\varepsilon\left(\frac{x_0}{x}\right)^{\Re(s)}\right].
+    \end{align*}    
+    Due the dependance on $\varepsilon$ for the term on the right we can make this arbitrarily small. Hence, $\lim_{x\to\infty}\frac{S(x)}{x^s}=0$.
+}
+Going back to studying the means of arithmetic functions:\\
+Let 
+\[
+    M_f(x)=\frac{1}{x}\sum_{n\leq x}f(n)
+\]
+with $f:\N\to\C$, and 
+\[
+    M_f=\lim_{x\to\infty}M_f(x).
+\]
+\[
+    L_f(x)=\frac{1}{\log x}\sum_{n\leq x}\frac{f(n)}{n},
+\]
+and 
+\[
+    L_f=\lim_{x\to\infty}L_f(x).
+\]
+\thm{Existence of Logarithmic Means}{
+    Using the notation above, if $M_f$ exists then $L_f$ also exists and $M_f=L_f$.
+}
+\begin{remark}
+    \[
+        \frac{1}{x}\sum_{n\leq x}\Lambda(n)\to1\text{ as } x\to\infty.
+    \]
+    Also,
+    \[
+        \frac{1}{x}\sum_{n\leq x}\mu(n)\to0\text{ as } x\to\infty,
+    \]
+    \[
+        M_\Lambda\Leftrightarrow \text{ PNT},
+    \]
+    computing
+    \[
+        M_\Lambda\& M_\mu\Rightarrow \text{ PNT}.
+    \]
+    However $L_\Lambda$ and $L_\mu$ are much more tractable objects adn we will compute them in the next chapter.
+\end{remark}
+\pf[Proof of Theorem 2.13]{
+    Given $f:\N\to\C$ set 
+    \[
+        S_f(x)=\sum_{f(n)}\quad\quad T_f(x)=\sum_{n\leq x}\frac{f(n)}{n}
+    \]
+    \[
+        M_f(x)=\frac{S_f(x)}{x}\quad\quad L_f(x)=\frac{T_f(x)}{\log x}.
+    \]
+    Suppose that
+    \[
+        \lim_{x\to\infty}M_f(x)=M_f.
+    \]
+    We need to show that $\lim_{x\to\infty}=M_f$.
+    \begin{align*}
+        T(x)&=\sum_{n\leq x}\frac{f(n)}{n}\\
+        &=\frac{S(x)}{x}+\int_{1}^{x}s(t)t^{-2}\,dt\\
+        \frac{T(x)}{\log x}&=\frac{S(x)}{x\log x}+\frac{1}{\log x}\int_{1}^{x}\frac{S(t)}{t^2}\,dt\\
+        &=\frac{S(x)}{x\log x}+\frac{1}{\log x}I(x)\\
+        &=0+\frac{1}{\log x}I(x).
+    \end{align*}
+    Now we need only show that $\lim_{x\to\infty}\frac{I}{\log x}=M_f$. To do this we consider 
+    \begin{align*}
+        I(x)-M_f\log x&=\int_{1}^{x}\frac{S(t)}{t^2}\,dt-M_f\int_{1}^{x}\frac{1}{t}\,dt\\
+        &=\int_{1}^{x}\frac{\frac{S(t)}{t}-M_f}{t}\,dt
+    \end{align*}
+    Thus
+    \[
+        |I(x)-M_f\log x|\leq\int_{1}^{x}\frac{\left|\frac{S(t)}{t}-M_f\right|}{t}\,dt.
+    \]
+    From here proceed as in Kronecker's lemma by splitting the integral into two intervals $[1,x_0]$ and $[x_0,x]$. Doing so will give the desired result.
+}
+\subsection*{Dirichlet Series}
+Let $f:\N\to\C$, set 
+\[
+    F(s)=\sum_{n=1}^{\infty}\frac{f(n)}{n^s}.
+\]
+Then, $F(s)$ is the Dirichlet series associated with $f$.
+\thm{Convergence of Dirichlet Series}{
+    Let $f:\N\to\C$ be an arithmetic function, $F(s)$ the associated Dirichlet series and $s_f(x)=\sum_{n\leq x}f(n)$ the associated summatory function. Then,
+    \begin{enumerate}[label=(\roman*)]
+        \item For any $s\in\C$ with $\Re(s)>0$ such that $F(s)$ converges we have
+        \[
+            F(s)=s\int_{1}^{\infty}\frac{s_f(x)}{x^{s+1}}\,dx.\tag{$\ast$} \label{ast}
+        \]
+        \item If $S_f(x)=\Oh(x^\alpha)$ for some $\alpha\geq0$, then $F(s)$ converges then for all $s$ with $\Re(s)>\alpha$ and \eqref{ast} holds for all such $s$.
+    \end{enumerate}
+}
 \end{document}
