@@ -1,0 +1,121 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+
+\title{MATH 301 Lecture 6}
+\author{Deepak Jassal}
+\date{January 28\textsuperscript{rd}, 2026}
+
+\begin{document}
+\setcounter{section}{1}
+\maketitle
+\defn{Closure}{
+    Let $A\subseteq\C$. Then the closure of $A$ denoted as $\bar{A}$ is the set of all limits of convergent sequences in $A$.\\
+    \textit{Note.} $A\subseteq \bar{A}$ because if $z\in A$ we can take constant sequence $z_n=z$ for all $n\in\N$. So $\lim_{n\to\infty}z_n=z\in A$. 
+}
+\ex{
+    $A=\left\{\frac{1}{n}:n\in\N\right\}$, $\bar{A}=A\cup\left\{0\right\}$.
+}
+\propp{$\bar{A}$ is closed}{
+    Let $(z_n)_{n=1}^\infty$ be a sequence in $\bar{A}$ we need to show that if $\lim_{n\to\infty}z_n=c$ then $c\in\bar{A}$.
+    \begin{enumerate}
+        \item[Case 1.] If $(z_n)_{n=1}^\infty z_n\subseteq A$ then $\lim_{n\to\infty}z_n\in\bar{A}$ by definition.
+        \item[Case 2.] Otherwise define a sequence $(z_n')_{n=1}^\infty\in\bar{A}$ by
+        \[
+            z_n'=
+            \begin{cases}
+                z_n&\text{if } z_n\in A\\
+                w_n&\text{such that } |w_n-z_n|<\frac{1}{n},\,w_n\in A,\,z_n\in\bar{A}\setminus A.    
+            \end{cases}
+        \] 
+    \end{enumerate}
+    So
+    \begin{align*}
+        (z_n')_{n=1}^\infty&\subseteq\\
+        \lim_{n\to\infty}z_n'&=\lim_{n\to\infty}(z_n+(z_n'-z_n))\\
+        &\lim_{n\to\infty}z_n+\lim_{n\to\infty}(z_n'-z_n)\\
+        &=c+0=c.
+    \end{align*}
+    Therefore, $\lim_{n\to\infty}z_n'=c\in\bar{A}$.
+}
+\cor{$\bar{\bar{A}}=\bar{A}$}
+\prop{
+    $\bar{A}$ is the smallest closed set containing $A$. So,
+    \[
+        \bar{A}=\bigcap_{c\subseteq C}C
+    \]
+    such that $A\subseteq C$ and $C$ is closed.
+}
+\subsection{More About Continuous Functions}
+So far we know that $f:\C\to\C$ is continuous if
+\begin{enumerate}
+    \item $z_n\to z\Rightarrow f(z_n)\to f(z)$
+    \item \textit{iff} $f^{-1}(U)$ is open for all $U\subseteq\C$ that are open
+    \item \textit{iff} $f^{-1}(U)$ is closed for all $U\subseteq\C$ that are closed
+\end{enumerate}
+This has to be changed if $f:A\to\C$ with $A\neq\C$.
+\defn{Inherited Topology}{
+    Topology on a subset of $\C$ is inherited from $\C$
+    \begin{enumerate}
+        \item Let $A\subseteq\C$ and $A_1\subseteq A$. Then $A_1$ os ``open relative to $A$'' if there eists an open set $U$ in $\C$ such that $A_1=A\cap U$,
+        \item Let $A\subseteq\C$ and $A_1\subseteq A$. Then $A_1$ os ``closed relative to $A$'' if there eists a closed set $C$ in $\C$ such that $A_1=A\cap C$.
+    \end{enumerate}
+    $A$ with this topology is considered to be a space. Note that $A$ is opena and closed in the inherited topology.
+}
+Now suppose that
+\[
+    f:A\to\C.
+\]
+The following are equivalent statements
+\begin{enumerate}
+    \item $f$ is continuous on $A$ (limit definition)
+    \item $f^{-1}(U)$ is open relative to $A$ for all open $U$ in $\C$
+    \item $f^{-1}(U)$ is closed relative to $A$ for all closed $U$ in $\C$
+\end{enumerate}
+\subsection{Connected Sets in $\C$}
+\defn{Connected Sets}{
+    A set $A\subseteq\C$ is connected if $A=B\cup C$ with $B\cap C=\phi$, $b\neq\phi$ and $c\neq\phi$ and there are open sets $u,V\subseteq\C$ such that $U\cap V=\phi$ and $B\subseteq U$ and $C\subseteq V$. We say that $U,V$ separate $B,C$. 
+}
+\defn{Rudin's Definition}{
+    A set $A$ is separated (disconnected) if $A=B\cup C$ with $B\neq\phi$ and $C\neq\phi$ and
+    \begin{enumerate}
+        \item $\bar{B}\cap C=\phi$
+        \item $B\cap\bar{C}=\phi$.
+    \end{enumerate}
+}
+These two definitions are equivalent. Proof will be shown later
+\defn{Path-Connected}{
+    A set $A$ is path-connected if for every two points $a$ and $b$ in $A$ if there extists a continuous path
+    \[
+        \gamma:[0,1]\to A
+    \]
+    such that $\gamma(0)=a$ and $\gamma(1)=b$
+}
+\propp{If $A$ is path connected then it is connected (according to the first two definition)}{
+    Suppose for contradiction that $A$ is path-connected and also disconnected. So $A=B\cup C$, $B\neq\phi$, $C\neq\phi$, $B\subseteq U$, $C\subseteq V$ and $U\cap V=\phi$. Assume that $a\in B$ and $b\in C$. $\gamma^{-1}(U)$ is open and $a\in\gamma^{-1}(U)$ and $\gamma^{-1}(V)$ is open and $b\in\gamma^{-1}(V)$ (open relative to [0,1]). So $[0,1]=\gamma^{-1}(U)\cup\gamma^{-1}(V)$ with $\gamma^{-1}(U)\cap\gamma^{-1}(V)$. This implies that $[0,1]\subseteq\R$ is disconnected
+}
+The converse is not true.
+\ex{
+    Let $B=\{0+iy:-1\leq y\leq1\}$ and $C=\{(t,\sin\left(\frac{1}{t}\right)):t\in(0,1)\}$.
+    \begin{claim}
+        $\bar{C}=C\cup B$ is connected do $\bar{C}\cap B\neq\phi$, but not path-connected
+    \end{claim}
+    \pf[Proof of Claim]{
+        Suppose there exists $\gamma:[0,1]\to $ is continuous such that $\gamma(0)=Q$ and $\gamma(1)=A$.\\
+        For all $\varepsilon>0$ there exists $\delta>0$ such that
+        \[
+            |t-1|<\delta\Rightarrow|\gamma(t)-\gamma(1)|<\varepsilon.
+        \]
+        The graph of $1-\delta<t\leq Q$ should be in the disk $D(Q,\varepsilon)$.
+    }
+}
+\thm{Path Connectedness}{
+    If $A$ is open and connected then $A$ is path-connected. Furthermore, we can always find a differentiable path $\gamma:[0,1]\to A$ connecting points $a,b$.
+}
+\pf[Proof of the Theorem]{
+    Show that the set of all points of $A$ that can be connected by differentiable paths of $A$ is open.
+}
+\end{document}

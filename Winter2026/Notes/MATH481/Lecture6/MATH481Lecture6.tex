@@ -23,6 +23,65 @@
         \item If $S_f(x)=\Oh(x^\alpha)$ for some $\alpha\geq0$, then $F(s)$ converges then for all $s$ with $\Re(s)>\alpha$ and \eqref{ast} holds for all such $s$.
     \end{enumerate}
 }
-
-
+\begin{remark}
+    \begin{enumerate}
+        \item Let $\chi$ be a Dirichlet character ($|\chi(n)|=0$ or 1, $\chi$ is periodic).\\
+        For non-trivial $\chi$, we can prove that
+        \[
+            \sum_{n\leq x}\chi(n)=\Oh(1).
+        \]
+        Let $L(s,\chi)$ be the Dirichlet series associated with $\chi$.
+        \[
+            L(s,\chi)=\sum_{n=1}^{\infty}\frac{\chi(n)}{n^s}.
+        \]
+        This is absolutly convergent for $\Re(s)>1$.\\
+        By theorem 2.14(ii) and using the bound $\sum_{n\leq x}\chi(n)=\Oh(1)$ we see that $L(s,\chi)$ converges when $\Re(s)>0$.
+        \item Theorem 2.14(i) can be expressed in terms of Mellin transforms.\\
+        Given $\phi:\R^+\to\C$. The Mellin transform of $\phi$ is given by
+        \[
+            \overset{\sim}{\phi}(s)=\int_{0}^{\infty}\phi(x)x^{-s}\,dx
+        \]
+        ($s\in\C$) provided the integral converges.\\
+        Theorem 2.14(i) can then be restated as $\dfrac{F(s)}{s}$ is the Mellin transform of $\dfrac{S_f(x)}{x}$.
+    \end{enumerate}
+\end{remark}
+\pf[Proof of Theorem 2.14]{
+    Let $s\in\C$ be such that $\Re(s)>0$ and $F(s)$ converges.\\
+    (i) Consdier 
+    \[
+        F_N(s)=\sum\frac{f(n)}{n^s}.
+    \]
+    By Abel's summation formula we have
+    \begin{align*}
+        F_N(s)&=\left(\sum_{n\leq N}f(n)\right)N^{-s}+s\int_{1}^{N}S_f(t)t^{-s-1}\,dt\\
+        &=S_f(N)N^{-s}+s\int_{1}^{\infty}S_f(N)T^{-s-1}\,dt.
+    \end{align*}
+    As $N\to\infty$ $F_N(s)\to F(s)$, and by \textit{theorem 2.12} $\dfrac{S_f(N)}{N^s}\to0$.\\
+    So as $N\to\infty$ we get
+    \[
+        F(s)=s\int_{1}^{\infty}S_f(t)t^{-s-1}\,dt.
+    \]
+    (ii) We have
+    \[
+        F_N(s)=\frac{S_f(N)}{N^s}+s\int_{1}^{N}S_f(t)t^{-s-1}\,dt.
+    \]
+    \[
+        \left|\frac{S_f(N)}{N^s}\right|=\left|\frac{S_f(N)}{N^{\Re(s)}}\right|=\Oh\left(N^{\alpha-\Re(s)}\right),
+    \]
+    so for $\Re(s)>\alpha$, we have $\dfrac{S_f(N)}{N^s}\to 0$ as $N\to\infty$ we also have 
+    \[
+        \left|\frac{S_f(t)}{t^{s+1}}\right|=\Oh(t^{\alpha-\Re(s)-1}).
+    \]
+    It follows that
+    \begin{align*}
+        \left|\int_{1}^{N}\frac{S_f(t)}{t^{s+1}}\,dt\right|&\leq\int_{1}^{N}\left|\frac{S_f(t)}{t^{s+1}}\right|\,dt\\
+        &=\Oh\left(\int_{1}^{N}t^{\alpha-\Re(s)-1}\,dt\right)\\
+        &=\Oh\left(N^{\alpha-\Re(s)-1}-1\right).
+    \end{align*}
+    Hence, $\int_{1}^{\infty}\frac{S_f(t)}{t^{s-1}}\,dt$ is convergent for $\Re(s)>\alpha$. Taking $N\to\infty$ we get $F(s)$ is convergent for $\Re(s)>\alpha$ and 
+    \[
+        F(s)=s\int_{1}^{\infty}\frac{S_f(t)}{t^{s-1}}\,dt
+    \]
+    as desired.
+}
 \end{document}
