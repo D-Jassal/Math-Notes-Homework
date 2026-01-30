@@ -106,27 +106,12 @@ Prove: If $f$ is continuous and $f(z_0)\neq 0$ then there exists a neighbourhood
 \section*{Problem 8}
 Show that $f(z)=|z|$ is continuous.
 \begin{proof}
-    Let $z=a+bi$ with $a,b\in\R$, then $f(z)=|z|=\sqrt{a^2+b^2}$. This question degrades to showing that $g:\R_{\geq0}\to \R_{\geq0}$ with $g(x)=\sqrt{x}$ is continuous. Let $\varepsilon>0$ and $\delta>0$ then
+    Let $s\in\C$ be an arbitrary complex number. We say that a function $f$ is continuous if for all $\varepsilon>0$ there exists $\delta>0$ such that we have $|f(z)-f(c)|<\varepsilon$ whenever $|z-c|<\delta$.\\
+    Observe by the reverse triangle inequality we have
     \[
-        |g(x)-g(x_0)|=|\sqrt{x}-\sqrt{x_0}|.
+        |f(z)-f(c)|=|z|-|w|=||z|-|w||\leq|z-w|.
     \]
-    It is obvious that 
-    \[
-        |\sqrt{x}-\sqrt{x_0}|=\left|\frac{x-y}{\sqrt{x}+\sqrt{x_0}}\right|\leq\left|\frac{x-y}{\sqrt{x_0}}\right|.
-    \]
-    Assuming that $|x-x_0|<\delta$ then we have
-    \[
-        |\sqrt{x}-\sqrt{x_0}|<\left|\frac{\delta}{\sqrt{x_0}}\right|.
-    \]
-    If $x_0\neq0$ then set $\delta=\varepsilon\sqrt{x_0}$. Then whenever $|x-x_0|<\delta$ we have
-    \[
-        |g(x)-g(x_0)|<\left|\frac{\delta}{\sqrt{x_0}}\right|=\left|\frac{\varepsilon\sqrt{x_0}}{\sqrt{x_0}}\right|=\varepsilon.
-    \]
-    In the case where $x_0=0$, set $\delta=\varepsilon^2$, then whenever $|x-x_0|<\delta$ we have
-    \[
-        |g(x)-g(x_0)|=|g(x)|=\sqrt{x}<\sqrt{\delta}=\sqrt{\varepsilon^2}+\varepsilon.
-    \]
-    Since we have shown that $g$ is continuous on $\R_{\geq0}$ we have also show that $f$ is continuous.
+    Now choses $\delta=\varepsilon$. Then whenever $|z-c|<\delta$ we have $|f(z)-f(c)|\leq|z-w|<\delta=\varepsilon$
 \end{proof}
 \stepcounter{section}
 \section*{Problem 9}
@@ -138,18 +123,18 @@ For each of the following sets, state $(i)$ whether or not the set is open and $
 \begin{enumerate}[label=(\alph*)]
     \item $\{z\,|\, \Im z>2\}$
     \begin{enumerate}[label=(\roman*)]
-        \item Yes
-        \item No
+        \item Yes. There the sequence of $z_n=(2+\frac{1}{10^n})i$ exists in the set, but the limit point of the set $2i$ is not a part of the set.
+        \item No. This set contains none of its limit points.
     \end{enumerate}
     \item $\{z\,|\, 1<|z|\leq2\}$
     \begin{enumerate}[label=(\roman*)]
-        \item No
-        \item No
+        \item No. The point $z=2+0i$ is in this set. Any disk of arbitrary radius centred at $2+0i$, the disk will always contain a point $z,z'$ with $|z|\leq2$ and $|z'|>2$. 
+        \item No. There are limit points of this set which are not a part of the set.
     \end{enumerate}
     \item $\{z\,|\, -1< \Re z\leq2\}$
     \begin{enumerate}[label=(\roman*)]
-        \item No
-        \item No
+        \item No. The point $z=2+0i$ is in this set. Any disk of arbitrary radius centred at $2+0i$, the disk will always contain a point $z,z'$ with $\Re(z)\leq2$ and $\Re(z')>2$. 
+        \item No. There are limit points of this set which are not a part of the set.
     \end{enumerate}
 \end{enumerate}
 \stepcounter{section}
@@ -159,17 +144,17 @@ For each of the following sets, state $(i)$ whether or not the set is connected 
     \item $\{z\,|\, -1< \Re z\leq2\}$
     \begin{enumerate}[label=(\roman*)]
         \item Yes
-        \item No
+        \item No. Not closed.
     \end{enumerate}
     \item $\{z\,|\, 2\leq |z|\leq3\}$
     \begin{enumerate}[label=(\roman*)]
         \item Yes
-        \item Yes
+        \item Yes. Closed and bounded.
     \end{enumerate}
     \item $\{z\,|\, |z|\leq 5, \Im z\geq 1\}$
     \begin{enumerate}[label=(\roman*)]
         \item Yes
-        \item Yes
+        \item Yes. Closed and bounded.
     \end{enumerate}
 \end{enumerate}
 \stepcounter{section}

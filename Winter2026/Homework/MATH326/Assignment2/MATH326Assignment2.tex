@@ -66,35 +66,70 @@ Determine which of the following are subspaces of $\mathcal{C}_\R[0,1]$
         $\{f\in\mathcal{C}_\R[0,1]:\int_{0}^{1}f^2(x)\,dx=0 \}$ is a subspace of $\mathcal{C}_\R[0,1]$.
     \end{claim}
     \begin{proof}
-        Let $V=\{f\in\mathcal{C}_\R[0,1]:\int_{0}^{1}x^2f(x)\,dx=0 \}$. Since $f(x)=0$ is in $\mathcal{C}_\R[0,1]$ we have that $V$ is non-empty. For any two functions $f_1$ and $f_2$ in $V$ we have 
-        \[
-            \int_{0}^{1}f_1^2(x)+f_2^2(x)\,dx=\int_{0}^{1}f_1^2(x)\,dx+\int_{0}^{1}f_2^2(x)\,dx=0.
-        \]
-        We also have for any $c\in\R$
-        \[
-            \int_{0}^{1}cf_1^2(x)\,dx=c\int_{0}^{1}f_1^2(x)\,dx=c(0)=0.
-        \]
-        Thus, $V$ is a subspace of $\mathcal{C}_\R[0,1]$.
+        Let $V=\{f\in\mathcal{C}_\R[0,1]:\int_{0}^{1}x^2f(x)\,dx=0 \}$. Since $f(x)=0$ is the only function in $\mathcal{C}_\R[0,1]$ with the property that $\int_{0}^{1}f^2(x)\,dx=0$ we have that $V$ is non-empty. Due to the only element in this being the zero element we have that the set is a subspace.
     \end{proof}
 \end{enumerate}
 
 
 \stepcounter{section}
 \section*{Problem 3}
-Let $x\in\mathbb{F}^n$ and $y\in\mathbb{F}^m$ be (column) vectors. Compute the rank of $xy^T$.
-
+Let $x\in\mathbb{F}^n$ and $y\in\mathbb{F}^m$ be (column) vectors. Compute the rank of $xy^T$.\\
+\textit{Solution.} We have
+\[
+    x=\begin{pmatrix}x_1\\x_2\\\vdots\\x_n\end{pmatrix},\quad y=\begin{pmatrix}y_1\\y_2\\\vdots\\y_m\end{pmatrix},
+\]
+\[
+    \begin{pmatrix}x_1\\x_2\\\vdots\\x_n\end{pmatrix}\begin{pmatrix}y_1\\y_2\\\vdots\\y_m\end{pmatrix}^T=
+    \begin{bmatrix}
+        x_1y_1&x_1y_2&\cdots&x_1y_m\\
+        x_2y_1&x_2y_2&\cdots&x_2y_m\\
+        \vdots&\vdots&\ddots&\vdots\\
+        x_ny_1&x_ny_2&\cdots&x_ny_m
+    \end{bmatrix}.
+\]
+From here see that each column of $xy^T$ is the vector $x$ and each row of $xy^T$ is the vector $Y$. From here we have two situations, one in which either $x$ or $y$ is the zero vector, in this case $\rank(xy^T)=0$. In the cases with neither $x$ or $y$ are the zero vector we have $\rank(xy^T)=1$.
 
 \stepcounter{section}
 \section*{Problem 4}
-Let $A \in M_n$ be defined by $a_{ij} = 1$ if $i + j$ is even and 0 if $i + j$ is odd. Find a basis of $\mathrm{col}(A)$ and state the rank of (A).
-
+Let $A \in M_n$ be defined by $a_{ij} = 1$ if $i + j$ is even and 0 if $i + j$ is odd. Find a basis of $\mathrm{col}(A)$ and state the rank of (A).\\
+\textit{Solution.} The matrix $A$ depends on if $n$ is odd or even. For odd $n$ we have
+\[
+    A=
+    \begin{bmatrix}
+        1&0&1&0\cdots&1\\
+        0&1&0&1\cdots&0\\
+        1&0&1&0\cdots&1\\
+        0&1&0&1\cdots&0\\
+        \vdots&\vdots&\vdots&\,\,\,\ddots&\vdots\\
+        1&0&1&0\cdots&1\\
+    \end{bmatrix}.
+\]
+For even $n$ we have
+\[
+    A=
+    \begin{bmatrix}
+        1&0&1&0\cdots&0\\
+        0&1&0&1\cdots&1\\
+        1&0&1&0\cdots&0\\
+        0&1&0&1\cdots&1\\
+        \vdots&\vdots&\vdots&\,\,\,\ddots&\vdots\\
+        0&1&0&1\cdots&1\\
+    \end{bmatrix}.
+\]
+From here it is clear that for both situations a basis for $\mathrm{col}(A)$ are the vectors
+\[
+    \begin{pmatrix}1\\0\\1\\0\\\vdots\\1\end{pmatrix},\quad  \begin{pmatrix}0\\1\\0\\1\\\vdots\\0\end{pmatrix}.
+\]
+It is also clear to see that $\rank(A)=2$ for both situations.
 
 \stepcounter{section}
 \section*{Problem 5}
 If $A \in M_{n\times n}(F)$ is a nonzero matrix and $\rank(A) = r$. Show that
 \begin{enumerate}[label=(\alph*)]
-    \item A has an invertible $r \times r$ submatrix.
-    \item No square submatrix of size greater than $r$ is invertible.
+    \item A has an invertible $r \times r$ submatrix.\\
+    \textit{Solution.} This can be seen by noting that $r.r.e.f(A)$ has an $r\times r$ submatrix with no zero columns or rows. Since this submatrix is in $r.r.e.f(A)$ it is invertible because all rows are have been made linearly independent. This submatrix is associated with the $r\times r$ submatrix of $A$ that is invertible. 
+    \item No square submatrix of size greater than $r$ is invertible.\\
+    \textit{Solution.} Look back to $r.r.e.f(A)$ an note that any $n\times n$ submatrix with $n>r$ this submatrix will have a zero row and a zero column and will therefore not be invertible. This is exactly why no $n\times n$ submatrix of $A$ will be invertible as there will be a row or column that is linearly dependant on the others and will therefore not be invertible.  
 \end{enumerate}
 
 \stepcounter{section}
