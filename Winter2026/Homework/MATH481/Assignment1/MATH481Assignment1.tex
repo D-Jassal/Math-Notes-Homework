@@ -168,10 +168,40 @@
 \stepcounter{section}
 \section*{Problem 5 [10 marks]} The Ramanujan sum is defined as 
 \[
-    c_{n}(m)=\sum_{\substack{h\leq n\\(h,n)=1}}\exp\left(2\pi i\frac{hm}{n}\right).
+    c_{n}(m)=\sum_{\substack{h\leq n\\(h,n)=1}}\exp\left(2\pi i\frac{hm}{n}\right)
 \] 
-\begin{enumerate}\item Show that $c_{n}(m)=\sum_{d|(m,n)}d\mu(n/d)$. 
-    \item Deduce that $\mu(n)=\sum_{h\leq n;(h,n)=1}\exp(2\pi i h/n)$.
+\begin{enumerate}
+	\item Show that $c_{n}(m)=\sum_{d|(m,n)}d\mu(n/d)$.\\ 
+		\textit{Solution.} We can rewrite the sum as
+		\begin{align*}
+			\sum_{\substack{h\leq n\\(h,n)=1}}\exp\left(2\pi i\frac{hm}{n}\right)&=\sum_{h\leq n}\exp\left(2\pi i\frac{hm}{n}\right)\sum_{d|(h,n)}\mu(d)\\
+			&=\sum_{h\leq n}\exp\left(2\pi i\frac{hm}{n}\right)\sum_{\substack{d\mid n\\ d\mid h}}\mu(d)\\
+			&=\sum_{d\mid n}\mu(d)\sum_{\substack{h\leq n\\ d\mid h}}\exp\left(2\pi i\frac{hm}{n}\right)\\
+			&=\sum_{d\mid n}\mu(d)\sum_{\substack{t\leq n/d\\ d\mid h}}\exp\left(2\pi i\frac{tm}{\dfrac{n}{d}}\right).
+		\end{align*}
+		\[
+			\sum_{\substack{t\leq n/d\\ d\mid h}}\exp\left(2\pi i\frac{tm}{\dfrac{n}{d}}\right)=
+			\begin{cases}
+				\frac{n}{d}&\text{if } \frac{n}{d}\mid m\\
+				0&\text{otherwise}	
+			\end{cases}.
+		\]
+		Set $f=nd$ then $f\mid m$ and we can rewrite the sum as
+		\[
+			c_n(m)=\sum_{\substack{f\mid n\\ f\mid m}}\mu\left(\frac{n}{f}\right)f.
+		\]
+		Rename $f$ to $d$ and we Obtain
+		\[
+			c_{n}(m)=\sum_{d|(m,n)}d\mu(n/d).
+		\]
+    \item Deduce that $\mu(n)=\sum_{h\leq n;(h,n)=1}\exp(2\pi i h/n)$.\\
+    \textit{Deduction.} Take $m=1$ then by the above result we have
+	\begin{align*}
+		\sum_{d|(m,n)}d\mu(n/d)&=\sum_{\substack{h\leq n\\(h,n)=1}}\exp\left(2\pi i\frac{hm}{n}\right)\\
+		\sum_{d|(1,n)}d\mu(n/d)&=\sum_{\substack{h\leq n\\(h,n)=1}}\exp\left(2\pi i\frac{h}{n}\right)\\
+		1\mu(n/1)&=\sum_{\substack{h\leq n\\(h,n)=1}}\exp\left(2\pi i\frac{h}{n}\right)\\
+		\mu(n)&=\sum_{\substack{h\leq n\\(h,n)=1}}\exp\left(2\pi i\frac{h}{n}\right)\\
+	\end{align*}
 \end{enumerate}
 
 \stepcounter{section}
@@ -293,6 +323,36 @@ where $\gamma$ is Euler's constant.
     \sum_{n\leq x; (n,k)=1}\frac{1}{n}\sim \frac{\phi(k)}{k}\log x,
 \] 
 as $x\to\infty$.
+\begin{proof}
+	Define the sum as 
+	\[
+		S(x,k)=\sum_{n\leq x; (n,k)=1}\frac{1}{n}.
+	\]
+	The sum can be rewritten as
+	\begin{align*}
+		\sum_{n\leq x; (n,k)=1}\frac{1}{n}&=\sum_{n\leq x}\frac{1}{n}\sum_{d\mid(n,k)}\mu(d)\\
+		&=\sum_{n\leq x}\frac{1}{n}\sum_{\substack{d\mid k\\ d\mid n}}\mu(d)\\
+		&=\sum_{d\mid k}\mu(d)\sum_{\substack{n\leq x\\ d\mid n}}\frac{1}{n}\\
+		&=\sum_{d\mid k}\frac{\mu(d)}{d}\sum_{n\leq \frac{x}{d}}\frac{1}{n}\\
+		&=\sum_{d\mid k}\frac{\mu(d)}{d}\left(\log\left(\frac{x}{d}\right)+C+O\left(\frac{d}{x}\right)\right)\\
+		&=\sum_{d\mid k}\frac{\mu(d)}{d}(\log x+C)-\underbrace{\sum_{d\mid k}\frac{\mu(d)\log d}{d}}_{C_k}+\sum_{d\mid k}\frac{\mu(d)}{d}O\left(\frac{d}{x}\right)\\
+		&=\frac{\phi(k)}{k}(\log x+C)+C_k+O\left(\frac{1}{x}\sum_{d\mid k}\mu(d)\right)\\
+		&=\frac{\phi(k)}{k}(\log x+C)+C_k+O_k\left(\frac{1}{x}\right).
+	\end{align*}
+	We can rewrite the limit
+	\[
+		L=\lim_{x\to\infty}\frac{\displaystyle\sum_{n\leq x; (n,k)=1}\frac{1}{n}}{\frac{\phi(k)}{k}\log x}
+	\]
+	as
+	\[
+		L=\lim_{x\to\infty}\frac{\dfrac{\phi(k)}{k}(\log x+C)+C_k+O_k\left(\dfrac{1}{x}\right)}{\dfrac{\phi(k)}{k}\log x}	
+	\]
+	it is easy to see as $x\to\infty$ the error goes to zero and the main term dominates the constant, thus we have shown that
+	\[
+		\sum_{n\leq x; (n,k)=1}\frac{1}{n}\sim \frac{\phi(k)}{k}\log x
+	\]
+	which is the desired result.
+\end{proof}
 
 \stepcounter{section}
 \section*{Problem 10 [5 marks]} Obtain an estimate for the sum
@@ -354,7 +414,10 @@ Combining these two facts we obtain
 \end{align*}
 Adding all of the terms
 \begin{align*}
-	S(x)&=\frac{\floor{x}}{x\log x}-\frac{1}{2\log 2}+\log\log x-\log\log 2-\frac{1}{\log x}+\frac{1}{\log2}-C+O\left(\frac{1}{x\log x}\right)\\
-	\sum_{2\leq n\leq x}\frac{1}{n\log n}&=\log\log x+\frac{1}{2\log2}-\log\log2-C+O\left(\frac{1}{x\log x}\right)
+	S(x)&=\frac{\floor{x}}{x\log x}-\frac{1}{2\log 2}+\log\log x-\log\log 2-\frac{1}{\log x}+\frac{1}{\log2}-C+O\left(\frac{1}{x\log x}\right)
 \end{align*}
+\[
+	\sum_{2\leq n\leq x}\frac{1}{n\log n}=\log\log x+\frac{1}{2\log2}-\log\log2-C+O\left(\frac{1}{x\log x}\right)
+\]
+which has the desired error term.
 \end{document}
