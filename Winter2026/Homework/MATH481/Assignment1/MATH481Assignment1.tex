@@ -37,10 +37,27 @@
 \end{titlepage}
 \stepcounter{section}
 \section*{Problem 1 [5 marks]} Let $p(x)$ be a polynomial with integer coefficients and degree $k\geq1$. Show that $p(n)$ is composite for infinitely many integers $n$.
+\begin{proof}
+	Since $p(x)$ has integer coefficients and the itegers are closed under addition and multiplication, then for each integer input for $p(x)$ we will have an integer output. Find $m\in\Z$ such that $p(m)\neq0,\pm1$, this is possible since $p(x)$ has degree greater than 1, so it cannot be oscillate between -1,0,1 and will eventually start to grow in absolute value. There exists $q$ prime such that $q\mid p(m)$. Let $m_k'=m+kp$ with $k\in\N$ then with 
+	\[
+		p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0
+	\]
+	we can see that 
+	\[
+		p(m)\equiv p(m_k')\equiv 0\mod(p).
+	\]
+	Thus, each value of $p(m_k')$ is divisible by $p$. We can only have $p\mathrel\Vert p(m_k')$ for finitely many $k$ because $\lim_{x\to\infty}p(x)=\infty$.
+\end{proof}
 
 \stepcounter{section}
-\section*{Problem 2 [5 marks]} An arithmetic function $f$ is called periodic if there exists a positive integer $k$ such that $f(n+k)=f(n)$ for every $n\in\mathbb{N}$; the integer $k$ is called a period for $f$. Show that if $f$ is completely multiplicative and periodic with period $k$, then the values of $f$ are either $0$ or roots of unity. (An root of unity is a complex number $z$ such that $z^n=1$ for some $n\in\mathbb{N}$.)
-
+\section*{Problem 2 [5 marks]} An arithmetic function $f$ is called periodic if there exists a positive integer $k$ such that $f(n+k)=f(n)$ for every $n\in\mathbb{N}$; the integer $k$ is called a period for $f$. Show that if $f$ is completely multiplicative and periodic with period $k$, then the values of $f$ are either $0$ or roots of unity. (An root of unity is a complex number $z$ such that $z^n=1$ for some $n\in\mathbb{N}$.)\\
+\textit{Solution.} By complete multiplicativity we have 
+\[
+	f(1)=f(1\cdot 1)=f(1)^2\Rightarrow f(1)^2-f(1)=0
+\] 
+Thus, either $f(1)=0$ or $f(1)=1$, if $f(1)=0$ then $f$ is the zero fucntion and we are done. So we will assume that $f(1)=1.$. By periodicity we have $f(1+k)=f(1)=1$. We also have that $(k+1,1)=1$ unless $k=1$. However, if $k=1$ then $1=f(1+1)=f(2)=f(2+1)=\cdots$, and $f(n)=1$ for all $n\in\N$. Assume $k\geq 2$. Due to periodicity $f(m)=f(m\mod k)$ so we only need to know the values of $f$ for $1,2,\dots,k$, all of these values lie in the set of residues $\{f(1),f(2),\dots f(k)\}$. 
+For a prime $p$ by the periodicity of $f$ we have $f(p)^a=f(p)^{a+b}$ for some $b$. If $|f(p)|\neq1,0$ then this would not be possible. Thus, $f(p)$ has to be a root of unity or 0. Since $f$ is completely multiplicative we can express any integer in $\{1,2,\dots,k\}$ as a products of primes, and in the case where $f(p)$ for all primes are roots of unity and roots of unity are closed under multiplication, all values $\{f(1),f(2),\dots,f(k)\}$ are roots of unity. In the cases where $f(p)=0$ for all primes, we have that $f$ is identically zero.
+Thus, for all $a$ coprime to $k$ we have that $f(a)$ is a $k-$th root of infinity. 
 \stepcounter{section}
 \section*{Problem 3 [15 marks]}  Let $f,g$ be positive functions defined on $\mathbb{R}$. Suppose $f(x)\sim g(x)$. Prove that
 \begin{enumerate}
@@ -72,7 +89,7 @@
 			&=1.
 		\end{align*}
 		Thus, $\log (f (x)) \sim \log(g(x))$ if  $\ \lim_{x\to\infty} g(x) =\infty$.
-	\end{proof}
+	\end{proof}\newpage
 	\item it is not necessarily true that $\exp(f(x)) \sim \exp(g(x))$.
 	\begin{proof}
 		\begin{align*}
@@ -271,6 +288,7 @@ As $x\to\infty$ $\log x+1\sim\log x$. Thus we have
 	&=\floor{x}\frac{\log x}{x}+\log x-\frac{\log^2x}{2}+O\left(\frac{\log x}{x}\right).
 \end{align*}
 \stepcounter{section}
+\newpage
 \section*{Problem 8 [5 marks]} Prove
 \[
     \sum_{n \le x} \frac{d(n)}{n} = \frac{1}{2} (\log  x)^2 + 2\gamma \log x  + O(1),
@@ -318,6 +336,7 @@ where $\gamma$ is Euler's constant.
 \end{proof}
 
 \stepcounter{section}
+\newpage
 \section*{Problem 9 [10 marks]} Prove that 
 \[
     \sum_{n\leq x; (n,k)=1}\frac{1}{n}\sim \frac{\phi(k)}{k}\log x,
@@ -355,6 +374,7 @@ as $x\to\infty$.
 \end{proof}
 
 \stepcounter{section}
+\newpage
 \section*{Problem 10 [5 marks]} Obtain an estimate for the sum
 \[
     S(x) =\sum_{2\leq n\leq x}\frac{1}{n\log n}
@@ -420,4 +440,22 @@ Adding all of the terms
 	\sum_{2\leq n\leq x}\frac{1}{n\log n}=\log\log x+\frac{1}{2\log2}-\log\log2-C+O\left(\frac{1}{x\log x}\right)
 \]
 which has the desired error term.
+\stepcounter{section}
+\section*{Problem 11 [10 marks]}
+Given a positive integer $k$, let $S_k(x) = \sum_{n\leq x}(\log n - \log x)^k$.
+\begin{enumerate}[label=(\alph*)]
+	\item Estimate $S_k(x)$ to within an error $O_k((\log x)^k)$.
+	\item Deduce that, for each $k$, the limit $\lambda_k = \lim_{x\to\infty} \frac{1}{x} S_k(x)$ exists (as a finite number), and obtain an explicit evaluation of the constant $\lambda_k$.
+\end{enumerate}
+\stepcounter{section}
+\section*{Problem 12 [10 marks]}
+Given an arithmetic function $f$ define a mean value $H(f)$ by
+\[
+	H(f)=\lim_{x\to\infty}\frac{1}{x\log x}\sum_{n\leq x}f(n)\log n,
+\]
+if the limit exists. Show that H(f ) exists if and only if the ordinary mean value 
+\[
+	M_f=\lim_{x\to\infty}\frac{1}{x}\sum_{n\leq x}f(n)
+\]
+exists.
 \end{document}
