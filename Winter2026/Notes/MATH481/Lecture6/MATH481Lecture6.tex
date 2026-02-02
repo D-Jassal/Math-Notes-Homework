@@ -84,4 +84,92 @@
     \]
     as desired.
 }
+\subsection*{Convolution Method}
+Say we want to compute
+\[
+    \sum_{n\leq x}f(x)
+\]
+with $f:\N\to\C$, and suppose that $f=g\ast f_0$ where both $f_0,g$ are arithmetic functions.\\
+We have
+\begin{align*}
+    \sum_{n\leq x}f(x)&=\sum_{n\leq x}g\ast f_0(n)\\
+    &=\sum_{n\leq x}\sum_{d\mid n}g(d)f_0\left(\frac{d}{n}\right)\\
+    &=\sum_{d\leq x}\sum_{\substack{n\leq x\\d\mid n}}g(d)f_0\left(\frac{d}{n}\right)\\
+    &=\sum_{d\leq x}\sum_{m\leq \frac{x}{d}}g(d)f_0\left(m\right)\\
+    &=\sum_{d\leq x}g(d)\sum_{m\leq \frac{x}{d}}f_0\left(m\right).
+\end{align*}
+If an asymptotic formula is known for the last sum we substitute and proceed.\\
+Let us evaluate $\sum_{n\leq x}\phi(n)$.\\
+We know that $\phi(n)=\mu\ast\mathrm{id}(n)$.
+\thm{Asymptotic Formula for Sum of $\phi(n)$}{
+    \[
+        \sum_{n\leq x}\phi(n)=\frac{3}{\pi^2}x^2+\Oh\left(x\log x\right)
+    \]
+}
+\lemp{Sum of $\frac{\mu(n)}{n^2}$}{
+    \[
+        \sum_{n\leq x}\frac{\mu(n)}{n^2}=\frac{1}{\zeta(2)}.
+    \]
+    In general
+    \[
+        \sum_{n\leq x}\frac{\mu(n)}{n^s}=\frac{1}{\zeta(s)},\quad \Re(s)>1.
+    \]
+}{
+    \[
+        1=\sum_{n=1}^{\infty}\frac{e(n)}{n^2}
+    \]
+    where 
+    \[
+        e(n)=
+        \begin{cases}
+            1&\text{if }n=1\\
+            0&\text{otherwise}.    
+        \end{cases}
+    \]
+    \begin{align*}
+        1&=\sum_{n=1}^{\infty}\frac{e(n)}{n^2}\\
+        &=\sum_{n=1}^{\infty}\frac{\displaystyle\sum_{d\mid n}\mu(d)}{n^2}\\
+        &=\sum_{n=1}^{\infty}\frac{1}{n^2}\sum_{d\mid n}\mu(d)\\
+        &=\sum_{d=1}^\infty\mu(d)\sum_{n=1}^{\infty}\frac{1}{n^2}\\
+        &=\sum_{d=1}^\infty\mu(d)\sum_{m=1}^{\infty}\frac{1}{(md)^2}\\
+        1&=\sum_{d=1}^\infty\frac{\mu(d)}{d^2}\zeta(2)
+    \end{align*}
+}
+\pf[Proof of Theorem 2.15]{
+    We have
+    \begin{align*}
+        \sum_{n\leq x}\phi(n)&=\sum_{n\leq x}\mu\ast\mathrm{id}(n)\\
+        &=\sum_{n\leq x}\sum_{d\mid n}\mu(d)\frac{d}{n}\\
+        &=\sum_{d\leq x}\mu(d)\left(\sum_{m\leq\frac{n}{d}}m\right)\\
+        &=\sum_{d\leq x}\mu(d)\left(\frac{\floor{\frac{x}{d}}\left(\floor{\frac{x}{d}+1}\right)}{2}\right).
+    \end{align*}
+    \begin{align*}
+        \frac{1}{2}\floor{\frac{x}{d}}\left(\floor{\frac{x}{d}+1}\right)&=\frac{1}{2}\left(\frac{x}{d}-\fract{\frac{x}{d}}\right)\left(\frac{x}{d}-\fract{\frac{x}{d}}+1\right)\\
+        &=\frac{1}{2}\left(\left(\frac{x}{d}\right)^2-2\fract{\frac{x}{d}}\frac{x}{d}+\frac{x}{d}-\fract{\frac{x}{d}}+\fract{\frac{x}{d}}^2\right)\\
+        &=\frac{1}{2}\left(\frac{x}{d}\right)^2+\Oh\left(\frac{x}{d}\right).
+    \end{align*}
+    \begin{align*}
+        \sum_{n\leq x}\phi(n)&=\sum_{d\leq x}\mu(d)\left(\frac{1}{2}\left(\frac{x}{d}\right)^2+\Oh\left(\frac{x}{d}\right)\right)\\
+        &=\frac{x^2}{2}\sum_{d\leq x}\frac{\mu(d)}{d^2}+\Oh\left(\sum_{d\leq x}\frac{x}{d}\right)\\
+        &=\frac{x^2}{2}\sum_{d\leq x}\frac{\mu(d)}{d^2}+\Oh(x\log x)\\
+        &=\frac{x^2}{2}\left(\sum_{d=1}^{\infty}\frac{\mu(d)}{d^2}-\sum_{d> x}\frac{\mu(d)}{d^2}\right)+\Oh(x\log x)\\
+        &=\frac{x^2}{2\zeta(2)}-\frac{x^2}{2}\sum_{d> x}\frac{\mu(d)}{d^2}+\Oh(x\log x).
+    \end{align*}
+    \begin{align*}
+        \left|\sum_{d>x}\frac{\mu(d)}{d^2}\right|&\leq\sum_{d\geq\floor{x}+1}\frac{\mu(d)}{d^2}\\
+        &=\int_{\floor{x}}^{\infty}\frac{dt}{t^2}\\
+        &=\Oh\left(\frac{1}{x}\right).
+    \end{align*}
+    All in all we have
+    \begin{align*}
+        \sum_{n\leq x}\phi(n)&=\frac{x^2}{2\zeta(2)}+\Oh\left(x\log x\right)\\
+        &=\frac{3}{\pi^2}x^2+\Oh\left(x\log x\right).
+    \end{align*}
+}
+\subsection*{Dirichlet's Hyperbola Method}
+\thm{Sum of Divisor Function}{
+    \[
+        \sum_{n\leq x}\mathrm{d}(n)=x\log x+(2\gamma-1)x+\Oh(\sqrt{x}).
+    \]
+}
 \end{document}
