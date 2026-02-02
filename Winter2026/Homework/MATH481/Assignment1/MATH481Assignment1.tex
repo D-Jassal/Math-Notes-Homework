@@ -211,6 +211,7 @@ Thus, for all $a$ coprime to $k$ we have that $f(a)$ is a $k-$th root of infinit
 		\[
 			c_{n}(m)=\sum_{d|(m,n)}d\mu(n/d).
 		\]
+	\newpage
     \item Deduce that $\mu(n)=\sum_{h\leq n;(h,n)=1}\exp(2\pi i h/n)$.\\
     \textit{Deduction.} Take $m=1$ then by the above result we have
 	\begin{align*}
@@ -380,66 +381,102 @@ as $x\to\infty$.
     S(x) =\sum_{2\leq n\leq x}\frac{1}{n\log n}
 \] 
 with error term $O(1/(x \log x))$.\\
-\textit{Solution.}\\
-Let $a(n)=1$ and $f(n)=\frac{1}{n\log n}$, then by Abel's summation formula we have
+\textit{Solution.}
+
+Let $A(t) = \sum_{2 \leq n \leq t} 1 = \lfloor t \rfloor - 1$ for $t \ge 2$, and let $f(t) = \frac{1}{t\log t}$. 
+Then $f'(t) = -\frac{\log t + 1}{t^2(\log t)^2}$.\\
+By Abel's summation formula,
 \[
-	S(x) =\sum_{2\leq n\leq x}\frac{1}{n\log n}=\sum_{2< n\leq x}\frac{1}{n\log n}+f(2)=\frac{\floor{x}}{x\log x}-\frac{2}{2\log 2}+\frac{1}{2\log2}+\int_{2}^{x}\floor{t}\left(\frac{\log t+1}{t^2\log^2t}\right)\,dt.
+S(x) = A(x)f(x) - A(2^-)f(2) - \int_{2}^{x} A(t)f'(t)\,dt,
+\]
+where $A(2^-)=0$. Hence,
+\[
+S(x) = (\lfloor x \rfloor - 1)\frac{1}{x\log x} + \int_{2}^{x} (\lfloor t \rfloor - 1)\frac{\log t + 1}{t^2(\log t)^2}\,dt,
+\]
+since $f'(t)$ carries a minus sign.\\
+Write $\lfloor t \rfloor = t - \{t\}$, where $\{t\} = t - \lfloor t \rfloor \in [0,1)$. Then
+\[
+\lfloor t \rfloor - 1 = (t-1) - \{t\}.
+\]
+Thus,
+\[
+S(x) = \frac{x-1 - \{x\}}{x\log x} + \int_{2}^{x} \big[(t-1) - \{t\}\big] \frac{\log t + 1}{t^2(\log t)^2}\,dt.
 \]
 Let
 \[
-	I=\int_{2}^{x}\floor{t}\left(\frac{\log t+1}{t^2\log^2t}\right)\,dt,
-\]
-and write $\floor{t}=t-\fract{t}$. Then, we obtain
-\[
-	I=\int_{2}^{x}(t-\fract{t})\left(\frac{\log t+1}{t^2\log^2t}\right)\,dt.
+I = \int_{2}^{x} \big[(t-1) - \{t\}\big] \frac{\log t + 1}{t^2(\log t)^2}\,dt.
 \]
 Observe that
 \[
-	\frac{\log t+1}{t^2\log^2t}=\frac{1}{t^2\log t}+\frac{1}{t^2\log^2t},
+\frac{\log t+1}{t^2(\log t)^2}=\frac{1}{t^2\log t}+\frac{1}{t^2(\log t)^2}.
 \]
-this gives
+This gives
 \[
-	I=\int_{2}^{x}(t-\fract{t})\left(\frac{1}{t^2\log t}+\frac{1}{t^2\log^2t}\right)\,dt.
+I = \int_{2}^{x} (t-1)\left(\frac{1}{t^2\log t}+\frac{1}{t^2(\log t)^2}\right)\,dt
+    - \int_{2}^{x} \{t\}\left(\frac{1}{t^2\log t}+\frac{1}{t^2(\log t)^2}\right)\,dt.
 \]
-Splitting the two integrals
+Splitting the first integral
 \begin{align*}
-	\int_{2}^{x}t\left(\frac{1}{t^2\log t}+\frac{1}{t^2\log^2t}\right)\,dt&=\int_{2}^{x}\frac{1}{t\log t}+\frac{1}{t\log^2t}\,dt\\
-	&=\left[\log\log t -\frac{1}{\log t}\right]_2^x\\
-	&=\log\log x-\log\log 2-\frac{1}{\log x}+\frac{1}{\log2}.
+\int_{2}^{x} (t-1)\left(\frac{1}{t^2\log t}+\frac{1}{t^2(\log t)^2}\right)\,dt
+&= \int_{2}^{x} \left(\frac{1}{t\log t} - \frac{1}{t^2\log t} + \frac{1}{t(\log t)^2} - \frac{1}{t^2(\log t)^2}\right) dt.
 \end{align*}
-As for the second integral
-\[
-	-\int_{2}^{x}\fract{t}\frac{\log t+1}{t^2\log^2t}\,dt=-\int_{2}^{\infty}\fract{t}\frac{\log t+1}{t^2\log^2t}\,dt+\int_{x}^{\infty}\fract{t}\frac{\log t+1}{t^2\log^2t}\,dt,
-\]
-the first of these two integrals is convergent since 
-\[
-	\int_{2}^{\infty}\fract{t}\frac{\log t+1}{t^2\log^2t}\,dt=\int_{2}^{5}\fract{t}\frac{\log t+1}{t^2\log^2t}\,dt+\int_{5}^{\infty}\fract{t}\frac{\log t+1}{t^2\log^2t}\,dt
-\]
-and $\frac{\log t+1}{t^2\log^2t}<\frac{1}{t^{\frac{3}{2}}}$ for $t\geq5$. We will call this constant $C$.\\
-As for the second integral notice that for large enough $t$ we have $\log t+1\leq 2\log t$, this gives
-\[
-	\fract{t}\frac{\log t+1}{t^2\log^2t}\leq\fract{t}\frac{2\log t}{t^2\log^2t}=\frac{2}{t^2\log t}.
-\]
-Also note that for $t\in[x,\infty]$ we have
-\[
-	\frac{1}{\log t}\leq\frac{1}{\log x}.
-\]
-Combining these two facts we obtain
+Integrating the terms
 \begin{align*}
-	\int_{x}^{\infty}\fract{t}\frac{\log t+1}{t^2\log^2t}\,dt&\leq \int_{x}^{\infty}\fract{t}\frac{2}{t^2\log x}\,dt\\
-	&\leq \frac{1}{\log x}int_{x}^{\infty}\fract{t}\frac{2}{t^2}\,dt\\
-	&\leq\frac{1}{\log x}\left[\frac{1}{t}\right]^\infty_x\\
-	&\leq\frac{1}{x\log x}\\
-	&=O\left(\frac{1}{x\log x}\right).
+\int_{2}^{x} \frac{dt}{t\log t} &= \log\log x - \log\log 2, \\
+\int_{2}^{x} \frac{dt}{t(\log t)^2} &= \left[-\frac{1}{\log t}\right]_{2}^{x} = -\frac{1}{\log x} + \frac{1}{\log 2}.
 \end{align*}
-Adding all of the terms
-\begin{align*}
-	S(x)&=\frac{\floor{x}}{x\log x}-\frac{1}{2\log 2}+\log\log x-\log\log 2-\frac{1}{\log x}+\frac{1}{\log2}-C+O\left(\frac{1}{x\log x}\right)
-\end{align*}
+The remaining terms,
 \[
-	\sum_{2\leq n\leq x}\frac{1}{n\log n}=\log\log x+\frac{1}{2\log2}-\log\log2-C+O\left(\frac{1}{x\log x}\right)
+-\int_{2}^{x} \frac{dt}{t^2\log t} \quad\text{and}\quad -\int_{2}^{x} \frac{dt}{t^2(\log t)^2},
 \]
-which has the desired error term.
+are each $O\!\left(\frac{1}{x\log x}\right)$. Hence,
+\[
+\int_{2}^{x} (t-1)\left(\frac{1}{t^2\log t}+\frac{1}{t^2(\log t)^2}\right)dt
+= \log\log x - \log\log 2 - \frac{1}{\log x} + \frac{1}{\log 2} + O\!\left(\frac{1}{x\log x}\right).
+\]
+Now consider
+\[
+-\int_{2}^{x} \{t\}\frac{\log t+1}{t^2(\log t)^2}\,dt
+= -\int_{2}^{\infty} \{t\}\frac{\log t+1}{t^2(\log t)^2}\,dt + \int_{x}^{\infty} \{t\}\frac{\log t+1}{t^2(\log t)^2}\,dt.
+\]
+The first integral is convergent since 
+\[
+\int_{2}^{\infty} \{t\}\frac{\log t+1}{t^2(\log t)^2}\,dt
+= \int_{2}^{5} \{t\}\frac{\log t+1}{t^2(\log t)^2}\,dt + \int_{5}^{\infty} \{t\}\frac{\log t+1}{t^2(\log t)^2}\,dt
+\]
+and $\frac{\log t+1}{t^2(\log t)^2} < \frac{1}{t^{3/2}}$ for $t \geq 5$. Denote this constant by $C$.\\
+For the second integral, note that for large $t$ we have $\log t+1 \leq 2\log t$, giving
+\[
+\{t\}\frac{\log t+1}{t^2(\log t)^2} \leq \{t\}\frac{2\log t}{t^2(\log t)^2} = \frac{2}{t^2\log t}.
+\]
+Also, for $t \in [x, \infty)$ we have $\frac{1}{\log t} \leq \frac{1}{\log x}$. Thus,
+\begin{align*}
+\int_{x}^{\infty} \{t\}\frac{\log t+1}{t^2(\log t)^2}\,dt
+&\leq \int_{x}^{\infty} \{t\}\frac{2}{t^2\log x}\,dt \\
+&\leq \frac{1}{\log x} \int_{x}^{\infty} \{t\}\frac{2}{t^2}\,dt \\
+&\leq \frac{1}{\log x} \int_{x}^{\infty} \frac{2}{t^2}\,dt \\
+&= \frac{1}{\log x} \left[-\frac{2}{t}\right]_{x}^{\infty} \\
+&= \frac{2}{x\log x} = O\!\left(\frac{1}{x\log x}\right).
+\end{align*}
+Hence,
+\[
+-\int_{2}^{x} \{t\}\frac{\log t+1}{t^2(\log t)^2}\,dt = -C + O\!\left(\frac{1}{x\log x}\right).
+\]
+The boundary terms
+\[
+\frac{x-1 - \{x\}}{x\log x} = \frac{1}{\log x} - \frac{1}{x\log x} - \frac{\{x\}}{x\log x}
+= \frac{1}{\log x} + O\!\left(\frac{1}{x\log x}\right).
+\]
+Adding everything
+\begin{align*}
+S(x) &= \frac{1}{\log x} + \log\log x - \log\log 2 - \frac{1}{\log x} + \frac{1}{\log 2} - C + O\!\left(\frac{1}{x\log x}\right) \\
+&= \log\log x + \frac{1}{\log 2} - \log\log 2 - C + O\!\left(\frac{1}{x\log x}\right).
+\end{align*}
+Thus,
+\[
+\,S(x) = \log\log x + \frac{1}{\log 2} - \log\log 2 - C + O\!\left(\frac{1}{x\log x}\right),
+\]
+where $C = \int_{2}^{\infty} \{t\} \frac{\log t + 1}{t^2(\log t)^2}\,dt$ is a finite constant.
 \stepcounter{section}
 \section*{Problem 11 [10 marks]}
 Given a positive integer $k$, let $S_k(x) = \sum_{n\leq x}(\log n - \log x)^k$.
@@ -458,4 +495,6 @@ if the limit exists. Show that H(f ) exists if and only if the ordinary mean val
 	M_f=\lim_{x\to\infty}\frac{1}{x}\sum_{n\leq x}f(n)
 \]
 exists.
+
+
 \end{document}
