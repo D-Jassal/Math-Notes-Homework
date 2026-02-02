@@ -63,15 +63,15 @@
 	\end{proof}
 	\item Consider the polynomial ring \(\R[x]\). Prove that every ideal of $\R[x]$ is principal.
 	\begin{proof}
-		Let $I$ be an ideal of $\R[x]$. We need to show that $I=(f)$ for some $f\in I$. Let $g\in I$. Then by the polynomial division we have 
+		Let $I$ be an ideal of $\R[x]$. If $I=\{0\}$, then $I=(0)$. Otherwise pick some $f\in I$ with minimal degree. For any $g\in I$ by polynomial division we have 
 		\[
 			g(x)=q(x)f(x)+r(x)
 		\]
-		with $deg(r)<deg(f)$. Then we have
+		with $\deg(r)<\deg(f)$. Then we have
 		\[
 			r(x)=g(x)-q(x)f(x)
 		\]
-		which implies that $r(x)=0$ else we would have $deg(r)>deg(f)$. Thus $g=(f)$. Therefore we have that each ideal of $\R[x]$ is principal.
+		which implies that $r(x)=0$ else we would have $\deg(r)<\deg(f)$ and $r\in I$, contradicting the minimality of $\deg(f)$. Thus $g\in (f)$. Since $g$ was arbitrary, $I \subseteq (f)$. And since $f\in I$, we have $(f)\subseteq I$. Therefore $I=(f)$, so $I$ is principal.
 	\end{proof}
 \end{enumerate}
 
@@ -83,20 +83,11 @@ For each of the following statements, either prove that it is true, or provide a
 \begin{enumerate}[label=(\alph*)]
 	\item If \(R\) is unital, then the additive inverse of the multiplicative identity is also a unit.
 	\begin{proof}
-		We denote the multiplicative identity by $1_R$. The additive inverse of the multiplicative identity would then be $-1_R$. By the nature of $1_R$ we have $1_R\times1_R=1_R$ that being it is its own multiplicative identity. We need to find $x\in R$ such that
+		Let $1_R$ denote the multiplicative identity. Its additive inverse is $-1_R$. We show that $-1_R$ is a unit by verifying $(-1_R) \cdot (-1_R) = 1_R$:
 		\[
-			-1\times x=1.
+		(-1_R) \cdot (-1_R) + (-1_R) = (-1_R)(-1_R + 1_R) = (-1_R) \cdot 0 = 0,
 		\]
-		We know that for all $r\in R$ $-1\times r=-r$. Thus we have
-		\[
-			-1\times x=-x=1\Rightarrow x=-1.
-		\]
-		To check this see that
-		\begin{align*}
-			(-1)^2+(-1)&=(-1)(-1+1)\\
-			&=-1\times0\\
-			&=0.
-		\end{align*}
+		so adding $1_R$ to both sides gives $(-1_R)^2 = 1_R$. Hence $(-1_R)$ is its own multiplicative inverse, and therefore a unit.
 	\end{proof}
 
 	\item If \(R\) is unital, then \(R\) has at least two units.\\
@@ -225,8 +216,32 @@ Call the elements of \(\mathbf{P}\) as \(p_{e},p_{(12)},p_{(13)},p_{(23)},p_{(12
 	\end{proof}
 	\newpage
 	\item Prove that \(\Z[\mathbf{P}]\) is a ring with respect to matrix addition and matrix multiplication. Is it commutative?
-	\begin{proof}
-		Since addition of matrices it commutative we have that $(\Z[\mathbf{P}],+)$ is an Abelian group. Since elements in $\Z[\mathbf{P}]$ are closed under matrix multiplication and matrix multiplication over $\Z$ we have that matrix  multiplication is associative in $\Z[\mathbf{P}]$. Since matrices are also distributive we have $A(B+C)=AB+AC$ and $(B+C)A=BA+CA$. Thus $(\Z[\mathbf{P}],+,\times)$ is a ring under matrix adidtion and multiplication.\\
+		\begin{proof}
+		We verify the ring axioms:
+		\begin{enumerate}
+			\item Additive group:
+			\begin{itemize}
+				\item Closure under addition was shown in (a).
+				\item The zero matrix $0 = 0p_e + 0p_{(12)} + \dots + 0p_{(132)}$ belongs to $\Z[\mathbf{P}]$ and is the additive identity.
+				\item For any $A = \sum_{i=0}^5 a_i p_{\sigma_i} \in \Z[\mathbf{P}]$, its additive inverse is $-A = \sum_{i=0}^5 (-a_i) p_{\sigma_i} \in \Z[\mathbf{P}]$.
+				\item Associativity and commutativity of addition follow from the same properties of matrix addition.
+			\end{itemize}
+			Hence $(\Z[\mathbf{P}],+)$ is an abelian group.
+			
+			\item Multiplication:
+			\begin{itemize}
+				\item Closure under multiplication was shown in (b).
+				\item Associativity of multiplication follows from associativity of matrix multiplication.
+			\end{itemize}
+			
+			\item Distributivity: For all $A,B,C \in \Z[\mathbf{P}]$,
+			\[
+				A(B+C) = AB + AC \quad\text{and}\quad (A+B)C = AC + BC,
+			\]
+			because these identities hold for all matrices in $M_{3\times3}(\Z)$ and $\Z[\mathbf{P}]$ is a subset closed under the operations.
+		\end{enumerate}
+		Thus $\Z[\mathbf{P}]$ is a ring.
+		
 		To show that $\Z[\mathbf{P}]$ is commutative see that
 		\begin{align*}
 			BA=&(a_0 p_e + a_1 p_{(12)} + a_2 p_{(13)} + a_3 p_{(23)} + a_4 p_{(123)} + a_5 p_{(132)})\\
@@ -252,7 +267,7 @@ Call the elements of \(\mathbf{P}\) as \(p_{e},p_{(12)},p_{(13)},p_{(23)},p_{(12
 		with
 		\[
 			\begin{aligned}
-				c'_0 &= b_0 a_0 + b_1 a_1 + b_2 b_2 + b_3 a_3 + b_4 a_5 + b_5 a_4, \\
+				c'_0 &= b_0 a_0 + b_1 a_1 + b_2 a_2 + b_3 a_3 + b_4 a_5 + b_5 a_4, \\
 				c'_1 &= b_0 a_1 + b_1 a_0 + b_2 a_4 + b_3 a_5 + b_4 a_3 + b_5 a_2, \\
 				c'_2 &= b_0 a_2 + b_1 a_5 + b_2 a_0 + b_3 a_4 + b_4 a_1 + b_5 a_3, \\
 				c'_3 &= b_0 a_3 + b_1 a_4 + b_2 a_5 + b_3 a_0 + b_4 a_2 + b_5 a_1, \\
@@ -336,7 +351,7 @@ Suppose that \(R\) is a principal ideal domain (that is, \(R\) has no zero divis
 			= \sum_{k=1}^n \left( \sum_{j=1}^n a_{ij} b_{jk} \right) c_{kl}.
 		\]
 
-		Since \( R \) is a commutative ring,
+		Since multiplication in $R$ is associative,
 
 		\[
 			[(AB)C]_{il} = \sum_{k=1}^n \sum_{j=1}^n a_{ij} b_{jk} c_{kl}.
@@ -349,7 +364,7 @@ Suppose that \(R\) is a principal ideal domain (that is, \(R\) has no zero divis
 			= \sum_{j=1}^n a_{ij} \left( \sum_{k=1}^n b_{jk} c_{kl} \right).
 		\]
 
-		Again using distributivity and commutativity of \( R \),
+		Again using distributivity and associativity in \( R \),
 
 		\[
 			[A(BC)]_{il} = \sum_{j=1}^n \sum_{k=1}^n a_{ij} b_{jk} c_{kl}.
@@ -445,7 +460,7 @@ We consider the polynomial ring \(\Z[x]\). We note that \(\Z\) is a principal id
 	\[
 		\Z[x]/(p,f(x))\cong \mathbb{F}_p[x]/(\overline{f}(x)).
 	\]
-	This reduces our problem to finding when $\mathbb{F}_p[x]/(\overline{f}(x))$ is an integral domain. That is because in unital commutative rings $R$ (which both are) for an ideal $I\subseteq R$, $R/I$ is an integral domain when $I$ is prime and vice versa. In this case $R=\mathbb{F}_p[x]$ and $I=\bar{f}(x)$. Since $f(x)$ is irreducible in $\Z[x]$ we have that $\bar{f}(x)$ is irreducible in $\Z[x]$. Thus the ideal $(p,f(x))$ is always prime given that $p\in\Z$ is a prime and $f(x)$ is irreducible in $\Z[x]$.
+	Since $\mathbb{F}_p[x]$ is a PID, $\mathbb{F}_p[x]/(\overline{f}(x))$ is an integral domain (and actually a field) iff $\overline{f}(x)$ is irreducible in $\mathbb{F}_p[x]$. The problem states that $f(x)$ is irreducible over $\mathbb{F}_p$, meaning $\overline{f}(x)$ is irreducible in $\mathbb{F}_p[x]$. Therefore $\mathbb{F}_p[x]/(\overline{f}(x))$ is an integral domain, and hence $(p,f(x))$ is a prime ideal.
 	\newpage
 	\item Prove that the principal ideals in part (a) and part (b) are never maximal.
 	\begin{proof}
@@ -454,7 +469,7 @@ We consider the polynomial ring \(\Z[x]\). We note that \(\Z\) is a principal id
 	\item Prove that the ideal \((3,x^{2} + 1)\) is a prime ideal in \(\Z[x]\). Is it a maximal ideal?
 	\begin{proof}
 		3 is a rational prime and $x^2+1$ is irreducible in $\Z[x]$. Therefore, by the earlier parts we have that $(3,x^2+1)$ is a prime ideal in $\Z[x]$.\\
-		This ideal is maximal. This is beacause from part (c) we know that $\mathbb{F}_3/(\overline{x^2+1})$ is an integral domain, and therefore $(\overline{x^2+1}$) is maximal. Since $(\overline{x^2+1})$ comes from $(3,x^2+1)$ mod $\mathbb{F}_3$ we have that $(3,x^2+1)$ is a maximal ideal.
+		This ideal is maximal. This is because from part (c) we know that $\mathbb{F}_3/(\overline{x^2+1})$ is an integral domain, and therefore $(\overline{x^2+1}$) is maximal. Since $(\overline{x^2+1})$ comes from $(3,x^2+1)$ mod $\mathbb{F}_3$ we have that $(3,x^2+1)$ is a maximal ideal.
 	\end{proof}
 \end{enumerate}
 
@@ -464,17 +479,12 @@ We consider the polynomial ring \(\Z[x]\). We note that \(\Z\) is a principal id
 
 Find a ring \(R\) (meaning a set with suitable addition and multiplication operations) with the following properties:
 \begin{enumerate}[label=(\alph*)]
-	\item \(R\) is uncountable.\\
-	\textit{Solution.} $(\R,+,\times)$
-	\item \(R\) has uncountably many units.\\
-	\textit{Solution.} $(\R,+,\times)$.
-	\item \(R\) has a unique maximal ideal, which is principal.\\
-	\textit{Solution.} The $p-$addic integers $\Z_p$ for some prime $p$ satisfies this condition.
+	\item \(R\) is uncountable.
+	\item \(R\) has uncountably many units.
+	\item \(R\) has a unique maximal ideal, which is principal.
 \end{enumerate}
-
-
-Note: any uncountable field like \(\R\) would satisfy the first two conditions. However, fields do not satisfy the third condition. Rings like \(\R[x]\) do not have unique maximal ideals.
-
+Note: any uncountable field like \(\R\) would satisfy the first two conditions. However, fields do not satisfy the third condition. Rings like \(\R[x]\) do not have unique maximal ideals.\\\\
+\textit{Solution.} The $p$-adic integers $\Z_p$ for some prime $p$ satisfies all three conditions: it is uncountable, has uncountably many units, and has unique maximal ideal $(p)$ which is principal.
 
 
 \end{document}
