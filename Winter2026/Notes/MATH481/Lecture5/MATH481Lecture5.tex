@@ -150,12 +150,12 @@ and
     \[
         M_\Lambda\& M_\mu\Rightarrow \text{ PNT}.
     \]
-    However $L_\Lambda$ and $L_\mu$ are much more tractable objects adn we will compute them in the next chapter.
+    However $L_\Lambda$ and $L_\mu$ are much more tractable objects and we will compute them in the next chapter.
 \end{remark}
 \pf[Proof of Theorem 2.13]{
     Given $f:\N\to\C$ set 
     \[
-        S_f(x)=\sum_{f(n)}\quad\quad T_f(x)=\sum_{n\leq x}\frac{f(n)}{n}
+        S_f(x)=\sum_{n\leq x}f(n)\quad\quad T_f(x)=\sum_{n\leq x}\frac{f(n)}{n}
     \]
     \[
         M_f(x)=\frac{S_f(x)}{x}\quad\quad L_f(x)=\frac{T_f(x)}{\log x}.
@@ -164,7 +164,7 @@ and
     \[
         \lim_{x\to\infty}M_f(x)=M_f.
     \]
-    We need to show that $\lim_{x\to\infty}=M_f$.
+    We need to show that $\lim_{x\to\infty}L_f(x)=M_f$.
     \begin{align*}
         T(x)&=\sum_{n\leq x}\frac{f(n)}{n}\\
         &=\frac{S(x)}{x}+\int_{1}^{x}s(t)t^{-2}\,dt\\
