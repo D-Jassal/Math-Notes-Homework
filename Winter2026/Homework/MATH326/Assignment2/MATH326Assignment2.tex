@@ -38,7 +38,19 @@
 \stepcounter{section}
 \section*{Problem 1}
 Show that the set $\{t^k : k = 0, 1, 2, 3, . . . \}$ is linearly independent in $\mathcal{C}_\R[0,1]$.
+\begin{proof}
+    Let $n \in \mathbb{N}$ and suppose 
+    \[
+    \sum_{k=0}^n a_k t^k = 0 \quad \forall t \in [0,1],
+    \]
+    where $a_k \in \mathbb{R}$.  
+    The left-hand side is a polynomial $p(t)$ in $t$.  
+    Since $p(t) = 0$ on an infinite set (indeed, on the interval $[0,1]$), the polynomial $p$ has infinitely many roots.  
 
+    A nonzero polynomial of degree at most $n$ has at most $n$ real roots, so $p$ must be the zero polynomial; hence $a_0 = a_1 = \dots = a_n = 0$.
+
+    Thus every finite subset of $\{ t^k : k = 0, 1, 2, \dots \}$ is linearly independent in $\mathcal{C}_\mathbb{R}[0,1]$. This gives the desired result.
+\end{proof}
 
 \stepcounter{section}
 \section*{Problem 2}
@@ -60,6 +72,7 @@ Determine which of the following are subspaces of $\mathcal{C}_\R[0,1]$
         \]
         Thus, $V$ is a subspace of $\mathcal{C}_\R[0,1]$.
     \end{proof}
+    \newpage
     \item $\{f\in\mathcal{C}_\R[0,1]:\int_{0}^{1}f^2(x)\,dx=0 \}$
     We need only show that the above mentioned space is non-empty, closed under addition, and is closed under multiplication by scalars. This is because the other axioms which need to be proven are inherited from the vector space $\mathcal{C}_\R[0,1]$.\\
     \begin{claim}
@@ -88,7 +101,7 @@ Let $x\in\mathbb{F}^n$ and $y\in\mathbb{F}^m$ be (column) vectors. Compute the r
     \end{bmatrix}.
 \]
 From here see that each column of $xy^T$ is the vector $x$ and each row of $xy^T$ is the vector $Y$. From here we have two situations, one in which either $x$ or $y$ is the zero vector, in this case $\rank(xy^T)=0$. In the cases with neither $x$ or $y$ are the zero vector we have $\rank(xy^T)=1$.
-
+\newpage
 \stepcounter{section}
 \section*{Problem 4}
 Let $A \in M_n$ be defined by $a_{ij} = 1$ if $i + j$ is even and 0 if $i + j$ is odd. Find a basis of $\mathrm{col}(A)$ and state the rank of (A).\\

@@ -1,0 +1,92 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+
+\title{MATH 301 Lecture 6}
+\author{Deepak Jassal}
+\date{January 28\textsuperscript{rd}, 2026}
+
+\begin{document}
+\setcounter{section}{1}
+\maketitle
+\defn{One More Characterization of Disconnected Sets}{
+    Suppose that $A+B\cup C$ and $B\neq\phi$ $C\neq\phi$. Then $A$ is disconnected is both $B$ and $C$ are open and closed relative to $A$.
+}
+\textit{Recall.} Definition 1 and 2 are equivalent.\\
+Equivalence of Definition 1 and 2:\\
+Suppose that $A$ is disconnected accoriding to definition 1. So there are open sets $U$ and $V$ sucj that $B\subseteq U$ and $C\subseteq C$ and $U\cap V=\phi$. Hence, $B=A\cap U$, so $B$ is open relative to $A$. Similarily $C$ is open relative to $A$. So $B$ and $C$ are open in $A$. Also $V\subseteq U^c$ and $U^c$ is closed. $C\subseteq V\subseteq U^c$ but $A\cap U^c=C$ so $C$ is closed relative to $A$, same arguemnt for $B$.\\
+The converse: Suppose that $B$ and $C$ are clopen relative to $A$. Then there exists $A$ open in $\C$ such that $B=U\cap A$ and $U\cap C=\phi$. So $C\subseteq U^c$ is closed. Hence $\bar{C}\subseteq U$, therefore $\bar{C}\cap U=\phi$, this implies that $B\subseteq U$. Similarily $C\cap \bar{B}=\phi$. Therefore, $A$ is disconnected by definition 2.
+Equivalence of Definition 1 and 2:\\
+Definition 1 to 2:\\
+$B\subseteq U$ and $C\subseteq V$ with $U\cap V=\phi$. This implies that $B\subseteq V^c$ and $C\subseteq U^c$ wich are both closed. Thus $\bar{B}\cap C=\phi$ similarily $\bar{C}\cap B=\phi$. This gives $1\Rightarrow 2$.\\
+Definition 2 to 1:\\
+$\bar{B}\cap C=\phi$ and $\bar{C}\cap B=\phi$.\\
+\begin{claim}
+    For every $z\in\C$ there is a disk $D(z,\delta_z)$ such that $D(z,\delta_z)\cap B=\phi$.
+\end{claim}
+\pf[Proof of Claim]{
+    Suppose not, that means that no matter how small $\delta_z$ is we have $D(z,\delta_z)\cap B\neq\phi$. So there exists a sequence $(b_n)_{n=1}^\infty$ with $\lim_{n\to\infty}b)n=z$. So $z\in\bar{B}$ adn away to $C$. But $\bar{B}\cap C=\phi$. This is a contradiction.
+}
+By symmetry $\forall z\in B, \exists\delta_z>0,D(z,\delta_z)\cap C=\phi.$ Now $B\subseteq \bigcup_{z\in B}D(z,\frac{\delta_z}{2})=U$ is open $B\subseteq U$ and $C\subseteq \bigcup_{z\in C}D(z,\frac{\delta_z}{2})=V$ is open $C\subseteq V$.
+\begin{claim}
+    $U\cap V=\phi$ so definition 1 is true.
+\end{claim}
+\pf[Proof of Claim]{
+    Suppose for contradiction that $w\in U\cap V$. So $w\in U$ and $w\in V\Rightarrow$
+    \[
+        w\in D(z_1,\frac{\delta_{z_1}}{2})
+    \]
+    \[
+        w\in D(Z_2,\frac{\delta_{z_2}}{2})
+    \]
+    W.L.O.G suppose that $\delta_{z_1}\leq \delta_{z_2}$, then 
+    \[
+        D(z_2,\delta_{z_2})\cap B=\phi
+    \]  
+    but
+    \[
+        |z_2-z_1|\leq |z_2-w|+|w-z_2|\leq\frac{\delta_{z_2}}{2}+\frac{\delta_{z_2}}{2}\leq \delta_{z_2}.
+    \]
+    Therefore $z_1\in D(z_2,\delta_{z_2})$. This is a contradiction.
+}
+\thm{Mapping of Compact Sets}{
+    Let $K$ be a compact set in $\C$ and $f:K\to \C$ or $\R$ a continuous function, then $f(K)$ is compact. 
+}
+\pf[Proof of Theorem 1.0.2]{
+    Suppose that $K$ is compact with 
+    \[
+        K=\bigcup_{\alpha\in\mathcal{I}}U_\alpha
+    \]
+    with $U_\alpha$ being open. Therefore,
+    \[
+        K\subseteq\bigcup_{\alpha\in\mathcal{I}}f^{-1}(U_\alpha)
+    \]
+    is an open cover of $K$. By compactness this cover has a finite subcover. Thus $f(K)$ has a finite subcover.
+}
+\thm{Extreme Value Theorem}{
+    If $K$ is compact and $f:K\to\R$ is continuous then $f$ attains its maximum and minimum at some points $a,b\in K$.
+}
+\thm{Mean Value Theorem}{
+    If $A$ is a conencted set in $\C$ and $f:A\to\C$ is continuous then $f(A)$ is connected.
+}
+\subsection{The Reimann Sphere}
+This is just one point compactification of $\C$ with the unit sphere in $\R^3$
+\defn{Extended Complex Plane}{
+    Wtih the Reimann sphere we defined $\bar{\C}=\C\cup\{\infty\}$.\\
+    $D(\infty,R)=\{z\in\C:|z|\leq>R\}$.
+}
+\[
+    z+\infty=\infty,\quad z\cdot\infty=\infty.
+\]
+are defined.
+\[
+    0\times\infty,\quad \infty-\infty,\quad\frac{\infty}{\infty}
+\]
+are not defined.
+\defn{Limits with the Reimann Sphere}{
+    $\lim_{z\to\infty}f(z)=z_0$ $\forall z>0$ there exists $N$ with $|z|>N$ such that $f()$
+}
+\end{document}
