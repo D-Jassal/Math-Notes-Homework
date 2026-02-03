@@ -38,7 +38,7 @@
 \stepcounter{section}
 \section*{Problem 1 [5 marks]} Let $p(x)$ be a polynomial with integer coefficients and degree $k\geq1$. Show that $p(n)$ is composite for infinitely many integers $n$.
 \begin{proof}
-	Since $p(x)$ has integer coefficients and the integers are closed under addition and multiplication, then for each integer input for $p(x)$ we will have an integer output. Find $m\in\Z$ such that $p(m)\neq0,\pm1$, this is possible since $p(x)$ has degree greater than 1, so it cannot be oscillate between -1,0,1 and will eventually start to grow in absolute value. There exists $q$ prime such that $q\mid p(m)$. Let $m_k'=m+kp$ with $k\in\N$ then with 
+	Since $p(x)$ has integer coefficients and the integers are closed under addition and multiplication, then for each integer input for $p(x)$ we will have an integer output. Find $m\in\Z$ such that $p(m)\neq0,\pm1$, this is possible since $p(x)$ has degree greater than 1, so it cannot take only the values 0, 1, -1 for infinitely many integers because it is a nonconstant polynomial and will eventually start to grow in absolute value. There exists $q$ prime such that $q\mid p(m)$. Let $m_k'=m+kp$ with $k\in\N$ then with 
 	\[
 		p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0
 	\]
@@ -46,7 +46,7 @@
 	\[
 		p(m)\equiv p(m_k')\equiv 0\mod(p).
 	\]
-	Thus, each value of $p(m_k')$ is divisible by $p$. We can only have $p\mathrel\Vert p(m_k')$ for finitely many $k$ because $\lim_{x\to\infty}p(x)=\infty$.
+	Thus, each value of $p(m_k')$ is divisible by $p$. since pp is fixed, $p(mk')$ grows, so eventually $|p(mk')|>p$, hence composite for all large $k$.
 \end{proof}
 
 \stepcounter{section}
@@ -57,7 +57,7 @@
 \] 
 Thus, either $f(1)=0$ or $f(1)=1$, if $f(1)=0$ then $f$ is the zero fucntion and we are done. So we will assume that $f(1)=1.$. By periodicity we have $f(1+k)=f(1)=1$. We also have that $(k+1,1)=1$ unless $k=1$. However, if $k=1$ then $1=f(1+1)=f(2)=f(2+1)=\cdots$, and $f(n)=1$ for all $n\in\N$. Assume $k\geq 2$. Due to periodicity $f(m)=f(m\mod k)$ so we only need to know the values of $f$ for $1,2,\dots,k$, all of these values lie in the set of residues $\{f(1),f(2),\dots f(k)\}$. 
 For a prime $p$ by the periodicity of $f$ we have $f(p)^a=f(p)^{a+b}$ for some $b$. If $|f(p)|\neq1,0$ then this would not be possible. Thus, $f(p)$ has to be a root of unity or 0. Since $f$ is completely multiplicative we can express any integer in $\{1,2,\dots,k\}$ as a products of primes, and in the case where $f(p)$ for all primes are roots of unity and roots of unity are closed under multiplication, all values $\{f(1),f(2),\dots,f(k)\}$ are roots of unity. In the cases where $f(p)=0$ for all primes, we have that $f$ is identically zero.
-Thus, for all $a$ coprime to $k$ we have that $f(a)$ is a $k-$th root of infinity. 
+Thus, for all $a$ coprime to $k$ we have that $f(a)$ is a $k-$th root of unity. 
 \stepcounter{section}
 \section*{Problem 3 [15 marks]}  Let $f,g$ be positive functions defined on $\mathbb{R}$. Suppose $f(x)\sim g(x)$. Prove that
 \begin{enumerate}
@@ -482,9 +482,89 @@ where $C = \int_{2}^{\infty} \{t\} \frac{\log t + 1}{t^2(\log t)^2}\,dt$ is a fi
 Given a positive integer $k$, let $S_k(x) = \sum_{n\leq x}(\log n - \log x)^k$.
 \begin{enumerate}[label=(\alph*)]
 	\item Estimate $S_k(x)$ to within an error $O_k((\log x)^k)$.
-	\item Deduce that, for each $k$, the limit $\lambda_k = \lim_{x\to\infty} \frac{1}{x} S_k(x)$ exists (as a finite number), and obtain an explicit evaluation of the constant $\lambda_k$.
+	\textit{Solution.} 
+	\[
+		f(n)=\log\left(\frac{n}{x}\right)^k,\quad f'(n)=\frac{k\log\left(\frac{n}{x}\right)^{k-1}}{n},\quad a(n)=1. 
+	\]
+	By Abel's summation formula we have
+	\[
+		\sum_{n\leq x}(\log n - \log x)^k=\floor{x}\log\left(\frac{x}{x}\right)^k-k\int_{1}^{x}\frac{\floor{t}\log\left(\frac{t}{x}\right)^{k-1}}{t}\,dt.	
+	\]
+	It is obvious that the first term is 0. Set $\floor{t}=t-\fract{t}$.
+	\[
+		I=-k\int_{1}^{x}\frac{\floor{x}\log\left(\frac{t}{x}\right)^{k-1}}{t}\,dt=-k\int_{1}^{x}\frac{t\log\left(\frac{t}{x}\right)^{k-1}}{t}\,dt+k\int_{1}^{x}\frac{\fract{t}\log\left(\frac{t}{x}\right)^{k-1}}{t}\,dt.
+	\]
+	Solving the first integral which we will call $I_1$. Let
+	\[
+		u=\log\left(\frac{t}{x}\right),\; t=xe^u,\; dt=xe^u\,du,\; t=1\Rightarrow u=-\log x,\; t=x\Rightarrow u=0.
+	\]
+	\[
+		I_1=-k\int_{1}^{x}\frac{t\log\left(\frac{t}{x}\right)^{k-1}}{t}\,dt=\int_{-\log x}^{0}u^{k-1}xe^u\,du
+	\]
+	\[
+		-w=u,\; du=-dw,\; u=-\log x\Rightarrow w=\log x,\; u=0\Rightarrow w=0.
+	\]
+	\begin{align*}
+		I_1&=-kx\int_{\log x}^{0}(-w)^{k-1}e^{-w}\,dw\\
+		I&=-kx\int_{\log x}^{0}(-1)^{k-1}w^{k-1}e^{-w}\,dw\\
+		&=(-1)^{k+1}kx\int_{0}^{\log x}w^{k-1}e^{-w}\,dw
+	\end{align*}
+	\[
+		\int_{0}^{\log x}w^{k-1}e^{-w}\,dw=\Gamma(k)-\int_{\log x}^{\infty}w^{k-1}e^{-w}\,dw
+	\]
+	Notice that $(\log x)^{k-1}e^{-\log x}=\frac{(\log x)^{k-1}}{x}\geq w^{k-1}e^{-w}$ when $w\in[\log x.\infty)$. Thus we have 
+	\[
+		\int_{\log x}^{\infty}w^{k-1}e^{-w}\,dw=O\left(\frac{(\log x)^{k-1}}{x}\right). 
+	\]
+	Thus we have
+	\begin{align*}
+		I_1&=(-1)^{k+1}kx\left[\Gamma(k)-O\left(\frac{(\log x)^{k-1}}{x}\right)\right]\\
+		&=(-1)^{k+1}kx\Gamma(k)-(-1)^{k+1}kxO\left(\frac{(\log x)^{k-1}}{x}\right)\\
+		&=(-1)^{k+1}x\Gamma(k+1)-O\left((-1)^{k+1}kx\frac{(\log x)^{k-1}}{x}\right)\\
+		&=(-1)^{k+1}x\Gamma(k+1)+O\left((\log x)^{k-1}\right).
+	\end{align*}
+	Dealing with the second integral
+	\[
+		I_2=k\int_{1}^{x}\frac{\fract{t}(\log\left(\frac{t}{x}\right)^{k-1})}{t}\,dt
+	\]
+	\[
+		u=\log\left(\frac{t}{x}\right),\; t=xe^u,\; dt=xe^u\,du\Rightarrow \frac{dt}{t}=du,\; t=1\Rightarrow u=-\log x,\; t=x\Rightarrow u=0.
+	\]
+	\[
+		I_2=-k\int_{1}^{x}\frac{\fract{t}\log\left(\frac{t}{x}\right)^{k-1}}{t}\,dt=\int_{-\log x}^{0}\fract{xe^-u}u^{k-1}\,du.
+	\]
+	\[
+		|I_2|\leq k\int_{0}^{\log x}u^{k-1}.
+	\]
+	Notice that $(\log x)^k\geq u^{k-1}$ with $u\in[0,\log x]$. Thus 
+	\[
+		|I_2|=O((\log x)^k).
+	\]
+	\begin{align*}
+		S_k&=(I_1+I_2)\\
+		&=(-1)^{k+1}x\Gamma(k+1)+O\left((\log x)^{k-1}\right)+O((\log x)^k)\\
+		&=(-1)^{k+1}xk!+O((\log x)^k).
+	\end{align*}
+	Thus we have
+	\[
+		S_k=(-1)^{k+1}xk!+O((\log x)^k),
+	\]
+	which is an approximation with the desired error term.
+	\item Deduce that, for each $k$, the limit $\lambda_k = \lim_{x\to\infty} \frac{1}{x} S_k(x)$ exists (as a finite number), and obtain an explicit evaluation of the constant $\lambda_k$.\\
+	\textit{Deduction.}
+	\begin{align*}
+		\lambda_k&=\lim_{x\to\infty}\frac{1}{x}((-1)^{k+1}xk!+O((\log x)^k))\\
+		&=(-1)^{k+1}k!\lim_{x\to\infty}\frac{x}{x}+\lim_{x\to\infty}O\left(\frac{(\log x)^k}{x}\right)\\
+		&=(-1)^{k+1}k!\lim_{x\to\infty}1+O\left(\lim_{x\to\infty}\frac{(\log x)^k}{x}\right)\\
+		&=(-1)^{k+1}k!+0.
+	\end{align*}
+	Thus
+	\[
+		\lambda_k=(-1)^{k+1}k!.
+	\]
 \end{enumerate}
 \stepcounter{section}
+\newpage
 \section*{Problem 12 [10 marks]}
 Given an arithmetic function $f$ define a mean value $H(f)$ by
 \[
@@ -495,4 +575,61 @@ if the limit exists. Show that $H(f)$ exists if and only if the ordinary mean va
 	M_f=\lim_{x\to\infty}\frac{1}{x}\sum_{n\leq x}f(n)
 \]
 exists.
+\begin{proof}
+	Let
+	\[
+		S_f(x)=\sum_{n\leq x}f(n),\quad L_f(x)=\sum_{n\leq x}f(n)\log n
+	\]
+	$(\Leftarrow)$ Assume that $M_f=M$ and $M$ is finite. We will first compute the following sum suing Abel's summation formula 
+	\[
+		\sum_{n\leq x}f(n)\log n=S_f(x)\log x-\int_{1}^{x}\frac{S_f(t)}{t}\,dt
+	\]
+	From the assumption we have 
+	\[
+		\frac{S_f(x)}{x}=M+o(1)\Rightarrow S_f(x)=Mx+o(x).
+	\]
+	Then
+	\begin{align*}
+		\sum_{n\leq x}f(n)\log n&=S_f(x)\log x-\int_{1}^{x}\frac{S_f(t)}{t}\,dt\\
+		&=(Mx+o(x))\log x-\int_{1}^{x}\frac{Mt+o(t)}{t}\,dt\\
+		&=(Mx+o(x))\log x-\int_{1}^{x}M\,dt-\int_{1}^{x}\frac{o(t)}{t}\,dt\\
+		&=Mx\log x+o(x)\log x-M(x-1)-\int_{1}^{x}o(1)\,dt\\
+		&=Mx\log x+o(x\log x)-M(x-1)+o(x)\\
+		&=Mx\log x-M(x-1)+o(x\log x).
+	\end{align*}
+	Using this approximation we Obtain
+	\begin{align*}
+		\frac{1}{x\log x}\sum_{n\leq x}f(n)\log n&=\frac{Mx\log x}{x\log x}-\frac{M(x-1)}{x\log x} +o\left(\frac{x\log x}{x\log x}\right)\\
+		&=M-\frac{M(x-1)}{x\log x} +o(1).
+	\end{align*}
+	Thus we have
+	\[
+		\lim_{x\to\infty}H_f=M.
+	\]
+	$(\Rightarrow)$ Assume that $H_f=H$ and $H$ is finite. We will use Abel's summation formula to compute the following
+	\[
+		S_f(x)=\sum_{n\leq x}f(n)=\sum_{n\leq x}\frac{f(n)\log n}{\log n}=\frac{L_f(x)}{\log x}+\int_{1}^{x}\frac{L_f(t)}{t(\log t)^2}\,dt.
+	\]
+	From the assumption we have 
+	\[
+		\frac{L_f(x)}{x\log x}=H+o(1)\Rightarrow L_f(x)=Hx\log x+o(x\log x).
+	\]
+	\begin{align*}
+		S_f(x)&=\frac{L_f(x)}{\log x}+\int_{1}^{x}\frac{L_f(t)}{t(\log t)^2}\,dt.\\
+		&=\frac{Hx\log x+o(x\log x)}{\log x}+\int_{1}^{x}\frac{Ht\log t+o(t\log t)}{t(\log t)^2}\,dt\\
+		&=Hx+o(x)+\int_{1}^{x}\frac{Ht\log t}{t(\log t)^2}\,dt+\int_{1}^{x}\frac{o(t\log t)}{t(\log t)^2}\,dt\\
+		&=Hx+o(x)+H\int_{1}^{x}\frac{1}{\log t}\,dt+\int_{1}^{x}o\left(\frac{1}{\log t}\right)\,dt\\
+		&=Hx+o(x)+H\left(\int_{1}^{2}\frac{1}{\log t}\,dt+\int_{2}^{x}\frac{1}{\log t}\,dt\right)+\int_{1}^{2}o\left(\frac{1}{\log t}\right)+\int_{2}^{x}o\left(\frac{1}{\log t}\right)\,dt\\
+		&=Hx+o(x)+H\left(C_1+\Li(x)\right)+C_2+Li(o(x)).
+		\intertext{Note that $\Li(x)\sim \frac{x}{\log x}=o(x)$. Therefore,}
+		&=Hx+o(x)+H\left(C_1+o(x)\right)+C_2+o(x)\\
+		&=Hx+o(x)\\
+		\frac{S_f(x)}{x}&=H+o(1)\\
+	\end{align*}
+	Thus,
+	\[
+		M_f(x)=H.
+	\]
+	Thus we have that $H_f$ exists and it finite if and only if $M_f$ exists and is finite.
+\end{proof}
 \end{document}
