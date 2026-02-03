@@ -1,0 +1,98 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 420 Lecture 8}
+\author{Deepak Jassal}
+\date{February 2\textsuperscript{nd}, 2026}
+
+\begin{document}
+\stepcounter{section}
+\maketitle 
+\textit{Last Time:}
+\thm{}{
+    Let $R$ be a unital commutative ring and $I\subseteq R$ an ideal of $R$. Then $I$ is prime (proper) \textit{iff} $R/I$ is an integral domain.
+}
+\pf[Proof of the Theorem]{
+    Suppose $I$ is a prime ideal. Then $R/I$ is a ring. For $r,s\in R$ we have 
+    \begin{align*}
+        (r+I)(s+I)&:=rs+I\\
+        &=sr+I\\
+        (s+I)(r+I).
+    \end{align*}
+    So $R/I$ is also commutative. Also
+    \begin{align*}
+        (1+I)(r+I)&=1r+I\\
+        &=r+I,
+    \end{align*}
+    so $1+I$ is the identity of $R/I$. Must show that $(r+I)(s+I)=0+I$. Since $rs\in I$ and $I$ is prime we have $r\in I$ or $s\in I$, as required.\\
+    Now assume that $R/I$ is an integral domain. Then $R/I$ is commutative unital and has no zero-divisors. \textit{Note.} $1+I$ is a multiplicative identity in $R/I$, so it must be the only multiplicative identity since it is unique. Since additve and multiplicative identities are never equal we have
+    \[
+        1+I\neq 0+I.
+    \]
+    In particular $I\neq R$.\\
+    Suppose $AB\subseteq I$ with $A,B$ ideals of $R$. Thus, for all $a\in A$ and $b\in B$ we have $ab\in I$. Suppose for the sake of a contradiction, that $A\not\subset I$ and $B\not\subset I$. Then we can choose $a\in A\setminus I$ and $b\in B\setminus I$, such that $ab\in I$. Now
+    \begin{align*}
+        (a+I)(b+I)&=ab+I\\
+        &=0+I.
+    \end{align*}
+    So if $(a+I)$ and $(b+I)$ are non-zero in $R/I$ the must be zero divisors, this is a contradiction. Thus, $I$ is a prime ideal.
+}
+\thm{}{
+    Let $R$ be a unital, commutative ring, $I\subseteq R$ be a proper ideal. Then $R/I$ is a field \textit{iff} $I$ is maximal. 
+}
+\pf[Proof of the Theorem]{
+    Suppose $I$ is maximal. Then $I$ is prime. Hence $R/I$ is an integral domain. Remains to prove non-zero elements in $R/I$ are invertible.\\
+    Suppose $r\in R$ such that $r+I\neq 0+I$ (i.e., $r\neq I$). Put $N=\{sr+t:s\in R, t\in I\}$. Let $a\in R$. Then $a(sr+t)=(as)r+at\in N$. Hence $N$ is an ideal of $R$. But $1\cdot r+0\in N$, but $r\not\in I$. Hence $I\subsetneqq N$. Therefore $N=R$. Hence there exists $s,t$ such that $sr+t=1$. For this chouse fo $s,t$ we have 
+    \begin{align*}
+        (s+I)(t+I)&=sr+I\\
+        &=(sr+t)+I\\
+        &=1+I.
+    \end{align*}
+    Hence, $(s+I)$ is the inverse of $(t+I)$ in $R/I$.\\
+    Now suppose that $I$ is not maximal. If $I$ is not prime then $R/I$ is not an integral domain, hence not a field. Hence we may assume that $I$ is prime. Since $I$ is not maximal, there exists an ideal $J$ such that $J\subsetneqq R$ and $I\subsetneqq J$. In particular $i\not\in J$. Let $a\in J/I$. If $ab+I=1+I$ for $b\in R$ then $ab-i\in I$. Hence $ab-1=i$ for some $i\in I$. Note $ab\in J$. Then $i\in J$, since $I\subset J$. Therefore, $1=ab-i\in J$ which is a contradiction.
+}
+\ex{
+    Consider $R=\Z[\sqrt{-5}]=\{a+b\sqrt{-5}:a,b\in\Z\}$. This is a subring of $\C$. $2,3$ are \underline{irreducible} in the sense that they cannot be written as the product of ``smaller'' elements.\\
+    i,e.,
+    \[
+        2=\underbrace{(a+b\sqrt{-5})}_{\in R}\underbrace{(a-b\sqrt{-5})}_{\in R}\underbrace{r}_{\in\R}
+    \] 
+    \[
+        r=(a^2+5b^2).
+    \]
+    Then
+    \[
+        \underbrace{r(a-b\sqrt{-5})}_{\in R}\Rightarrow ra,rb\in\Z.
+    \]
+    Hence $r\in\Q$.\\
+    $r=\frac{p}{q},q>0,(p,q)=1$. then $q\mid a$ and $q\mid b$; replace $a$ with $qa$ and $b$ with $qb$ (abuse of notation). Hence,
+    \begin{align*}
+        2&=(qa+qb\sqrt{-5})(pa-pb\sqrt{-5})\\
+        &=pq(a+b\sqrt{-5})(a-b\sqrt{-5})\\
+        &-pq(a^2+5b^2).
+    \end{align*}
+    \[
+        p=2,q=1=a^2+5b^2\Rightarrow b=0,a+b\sqrt{-5}=\pm1.
+    \]
+    \[
+        q=2,p=1\text{ same as above.}
+    \]
+    \[
+        p=q=1,a^2+5b^2=2
+    \]
+    this has no solutions. Hence, 2 is irreducible. Is it prime?\\
+    2,3 are both irreducible. Are they prime? Well,
+    \[
+        6=2\cdot 3=(1+\sqrt{-5})(1-\sqrt{-5}).
+    \]
+    Consider the principal ideals
+    \[
+        (2),\quad (3),\quad (1+\sqrt{-5}),\quad (1-\sqrt{-5}).
+    \]
+    None of these ideals are prime.
+}
+\end{document}

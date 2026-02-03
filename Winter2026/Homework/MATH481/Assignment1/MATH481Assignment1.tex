@@ -95,7 +95,7 @@ Thus, for all $a$ coprime to $k$ we have that $f(a)$ is a $k-$th root of infinit
 		\begin{align*}
 			\lim_{x\to\infty}\frac{e^{f(x)}}{e^{g(x)}}&=\lim_{x\to\infty}e^{f(x)-g(x)}=e^{\lim_{x\to\infty}(f(x)-g(x))}.
 		\end{align*}
-		The above limit is equal to $1$ if we have $f(x)-g(x)=0$, which is not necessarily true with out given assumption that $\lim_{x\to\infty}\frac{f(x)}{g(x)}=1$. This is because if we have $\lim_{x\to\infty}f(x)=\infty$ and $\lim_{x\to\infty}f(x)=\infty$ then we cannot say anything about $\lim_{x\to\infty}f(x)-g(x)$. If the limits were however finite then we would be able to say $\exp(f(x)) \sim \exp(g(x))$, because we would have $\lim_{x\to\infty}f(x)=L$ and $\lim_{x\to\infty}f(x)=L$.
+		The above limit is equal to $1$ if we have $f(x)-g(x)=0$, which is not necessarily true with out given assumption that $\lim_{x\to\infty}\frac{f(x)}{g(x)}=1$. This is because if we have $\lim_{x\to\infty}f(x)=\infty$ and $\lim_{x\to\infty}g(x)=\infty$ then we cannot say anything about $\lim_{x\to\infty}f(x)-g(x)$. If the limits were however finite then we would be able to say $\exp(f(x)) \sim \exp(g(x))$, because we would have $\lim_{x\to\infty}f(x)=L$ and $\lim_{x\to\infty}f(x)=L$.
 	\end{proof}
 \end{enumerate}
 
@@ -387,9 +387,9 @@ Let $A(t) = \sum_{2 \leq n \leq t} 1 = \lfloor t \rfloor - 1$ for $t \ge 2$, and
 Then $f'(t) = -\frac{\log t + 1}{t^2(\log t)^2}$.\\
 By Abel's summation formula,
 \[
-S(x) = A(x)f(x) - A(2^-)f(2) - \int_{2}^{x} A(t)f'(t)\,dt,
+S(x) = A(x)f(x) - A(2)f(2) - \int_{2}^{x} A(t)f'(t)\,dt,
 \]
-where $A(2^-)=0$. Hence,
+where $A(2)=0$. Hence,
 \[
 S(x) = (\lfloor x \rfloor - 1)\frac{1}{x\log x} + \int_{2}^{x} (\lfloor t \rfloor - 1)\frac{\log t + 1}{t^2(\log t)^2}\,dt,
 \]
@@ -490,11 +490,9 @@ Given an arithmetic function $f$ define a mean value $H(f)$ by
 \[
 	H(f)=\lim_{x\to\infty}\frac{1}{x\log x}\sum_{n\leq x}f(n)\log n,
 \]
-if the limit exists. Show that H(f ) exists if and only if the ordinary mean value 
+if the limit exists. Show that $H(f)$ exists if and only if the ordinary mean value 
 \[
 	M_f=\lim_{x\to\infty}\frac{1}{x}\sum_{n\leq x}f(n)
 \]
 exists.
-
-
 \end{document}

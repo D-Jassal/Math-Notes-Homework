@@ -1,0 +1,71 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+\usepackage{bookmark}
+\usepackage{tensor}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+\usepackage{blkarray}
+\usepackage{tensor}
+\title{MATH 326 Lecture 9}
+\author{Deepak Jassal}
+\date{January 28\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle
+\textit{Recall.} If $U$ and $W$ are subspaces of $V$. Then 
+\begin{enumerate}
+    \item $U+W\leq V$;
+    \item $U\cap W\leq V$. 
+\end{enumerate}
+\thm{Intersection of Subspaces}{
+    Suppose $U$ and $W$ are finite dimensional subspaces of $V$. Then,
+    \[
+        \mathrm{dim}(U+W)+\mathrm{dim}(U\cap W)=\mathrm{dim}(U)+\mathrm{dim}(W).
+    \]
+}
+\pf[Proof of the Theorem]{
+    Let $v_1,\dots, v_n$ be a basis of $U\cap W$. We can add some vectors to the basis and get a basis of $U:u_1,\dots, u_{n-1},v_1,\dots,v_k$. We can also add other vectors to make this a basis of $W:v_1,\dots,v_k,w_1,\dots,w_{n-k}$.
+    \begin{claim}
+        $\alpha=u_1,u_2,\dots,u_{n-k},v_1,\dots,v_{k},w_1,\dots,w_{n-k}$ is a basis of $U+W$.
+        \begin{enumerate}
+            \item Obviously $\mathrm{span}(\alpha)=U+W$
+            \item $\alpha$ is L.I.
+        \end{enumerate}
+    \end{claim}
+}
+\subsection{More About Rank}
+\thm{Column/Row Rank}{
+    Let $A\in M_{m\times n}(F)$ and $X\in M_{p\times m}(F)$ has full column rank and $Y\in M_{n\times q}(F)$ has full row rank. Then
+    \[
+        \rank(XAY)=\rank(A)
+    \]
+}
+\begin{claim}
+    $\rank(XA)=\rank(A)$.
+\end{claim}
+\pf[Proof of the Claim]{
+    $\null(XA)=$ nullity of $A$.\\
+    If $AX=0\Rightarrow XAx=0\Rightarrow$ nullity $XA\leq$ nullity of $A$. $X(Ax)=0\Rightarrow Ax=0$ thus the columns of $X$ are linearly independant. Therefore, nullity of $XA=$ nullity of $A$ and they are $n-\rank(XA)$ and $n-\rank(A)$.
+}
+\begin{claim}
+    $\rank(AY)=\rank(A)$.
+\end{claim}
+\pf[Proof of the Claim]{
+    Take transposes and apply the last claim.
+}
+\textit{Note.} This is a generalization of a theorem which states that 
+\[
+    \rank(PAP^{-1})=\rank(A).
+\]
+\thm{}{
+    Let $A\in M_{m\times k}(F)$ $B\in M_{k\times n}$ and $C\in M_{M\times p}$. Then,
+    \begin{enumerate}
+        \item $\rank(AB)\leq\min\{\rank(A),\rank(B)\}$
+        \item $\rank(AB)=\rank(A)$ \textit{iff} $\mathrm{col}(AB)=\mathrm{col}(A)$.
+        \item $\max\{\rank(A),\rank(C)\}\leq \rank([AC])$
+        \item $\rank(A)=\rank([AC])\Leftrightarrow \mathrm{col}(C)\subseteq\mathrm{col}(A)$.
+    \end{enumerate}
+}
+\end{document}
