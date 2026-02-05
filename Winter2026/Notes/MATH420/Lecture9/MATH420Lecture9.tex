@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 420 Lecture 9}
+\author{Deepak Jassal}
+\date{February 4\textsuperscript{th}, 2026}
+
+\begin{document}
+\stepcounter{section}
+\maketitle 
+\ex{
+    $R=\Z[\sqrt{-5}]$\\
+    \textit{Claim:} $(2),(3),(1+\sqrt{-5}),(1-\sqrt{-5})$ are not prime (as ideals). We have that $(2)$ is prime \textit{iff} $R/(2)$ is an integral domain.\\
+    $R/(2)$ is a set of equivalence classes.\\
+    i.e., $[1]_{(2)}=1+(2),[0]_{(2)},[\sqrt{-5}]_{(2)},[1+\sqrt{-5}]_{(2)}$ are these all the equivalence classes?\\
+    Consider $[a+b\sqrt{-5}]_{(2)}$ with $a,b\in\Z$. If $a\equiv b\equiv 0\mod2$ then $[a+b\sqrt{-5}]_{(2)}=[0]_{(2)}$. If $a$ is odd, and $b$ is even we get $[a+b\sqrt{-5}]_{(2)}=[1]_{(2)}$. If $a$ is even and $b$ is odd then $[a+b\sqrt{-5}]_{(2)}=[\sqrt{-5}]_{(2)}$. If $a$ is odd and $b$ is odd then $[a+b\sqrt{-5}]_{(2)}=[1+\sqrt{-5}]_{(2)}$. Thus we have $R/(2)=\{[0]_{(2)},[1]_{(2)},[b\sqrt{-5}]_{(2)},[1+\sqrt{-5}]_{(2)}\}$. 
+    \[
+        [1+\sqrt{-5}]_{(2)}[1+\sqrt{-5}]_{(2)}=[0]_{(2)}.
+    \]
+    Since there are zero divisors we have that $R/(2)$ is not an integral domain. Thus, $(2)$ is not prime.\\
+    $R/(3)=\{[0],[1],[2],[1+\sqrt{-5}],[1+2\sqrt{-5}],[2+\sqrt{-5}],[2+2\sqrt{-5}],[\sqrt{-5}],[2\sqrt{-5}]\}$
+    \[
+        [1+2\sqrt{-5}][1+\sqrt{-5}]=[1+3\sqrt{-5}-10]=[0].
+    \]
+    $p=11$, $R/(p)$. Let $a_1,b_1\in\{0,1,\dots,10\}$. Want $[a_1+b_1\sqrt{-5}]_{(11)}$ is invertible, provided that $a_1,b_1$ are not both zero.\\
+    \textit{Consider}: $[a_2+b_2\sqrt{-5}]_{(11)}$ then
+    \[
+       [a_1+b_1\sqrt{-5}]_{(11)}[a_2+b_2\sqrt{-5}]_{(11)}=[a_1a_2-5b_1b_2+\sqrt{-5}(a_1b_2+a_2b_1)]\tag{$\ast$}.
+    \]
+    Easy if one or the other is zero. Choose $(a_2,b_2)=k(a_1-b_1)$. Then ($\ast$) becomes $[k(a_1^5)+5b_1^2]_{(11)}$. Then $a_1^5+5b_1^2$ is divisible by 11 \textit{iff} $a_1,b_1$ are both divisible by 11.
+}
+Since $(2),(3)$ are \underline{not} prime ideals so they should be ``divisible'' by some other ideal. In particular, not prime implies not maximal. So there is some ideal $J_2,J_3$ such that $(2)\subsetneqq J_2$ and $(3)\subsetneqq J_3$. Extend (2) with $1+\sqrt{-5}$ to get $\langle 2,1+\sqrt{-5} \rangle$.\\
+$R/\langle2,1+\sqrt{-5} \rangle=\{[0],[1]\}=\mathbb{F}_2$. Thus, the ideal is maximal and therefore prime. 
+\[
+    J_2\cdot J_2=\{\sum_{j=1}^{2}a_jb_j:a_j,b_j\in J_2\}.
+\]
+$a=2x+y(1+\sqrt{-5})$, $b=2u+v(1+\sqrt{-5})$. Then
+\[
+    a\cdots b=0+(2),
+\]
+Thus
+\[
+    J_2\cdot J_2=(2).
+\]
+$(3)=\langle3,1+\sqrt{-5} \rangle\langle3-\sqrt{-5} \rangle$ and neither of these ideals are the whole ring.\\
+\textit{Summary:} $(2)=J_2^2$ and $(3)=J_3\overline{J_3}$, ($J_3=\langle3,1+\sqrt{-5} \rangle$, $\overline{J_3}=\langle3-\sqrt{-5} \rangle$).\\
+$(5)$ is also a square. (Excersize).\\
+(11) is a prime ideal.\\
+$(41)=(6+\sqrt{-5})(6-\sqrt{-5})$.
+
+
+
+
+
+
+
+
+\end{document}

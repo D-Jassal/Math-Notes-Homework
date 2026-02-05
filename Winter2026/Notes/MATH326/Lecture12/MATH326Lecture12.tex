@@ -1,0 +1,81 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+\usepackage{bookmark}
+\usepackage{tensor}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+\usepackage{blkarray}
+\usepackage{tensor}
+\title{MATH 326 Lecture 12}
+\author{Deepak Jassal}
+\date{February 4\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle
+\thm{}{
+    Let $A\in M_{m\times k}(F)$ $B\in M_{k\times n}$ and $C\in M_{M\times p}$. Then,
+    \begin{enumerate}
+        \item $\rank(AB)\leq\min\{\rank(A),\rank(B)\}$
+        \item $\rank(AB)=\rank(A)$ \textit{iff} $\mathrm{col}(AB)=\mathrm{col}(A)$.
+        \item $\max\{\rank(A),\rank(C)\}\leq \rank([AC])$
+        \item $\rank(A)=\rank([AC])\Leftrightarrow \mathrm{col}(C)\subseteq\mathrm{col}(A)$.
+    \end{enumerate}
+}
+\pf[Proof of the Theorem]{
+    \begin{enumerate}
+        \item Given in last class.
+        \item $\rank(AB)=\rank(A)\Leftrightarrow$col$(AB)=$col$(A)$. We have col$(AB)\subseteq$col$(A)$. 
+        \[
+            AB=[Ab_1\,\dots\,Ab_n].
+        \]
+        \[
+            Ab_1=\sum_{j=1}^{n}c_ja_j\subseteq\text{col}(AB)
+        \]
+        The same for all $Ab_j$ for all $j$. This gives the forward direction.\\
+        $(\Leftarrow)$ suppose col$(AB)=$col$(A)\Rightarrow \rank(AB)=\rank(A)$ because $\rank(C)=$dim(col($C$)).
+        \item $\max\{\rank(A)m\rank(C)\}\leq\rank(A\,\,C)$. Then $\rank(A)\leq\rank(A\,\,C)$ is trivial, col$(A)\subseteq$col($A\,\,C$). Thus we have the desired result.
+        \item $(\Leftarrow)$ Suppose that col$(C)\subseteq$ col$(A)\Rightarrow$col$(A\,\,C)=$col$(A)$. In this case col$(A\,\,C)=$col$(A\,\,$cancel $C$).\\
+        $(\Rightarrow)$ Suppose that $\rank(A)=\rank(A\,\,C)$ the same for columns then all columns of $A$ and $C$ $\subseteq$col$(A)$. Which gives the desired result.
+    \end{enumerate}
+}
+\thm{}{
+    Let $A\in M_{m\times k}$ and $B\in M_{k\times m}$. Then 
+    \[
+        \rank(A)+\rank(B)\leq\rank(AB)+k\tag{$\ast$}
+    \]
+}
+\pf[Proof of the Theorem]{
+    \begin{enumerate}
+        \item[Case 1.] $AB=0$
+        \begin{enumerate}
+            \item[Subcase 1.] $A=0$ then $\rank(A)+\rank(B)\leq \rank(AB)+k$ then $\rank(B)\leq k$ which is true. 
+            \item[Subcase 2.] $A\neq0$. $AB=0$ implies that all columns of $B$ are in the null space of $A$, that is $\rank(B)\leq\nullity(A)$. Apply rank-nullity theorem to $A$.
+            \begin{align*}
+                \rank(A)+\nullity(A)&=k\\
+                \rank(A)+\rank(B)\leq k.
+            \end{align*}
+        \end{enumerate}  
+        \item[Case 2.] $AB\neq0$, suppose $\rank(AB)=r$ with $r>0.$\\
+        Let $XY=AB$ be the full rank decomposition of $AB$. Then $X$ is a basis of col$(AB)$, that is $X$ has $r$ L.I columns. So $X$ is an $m\times r$ matrix and col$(X)=$col$AB$. By similar reasoning we have row$(Y)=$row($AB$). Now let $C=[A\,\,X]_{m\times(k+r)}$ and let $D=\begin{bmatrix}B\\-Y\end{bmatrix}$. Now
+        \[
+            CD=AB-XY=0.
+        \]
+        Applying the result of case 1. We get
+        \[
+            \rank(A)+\rank(B)\leq\rank(C)+\rank(D)\leq\rank(CD)+k+r.
+        \]
+        Which is the desired result.
+    \end{enumerate}
+}
+\thm{}{
+    Let both $A,B\in M_{m\times n}$. Then $|\rank(A)-\rank(B)|\leq \rank(A+B)\leq\rank(A)+\rank(B)$.
+}
+\pf[Proof of the Theorem]{
+    For the second inequality. $\rank(A+B)\leq$dim(col($A\,\,B$)). Suppose that $X$ is formed by the columns of $A$ and forms its basis. Same for $Y$ with $B$. Then col$(A\,\,B)=$col$(X\,\,Y)\leq\rank(X)+\rank(Y)=\rank(A)+\rank(B)$.\\
+    For the second inequality. The inequality is equivalent to $\rank(A)-\rank(B)\leq\rank(A-B) (**)$ and $\rank(B)-\rank(A)\leq \rank(A+B)(***)$. But $(**)\Leftrightarrow\rank(A)\leq\rank(B)+\rank(A+B)=\rank(-B)+\rank(A+B)$
+}
+
+
+\end{document}

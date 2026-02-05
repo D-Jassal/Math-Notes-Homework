@@ -1,0 +1,126 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+
+\title{MATH 301 Lecture 8}
+\author{Deepak Jassal}
+\date{February 4\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle
+\section{Complex Differentiability}
+\defn{Complex Derivatives}{
+    \begin{enumerate}
+        \item Let $A$ be an open subsest of $\C$ and $z_0\in A$ and let $f:A\to\C$. Then $f$ is differentiable at $z_0$ if the limit
+            \[
+                f'(z_0)=\lim_{f(z)-f(z_0)}{z-z_0} \tag{$\ast$}
+            \]
+            exists.
+        \item $f$ is called analytic at $z_0$ if $f'(z)$ in some nieghbourhood of $f(z_0)$. This means that the limit is the same if $z\to z_0$ by any path.
+    \end{enumerate}
+}
+For the limit $\ast$ to exist is means that. For all $\varepsilon>0$ there exists $\delta>0$ such that 
+\[
+    0<|z-z_0|<\delta\Rightarrow \left|\frac{f(z)-f(z_0)}{z-z_0}\right|=|f'(z_0)|<\varepsilon.
+\]
+Writing $\ast$ as $F(z)$ we say the above means
+\[
+    \lim_{z\to z_0}F(z)=f'(z_0).
+\]
+\textit{Note:} Analytic and holomorphic are synonymous in this context.
+\prop{
+    Suppose that $f,g$ are analytic functions on an open set $A\subseteq\C$. Then
+    \begin{enumerate}
+        \item $af+bg$ is analytic on $A$, $\forall a,b\in\C$.
+        \item $(fg)'=f'g+fg'$
+        \item $\left(\dfrac{f}{g}\right)'=\dfrac{f'g-g'f}{g^2}$ provided $g\neq0$ on $A$.
+        \item The chain rule is also valid:\\
+        If $f:A\to\C$ with $A$ open is analytic, and $g:B\to\C$ with $B$ open is analytic and $f(A)\subseteq B$
+        \[
+            (f(g(z)))'=f'(g(z))g'(z).
+        \]
+        \item If $\gamma:(a,b)\to\C$ with $(a,b)\subseteq\R$ if differentiable, and $f:A\to\C$ with $A$ open is analytic. Then
+        \[
+            \frac{d}{dt}f(\gamma(t))=f'(\gamma(t))\gamma'(t).
+        \]
+        provided that $\gamma((a,b))\subseteq\C$.
+    \end{enumerate}
+ }
+ \subsection{Conformal Mapping Theorem}
+\thm{Conformal Mapping Theorem}{
+    Let $A\subseteq\C$ be an open set, and $f:A\to\C$ is analytic on $A$. Further suppose that $\gamma:I\to A$, where $I$ is an open interval containing 0, is differentiable, $z_0\in A$, $\gamma(0)=z_0,$ and $\gamma'(0)=v\neq0$. Also suppose that $f'(z_0)\neq0$. Then there exists $0<r\in\R$ and $\theta\in[0,2\pi)$ such that if
+    \[
+        u=\frac{d}{dt}f(\gamma(t))\vert_0
+    \] 
+    then 
+    \begin{enumerate}
+        \item $|u|=r|v|$;
+        \item arg$u=$arg$v+\theta$ mod$2\pi$.
+    \end{enumerate}
+    We say that $f$ is conformal at $z_0$
+}
+\textit{Note:} also that a conformal map preserves the orientation of tangent vectors. It preserves angles but not always lengths.
+\pf[Proof of Theorem 1.1.1]{
+    \[
+        u=\frac{d}{dt}f(\gamma(t))\vert_0=f'(\gamma(0))\gamma'(0)=f'(z_0)v.
+    \]
+    \[
+        \Rightarrow |u|=|f'(z_0)||v|
+    \]
+    \[
+        \arg(u)=\arg(v)+\arg(f'(z_0))
+    \]
+    Now define $r=|f'(z_0)|>0$ and $\theta=\arg(f(z_0))$.
+}
+\subsection{Cauchy-Riemann Equation}
+Let $f:A\to\C$, $\mu:\C\to\R^2$ be defined as \[\mu(z)=\mu(x+iy)=(x,y).\] Then $f(x+iy)$ can be written as 
+\[
+    f(x+iy)=u(x,y)+v(x,y)
+\]
+where 
+\[
+    u:\mu(A)\to\R
+\]
+\[
+    v:\mu(A)\to\R.
+\]
+\ex{
+    $f(z)=z^2=(x+iy)^2=x^2-y^2+2xy$ where $u(x,y)=x^2-y^2$ and $v(x,y)=2xy$.
+}
+\thm{}{
+    Let $f:A\to\C,\,z_0\in A$ and $z=x+iy$
+    \[
+        f(z)=u(x,y)+iv(x,y)
+    \]
+    \begin{enumerate}
+        \item If $f'(z_0)$ exists Then
+        $u_x(x_0,y_0)=u_y(x_0,y_0)$ and $v_x(x_0,y_0)=-v_y(x_0,y_0)$.\\
+        These are called the Cauchy-Riemann equations.
+        \item If $u_x,u_y,v_x,v_y$ are continuous on $\mu(A)$ and satisfy the Cauchy-Riemann equations then $f$ is analytic on $A$. 
+    \end{enumerate}
+}
+\pf[Proof of Theorem 1.2.1]{
+    \begin{enumerate}
+        \item 
+        \[
+            \lim_{z\to z_0}\frac{f(z)-f(z_0)}{z-z_0}
+        \]
+        exists. We calculate it along two paths
+        \begin{enumerate}[label=(\roman*)]
+            \item $L:x+iy_0\to x_0+iy_0$ where $y_0$ is a constant.
+            \[
+                \lim_{z\to z_0}f'(z_0)=\lim_{x\to x_0}f^\ast(z)=u_x(x_0,y_0)+iv_x(x_0,y_0).
+            \]
+            \item $L:x_0+iy\to x_0+iy_0$
+            \[
+                \lim_{z\to z_0}f'(z_0)=\lim_{y\to y_0}f^\ast(z)=u_y(x_0,y_0)+iv_y(x_0,y_0).
+            \]
+        \end{enumerate}
+        Since $f'(z_0)$ exists we must have that $u_y(x_0,y_0)+iv_y(x_0,y_0)=u_x(x_0,y_0)+iv_x(x_0,y_0)$.
+    \end{enumerate}
+}
+
+\end{document}
