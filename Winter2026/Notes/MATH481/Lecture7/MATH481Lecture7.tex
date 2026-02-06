@@ -1,0 +1,83 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 481 Lecture 7}
+\author{Deepak Jassal}
+\date{February 3\textsuperscript{rd}, 2026}
+
+\begin{document}
+\setcounter{section}{2}
+\setcounter{tcb@cnt@mydefinition}{16}
+\maketitle
+\subsection*{Dirichlet's Hyperbola Method}
+Suppose we have two arithmetic functions
+\[
+    f,g:\N\to\C.
+\]
+Let
+\[
+    F(x)=\sum_{n\leq x}f(n),\quad G(x)=\sum_{n\leq x}g(x).
+\]
+Consider $h=f\ast g$.\\
+i.e.,
+\[
+    h(n)=\sum_{d\mid n}f(d)g\left(\frac{n}{d}\right).
+\]
+We have
+\begin{align*}
+    H(x)=\sum_{n\leq x}h(n)&=\sum_{n\leq x}\sum_{d\mid n}f(d)g\left(\frac{n}{d}\right)\\
+    &=\sum_{n\leq x}\sum_{n=ab}f(a)g(b)\\
+    &=\sum_{\substack{a,b\\ ab\leq x}}f(a)g(b)
+    \intertext{let $y>0$}
+    &=\sum_{\substack{ab\leq x\\ a\leq y}}f(a)g(b)+\sum_{\substack{ab\leq x\\ a> y}}f(a)g(b)\\
+    &=\sum_{a\leq y}f(a)\sum_{b\leq\frac{x}{a}}g(b)+\sum_{b\leq \frac{x}{y}}g(b)\sum_{y<a\leq\frac{x}{b}}f(a)\\
+    &=\sum_{a\leq y}f(a)G(\frac{x}{a})+\sum_{b\leq \frac{x}{y}}g(b)\left(F\left(\frac{x}{b}\right)-F(y)\right)\\\displaybreak
+    &=\sum_{a\leq y}f(a)G(\frac{x}{a})+\sum_{b\leq \frac{x}{y}}g(b)F\left(\frac{x}{b}\right)-\sum_{b\leq \frac{x}{y}}g(b)F(y)\\
+    &=\sum_{a\leq y}f(a)G\left(\frac{x}{a}\right)+\sum_{b\leq \frac{x}{y}}g(b)F\left(\frac{x}{b}\right)-G\left(\frac{x}{y}\right)F(y)
+\end{align*}
+If we choose $y=\sqrt{x}$ (this choice depends on the specific functions you are dealing with), the above can be written as 
+\[
+    \sum_{n\leq x}f\ast g(n)=\sum_{a\leq \sqrt{x}}f(a)G\left(\frac{x}{a}\right)+\sum_{b\leq \sqrt{x}}g(b)F\left(\frac{x}{b}\right)-G(\sqrt{x})F(\sqrt{x}).
+\]
+Why is this called the ``hyperbola method''? If we use this method for $\sum_{n\leq x}d(n)$ we have
+\[
+    \sum_{n\leq x}d(n)=\sum_{n\leq x}\sum_{ab=n}1=\sum_{\substack{a,b\\ab\leq x}}1.
+\]
+We can see that the first sum, sums over lattice points under hyperbola $ab=x$ of points with $a\leq\sqrt{x}$ and the second sums over points with $b\leq\sqrt{x}$ and the thid term subtracts one set of points that have been double counted.
+\thm{Sum of Divisors}{
+    \[
+        \sum_{n\leq x}d(n)=x\log x+(2\gamma -1)x+\Oh(\sqrt{x}).
+    \]
+}
+\pf[Proof of Theorem 2.17]{
+    \begin{align*}
+        \sum_{n\leq x}d(n)=\sum_{\substack{a,b\\ ab\leq x}}1&=\sum_{a\leq \sqrt{x}}\sum_{b\leq \frac{x}{a}}1+\sum_{b\leq \sqrt{x}}\sum_{a\leq \frac{x}{b}}1-\sum_{b\leq \sqrt{x}}\sum_{b\leq \sqrt{x}}1\\
+        &=\sum_{a\leq \sqrt{x}}\floor{\frac{x}{a}}+\sum_{b\leq \sqrt{x}}\floor{\frac{x}{b}}-\sum_{b\leq \sqrt{x}}\floor{\sqrt{x}}\\
+        &=2\sum_{a\leq \sqrt{x}}\floor{\frac{x}{a}}-\floor{\sqrt{x}}\floor{\sqrt{x}}\\
+        &=2\sum_{a\leq \sqrt{x}}\left(\frac{x}{a}-\fract{\frac{x}{a}}\right)-(\sqrt{x}-\fract{\sqrt{x}})^2\\
+        &=2x\sum_{a\leq \sqrt{x}}\frac{1}{a}-2\sum_{a\leq \sqrt{x}}\fract{\frac{x}{a}}-x-2\sqrt{x}\fract{\sqrt{x}}-\fract{\sqrt{x}}^2\\
+        &=2x\left(\log\sqrt{x}+\gamma+\Oh\left(\frac{1}{\sqrt{x}}\right)\right)-x+\Oh(\sqrt{x})\\
+        &=2\log x+(2\gamma-1)x+\Oh(\sqrt{x}).
+    \end{align*}
+    Which is the desired result.
+}
+\begin{remark}
+    Dirichlet's Divisor Problem\\
+    \[
+        \Delta(x)=D(x)-(x\log x+(2\gamma-1)x)\tag{$\ast$}
+    \]
+    \[
+        \text{Theorem 2.17}\Rightarrow \Delta(x)=\Oh(\sqrt{x})
+    \]
+    \[
+        \text{Conjecture:} \Delta(x)=\Oh(x^{\frac{1}{4}}).
+    \]
+    Hardy et al. showed that $\Delta(x)=\Oh(x^{\frac{1}{3}})$. The state of the art is $\Delta(x)=\Oh(x^\theta)$ with $\theta=0.31\dots$.\\
+    $d(n)\leq2$, $d(n)\geq\exp\left(\frac{(1+\varepsilon)\log2\log n}{\log\log n}\right)$ for any $\varepsilon>0$. $d(n)\leq C(\varepsilon)n^\varepsilon$ for any $\varepsilon>0$. $d(n)\ll_\varepsilon n^\varepsilon$.
+\end{remark}
+\section{Elementary Results for the Prime Coutning Function}
+\end{document}

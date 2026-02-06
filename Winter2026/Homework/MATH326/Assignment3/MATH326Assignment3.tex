@@ -1,0 +1,342 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../../preambles/hw-preamble.tex}
+\input{../../../../preambles/homework-macros.tex}
+\input{../../../../preambles/homework-title.tex}
+\input{../../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Advanced Linear Algebra}
+\renewcommand{\coursecode}{MATH 326}
+\renewcommand{\assignment}{Assignment 3}
+\renewcommand{\instructor}{Dr. Edward Dobrowolski}
+\renewcommand{\duedate}{February 6\textsuperscript{th}, 2026}
+\usepackage{tensor}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Problem 1}
+Let $V=P_4$ the space of all polynomials with degree $\leq3$ and $W=\mathbb{F}^4$. Let
+\[
+	T:V\to W,
+\]
+where
+\[
+	T(f)=\begin{bmatrix}
+		f(0)\\f(1)\\f(2)\\f(3)
+	\end{bmatrix}.
+\]
+\begin{enumerate}[label=(\alph*)]
+	\item Let $\alpha = 1, x, x^2, x^3$ be a basis of $V$ and $\beta = e_1, e_2, e_3, e_4$ be the standard basis of $W$. Find $\tensor[_\alpha]{[T]}{_\beta}$.\\
+	\textit{Solution.} 
+	\[
+		\tensor[_\alpha]{[T]}{_\beta}=[T[1],Tx[x],T[x^2],T[x^3]]
+	\]
+	\[
+	T(1)=\begin{bmatrix}
+		f(0)\\f(1)\\f(2)\\f(3)
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		1\\1\\1\\1
+	\end{bmatrix},\quad
+	T(x)=\begin{bmatrix}
+		0\\1\\2\\3
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		0\\1\\2\\3
+	\end{bmatrix},\quad
+	T(x^2)=\begin{bmatrix}
+		0^2\\1^2\\2^2\\3^2
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		0\\1\\4\\9
+	\end{bmatrix},\quad
+	T(x^3)=\begin{bmatrix}
+		0^3\\1^3\\2^3\\3^3
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		0\\1\\8\\27
+	\end{bmatrix}.
+	\]
+	\[
+		\tensor[_\alpha]{[T]}{_\beta}=[T[1],Tx[x],T[x^2],T[x^3]]=
+		\begin{bmatrix}
+			1&0&0&0\\
+			1&1&1&1\\
+			1&2&4&8\\
+			1&3&9&27
+		\end{bmatrix}
+	\]
+	\item Now let $\gamma = 1, 1 + x, 1 + x + x^2, 1 + x + x^2 + x^3$ be another basis of $V$, and $\delta = e_1 + e_2, e_1 - e_2, e_3 + e_4, e_3 - e_4$ be another basis of W. Find $\tensor[_\gamma]{[T]}{_\delta}$.\\
+	\textit{Solution.} 
+	\[
+		\tensor[_\gamma]{[T]}{_\delta}=\tensor[_\delta]{[I_W]}{_\beta}\tensor[_\beta]{[T]}{_\alpha}\tensor[_\alpha]{[I_V]}{_\gamma}
+	\]
+	\[
+		\tensor[_\alpha]{[I_V]}{_\gamma}=
+		\begin{bmatrix}
+			1&1&1&1\\
+			0&1&1&1\\
+			0&0&1&1\\
+			0&0&0&1
+		\end{bmatrix}.
+	\]
+	For $\beta\to\delta$ we have
+	\[
+		e_1=a(e_1+e_2)+b(e_1-e_2)+c(e_3+e_4)d(e_3-e_4)
+	\]
+	\[
+		e_2=a(e_1+e_2)+b(e_1-e_2)+c(e_3+e_4)d(e_3-e_4)
+	\]
+	\[
+		e_3=a(e_1+e_2)+b(e_1-e_2)+c(e_3+e_4)d(e_3-e_4)
+	\]
+	\[
+		e_4=a(e_1+e_2)+b(e_1-e_2)+c(e_3+e_4)d(e_3-e_4)
+	\]	
+	Solving each of these we obtain 
+	\[
+		e_1=\begin{bmatrix}\frac{1}{2}\\\frac{1}{2}\\0\\0\end{bmatrix},\quad e_2=\begin{bmatrix}\frac{1}{2}\\-\frac{1}{2}\\0\\0\end{bmatrix},\quad e_3=\begin{bmatrix}0\\0\\\frac{1}{2}\\\frac{1}{2}\end{bmatrix},\quad e_4=\begin{bmatrix}0\\0\\\frac{1}{2}\\-\frac{1}{2}\end{bmatrix}.
+	\]
+	\[
+		\tensor[_\delta]{[I_V]}{_\beta}=
+		\begin{bmatrix}
+			\frac{1}{2}&\frac{1}{2}&0&0\\
+			\frac{1}{2}&-\frac{1}{2}&0&0\\
+			0&0&\frac{1}{2}&\frac{1}{2}\\
+			0&0&\frac{1}{2}&-\frac{1}{2}
+		\end{bmatrix}.
+	\]
+	\begin{align*}
+		\tensor[_\gamma]{[T]}{_\delta}&=\tensor[_\delta]{[I_W]}{_\beta}\tensor[_\beta]{[T]}{_\alpha}\tensor[_\alpha]{[I_V]}{_\gamma}\\
+		&=
+		\begin{bmatrix}
+			\frac{1}{2}&\frac{1}{2}&0&0\\
+			\frac{1}{2}&-\frac{1}{2}&0&0\\
+			0&0&\frac{1}{2}&\frac{1}{2}\\
+			0&0&\frac{1}{2}&-\frac{1}{2}
+		\end{bmatrix}
+		\begin{bmatrix}
+			1&0&0&0\\
+			1&1&1&1\\
+			1&2&4&8\\
+			1&1&8&27
+		\end{bmatrix}
+		\begin{bmatrix}
+			1&0&0&0\\
+			1&1&1&1\\
+			1&2&4&8\\
+			1&3&9&27
+		\end{bmatrix}\\
+		&=
+		\begin{bmatrix}
+			1&\frac{3}{2}&2&\frac{5}{2}\\
+			0&-\frac{1}{2}&-1&-\frac{3}{2}\\
+			1&\frac{7}{2}&10&\frac{55}{2}\\
+			0&-\frac{1}{2}&-3&-\frac{25}{2}
+		\end{bmatrix}
+	\end{align*}
+	\item Determine if $T$ is invertible.
+	\textit{Note:} You can use any software you like.\\
+	\textit{Solution.} Using an online software I computed the determinant of $T$ to be 12. Thus $T$ is invertible.
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Problem 2}
+Let $T:P_3\leftrightarrow P_3$ be defined by $T(f)=xf'(x)$.
+\begin{enumerate}[label=(\alph*)]
+	\item Verify that T is linear.\\
+	\textit{Solution.}
+	\begin{align*}
+		T(af+bg)&=x(af+bg)'(x)\\
+		&=x(af'+bg')(x)\\
+		&=xaf'(x)+xbg'(x)\\
+		&=aT(f)+bT(g).
+	\end{align*}
+	\item Find $\tr(T)$.\\
+	\textit{Solution.} Let $\beta=1,x,x^2,x^3$ be a basis for $P_3$. Then 
+	\[
+		t(0)=x\cdot0=0,\quad t(x)=x\cdot1=x,\quad t(x^2)=2x\cdot x=2x,\quad t(x^3)=3x\cdot x^2=3x^3.
+	\]
+	Then we have
+	\[
+		T=
+		\begin{bmatrix}
+			0&0&0&0\\
+			0&1&0&0\\
+			0&0&2&0\\
+			0&0&0&3
+		\end{bmatrix}.
+	\]
+	Thus, $\tr(T)=6$.
+	\item Find the rank of $T$.\\
+	\textit{Solution.} It is easy to see from the above matrix for $T$ that $\rank(T)=3$.
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Problem 3}
+Let
+\[
+	A=
+	\begin{pmatrix}
+		1 & 2 & 3 & 6 & 5 & 6\\
+		2 & 1 & 3 & 6 & 0 & 1\\
+		3 & 3 & 6 & 12 & 1 & 2\\
+		6 & 1 & 7 & 14 & 3 & 1\\
+	\end{pmatrix}
+\]
+\begin{enumerate}[label=(\alph*)]
+	\item Find the rank and nullity of $A$ and verify the rank - nullity theorem\\
+	\textit{Solution.}
+	\begin{align*}
+		A &\xrightarrow[R_3 - 3R_1]{R_2 - 2R_1} 
+		\begin{pmatrix}
+			1 & 2 & 3 & 6 & 5 & 6 \\
+			0 & -3 & -3 & -6 & -10 & -11 \\
+			0 & -3 & -3 & -6 & -14 & -16 \\
+			0 & -11 & -11 & -22 & -27 & -35
+		\end{pmatrix} \\
+		&\xrightarrow{R_3 - R_2}
+		\begin{pmatrix}
+			1 & 2 & 3 & 6 & 5 & 6 \\
+			0 & -3 & -3 & -6 & -10 & -11 \\
+			0 & 0 & 0 & 0 & -4 & -5 \\
+			0 & -11 & -11 & -22 & -27 & -35
+		\end{pmatrix} \\
+		&\xrightarrow{R_4 - \frac{11}{3}R_2}
+		\begin{pmatrix}
+			1 & 2 & 3 & 6 & 5 & 6 \\
+			0 & -3 & -3 & -6 & -10 & -11 \\
+			0 & 0 & 0 & 0 & -4 & -5 \\
+			0 & 0 & 0 & 0 & \frac{29}{3} & \frac{16}{3}
+		\end{pmatrix} \\
+		&\xrightarrow{R_4 + \frac{29}{12}R_3}
+		\begin{pmatrix}
+			1 & 2 & 3 & 6 & 5 & 6 \\
+			0 & -3 & -3 & -6 & -10 & -11 \\
+			0 & 0 & 0 & 0 & -4 & -5 \\
+			0 & 0 & 0 & 0 & 0 & -\frac{27}{4}
+		\end{pmatrix}\\
+		&=
+		\begin{pmatrix}
+			1&0&1&2&0&0\\
+			0&1&1&2&0&0\\
+			0&0&0&0&1&0\\
+			0&0&0&0&0&1
+		\end{pmatrix}
+	\end{align*}
+	Thus, $\rank(A)=4$, and $\nullity(A)=$ columns without leading numbers =2. Then $\rank(A)+\nullity(A)=4+6=n=6.$
+	\item Find full rank factorization of $A$.\\
+	\textit{Solution.} We need to find a $4\times 4$ and $4\times6$ matrix. These are obtained from the above reduced form of $A$. The first matrix is composed of the independant columns of $A$. The second is the nonzero rows of 
+	\[
+		A=
+		\begin{pmatrix}
+			1&2&5&6\\
+			2&1&0&1\\
+			3&3&1&2\\
+			6&1&3&1
+		\end{pmatrix}
+		\begin{pmatrix}
+			1&0&1&2&0&0\\
+			0&1&1&2&0&0\\
+			0&0&0&0&1&0\\
+			0&0&0&0&0&1
+		\end{pmatrix}.
+	\]
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Problem 4}
+Find a non-diagonal matrix $A \in M_5(\mathbb{F})$, such that both $\rank(A - I)$ and $\rank(A + I)$ are smaller than 5.
+\textit{Hint:} Consider similarity.\\
+\textit{Solution.} From the conditions we see that $\rank(A-I)>5\Rightarrow \det(A-I)=0\Rightarrow$ 1 is an eigenvalue of $A$ and $\rank(A+I)>5\Rightarrow \det(A+I)=0\Rightarrow$ -1 is an eigenvalue of $A$. One such $A$ is
+\[
+	A=
+	\begin{bmatrix}
+		1&1&0&0&0\\
+		0&1&0&0&0\\
+		0&0&1&0&0\\
+		0&0&0&-1&0\\
+		0&0&0&0&-1
+	\end{bmatrix}.
+\]
+Then
+\[
+	A+I=
+	\begin{bmatrix}
+		2&1&0&0&0\\
+		0&2&0&0&0\\
+		0&0&2&0&0\\
+		0&0&0&0&0\\
+		0&0&0&0&0
+	\end{bmatrix},
+\]
+and
+\[
+	A-I=
+	\begin{bmatrix}
+		0&1&0&0&0\\
+		0&0&0&0&0\\
+		0&0&0&0&0\\
+		0&0&0&-2&0\\
+		0&0&0&0&-2
+	\end{bmatrix}.
+\]
+$\rank(A+I)=3>5$ and $\rank(A-I)=3>5$.
+\newpage
+\stepcounter{section}
+\section*{Problem 5}
+Let $p(x) = x + 1$. Let $S = \spn\{x^4p(x), x^3p^2(x), x^2p^3(x), xp^4(x), p^5(x)\}$. Find dimension of $S$ in the space of all polynomials.\\
+\textit{Solution.} 
+\[
+	x^4p(x)=x^5+x^4
+\]
+\[
+	x^3p^2(x)=x^5+2x^4+x^3
+\]
+\[
+	x^2p^3(x)=x^5+3x^4+3x^3+x^2
+\]
+\[
+	xp^4(x)=x^5+4x^4+6x^3+4x^2+x
+\]
+\[
+	p^5(x)=x^5+5x^4+10x^3+10x^2+5x+1
+\]
+Using the basis $\beta=1,x,x^2,x^3,x^4,x^5$ we get the following matrix with rows made up of the polynomials
+\[
+	\begin{bmatrix}
+		0&0&0&0&1&1\\
+		0&0&0&1&2&1\\
+		0&0&1&3&3&1\\
+		0&1&4&6&4&1\\
+		1&5&10&10&5&1
+	\end{bmatrix}.
+\]
+Since all five of these rows are linearly independant we have \[\dim(\spn\{x^4p(x), x^3p^2(x), x^2p^3(x), xp^4(x), p^5(x)\})=5.\]
+\end{document}
