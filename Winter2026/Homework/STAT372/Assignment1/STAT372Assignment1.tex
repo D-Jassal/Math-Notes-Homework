@@ -74,101 +74,100 @@ Be prepared to explain how the physical constraints of the process shape both th
 \stepcounter{section}
 \section*{Solutions}
 \subsection*{Question 1}
-Let the observed scrap lengths be $x_1, x_2, \dots, x_n > 0$.
-The data-generation process implies that each shorter piece satisfies
-\[
-0 < X \leq \frac{\theta}{2}.
-\]
+Let the observed scrap lengths be $x_1, x_2, \dots, x_n > 0$. This has to be greater than zero because a scrap cannot have length zero as it would then not be a scrap. The data-generation process implies that each shorter piece satisfies
+    \[
+        0 < X \leq \frac{\theta}{2}.
+    \]
 Thus, for every observation,
-\[
-x_i \leq \frac{\theta}{2} \quad \text{for } i = 1,\dots,n.
-\]
+    \[
+        x_i \leq \frac{\theta}{2} \quad \text{for } i = 1,\dots,n.
+    \]
 Equivalently,
-\[
-\theta \geq 2x_i \quad \forall i.
-\]
+    \[
+        \theta \geq 2x_i \quad \forall i.
+    \]
 Let $x_{\text{max}} := \max\{x_1,\dots,x_n\}$.  
 The strongest constraint is
-\[
-\theta \geq 2x_{\text{max}}.
-\]
+    \[
+        \theta \geq 2x_{\text{max}}.
+    \]
 Hence, given the data and setup a possible parameter is
-\[
-    \colorbox{yellow}{$\theta \in [\,2x_{\text{max}},\infty).$}
-\]
+    \[
+        \colorbox{yellow}{$\theta \in [\,2x_{\text{max}},\infty).$}
+    \]
 \newpage
 \subsection*{Question 2}
 Define the cut position (distance from one end) as
-\[
-    Y \sim \text{Uniform}(0,\theta).
-\]
+    \[
+        Y \sim \text{Uniform}(0,\theta).
+    \]
 The two pieces are $Y$ and $\theta-Y$.  
 The recorded scrap length is the shorter piece:
-\[
-    X = \min\{Y,\; \theta-Y\}.
-\]
+    \[
+        X = \min\{Y,\; \theta-Y\}.
+    \]
 
 \subsection*{Support of $X$ given $\theta$}
 Since $\min\{u,v\} \leq \frac{\theta}{2}$ for $u+v=\theta$, we have
-\[
-    0 < X \leq \frac{\theta}{2}.
-\]
+    \[
+        0 < X \leq \frac{\theta}{2}.
+    \]
 
 \subsection*{Derivation of the distribution}
 For $0 < t < \theta/2$,
-\begin{align*}
-F_X(t) &= P(X \leq t) \\
-       &= 1 - P(X > t) \\
-       &= 1 - P\big(\min\{Y,\theta-Y\} > t\big) \\
-       &= 1 - P(t < Y < \theta-t) \\
-       &= 1 - \frac{(\theta-t) - t}{\theta} \\
-       &= 1 - \frac{\theta - 2t}{\theta} \\
-       &= \frac{2t}{\theta}.
-\end{align*}
+    \begin{align*}
+        F_X(t) &= P(X \leq t) \\
+        &= 1 - P(X > t) \\
+        &= 1 - P\big(\min\{Y,\theta-Y\} > t\big) \\
+        &= 1 - P(t < Y < \theta-t) \\
+        &= 1 - \frac{(\theta-t) - t}{\theta} \\
+        &= 1 - \frac{\theta - 2t}{\theta} \\
+        &= \frac{2t}{\theta}.
+    \end{align*}
 For $t \geq \theta/2$, $F_X(t) = 1$.
 
 Differentiating, the probability density function is
-\[
-    \colorbox{yellow}{$f_X(x \mid \theta) = \frac{2}{\theta}, \quad 0 < x < \frac{\theta}{2}$,}
-\]
+    \[
+        \colorbox{yellow}{$f_X(x \mid \theta) = \frac{2}{\theta}, \quad 0 < x < \frac{\theta}{2}$,}
+    \]
 and $0$ elsewhere.  
 
 \subsection*{Summary}
-\[
-    \colorbox{yellow}{$X \sim \text{Uniform}\big(0,\;\theta/2\big)$.}
-\]
+    \[
+        \colorbox{yellow}{$X \sim \text{Uniform}\big(0,\;\theta/2\big)$.}
+    \]
 \newpage
 \subsection*{Question 3}
 Given $n$ independent observations $x_1,\dots,x_n$,
-\begin{align*}
-L(\theta \mid x_1,\dots,x_n) 
-&= \prod_{i=1}^n f_X(x_i \mid \theta) \\
-&= \prod_{i=1}^n \frac{2}{\theta}, \quad 0 < x < \frac{\theta}{2}.
-\end{align*}
+    \begin{align*}
+        L(\theta \mid x_1,\dots,x_n) 
+        &= \prod_{i=1}^n f_X(x_i \mid \theta) \\
+        &= \prod_{i=1}^n \frac{2}{\theta}, \quad 0 < x < \frac{\theta}{2}.
+    \end{align*}
 The indicators require $\theta > 2x_i$ for all $i$, i.e., $\theta > 2x_{\text{max}}$.  
 Therefore,
-\[ 
-    \colorbox{yellow}{$L(\theta) = 
-    \begin{cases}
-    \displaystyle\left(\frac{2}{\theta}\right)^n, & \theta \geq 2x_{\text{max}}, \\[10pt]
-    0, & \theta < 2x_{\text{max}}.
-    \end{cases}
-    $
-    }
-\]
+    \[ 
+        \colorbox{yellow}{$L(\theta) = 
+        \begin{cases}
+        \displaystyle\left(\frac{2}{\theta}\right)^n, & \theta \geq 2x_{\text{max}}, \\[10pt]
+        0, & \theta < 2x_{\text{max}}.
+        \end{cases}
+        $
+        }
+    \]
 \subsection*{Question 4}
 Instead of taking the derivative of the likelihood function we can observe that it is an exponential decay function (when we have $\theta \geq 2x_{\text{max}},$, the other situation clearly doesn't maximize $\theta$). Since it is an exponential decay function we have the max at the smallest possible value. In our situation that would be when $\theta=2\max\{x_1,\dots,x_n\}$. Thus, (using the notation from question 1s) we have
-\[
-    \colorbox{yellow}{$\widehat{\theta}=2x_{\text{max}}$.}
-\]
+    \[
+        \colorbox{yellow}{$\widehat{\theta}=2x_{\text{max}}$.}
+    \]
 \subsection*{Question 5}
 Determine $\widehat{\theta}$ based on the values collected in class.\\
 \subsection*{Collected Data (inches):}
-\[
-    \left\{1\frac{1}{16},3.0,2\frac{3}{4},3.0,1\frac{13}{16},1\frac{5}{16},2\frac{1}{2},3\frac{9}{32},\frac{27}{32},2\frac{1}{32},3\frac{6}{32}\right\}
-\]
+    \[
+        \left\{1\frac{1}{16},3.0,2\frac{3}{4},3.0,1\frac{13}{16},1\frac{5}{16},2\frac{1}{2},3\frac{9}{32},\frac{27}{32},2\frac{1}{32},3\frac{6}{32}\right\}
+    \]
 From the data we see that $x_{\text{max}}=3\frac{6}{32}$. Then
-\[
-    \colorbox{yellow}{$\widehat{\theta}=2\times3\frac{6}{32}=6\frac{3}{8}$}
-\]
+    \[
+        \colorbox{yellow}{$\widehat{\theta}=2\times3\frac{6}{32}=6\frac{3}{8}$ inches}
+    \]
 \end{document}

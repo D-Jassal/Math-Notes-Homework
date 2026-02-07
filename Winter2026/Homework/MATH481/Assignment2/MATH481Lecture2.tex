@@ -1,0 +1,129 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../../preambles/hw-preamble.tex}
+\input{../../../../preambles/homework-macros.tex}
+\input{../../../../preambles/homework-title.tex}
+\input{../../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Analytic Number Theory}
+\renewcommand{\coursecode}{MATH 481}
+\renewcommand{\assignment}{Assignment 2}
+\renewcommand{\instructor}{Dr. Alia Hamieh}
+\renewcommand{\duedate}{February 24\textsuperscript{th}, 2026}
+
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Problem 1 [10 Marks]} Let $k\geq 2$ be an integer. We define $d_{k}(n)$ as the number of ways $n$ can be written as the product of $k$ positive integers.
+\begin{enumerate}
+    \item Verify that $d_{k}(n)=\sum_{d|n}d_{k-1}(d)$
+    \item Show that 
+    \[
+        \sum_{n\leq x}d_{k}(n)=\frac{x(\log x)^{k-1}}{(k-1)!}+O\left(x(\log x)^{k-2}\right)
+    \]
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Problem 2 [10 Marks]} In this question, any constants arising in the
+main term of the estimate should be worked out explicitly. 
+\begin{enumerate}
+    \item  Obtain an estimate for the sum
+    $S(x)=\displaystyle{\sum_{n\leq x;\; n\;\text{odd}}\frac{1}{n}}$
+    with error term $O(1/x)$.
+    \item Let $D(x) =\displaystyle{\sum_{n\leq x;\;n\;\text{odd}}d(n)}$, where $d(n)$ is the divisor function. Give an estimate for $D(x)$
+    with error term $O(\sqrt{x})$.  
+
+{\it Hint: Use Dirichlet's
+hyperbola method and the result of the previous part}.
+\end{enumerate}
+
+
+\stepcounter{section}
+\section*{Problem 3 [10 Marks]} Use the Dirichlet hyperbola method (or some other method) to obtain
+an estimate for the sum $\displaystyle{\sum_{n\leq x}\frac{d(n)}{n}}$ with an error term $O\left(\frac{\log x}{\sqrt{x}}\right)$
+
+\stepcounter{section}
+\section*{Problem 4 [10 Marks]} Obtain an estimate, similar to the estimate for
+$\displaystyle{\sum_{n\leq x}\frac{1}{n}}$ for the sum $\displaystyle{\sum_{n\leq x}\frac{1}{\phi(n)}}$.
+
+ {\it Hint: Use the convolution method.}
+
+\stepcounter{section}
+\section*{Problem 5 [10 Marks]} Using only Mertens' type estimates (but not the PNT), obtain an
+asymptotic estimate for the partial sums
+$\displaystyle{S(x) =\sum_{p\leq x;\; p\;\text{prime} }\frac{1}{p\log p}}$ with as good an error term as you can get using only results at the
+level of Mertens.
+
+
+\stepcounter{section}
+\section*{Problem 6 [30 Marks]} Let $q\in\mathbb{N}$, and consider the group $\left(\mathbb{Z}_{q}\right)^{\times}$ of invertible elements modulo $q$. A homomorphism $\chi:\left(\mathbb{Z}_{q}\right)^{\times}\leftarrow\mathbb{C}^{\times}$ is called a Dirichlet character modulo $q$. By Euler's theorem $a^{\phi(q)}\equiv 1\mod q$ for any $a\in \left(\mathbb{Z}_{q}\right)^{\times}$, and so $\left(\chi(a)\right)^{\phi(q)}=1$ for all $a\in \left(\mathbb{Z}_{q}\right)^{\times}$. In other words, each $\chi(a)$ is a $\phi(q)$-th root of unity. 
+We extend the definition of $\chi$ to all integers by setting \[\chi(n)=\begin{cases}\chi(n\;\mathrm{mod}\; q)&\;\; \text{if}\; (n,q)=1\\ 0&\;\;\text{otherwise.}\end{cases}\]
+If $\chi$ and $\psi$ are characters modulo $q$, then so is the product $\chi\psi$ as well as $\overline{\chi}$ given by $\overline{\chi}(a)=\overline{\chi(a)}$. In fact, the set of all characters modulo $q$ forms a group of order $\phi(q)$.
+
+The character $\chi_{0}$ satisfying $\chi_0(a)=1$ for all $a\in \left(\mathbb{Z}_{q}\right)^{\times}$ and $\chi_0(a)=0$ if $(a,q)\neq1$ is called the trivial character modulo $q$. 
+
+\begin{enumerate}[label=(\alph*)]
+    \item Show that $\chi$ is a completely multiplicative arithmetic function.
+    \item If $\chi\neq \chi_0$, show that $\displaystyle{\sum_{a(\mathrm{mod}\; q)}\chi(a)}=0$.
+    \item Show that \[\sum_{\chi(\mathrm{mod}q)}\chi(n)=\begin{cases}\phi(q)&\;\;\text{if}\;n\equiv1\mathrm{mod}\; q\\ 0&\;\;\text{otherwise.}\end{cases}\]
+    \item For $\chi\neq\chi_0$, show that $\displaystyle{\left|\sum_{n\leq x}\chi(n)\right|\leq q}$. Deduce that \[L(s,\chi)=\sum_{n=1}^{\infty}\frac{\chi(n)}{n^s}\] is convergent for $\Re(s)>0$.
+    \item Define $f(n)=\sum_{d|n}\chi(d)$.  Suppose that $\chi$ is a real Dirichlet character modulo $q$ (i.e. $\chi(a)=0,\pm1$ for all $a$). Show that $f(1)=1$ and $f(n)\geq0$. Moreover, show that $f(n)\geq 1$ whenever $n$ is a perfect square.
+    \item Suppose $\chi\neq\chi_0$. Using Dirichlet's hyperbola method, prove that \[\sum_{n\leq x}\frac{f(n)}{\sqrt{n}}=2L(1,\chi)\sqrt{x}+O(1).\]
+    \item If $\chi\neq \chi_0$ is a real character, show that $L(1,\chi)\neq0$.
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Problem 7 [10 Marks]} Let $\chi_0$ be the principal character modulo $q$ (i.e. $\chi(a)=0$ if $(a,q)>1$ and $\chi(a)=1$ if $(a,q)=1$). Prove the Merten's type estimate
+    \[
+        \sum_{p\leq x}\frac{\chi_0(p)}{p}=\log\log x+b_{\chi_0}+O_{\chi_0}(1/\log x),
+    \] where 
+    \[
+        b_{\chi_0}=A+\sum_{p|q}\log(1-1/p)-\sum_{k=2}^{\infty}\sum_{p\;\text{prime}}\frac{\chi_0(p^k)}{kp^k}
+    \] 
+    and $A$ is some absolue constant that is independent of $\chi_0$.
+
+\stepcounter{section}
+\section*{Problem 8 [10 Marks]} Let $q \in \mathbb{N}$.
+\begin{enumerate}
+	\item Prove that 
+	$$
+	\sum_{d \mid q} |\mu(d)| = 2^{\omega(q)} 
+	$$
+	\item Use the identity
+	$$
+	\sum_{d \mid q} \frac{\mu(d) \log d}{d} = - \frac{\phi(q)}{q} \sum_{p \mid q} \frac{\log p}{p-1},
+	$$
+	to prove that 
+	$$
+	\sum_{ \substack{ n \le x \\ (n,q)=1}} \frac{1}{n} = \frac{\phi(q)}{q} 
+	\Big( 
+	\log x  + \gamma + \sum_{p \mid q} \frac{\log p}{p-1} \Big) + O\Big( \frac{2^{\omega(q)}}{x} \Big),
+	$$
+	where $\gamma$ is Euler's constant.\\
+	
+\end{enumerate}	
+
+
+\end{document}

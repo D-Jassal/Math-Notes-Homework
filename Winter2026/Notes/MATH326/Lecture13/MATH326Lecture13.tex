@@ -1,0 +1,90 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+\usepackage{bookmark}
+\usepackage{tensor}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-subsection.tex}
+\usepackage{blkarray}
+\usepackage{tensor}
+\title{MATH 326 Lecture 13}
+\author{Deepak Jassal}
+\date{February 6\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle
+\thm{Cayley-Hamilton Theorem (Proof by Serge Lang)}{
+    Let $A\in M_{n}(F)$, and let $\det(xI_n-A)=\chi_A(x)$ be it's characteristic polynomial. Then if 
+    \[
+        \chi_A(x)=x^n+a_1x^{n-1}+\cdots+a_{n-1}x+a_n    
+    \]
+    we also have
+    \[
+        \chi_A(x)=A^n+a_1A^{n-1}+\cdots+a_{n-1}A+I_n=0. 
+    \]   
+}
+\ex{
+    \[
+        H\mathrm{adj}(H)=\det(H)I_n
+    \]
+}
+\pf[Proof of the Theorem]{
+    So
+    \begin{align*}
+        (aI-A)\mathrm{adj}(xI-A)&=\mathrm{adj}(xI-A)(xI-A)\\
+        &=\det(xI-A)I_n\\
+        &=\chi_A(x)I_n\\
+        &=(x^n+a_1x^{n-1}+\cdots+a_{n-1}x+a_n)I_n.
+    \end{align*}
+    If $A$ is $n\times n$ then 
+    \begin{align*}
+        \mathrm{adj}(xI-A)=x^{n-1}B_1x^{n-2}+\cdots+B_{n-1}
+    \end{align*}
+    The $B'$s come from the maple file
+    \begin{claim}
+        $A$ commutes with each $B_i$ for $i=1,\dots,n-1$.
+    \end{claim}
+    But 
+    \begin{align*}
+        &(xI-A)(n^{n-1}I+x^{n-2}B_1+\cdots+B_{n-1})\\
+        =&x^nI+a_1x^{n-1}I+\cdots+a_nI
+        \intertext{Substitute $x=A$, this is allowed because $A$ commutes with every $B_i$.}
+        =&A^nI+a_1A^{n-1}I+\cdots+a_nI\\
+        =&\chi_A(A).
+    \end{align*}
+    Thus we have the desired result.
+}
+\defn{Pivot Matrices}{
+    A pivot matrix of a given $m\times n$ matrix $A$ is a matrix that is formed by the columns of $A$ that correspond to the pivot columns of $A$ (r.r.e.f columns of $A$ with leading 1's).
+}
+\ex{
+    \[
+        A=
+        \begin{bmatrix}
+            1&2&3&4&5\\
+            1&3&3&4&5\\
+            1&9&6&8&11
+        \end{bmatrix}
+    \]
+    \[
+        r.r.e.f(A)=
+        \begin{bmatrix}
+            1&0&0&0&-1\\
+            0&1&0&0&0\\
+            0&0&1&\frac{4}{3}&2
+        \end{bmatrix}
+    \]
+    Therefore the pivot matrix of $A$ is 
+    \[
+        P=
+        \begin{bmatrix}
+            1&2&3\\
+            1&3&3\\
+            1&9&6
+        \end{bmatrix}
+    \]
+}
+
+
+\end{document}
