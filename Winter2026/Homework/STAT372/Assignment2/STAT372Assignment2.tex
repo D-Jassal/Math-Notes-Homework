@@ -1,0 +1,467 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../../preambles/hw-preamble.tex}
+\input{../../../../preambles/homework-macros.tex}
+\input{../../../../preambles/homework-title.tex}
+\input{../../../../preambles/homework-config.tex}
+
+\usepackage{booktabs}
+
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Mathematical Statistics}
+\renewcommand{\coursecode}{STAT 372}
+\renewcommand{\assignment}{Assignment 2}
+\renewcommand{\instructor}{Dr. Dan Ryan}
+\renewcommand{\duedate}{February 14\textsuperscript{th}, 2026}
+
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+
+
+
+\section*{Part I: Maximum Likelihood Estimation (MLE)}
+\setcounter{section}{1}
+\renewcommand{\theequation}{1.\arabic{equation}}
+
+\subsection*{Step 1: Specify the distribution/model}
+We assume that our data $X_1, X_2, \ldots, X_n$ are independent and identically distributed (i.i.d.) following a Normal distribution with unknown mean $\mu$ and known variance $\sigma^2$:
+\begin{equation}
+X_i \sim \mathcal{N}(\mu, \sigma^2), \quad i = 1, 2, \ldots, n
+\end{equation}
+The probability density function for a single observation is:
+\begin{equation}
+f(x_i \mid \mu) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x_i - \mu)^2}{2\sigma^2} \right)
+\end{equation}
+
+\subsection*{Step 2: Construct the Likelihood function}
+The likelihood function is the joint density of all observations, viewed as a function of $\mu$:
+\begin{equation}
+L(\mu \mid \mathbf{x}) = \prod_{i=1}^n f(x_i \mid \mu) = \left(\frac{1}{\sqrt{2\pi\sigma^2}}\right)^n \exp\left( -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2 \right)
+\end{equation}
+
+\subsection*{Step 3: Construct the Log-Likelihood}
+Taking the natural logarithm simplifies the expression:
+\begin{equation}
+\ell(\mu \mid \mathbf{x}) = \ln(L(\mu \mid \mathbf{x})) = -\frac{n}{2}\ln(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2
+\end{equation}
+
+\subsection*{Step 4: Maximize the Log-Likelihood}
+We differentiate with respect to $\mu$ and set the derivative equal to zero:
+\begin{align}
+\frac{\partial \ell}{\partial \mu} &= -\frac{1}{2\sigma^2} \sum_{i=1}^n 2(x_i - \mu)(-1) \\
+&= \frac{1}{\sigma^2} \sum_{i=1}^n (x_i - \mu) = 0
+\end{align}
+Notice that $\sigma^2$ cancels out, so the MLE for $\mu$ does not depend on the known variance.
+This implies:
+\begin{equation}
+\colorbox{yellow}{$\mu = \dfrac{1}{n}\displaystyle\sum_{i=1}^n x_i=\bar{x}$}
+\end{equation}
+
+\subsection*{Step 5: Solve for $\hat{\mu}_{\text{MLE}}$}
+Solving for $\mu$ yields the sample mean. First, calculate the sample mean from the data:
+\begin{equation}
+\mathbf{x} = \{11.2, 10.7, 9.9, 10.4, 12.1, 11.5, 10.9, 9.6, 10.1, 11.0\}
+\end{equation}
+\begin{align}
+\sum_{i=1}^{10} x_i &= 11.2 + 10.7 + 9.9 + 10.4 + 12.1 + 11.5 + 10.9 + 9.6 + 10.1 + 11.0 \\
+&= 107.4
+\end{align}
+\begin{equation}
+n = 10
+\end{equation}
+\begin{equation}
+\bar{x} = \frac{107.4}{10} = 10.74
+\end{equation}
+
+Therefore:
+\begin{equation}
+\colorbox{yellow}{$\hat{\mu}_{\text{MLE}} = \bar{x} = 10.74$}
+\end{equation}
+
+\subsection*{Step 6: Validity of the MLE approach}
+The MLE approach is valid for the following reasons:
+\begin{itemize}
+    \item \textbf{Regularity Conditions:} The Normal distribution satisfies all regularity conditions—the support of the distribution does not depend on $\mu$, and the log-likelihood is twice differentiable with respect to $\mu$.
+    \item \textbf{Consistency:} $\hat{\mu}_{\text{MLE}}$ is a consistent estimator, meaning it converges in probability to the true parameter value $\mu$ as $n \to \infty$.
+    \item \textbf{Asymptotic Normality:} The MLE is asymptotically Normal:
+    \begin{equation}
+    \hat{\mu}_{\text{MLE}} \overset{\text{approx}}{\sim} \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)
+    \end{equation}
+    \item \textbf{Sufficiency:} The MLE $\bar{x}$ is a function of the sufficient statistic $\sum_{i=1}^n x_i$, meaning it captures all information in the data relevant to $\mu$.
+    \item \textbf{Invariance:} The MLE of a function of $\mu$ is the function of the MLE.
+\end{itemize}
+
+\newpage
+
+\section*{Part II: Bayesian Estimation (Normal Priors)}
+\setcounter{equation}{0}
+\renewcommand{\theequation}{2.\arabic{equation}}
+
+We maintain the same data model: $X_i \mid \mu \overset{\text{i.i.d.}}{\sim} \mathcal{N}(\mu, \sigma^2)$ with $\sigma^2$ known. The sample mean follows:
+\begin{equation}
+\bar{x} \mid \mu \sim \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)
+\end{equation}
+
+\subsection*{General Framework: Conjugate Normal-Normal Model}
+
+When the likelihood is Normal with known variance and the prior is Normal, the posterior is also Normal due to conjugacy.
+
+
+\subsubsection*{Posterior Derivation (Completing the Square):}
+
+Starting with Bayes' theorem:
+\begin{equation}
+p(\mu \mid \mathbf{x}) \propto p(\mu) \times L(\mu \mid \mathbf{x})
+\end{equation}
+(Here we used $\propto$ instead of = because the denominator in this context is a normailizing constant.)
+
+The prior is:
+\begin{equation}
+p(\mu) \propto \exp\left( -\frac{1}{2\tau^2} (\mu - \mu_0)^2 \right)
+\end{equation}
+
+The likelihood is:
+\begin{equation}
+L(\mu \mid \mathbf{x}) \propto \exp\left( -\frac{1}{2\sigma^2/n} (\mu - \bar{x})^2 \right) = \exp\left( -\frac{n}{2\sigma^2} (\mu - \bar{x})^2 \right)
+\end{equation}
+
+Multiplying the exponents:
+\begin{align}
+p(\mu \mid \mathbf{x}) &\propto \exp\left( -\frac{1}{2\tau^2} (\mu - \mu_0)^2 - \frac{n}{2\sigma^2} (\mu - \bar{x})^2 \right) \\
+&= \exp\left( -\frac{1}{2} \left[ \frac{1}{\tau^2} (\mu - \mu_0)^2 + \frac{n}{\sigma^2} (\mu - \bar{x})^2 \right] \right)
+\end{align}
+
+Expand the quadratic terms:
+\begin{align}
+\frac{1}{\tau^2} (\mu - \mu_0)^2 &= \frac{1}{\tau^2} (\mu^2 - 2\mu_0\mu + \mu_0^2) \\
+\frac{n}{\sigma^2} (\mu - \bar{x})^2 &= \frac{n}{\sigma^2} (\mu^2 - 2\bar{x}\mu + \bar{x}^2)
+\end{align}
+
+Summing these expressions:
+\begin{align}
+&\frac{1}{\tau^2} (\mu^2 - 2\mu_0\mu + \mu_0^2) + \frac{n}{\sigma^2} (\mu^2 - 2\bar{x}\mu + \bar{x}^2) \\
+&= \left( \frac{1}{\tau^2} + \frac{n}{\sigma^2} \right) \mu^2 - 2\left( \frac{\mu_0}{\tau^2} + \frac{n\bar{x}}{\sigma^2} \right) \mu + \left( \frac{\mu_0^2}{\tau^2} + \frac{n\bar{x}^2}{\sigma^2} \right)
+\end{align}
+
+Now complete the square for $\mu$. For a quadratic of the form $A\mu^2 - 2B\mu + C$, we can write:
+\begin{equation}
+A\mu^2 - 2B\mu + C = A\left( \mu - \frac{B}{A} \right)^2 + \left( C - \frac{B^2}{A} \right)
+\end{equation}
+
+In our expression:
+\begin{align}
+A &= \frac{1}{\tau^2} + \frac{n}{\sigma^2} \\
+B &= \frac{\mu_0}{\tau^2} + \frac{n\bar{x}}{\sigma^2} \\
+C &= \frac{\mu_0^2}{\tau^2} + \frac{n\bar{x}^2}{\sigma^2}
+\end{align}
+
+Therefore:
+\begin{align}
+&\left( \frac{1}{\tau^2} + \frac{n}{\sigma^2} \right) \mu^2 - 2\left( \frac{\mu_0}{\tau^2} + \frac{n\bar{x}}{\sigma^2} \right) \mu + \left( \frac{\mu_0^2}{\tau^2} + \frac{n\bar{x}^2}{\sigma^2} \right) \\
+&= \left( \frac{1}{\tau^2} + \frac{n}{\sigma^2} \right) \left( \mu - \frac{ \frac{\mu_0}{\tau^2} + \frac{n\bar{x}}{\sigma^2} }{ \frac{1}{\tau^2} + \frac{n}{\sigma^2} } \right)^2 + \text{constant (not involving } \mu\text{)}
+\end{align}
+
+Substituting back into the exponential:
+\begin{align}
+p(\mu \mid \mathbf{x}) &\propto \exp\left( -\frac{1}{2} \left[ \left( \frac{1}{\tau^2} + \frac{n}{\sigma^2} \right) \left( \mu - \frac{ \frac{\mu_0}{\tau^2} + \frac{n\bar{x}}{\sigma^2} }{ \frac{1}{\tau^2} + \frac{n}{\sigma^2} } \right)^2 + \text{constant} \right] \right) \\
+&\colorbox{yellow}{$\propto \exp\left( -\dfrac{1}{2} \left( \dfrac{1}{\tau^2} + \dfrac{n}{\sigma^2} \right) \left( \mu - \dfrac{ \dfrac{\mu_0}{\tau^2} + \dfrac{n\bar{x}}{\sigma^2} }{ \dfrac{1}{\tau^2} + \dfrac{n}{\sigma^2} } \right)^2 \right)$}
+\end{align}
+
+Thus, the posterior is:
+\begin{equation}
+\colorbox{yellow}{$\mu \mid \mathbf{x} \sim \mathcal{N}(\mu_n, \tau_n^2)$}
+\end{equation}
+where:
+\begin{align}
+\mu_n &= \frac{ \frac{\mu_0}{\tau^2} + \frac{n\bar{x}}{\sigma^2} }{ \frac{1}{\tau^2} + \frac{n}{\sigma^2} } \\
+\frac{1}{\tau_n^2} &= \frac{1}{\tau^2} + \frac{n}{\sigma^2}
+\end{align}
+
+
+\subsubsection*{Weighted Average Form:}
+Equation (2.20) can be rewritten as a weighted average of the prior mean $\mu_0$ and the sample mean $\bar{x}$:
+\begin{equation}
+\mu_n = \frac{1/\tau^2}{1/\tau^2 + n/\sigma^2} \mu_0 + \frac{n/\sigma^2}{1/\tau^2 + n/\sigma^2} \bar{x} 
+\end{equation}
+\begin{equation}
+\mu_n = \frac{\text{Prior Precision}}{\text{Prior Precision} + \text{Data Precision}} \mu_0 + \frac{\text{Data Precision}}{\text{Prior Precision} + \text{Data Precision}} \bar{x}
+\end{equation}
+The weights are the \textbf{precisions} (inverse variances), reflecting the relative information in the prior versus the data.
+
+\subsection*{Data Specifications}
+
+From our dataset:
+\begin{align}
+n &= 10 \quad \text{(sample size)} \\
+\bar{x} &= 10.74 \quad \text{(sample mean from observed data)}
+\end{align}
+The data variance $\sigma^2$ is known but not specified numerically; it remains in the formulas as a constant.
+
+\newpage
+
+\subsection*{Part II(A): Concentrated Informative Prior}
+\setcounter{equation}{0}
+\renewcommand{\theequation}{2.A.\arabic{equation}}
+
+\subsubsection*{Prior Specification:}
+\begin{equation}
+\mu \sim \mathcal{N}(\mu_0 = 9, \tau^2 = 0.25)
+\end{equation}
+Standard deviation: $\tau = 0.5$ \\
+Prior precision: 
+\begin{equation}
+\frac{1}{\tau^2} = 4
+\end{equation}
+
+\subsubsection*{Posterior Mean (in terms of $\sigma^2$):}
+\begin{align}
+\mu_n &= \frac{4}{4 + \frac{n}{\sigma^2}}(9) + \frac{\frac{n}{\sigma^2}}{4 + \frac{n}{\sigma^2}}(10.74) \\
+&= \frac{4}{4 + \frac{10}{\sigma^2}}(9) + \frac{\frac{10}{\sigma^2}}{4 + \frac{10}{\sigma^2}}(10.74)
+\end{align}
+
+\subsubsection*{Posterior Precision:}
+\begin{align}
+\frac{1}{\tau_n^2} &= \frac{1}{\tau^2} + \frac{n}{\sigma^2} \\
+&= 4 + \frac{10}{\sigma^2}
+\end{align}
+
+\subsubsection*{Posterior Variance:}
+\begin{equation}
+\tau_n^2 = \frac{1}{4 + \frac{10}{\sigma^2}}
+\end{equation}
+
+\subsubsection*{Result:}
+\begin{equation}
+\colorbox{yellow}{$\hat{\mu}_A = \mu_n = \dfrac{4}{4 + \dfrac{10}{\sigma^2}}(9) + \dfrac{\dfrac{10}{\sigma^2}}{4 + \dfrac{10}{\sigma^2}}(10.74), \quad \tau_n^2 = \dfrac{1}{4 + \dfrac{10}{\sigma^2}}$}
+\end{equation}
+
+The posterior distribution is:
+\begin{equation}
+\colorbox{yellow}{$\mu \mid \mathbf{x} \sim \mathcal{N}\left(\dfrac{4}{4 + \dfrac{10}{\sigma^2}}(9) + \dfrac{\dfrac{10}{\sigma^2}}{4 + \dfrac{10}{\sigma^2}}(10.74), \dfrac{1}{4 + \dfrac{10}{\sigma^2}}\right)$}
+\end{equation}
+
+
+
+
+\newpage
+
+\subsection*{Part II(B): Diffuse Informative Prior (Same Mean, Large Variance)}
+\setcounter{equation}{0}
+\renewcommand{\theequation}{2.B.\arabic{equation}}
+
+\subsubsection*{Prior Specification:}
+\begin{equation}
+\mu \sim \mathcal{N}(\mu_0 = 9, \tau^2 = 25)
+\end{equation}
+Standard deviation: $\tau = 5$ \\
+Prior precision: 
+\begin{equation}
+\frac{1}{\tau^2} = 0.04
+\end{equation}
+
+\subsubsection*{Posterior Mean (in terms of $\sigma^2$):}
+\begin{align}
+\mu_n &= \frac{0.04}{0.04 + \frac{n}{\sigma^2}}(9) + \frac{\frac{n}{\sigma^2}}{0.04 + \frac{n}{\sigma^2}}(10.74) \\
+&= \frac{0.04}{0.04 + \frac{10}{\sigma^2}}(9) + \frac{\frac{10}{\sigma^2}}{0.04 + \frac{10}{\sigma^2}}(10.74)
+\end{align}
+
+\subsubsection*{Posterior Precision:}
+\begin{align}
+\frac{1}{\tau_n^2} &= \frac{1}{\tau^2} + \frac{n}{\sigma^2} \\
+&= 0.04 + \frac{10}{\sigma^2}
+\end{align}
+
+\subsubsection*{Posterior Variance:}
+\begin{equation}
+\tau_n^2 = \frac{1}{0.04 + \frac{10}{\sigma^2}}
+\end{equation}
+
+\subsubsection*{Result:}
+\begin{equation}
+\colorbox{yellow}{$\hat{\mu}_B = \mu_n = \dfrac{0.04}{0.04 + \dfrac{10}{\sigma^2}}(9) + \dfrac{\dfrac{10}{\sigma^2}}{0.04 + \dfrac{10}{\sigma^2}}(10.74), \quad \tau_n^2 = \dfrac{1}{0.04 + \dfrac{10}{\sigma^2}}$}
+\end{equation}
+
+The posterior distribution is:
+\begin{equation}
+\colorbox{yellow}{$\mu \mid \mathbf{x} \sim \mathcal{N}\left(\dfrac{0.04}{0.04 + \dfrac{10}{\sigma^2}}(9) + \dfrac{\dfrac{10}{\sigma^2}}{0.04 + \dfrac{10}{\sigma^2}}(10.74), \dfrac{1}{0.04 + \dfrac{10}{\sigma^2}}\right)$}
+\end{equation}
+
+
+\newpage
+
+\subsection*{Part II(C): Non-informative (Flat) Prior}
+\setcounter{equation}{0}
+\renewcommand{\theequation}{2.C.\arabic{equation}}
+
+\subsubsection*{Prior Specification:}
+\begin{equation}
+p(\mu) \propto 1, \quad -\infty < \mu < \infty
+\end{equation}
+This is an \textit{improper prior} since it does not integrate to 1. It can be viewed as the limiting case of a Normal prior as $\tau^2 \to \infty$, making the prior precision approach zero:
+\begin{equation}
+\lim_{\tau^2 \to \infty} \frac{1}{\tau^2} = 0
+\end{equation}
+
+\subsubsection*{Posterior Derivation:}
+Applying Bayes' theorem with a flat prior:
+\begin{align}
+p(\mu \mid \mathbf{x}) &\propto 1 \times L(\mu \mid \mathbf{x}) \\
+&\propto \exp\left( -\frac{1}{2(\sigma^2/n)} (\mu - 10.74)^2 \right)
+\end{align}
+
+\subsubsection*{Posterior Mean:}
+Substituting $1/\tau^2 = 0$ into the weighted average formula:
+\begin{align}
+\mu_n &= \frac{0}{0 + \frac{n}{\sigma^2}} \mu_0 + \frac{\frac{n}{\sigma^2}}{0 + \frac{n}{\sigma^2}} \bar{x} \\
+&= 0 \times \mu_0 + 1 \times 10.74 \\
+&= 10.74
+\end{align}
+
+\subsubsection*{Posterior Variance:}
+\begin{align}
+\tau_n^2 &= \frac{1}{0 + \frac{n}{\sigma^2}} \\
+&= \frac{\sigma^2}{n}
+\end{align}
+
+\subsubsection*{Result:}
+\begin{equation}
+\colorbox{yellow}{$\hat{\mu}_C = \mu_n = \bar{x} = 10.74, \quad \tau_n^2 = \dfrac{\sigma^2}{n} = \dfrac{\sigma^2}{10}$}
+\end{equation}
+
+The posterior distribution is:
+\begin{equation}
+\colorbox{yellow}{$\mu \mid \mathbf{x} \sim \mathcal{N}\left(10.74, \dfrac{\sigma^2}{10}\right)$}
+\end{equation}
+which is exactly the sampling distribution of the MLE.
+
+
+
+\newpage
+
+\section*{Part III: Graphical Comparison}
+\setcounter{equation}{0}
+\renewcommand{\theequation}{3.\arabic{equation}}
+
+For each of the three prior choices (A, B, C), we produce a single plot that includes:
+\begin{itemize}
+    \item the prior density for $\mu$,
+    \item the posterior density for $\mu \mid \mathbf{x}$,
+    \item and a rescaled version of the likelihood (scaled to have approximately the same maximum height as the posterior for visual comparison).
+\end{itemize}
+
+Note: For actual plotting, a specific numerical value of $\sigma^2$ must be chosen. Since we are given that $\sigma^2$ is known i calculated the sample variance to be $s^2=0.58488889$ and used that.
+
+\subsection*{III.1 Plots}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{PartIIA.png}
+\caption{Case A: Concentrated prior $\mathcal{N}(9, 0.25)$, posterior (depends on $\sigma^2$), and rescaled likelihood. Point estimates: $\hat{\mu}_{\text{MLE}} = 10.74$, $\hat{\mu}_A=10.41$.}
+\label{fig:plotA}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{PartIIB.png}
+\caption{Case B: Diffuse prior $\mathcal{N}(9, 25)$, posterior (depends on $\sigma^2$), and rescaled likelihood. Point estimates: $\hat{\mu}_{\text{MLE}} = 10.74$, $\hat{\mu}_B=10.74$.}
+\label{fig:plotB}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{PartIIC.png}
+\caption{Case C: Flat prior (improper), posterior $\mathcal{N}(10.74, \sigma^2/10)$, and rescaled likelihood. Point estimates: $\hat{\mu}_{\text{MLE}} = 10.74$, $\hat{\mu}_C = 10.74$.}
+\label{fig:plotC}
+\end{figure}
+
+\newpage
+
+\section*{Part IV: Statistical Insight Questions}
+\setcounter{equation}{0}
+\renewcommand{\theequation}{4.\arabic{equation}}
+
+\subsection*{IV.1 Prior spread and estimator behavior}
+As the prior variance increases from $\tau^2 = 0.25$ (Case A) to $\tau^2 = 25$ (Case B), the posterior mean shifts from being pulled toward the prior mean to being dominated by the data. In Case A, with a concentrated prior (small variance), the posterior mean $\mu_n = \frac{4}{4 + n/\sigma^2}(9) + \frac{n/\sigma^2}{4 + n/\sigma^2}(10.74)$ is substantially shrunk from the data mean of 10.74 toward the prior mean of 9. The prior receives a weight of $4/(4 + n/\sigma^2)$ in this case. In Case B, with a diffuse prior (large variance), the posterior mean $\mu_n = \frac{0.04}{0.04 + n/\sigma^2}(9) + \frac{n/\sigma^2}{0.04 + n/\sigma^2}(10.74)$ is very close to the sample mean, as the prior receives only $0.04/(0.04 + n/\sigma^2)$ weight. This demonstrates that the prior's influence on the posterior mean is directly proportional to its precision relative to the data precision.
+
+\subsection*{IV.2 Shrinkage}
+"Shrinkage" refers to the phenomenon where the Bayesian posterior estimate is pulled away from the sample mean ($\bar{x} = 10.74$) toward the prior mean ($\mu_0 = 9$). In Case A, the estimate shows clear shrinkage toward 9. In Case B, the estimate shows very little shrinkage. Shrinkage is strongest in \textbf{Case A}, where the concentrated prior exerts the most influence, pulling the estimate toward the prior mean of \textbf{9}. The amount of shrinkage is given by:
+\begin{equation}
+\text{Shrinkage} = \bar{x} - \mu_n = \frac{1/\tau^2}{1/\tau^2 + n/\sigma^2}(\bar{x} - \mu_0)
+\end{equation}
+
+\subsection*{IV.3 When does the prior matter most?}
+Based on the posterior mean formula:
+\begin{equation}
+\mu_n = \frac{1/\tau^2}{1/\tau^2 + n/\sigma^2} \mu_0 + \frac{n/\sigma^2}{1/\tau^2 + n/\sigma^2} \bar{x}
+\end{equation}
+the prior has the strongest influence when:
+
+\begin{enumerate}
+    \item \textbf{The prior precision ($1/\tau^2$) is large relative to the data precision ($n/\sigma^2$).} In this problem, Case A has prior precision 4, which will have substantial weight unless the data precision $n/\sigma^2$ is very large. If the prior were even more concentrated (smaller $\tau^2$), its influence would be greater.
+    
+    \item \textbf{The sample size ($n$) is small or the data variance ($\sigma^2$) is large.} The data precision is $n/\sigma^2$, so it decreases with smaller $n$ or larger $\sigma^2$. With our sample size of 10, if $\sigma^2$ is large, the data precision could be small, giving the prior more influence. Conversely, with a very large sample or very small $\sigma^2$, the prior's influence diminishes regardless of its precision.
+\end{enumerate}
+
+\subsection*{IV.4 Non-informative prior}
+Using $p(\mu) \propto 1$ (a flat, improper prior) implies that we have no prior preference for any value of $\mu$. In this case, the posterior distribution is proportional to the likelihood function alone. Consequently, the posterior mean ($\hat{\mu}_C = 10.74$) is exactly equal to the MLE ($\hat{\mu}_{\text{MLE}} = 10.74$). Statistically, this demonstrates that maximum likelihood estimation can be viewed as a special case of Bayesian inference under a non-informative prior, where the inference is driven entirely by the observed data with no prior influence. The posterior variance ($\tau_n^2 = \sigma^2/n$) also matches the variance of the sampling distribution of the MLE:
+\begin{equation}
+\text{Var}(\hat{\mu}_{\text{MLE}}) = \frac{\sigma^2}{n}
+\end{equation}
+
+\subsection*{IV.5 Conclusion}
+This assignment illuminates the fundamental role of priors in Bayesian inference. A \textbf{concentrated prior} (small variance) represents strong prior beliefs and acts as a powerful "shrinkage target," pulling the posterior estimate toward the prior mean even when the data suggest otherwise. In our analysis, the concentrated prior in Case A pulls the estimate toward 9, with the exact amount depending on the known data variance $\sigma^2$. In contrast, a \textbf{diffuse prior} (large variance) represents weak prior knowledge and allows the data to dominate the inference, as seen in Case B where the posterior estimate is very close to the sample mean. The key insight is that the prior's influence is not absolute but relative—it depends on the \textbf{ratio of prior precision to data precision}, where data precision is $n/\sigma^2$. This ratio encapsulates the trade-off between prior information and sample evidence, showing that even a strong prior can be overwhelmed by sufficient data (large $n$) or highly precise data (small $\sigma^2$), while even a weak prior can have noticeable influence with small samples or noisy data. The flat prior case serves as a bridge between Bayesian and frequentist approaches, demonstrating that MLE is simply Bayesian inference with no prior information.
+
+\newpage
+
+\section*{Submission Checklist}
+
+\begin{itemize}
+    \item [$\checkmark$] \textbf{Part I:} likelihood derivation, MLE calculation ($\hat{\mu}_{\text{MLE}} = 10.74$), short interpretation
+    \item [$\checkmark$] \textbf{Part II(A):} posterior distribution (in terms of $\sigma^2$), posterior mean $\hat{\mu}_A = \frac{4}{4 + 10/\sigma^2}(9) + \frac{10/\sigma^2}{4 + 10/\sigma^2}(10.74)$
+    \item [$\checkmark$] \textbf{Part II(B):} posterior distribution (in terms of $\sigma^2$), posterior mean $\hat{\mu}_B = \frac{0.04}{0.04 + 10/\sigma^2}(9) + \frac{10/\sigma^2}{0.04 + 10/\sigma^2}(10.74)$
+    \item [$\checkmark$] \textbf{Part II(C):} posterior distribution $\mathcal{N}(10.74, \sigma^2/10)$, posterior mean $\hat{\mu}_C = 10.74$
+    \item [$\checkmark$] \textbf{Part III:} three plots with clear labels and marked estimates
+    \item [$\checkmark$] \textbf{Part IV:} written statistical insight answers
+\end{itemize}
+
+\subsection*{Summary Table of Results (in terms of $\sigma^2$)}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Case} & \textbf{Prior} & $\hat{\mu}_{\text{Bayes}}$ & $\tau_n^2$ \\
+\midrule
+MLE & — & 10.74 & $\sigma^2/10$ \\
+A & $\mathcal{N}(9, 0.25)$ & $\frac{4}{4 + 10/\sigma^2}(9) + \frac{10/\sigma^2}{4 + 10/\sigma^2}(10.74)$ & $\frac{1}{4 + 10/\sigma^2}$ \\
+B & $\mathcal{N}(9, 25)$ & $\frac{0.04}{0.04 + 10/\sigma^2}(9) + \frac{10/\sigma^2}{0.04 + 10/\sigma^2}(10.74)$ & $\frac{1}{0.04 + 10/\sigma^2}$ \\
+C & Flat ($\propto 1$) & 10.74 & $\sigma^2/10$ \\
+\bottomrule
+\end{tabular}
+\caption{Complete summary of all estimates with $\sigma^2$ known but unspecified}
+\label{tab:final_summary}
+\end{table}
+
+\end{document}

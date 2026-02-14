@@ -1,0 +1,55 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 420 Lecture 10}
+\author{Deepak Jassal}
+\date{February 9\textsuperscript{th}, 2026}
+
+\begin{document}
+\stepcounter{section}
+\maketitle 
+\subsection*{Why Rings?}
+We want to do computations with rings. So we want to be able to run the original algorithm: the \underline{Euclidean algorithm}.
+\defn{Euclidean Norm}{
+    Let $D$ be an integral domain. A Euclidean norm (valuation) is a function $\mu:D\to\Z_{\geq0}$ such that 
+    \begin{enumerate}[label=(\alph*)]
+        \item for all $a,b\in D$ with $b\neq0$, there exists $q,r\in D$ such that
+        \[
+            a=qb+r
+        \]
+        and either $\mu(r)=0$ or $\mu(r)<\mu(b)$
+        \item and for all $a,b\in D\setminus\{0\}$, $\mu(a)\leq\mu(ab)$.
+    \end{enumerate}
+}
+Part (a) of the definition induces a division algorithm on $D$.\\
+There is a division algorithm, and Euclidean algorithm on $\R[x]$. The valuation is given by $\deg(f)$.
+\defn{Eulclidean Domain}{
+    A domain $D$ norm $\mu$ is a \underline{Euclidean domain}.
+}
+\ex{
+    $\Z$, $\R[x],$ $\Z[\sqrt{-1}]$ are Eulclidean domains, and $\Z[\sqrt{-5}]$ is not a Eulclidean domain.
+}
+\fact{
+    Impotant: Eulciean domain $\subset$ principal ideal domain (PID) $\subset$ unique factorization domains (UFD).
+}
+Towards Euclidean algorithm.
+\defn{Divisors}{
+    Let $R$ be a commutative ring. Suppose $a,b\in R$, $b\neq0$. We say $b$ divides $a$ or $b\vert a$ if there exists $q\in R$ such that $a=qb$. Otherwise we say $b\nmid a$.
+}
+\defn{GCD}{
+    Let $a,b\in R$ we say $g\in R$ is a greatest common divisor of $a,b$ if $g\vert a$ and $g\vert b$, and for all $c\in R$ such that $c\vert a$ and $c\vert b$ we have $c\vert g$.
+}
+\thm{The Extended Euclidean Algorithm}{
+    Let $D$ be a Euclidean domain and $a,b\in D$. Then $a,b$ has a gcd in $A$, say $g$. Further there exist $x,y\in D$ such that 
+    \[
+        g=ax+by.
+    \]
+}
+\pf[Proof of the Theorem]{
+    Put $I=\{ax+by:x,y\in D\}=(a)+(b)$ which is an ideal. Using the fact that $D$ being a Eulclidean domain implies that $D$ is a PID (will be proved later). There exists $d\in D$ such that $I=(d)$. Then there exists $p,q\in D$ such that $d=ap+bq$. Note that $a\in I$ and $b\in I$. Hence there exists $k_1,k_2\in I$ such that $a=dk_1$ and $b=dk_2$. Hence $d$ is a common divisor of $a,b$. Any common divisor of $a,b$ must also divide $app+bq$, so $d$ is a gcd. Suppose that $g$ is another gcd of $a,b$ then we have $g\vert d$ and $g\vert d$. Hence $d=gm$ and $g=dn$ for some $m,n\in D$. $d=(dn)m=d(mn)$
+}
+\end{document}

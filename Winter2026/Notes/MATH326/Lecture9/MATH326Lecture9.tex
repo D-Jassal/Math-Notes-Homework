@@ -32,7 +32,7 @@
         \end{bmatrix}B
     \]
     \[
-        \mathrm{row}_i(A)B=[a_{i_1}\dots a_{i_n}]\mathrm{row}_1B\\\vdots\\\mathrm{row}_mB=a_{i_1}{row}_1B+\cdots+a_{i_n}{row}_nB.
+        \mathrm{row}_i(A)B=[a_{i_1}\dots a_{i_n}]\begin{bmatrix}\mathrm{row}_1B\\\vdots\\\mathrm{row}_mB\end{bmatrix}=a_{i_1}{row}_1B+\cdots+a_{i_n}{row}_nB.
     \]
     So each row of $AB$ is a linear combination of the rows of $B$.\\
     So row($AB$)$\subseteq$row($B$), then rank$(AB)\leq$rank$(B)$.\\
@@ -41,10 +41,10 @@
         \mathrm{rank}(AB)\leq\min\{\mathrm{rank}(A),\rank(B)\}
     \]
     \item If $A^{-1}$ exists then $\rank(AB)=\rank(B)$. 
-    \pf[Of the above]{
+    \pf[Proof of the above]{
         \begin{align*}
             \rank(AB)&\leq\rank(B)\\
-            \rank(A^{-1}(AB))\leq\rank(AB).
+            \rank(A^{-1}(AB))&\leq\rank(AB).
         \end{align*}
         \[
             \rank(B)\leq\rank(AB)\leq\rank(B).
@@ -81,7 +81,7 @@ Define $\rank(T)=\rank(\tensor*[_\beta]{[T]}{_\beta})$,
 \pf[Proof of Theorem 1.1.2]{
     Let $d=$nullity$(A)=$dim$\null(A)$
     \begin{enumerate}
-        \item[Case 1.] $d=0$ so $AX=0\Rightarrow X=0$. $AX$ is a linear combination of the columns of $A$. $(AX=0\Rightarrow X=0)\Rightarrow$ the columns of $A$ are L.I. So $\rank(A)=n$, rank+nullity=$n+0$.
+    \item[Case 1.] $d=0$ so $AX=0\Rightarrow X=0$. $AX$ is a linear combination of the columns of $A$. $(AX=0\Rightarrow X=0)\Rightarrow$ the columns of $A$ are L.I. So $\rank(A)=n$, rank+nullity=$n+0$.
     \end{enumerate}
     \item[Case 2.] $d=n$ $AX=0,$ $(\forall x\in F^c,\, AX=0)\Rightarrow A=0$, so rank$(A)=0$. 
     \item[Case 3.] $1\leq d\leq n-1$. Let $v_1,\dots,v_d$ be a basis of $\null(A)$. Let $V=[v_1\dots v_d]$ so $V\in M_{n\times d}(F)$. Complete $v_1,\dots,v_d$ to a basis of $F^n$ by adding $n-d$ vectors $w_1,\dots,w_{n-d}$ and let $W=[w_1,\dots,w_{n-d}]$. Now let $U=[VW]\in M_{n\times n}(F)$, and $U$ is invertible.

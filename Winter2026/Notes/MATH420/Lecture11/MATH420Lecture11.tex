@@ -1,0 +1,87 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 420 Lecture 11}
+\author{Deepak Jassal}
+\date{February 11\textsuperscript{th}, 2026}
+
+\begin{document}
+\stepcounter{section}
+\maketitle
+\thm{Euclidean Domains $\Leftrightarrow$ PID}{
+    Euclidean domains are principal ideal domains
+}
+\pf[Proof of the Theorem]{
+    Let $T\subset D$ be an ideal. If $I=\{0\}$, then $I=(0)$. Otherwise, $I$ contains a non-zero element. Let $S_I=\{\mu(i):i\in I\}\subseteq\Z_{\leq0}$. By the well-ordering principal $S_I$ has a least element. Hence there exists $k\in I$ such that $\mu(k)=\min\{S_I\}$.
+    \begin{claim}
+        $I=(k)$.
+    \end{claim} 
+    \pf[Proof of the Claim]{
+        Suppose $\ell\in I$, $\ell\neq0$. By the division algorithm (part a) there exists $q,r\in D$ such that 
+        \[
+            \ell=qk+r,\quad \mu(r)<\mu(k),\quad r=0.
+        \]
+        \[
+            \ell\in I\Rightarrow \ell-pk=r\in I.
+        \]
+        By definition $\mu(k)=\min\{S_I\}$ so $r=0$. Therefore $\ell=pk\in(k)$, so $I\subseteq(k)$. Other direction is trivial.
+    }
+}
+\defn{Unique Factorization Domains}{
+    Let $D$ be an integral domain.
+    \begin{enumerate}[label=(\alph*)]
+        \item An element $q\in D$ is a unit if $q$ has a multiplicative inverse.
+        \item An element $q\in D$ is said to be prime if $(q)$ is a prime ideal.
+        \item An element $q\in D$ is said to be irreducible if $q=ab$, $a,b\in D$ then one of $a,b$ is a unit.
+        \item If $q\in D$ and $u\in D$ is a unit, then $qu$ is an associate of $q$. 
+    \end{enumerate}
+}
+\propp{Let $D$ be a domain. If $q\in D$ is prime, then it is irreducible}{
+    Let $q\in D$ be prime. Suppose for the sake of a contradiction, that $q$ is reducible. Then there exists non-units $a,b\in D$ such that 
+    \[
+        q=ab.
+    \]
+    Since $q$ is a prime, $(q)$ is a prime ideal. By definition $(a)\subseteq (q)$ or $(b)\subseteq(q)$. WLOG suppose $(a)\subseteq(q)$. Then there exists $c\in D$ such that $a=qc$. Then we have $q=ab=(qc)b=q(bc)\Rightarrow q=(1-bc)=0$. Since $D$ is a domain, it has no zero divisors. Since 0 is not prime we assume that $q\neq0$, so $1-bc=0$ but $b$ is not a unit.
+}
+\thm{}{
+    Let $D$ be a PID. Then $q\in D$ is (a) prime \textit{iff} $q$ is (b) irreducible \textit{iff} $(q)$ is (c) maximal.
+}
+\pf[Proof of the Theorem]{
+    (a)$\Rightarrow$(b) Always true.\\
+    (b)$\Rightarrow$(a) Suppose $q$ is irreducible. Suppose $A,B\in D$ are ideals such that $AB\subseteq (q)$. Since $D$ is a PID, $A=(a)$, and $B=(b)$ for some $a\in A$ and $b\in B$. $\Rightarrow$ $ab\in(q)$, so there exists $s\in D$ such that $ab=qs$. Put $J=\langle a,q \rangle$. Since $D$ is a PID $J=\langle j\rangle$ for some $j\in D$. Hence there exists $x,y\in D$ sick that $a=jx$, and $q=jy$. Since $q$ is irreducible either $j$ or $y$ is a unit. 
+    \begin{enumerate}
+        \item If $j$ is a unit. Then $J=D$. Hence there exists $v,w\in D$ such that $1=av+qw\Rightarrow b=(ab)v+qbw$, $ab=qs$, so $b=(qs)v+(ab)w=q(sv+bw)\in(q)\Rightarrow (b)\subset(q)$.
+        \item $y$ is a unit. Then $q,j$ are associates. This implies that $(q)=(j)=J=(a,q)$. Then we have $(a)\subseteq\langle a,q\rangle\subseteq(q)$. Hence, $q$ is prime. 
+    \end{enumerate}
+    (b)$\Rightarrow$(c) Suppose that $q$ is irreducible. Let $J$ be an ideal, such that $(q)\subseteq J$. Since $D$ is a PID we have $J=(j)$ for some $j\in D$. So there exists $s\in D$ such that $q=js$. Then since $q$ is irreducible $j$ or $s$ is a unit. If $j$ is a unit then $J=D$. Otherwise if $s$ is a unit then $q,j$ are associates and $(q)=(j)$. By definition $q$ is maximal.\\
+    (c)$\Rightarrow$(a) We always have maximal implies prime.
+}
+\cor{
+    Let $\mathbb{F}$ be a field. Then and $f(x)\in\mathbb{F}[x]$ is irreducible \textit{iff} $(f(x))$ is maximal
+}
+\defn{UFD}{
+    Let $D$ be a domain. We say that $D$ is a UFD if for all $q\in D$ which is not a unit, we have:
+    \begin{enumerate}[label=(\alph*)]
+        \item $q=q_1\dots q_r$ where each $q_i$ $1\leq i\leq r$ are irreducible;
+        \item if $q=q_1\dots q_r$ and $q=p_1\dots p_\ell$, then there exists a bijection $\sigma:\{1,\dots,r\}\to\{1,\dots,\ell\}$ such that 
+        \[
+            q_i=p_{\sigma(i)}U_{\sigma(i)}.
+        \]
+        Where $U_{\sigma(i)}$ are units.  
+    \end{enumerate}
+}
+\defn{Noetherian Rings}{
+    A ring $R$ is \underline{Noetherian}, or $R$ satisifies the ASC (Ascending Chain Condition), if whenever 
+    \[
+        J_1\subseteq\cdots\subseteq J_n\subseteq\cdots,\quad J_i\text{'s are ideals}.
+    \]
+    Then there exists $N\geq 1$ such that for all $m\geq N$ we have $J_m=J_N$. 
+}
+
+
+
+\end{document}
