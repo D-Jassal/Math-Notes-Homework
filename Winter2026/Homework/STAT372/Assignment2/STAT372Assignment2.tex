@@ -100,8 +100,15 @@ Therefore:
 \colorbox{yellow}{$\hat{\mu}_{\text{MLE}} = \bar{x} = 10.74$}
 \end{equation}
 
-\subsection*{Liklihood Plot}
+\subsection*{Likelihood Plots}
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{partI_likelihood_plot.png}
+\caption{Likelihood and log-likelihood functions for the normal mean. \textbf{Left panel:} The likelihood function $L(\mu \mid x)$ is maximized at $\hat{\mu}_{\text{MLE}} = 10.74$, the sample mean. \textbf{Right panel:} The log-likelihood $\ell(\mu \mid x)$ is quadratic in $\mu$, with its maximum at the same point. Sample variance $s^2=0.58488889$ was used in place of $\sigma^2$.}
+\label{fig:likelihood_loglikelihood}
+\end{figure}
+\newpage
 
 \subsection*{Validity of the MLE approach}
 The MLE approach is valid for the following reasons:
@@ -263,7 +270,6 @@ Prior precision:
 \begin{equation}
 \colorbox{yellow}{$\hat{\mu}_A = \mu_n = \dfrac{4}{4 + \dfrac{10}{\sigma^2}}(9) + \dfrac{\dfrac{10}{\sigma^2}}{4 + \dfrac{10}{\sigma^2}}(10.74), \quad \tau_n^2 = \dfrac{1}{4 + \dfrac{10}{\sigma^2}}$}
 \end{equation}
-
 The posterior distribution is:
 \begin{equation}
 \colorbox{yellow}{$\mu \mid x \sim \mathcal{N}\left(\dfrac{4}{4 + \dfrac{10}{\sigma^2}}(9) + \dfrac{\dfrac{10}{\sigma^2}}{4 + \dfrac{10}{\sigma^2}}(10.74), \dfrac{1}{4 + \dfrac{10}{\sigma^2}}\right)$}
@@ -309,7 +315,6 @@ Prior precision:
 \begin{equation}
 \colorbox{yellow}{$\hat{\mu}_B = \mu_n = \dfrac{0.04}{0.04 + \dfrac{10}{\sigma^2}}(9) + \dfrac{\dfrac{10}{\sigma^2}}{0.04 + \dfrac{10}{\sigma^2}}(10.74), \quad \tau_n^2 = \dfrac{1}{0.04 + \dfrac{10}{\sigma^2}}$}
 \end{equation}
-
 The posterior distribution is:
 \begin{equation}
 \colorbox{yellow}{$\mu \mid x \sim \mathcal{N}\left(\dfrac{0.04}{0.04 + \dfrac{10}{\sigma^2}}(9) + \dfrac{\dfrac{10}{\sigma^2}}{0.04 + \dfrac{10}{\sigma^2}}(10.74), \dfrac{1}{0.04 + \dfrac{10}{\sigma^2}}\right)$}
@@ -356,7 +361,6 @@ Substituting $1/\tau^2 = 0$ into the weighted average formula:
 \begin{equation}
 \colorbox{yellow}{$\hat{\mu}_C = \mu_n = \bar{x} = 10.74, \quad \tau_n^2 = \dfrac{\sigma^2}{n} = \dfrac{\sigma^2}{10}$}
 \end{equation}
-
 The posterior distribution is:
 \begin{equation}
 \colorbox{yellow}{$\mu \mid x \sim \mathcal{N}\left(10.74, \dfrac{\sigma^2}{10}\right)$}
@@ -440,7 +444,7 @@ Using $p(\mu) \propto 1$ implies that we have no prior preference for any value 
 \subsection*{IV.5 Conclusion}
 This assignment illuminates the fundamental role of priors in Bayesian inference. A concentrated prior (small variance) represents strong prior beliefs and acts as a powerful ``shrinkage target,'' pulling the posterior estimate toward the prior mean even when the data suggest otherwise. In our analysis, the concentrated prior in Case A pulls the estimate toward 9, with the exact amount depending on the known data variance $\sigma^2$. In contrast, a diffuse prior (large variance) represents weak prior knowledge and allows the data to dominate the inference, as seen in Case B where the posterior estimate is very close to the sample mean. The key insight is that the prior's influence is not absolute but relative—it depends on the ratio of prior precision to data precision, where data precision is $n/\sigma^2$. This ratio encapsulates the trade-off between prior information and sample evidence, showing that even a strong prior can be overwhelmed by sufficient data (large $n$) or highly precise data (small $\sigma^2$), while even a weak prior can have noticeable influence with small samples or noisy data. The flat prior case serves as a bridge between Bayesian and frequentist approaches, demonstrating that MLE is simply Bayesian inference with no prior information.
 
-\newpage
+%\newpage
 
 \section*{Summary Table of Results (in terms of $\sigma^2$)}
 
