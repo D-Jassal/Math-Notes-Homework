@@ -73,7 +73,7 @@ We differentiate with respect to $\mu$ and set the derivative equal to zero:
 \frac{\partial \ell}{\partial \mu} &= -\frac{1}{2\sigma^2} \sum_{i=1}^n 2(x_i - \mu)(-1) \\
 &= \frac{1}{\sigma^2} \sum_{i=1}^n (x_i - \mu) = 0
 \end{align}
-Notice that $\sigma^2$ cancels out, so the MLE for $\mu$ does not depend on the known variance.
+We can remove the $\sigma^2$. So the MLE for $\mu$ does not depend on the known variance.
 This implies:
 \begin{equation}
 \colorbox{yellow}{$\mu = \dfrac{1}{n}\displaystyle\sum_{i=1}^n x_i=\bar{x}$}
@@ -432,17 +432,17 @@ the prior has the strongest influence when:
 \begin{enumerate}
     \item The prior precision ($1/\tau^2$) is large relative to the data precision ($n/\sigma^2$). In this problem, Case A has prior precision 4, which will have substantial weight unless the data precision $n/\sigma^2$ is very large. If the prior were even more concentrated (smaller $\tau^2$), its influence would be greater.
     
-    \item The sample size ($n$) is small or the data variance ($\sigma^2$) is large. The data precision is $n/\sigma^2$, so it decreases with smaller $n$ or larger $\sigma^2$. With our sample size of 10, if $\sigma^2$ is large, the data precision could be small, giving the prior more influence. Conversely, with a very large sample or very small $\sigma^2$, the prior's influence diminishes regardless of its precision.
+    \item The sample size ($n$) is smal or the data variance ($\sigma^2$) is large. The data precision is $n/\sigma^2$, so it decreases with smaller $n$ or larger $\sigma^2$. With our sample size of 10, if $\sigma^2$ is large, the data precision could be small, giving the prior more influence. Conversely, with a very large sample or very small $\sigma^2$, the prior's influence diminishes regardless of its precision.
 \end{enumerate}
 
 \subsection*{IV.4 Non-informative prior}
-Using $p(\mu) \propto 1$ implies that we have no prior preference for any value of $\mu$. In this case, the posterior distribution is proportional to the likelihood function alone. Consequently, the posterior mean ($\hat{\mu}_C = 10.74$) is exactly equal to the MLE ($\hat{\mu}_{\text{MLE}} = 10.74$). Statistically, this demonstrates that maximum likelihood estimation can be viewed as a special case of Bayesian inference under a non-informative prior, where the inference is driven entirely by the observed data with no prior influence. The posterior variance ($\tau_n^2 = \sigma^2/n$) also matches the variance of the sampling distribution of the MLE:
+Using $p(\mu) \propto 1$ implies that we have no prior preference for any value of $\mu$. In this case, the posterior distribution is proportional to the liklihood function alone. Consequently, the posterior mean ($\hat{\mu}_C = 10.74$) is exactly equal to the MLE ($\hat{\mu}_{\text{MLE}} = 10.74$). Statistically, this demonstrates that maximum likelihood estimation can be viewed as a special case of Bayesian inference under a non-informative prior, where the inference is driven entirely by the observed data with no prior influence. The posterior variance ($\tau_n^2 = \sigma^2/n$) also matches the variance of the sampling distribution of the MLE:
 \begin{equation}
 \text{Var}(\hat{\mu}_{\text{MLE}}) = \frac{\sigma^2}{n}
 \end{equation}
 
 \subsection*{IV.5 Conclusion}
-This assignment illuminates the fundamental role of priors in Bayesian inference. A concentrated prior (small variance) represents strong prior beliefs and acts as a powerful ``shrinkage target,'' pulling the posterior estimate toward the prior mean even when the data suggest otherwise. In our analysis, the concentrated prior in Case A pulls the estimate toward 9, with the exact amount depending on the known data variance $\sigma^2$. In contrast, a diffuse prior (large variance) represents weak prior knowledge and allows the data to dominate the inference, as seen in Case B where the posterior estimate is very close to the sample mean. The key insight is that the prior's influence is not absolute but relative—it depends on the ratio of prior precision to data precision, where data precision is $n/\sigma^2$. This ratio encapsulates the trade-off between prior information and sample evidence, showing that even a strong prior can be overwhelmed by sufficient data (large $n$) or highly precise data (small $\sigma^2$), while even a weak prior can have noticeable influence with small samples or noisy data. The flat prior case serves as a bridge between Bayesian and frequentist approaches, demonstrating that MLE is simply Bayesian inference with no prior information.
+This assignment brings forth the fundamental role of priors in Bayesian inference. A concentrated prior (small variance Case A) represents strong prior beliefs and acts as a powerful ``shrinkage target,'' pulling the posterior estimate toward the prior mean even when the data suggest otherwise. In our analysis, the concentrated prior in Case A pulls the estimate toward 9, with the exact amount depending on the known data variance $\sigma^2$. In contrast, a diffuse prior (large variance Case B) represents weak prior knowledge and allows the data to dominate the inference, as seen in Case B where the posterior estimate is very close to the sample mean. The key insight is that the prior's influence is not absolute but relative—it depends on the ratio of prior precision to data precision, where data precision is $n/\sigma^2$. This ratio encapsulates the trade-off between prior information and sample evidence, showing that even a strong prior can be overwhelmed by sufficient data (large $n$) or highly precise data (small $\sigma^2$), while even a weak prior can have noticeable influence with small samples or noisy data. The flat prior case serves as a bridge between Bayesian and frequentist approaches, demonstrating that MLE is simply Bayesian inference with no prior information.
 
 %\newpage
 
