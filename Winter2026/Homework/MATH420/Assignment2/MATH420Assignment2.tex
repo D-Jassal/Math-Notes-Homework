@@ -52,7 +52,7 @@
 \section*{Problem 2}For each of the following statements, either prove that it is true, or provide a counterexample. In each case $R$ is a ring, with addition and multiplication understood.
 \begin{enumerate}[label=(\alph*)]
     \item If $R$ is an infinite ring and $I$ is an ideal of $R$, then $I$ is either trivial or infinite.\\
-    \textit{Counterexample.} Let $R=\Z_2\times\Z$, then $I=\Z_2\times\{0\}$ is a ifnite ideal of $R$.
+    \textit{Counterexample.} Let $R=\Z_2\times\Z$, then $I=\Z_2\times\{0\}$ is a finite ideal of $R$.
     \item If $R$ is an infinite ring, and $I$ is an ideal of $R$, then $R/I$ is infinite.\\
     \textit{Counterexample.} Let $R=\Z_2\times\Z$ and $I=\{0\}\times\Z$ then $R/I\cong\Z_2$, which is finite. 
     \item There exists a ring $R$ and proper, non-trivial ideals $I$, $J$ of $R$ such that $R/I$ is infinite and $R/J$ is finite.
@@ -76,21 +76,141 @@
 \section*{Problem 4}We say a ring $R$ has $\Z$-rank $r$ if the group $(R, +)$ is isomorphic to the group $(\Z^r, +)$. Let $S$ be the ring of $2 \times 2$ matrices over the integers $\Z$.
 \begin{enumerate}[label=(\alph*)]
     \item Prove that $S$ has $\Z$-rank 4.
-    \item Determine all subrings of $S$ of $\Z$-rank equal to 3. Are they isomorphic?
-    \item Find two subrings of $S$ of $\Z$-rank 1 which are not isomorphic.
+    \begin{proof}
+        We start by defining the map $\phi:S\to\Z^4$, 
+        \[
+            \phi\begin{pmatrix}
+                a&b\\c&d
+            \end{pmatrix}=
+            (a,b,c,d).
+        \]
+        Let 
+        \[
+            M_1=\begin{pmatrix}
+                a&b\\c&d
+            \end{pmatrix},\quad
+            M_2=\begin{pmatrix}
+                a'&b'\\c'&d'
+            \end{pmatrix}.
+        \]
+        Then
+        \begin{align*}
+            \phi(M_1+M_2)&=\phi\begin{pmatrix}
+                a+a'&b+b'\\c+c'&d+d'
+            \end{pmatrix}\\
+            &=(a+a',b+b',c+c',d+d')\\
+            &=(a,b,c,d)+(a',b',c',d')\\
+            &=\phi(M_1)+\phi(M_2).
+        \end{align*}
+        Thus, we have that $\phi$ is a homomorphism.\\
+        If $\phi(M_1)=\phi(M_2)$ then we have $(a,b,c,d)=(a',b',c',d')$ then $a=a'$, $b=b'$, $c=c'$ and $d=d'$, so $M_1=M_2$. For any $(a,b,c,d)\in\Z^4$ we take 
+        \[
+            M=\begin{pmatrix}
+                a&b\\c&d
+            \end{pmatrix}
+        \]
+        then $\phi(M)=(a,b,c,d)$. Thus, $\phi$ is a bijection. Therefore,
+        \[
+            S\cong \Z^4
+        \]
+        and $S$ has $\Z-$rank 4.
+    \end{proof}
+    \item Determine all subrings of $S$ of $\Z$-rank equal to 3. Are they isomorphic?\\
+    \textit{Solution.} Let \( S = M_2(\mathbb{Z}) \). As an additive group, \( S \cong \mathbb{Z}^4 \) with basis
+    \[
+        e_{11} = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix},\quad
+        e_{12} = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix},\quad
+        e_{21} = \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix},\quad
+        e_{22} = \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}.
+    \]
+
+    The only 3-dimensional \( \mathbb{Q} \)-subalgebras of \( M_2(\mathbb{Q}) \) containing the identity are conjugates of the algebra of upper triangular matrices. Those being
+    \[
+        \{PR_UP^{-1}:P\in GL_2(\Z)\}
+    \]
+    where $R_U$ is any upper triangular matrices. Thus, all of the subrings are of the form
+    \[
+        \left\{ P \begin{pmatrix} a & b \\ 0 & d \end{pmatrix} P^{-1} : a,b,d \in \mathbb{Z},\ P \in GL_2(\mathbb{Z}) \right\}.
+    \]
+    Since conjugation by \( P \) is a ring automorphism of \( M_2(\mathbb{Z}) \), each such subring is isomorphic to \( \Z^3\). Hence they are all isomorphic.
+    \item Find two subrings of $S$ of $\Z$-rank 1 which are not isomorphic.\\
+    \textit{Solution.} Let 
+    \[
+        A=\begin{bmatrix}
+            1&0\\
+            0&0
+        \end{bmatrix},
+    \]
+    then
+    \[
+        A^2=A.
+    \]
+    Let $\mathcal{R}_1$ be the subring
+    \[
+        \mathcal{R}_1=\left\{nA:n\in\Z\right\}
+    \]
+    with normal matrix addition and multiplication.\\
+    Let  
+    \[
+        B=\begin{bmatrix}
+            0&1\\
+            0&0
+        \end{bmatrix},
+    \]
+    then
+    \[
+        B^2=0.
+    \]
+    Let $\mathcal{R}_2$ be the subring
+    \[
+        \mathcal{R}_2=\left\{nB:n\in\Z\right\}
+    \]
+    with normal matrix addition, but the multiplication would always result in zero.\\
+    We can construct an isomorphism from $(\mathcal{R}_1,+)\to\Z$ and $(\mathcal{R}_2,+)\to\Z$ similar to how $\phi$ was constructed in part (a). These two subrings are however not isomorphic to one another. This is because in $(\mathcal{R}_1,+,\times)$ we have $1\times 1=1$, but in $(\mathcal{R}_2,+,\times)$ we have $xy=0$ for all $x,y\in\mathcal{R}_2$. 
 \end{enumerate}
 
 \stepcounter{section}
 \section*{Problem 5}
 \begin{enumerate}[label=(\alph*)]
     \item Let $A \in M_{n\times n}(\C)$ be a nilpotent matrix. That is, we have $A^n$ is the zero-matrix. Prove that $I_{n\times n} + A$ is a unit in $M_{n\times n}(\C)$.
+    \begin{proof}
+        Let 
+        \[
+            B=I-A+A^2-A^3+\cdots+(-1)^{n-1}A^{n-1}.
+        \]
+        Then
+        \begin{align*}
+            (I+A)B&=(I+A)(I-A+A^2-A^3+\cdots+(-1)^{n-1}A^{n-1})\\
+            &=\sum_{k=0}^{n-1}(-1)^kA^k+\sum_{j=1}^{n}(-1)^{j-1}A^j
+        \end{align*}
+        In the first sum the term $A^k$ appears with coefficient $(-1)^k$ and in tehe second sum with coefficient $(-1)^{k-1}$. Thus all of the $A^k$ terms cancel ($(-1)^k+(-1)^{k-1}=0$). Then the only terms from the first sum that don't cancel are when $k=0$ giving $A^0=I$ and form the seocnd sum we have $A^n=0$. Thus, 
+        \[
+            (I+A)B=I
+        \]
+        and $I+A$ is invertible.
+    \end{proof}
     \item Prove, more generally, that if $R$ is a unital ring and $x \in R$ is nilpotent, i.e., there exists an integer $n \geq 1$ such that $x^n = 0$, then $1 + x$ is a unit in $R$.
+    \begin{proof}
+        From the given we know that $1+x\neq0$ because this would imply that $-1^n$ for some $n\geq1$ is zero, which it is not. Similarily to part (a) write
+        \[
+            b=1-x+x^2-x^3+\cdots+(-1)^{n-1}x^{n-1}.
+        \]
+        Then we have        
+        \begin{align*}
+            (1+x)b&=(1+x)(1-x+x^2-x^3+\cdots+(-1)^{n-1}x^{n-1})\\
+            &=\sum_{k=0}^{n-1}(-1)^kx^k+\sum_{j=1}^{n}(-1)^{j-1}x^j.
+        \end{align*}
+        Similarily these sums evaluate to $1+0=1$. Thus we have $1+x$ for a nilpotent $x$ in a unital ring is a unit.
+    \end{proof}
 \end{enumerate}
 
 \stepcounter{section}
 \section*{Problem 6}A ring $R$ is said to be a division ring if every non-zero element of $R$ has a multiplicative inverse. A commutative division ring is evidently a field.
 \begin{enumerate}[label=(\alph*)]
     \item Let $R$ be a finite division ring. Prove that $R$ must in fact be a field.
+    \begin{proof}
+        We need to show that a finite division ring is commutative. 
+    \end{proof}
     \item Prove that the finiteness assumption is essential: find an example of an infinite division ring $R$ which is not a field.
 \end{enumerate}
 
