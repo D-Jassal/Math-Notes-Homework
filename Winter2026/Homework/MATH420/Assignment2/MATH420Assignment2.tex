@@ -52,12 +52,33 @@
 \section*{Problem 2}For each of the following statements, either prove that it is true, or provide a counterexample. In each case $R$ is a ring, with addition and multiplication understood.
 \begin{enumerate}[label=(\alph*)]
     \item If $R$ is an infinite ring and $I$ is an ideal of $R$, then $I$ is either trivial or infinite.\\
-    \textit{Counterexample.} Let $R=\Z_2\times\Z$, then $I=\Z_2\times\{0\}$ is a finite ideal of $R$.
+    \textit{Counterexample.} Let $R=\Z_2\otimes\Z$, then $I=\Z_2\otimes\{0\}$ is a finite ideal of $R$.
+    \[
+        I=\left\{(0,0),(1,0)\right\}
+    \]
     \item If $R$ is an infinite ring, and $I$ is an ideal of $R$, then $R/I$ is infinite.\\
-    \textit{Counterexample.} Let $R=\Z_2\times\Z$ and $I=\{0\}\times\Z$ then $R/I\cong\Z_2$, which is finite. 
+    \textit{Counterexample.} Let $R=\Z_2\otimes\Z$ and $I=\{0\}\otimes\Z$ then define $\phi:R\to\Z$ by 
+    \[
+        \phi(a,b)=a.
+    \]
+    Then $\ker\phi=\{0\}\otimes\Z=I$, and im$\phi=\Z_2$
+    By the first isomorphism theorem we have that 
+    \[
+        R/I\cong\Z_2.
+    \]
+    Here we have an infinte ring with a finite quotient ring.
+    \newpage
     \item There exists a ring $R$ and proper, non-trivial ideals $I$, $J$ of $R$ such that $R/I$ is infinite and $R/J$ is finite.
     \begin{proof}
-        Let $R=\Z_2\times\Z$, $I=\{0\}\times \Z_2$, and $J=\Z\times\{0\}$. $R/I$ is infinite and $R/I$ is finite.
+        Let $R=\Z_2\otimes\Z$, $I=\{0\}\otimes\Z$, and $J=\Z_2\otimes\{0\}$. $R/I$ is finite and $R/J$ is infinite. The reasoning is the exact same as above for $R/I$. For $R/J$ define $\psi:\Z_2\otimes\Z\to\Z$ by
+        \[
+            \psi(a,b)=b.
+        \]
+        Then $\ker\psi=\{(a,0):a\in\Z_2\}=\Z_2\otimes\{0\}=J$, and im$\psi=\Z$. Then by the first isomorphism theorem we have
+        \[
+            R/J\cong\Z,
+        \]
+        which is inifite.
     \end{proof}
 \end{enumerate}
 
@@ -69,7 +90,23 @@
         Assume that $I$ is a prime ideal of $R$ and that $A,B$ are ideals of $R$. Assume for the sake of a contradiction that $I=A\cap B$ but $I\neq A$ and $I\neq B$. Now pick $a\in A/I$ and $b\in B/I$. Since $A,B$ are ideals we have $ab\in A$ and $ab\in B$, then we have $ab\in A\cap B=I$. Since $I$ is prime this implies that $a\in I$ or $b\in I$. But since $a\in A/I$ and $b\in B/I$ this implies that $a\neq I$ and $b\neq I$. This is a contradiction. Thus all prime ideals are irreducible.
     \end{proof}
     \item Is it necessarily true that an irreducible ideal is a prime ideal? Prove or find a counterexample.\\
-    \textit{Counterexample.} Let $R=\Z$, and $I=(4)$.
+    \textit{Counterexample.} Let $R=\Z$, and $I=(4)$.\\
+    First, we show that $(4)$ is irreducible.\\
+    Suppose $A$ and $B$ are ideals of $\mathbb{Z}$ such that $A \cap B = (4)$. In $\mathbb{Z}$, all ideals are principal, so let $A = (m)$ and $B = (n)$ for some integers $m, n$. Then
+    \[
+        (m) \cap (n) = (\operatorname{lcm}(m, n)).
+    \]
+    We are given that $(\operatorname{lcm}(m, n)) = (4)$. In $\mathbb{Z}$, an equality of principal ideals $(a) = (b)$ holds if and only if $a = \pm b$. Thus, $\operatorname{lcm}(m, n) = 4$ (or $-4$, which is equivalent for the ideal). Now, $m$ and $n$ must be positive divisors of $4$ (or their negatives) because the lcm of two numbers that are not divisors of $4$ cannot be $4$. The positive divisors of $4$ are $1, 2, 4$.\\
+    Checking possible $(m, n)$
+    \begin{itemize}
+        \item If $m=1,n=4$, $(1)\cap(4)=I$.
+        \item If $m=2,n=4$, $(2)\cap(4)=I$.
+        \item If $m = n = 2$, $(2)\cap(2)\neq(4)$.
+        \item If $m = n = 4$, $(4)\cap(4)=I$.
+    \end{itemize}
+    So we can only have $(4) = A \cap B$ when $A$ or $B$ equals $(4)$. Hence, $(4)$ is irreducible.\\
+    Recall that an ideal $P$ in a commutative ring is prime if $ab \in P$ implies $a \in P$ or $b \in P$. Let $a = 2$, $b = 2$, then $ab = 4 \in (4)$, but $2 \notin (4)$. Therefore, $(4)$ is not a prime ideal.\\
+    Thus, $(4)$ is an irreducible ideal that is not prime. Therefore, we have that it is not necessarily true that an irreducible ideal is a prime ideal
 \end{enumerate}
 
 \stepcounter{section}
@@ -116,24 +153,36 @@
         and $S$ has $\Z-$rank 4.
     \end{proof}
     \item Determine all subrings of $S$ of $\Z$-rank equal to 3. Are they isomorphic?\\
-    \textit{Solution.} Let \( S = M_2(\mathbb{Z}) \). As an additive group, \( S \cong \mathbb{Z}^4 \) with basis
+    \textit{Solution.} Upper and lower triangular matrices make a subring of $S$. We can construct the following isomorphism between them and $\Z^3$. Let 
     \[
-        e_{11} = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix},\quad
-        e_{12} = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix},\quad
-        e_{21} = \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix},\quad
-        e_{22} = \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}.
-    \]
-
-    The only 3-dimensional \( \mathbb{Q} \)-subalgebras of \( M_2(\mathbb{Q}) \) containing the identity are conjugates of the algebra of upper triangular matrices. Those being
+        S_U=\left\{ \begin{pmatrix}
+            a&b\\0&c
+        \end{pmatrix}: a,b,c\in\Z \right\}
+    \] 
     \[
-        \{PR_UP^{-1}:P\in GL_2(\Z)\}
+        \phi:S_U\to\Z^3
     \]
-    where $R_U$ is any upper triangular matrices. Thus, all of the subrings are of the form
     \[
-        \left\{ P \begin{pmatrix} a & b \\ 0 & d \end{pmatrix} P^{-1} : a,b,d \in \mathbb{Z},\ P \in GL_2(\mathbb{Z}) \right\}.
+        \phi\left(\begin{pmatrix}
+            a&b\\0&c
+        \end{pmatrix}\right)=(a,b,c).
     \]
-    Since conjugation by \( P \) is a ring automorphism of \( M_2(\mathbb{Z}) \), each such subring is isomorphic to \( \Z^3\). Hence they are all isomorphic.
-    \item Find two subrings of $S$ of $\Z$-rank 1 which are not isomorphic.\\
+    Similarily we have
+    \[
+        S_L=\left\{ \begin{pmatrix}
+            a&0\\b&c
+        \end{pmatrix}: a,b,c\in\Z \right\}
+    \] 
+    \[
+        \phi:S_L\to\Z^3
+    \]
+    \[
+        \phi\left(\begin{pmatrix}
+            a&0\\b&c
+        \end{pmatrix}\right)=(a,b,c).
+    \]
+    We can make a similar argument as above to show that $(S_U,+)\cong\Z^3$ and $(S_L,+)\cong\Z^3$.
+    \item Find two subrings of $S$ of $\Z$-rank 1 which are not isomorphic.
     \textit{Solution.} Let 
     \[
         A=\begin{bmatrix}
@@ -165,7 +214,7 @@
     \[
         \mathcal{R}_2=\left\{nB:n\in\Z\right\}
     \]
-    with normal matrix addition, but the multiplication would always result in zero.\\
+    with normal matrix addition and multiplication.\\
     We can construct an isomorphism from $(\mathcal{R}_1,+)\to\Z$ and $(\mathcal{R}_2,+)\to\Z$ similar to how $\phi$ was constructed in part (a). These two subrings are however not isomorphic to one another. This is because in $(\mathcal{R}_1,+,\times)$ we have $1\times 1=1$, but in $(\mathcal{R}_2,+,\times)$ we have $xy=0$ for all $x,y\in\mathcal{R}_2$. 
 \end{enumerate}
 
@@ -211,7 +260,8 @@
     \begin{proof}
         We need to show that a finite division ring is commutative. 
     \end{proof}
-    \item Prove that the finiteness assumption is essential: find an example of an infinite division ring $R$ which is not a field.
+    \item Prove that the finiteness assumption is essential: find an example of an infinite division ring $R$ which is not a field.\\
+    \textit{Solution.} The quaternions are an example of an infinite division ring that is not a field. This is because the quaternions are a division ring, but they are not commutative. 
 \end{enumerate}
 
 
