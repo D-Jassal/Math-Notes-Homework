@@ -277,9 +277,9 @@ Working on the first of these sums
 	&=\sum_{a\leq y}\frac{\log x}{a}-\sum_{a\leq y}\frac{\log a}{a}+\gamma\sum_{a\leq y}\frac{1}{a}+O\left(\frac{1}{x}\sum_{a\leq y}1\right)\\
 	&=\sum_{a\leq \sqrt{x}}\frac{\log x}{a}-\sum_{a\leq \sqrt{x}}\frac{\log a}{a}+\gamma\sum_{a\leq \sqrt{x}}\frac{1}{a}+O\left(\frac{1}{x}\sum_{a\leq \sqrt{x}}1\right)\\
 	&=(\log x+\gamma)\sum_{a\leq \sqrt{x}}\frac{1}{a}-\sum_{a\leq \sqrt{x}}\frac{\log a}{a}+O\left(\frac{1}{\sqrt{x}}\right)\\
-	&=(\log x+\gamma)\left(\log\sqrt{x}+\gamma+O\left(\frac{1}{x}\right)\right)-\sum_{a\leq \sqrt{x}}\frac{\log a}{a}+O\left(\frac{1}{\sqrt{x}}\right)\\
-	&=(\log x+\gamma)\left(\frac{1}{2}\log x+\gamma+O\left(\frac{1}{x}\right)\right)-\sum_{a\leq \sqrt{x}}\frac{\log a}{a}+O\left(\frac{1}{\sqrt{x}}\right)\\
-	&=\frac{1}{2}\log^2 x+\frac{3\gamma}{2}\log x+\gamma^2-\sum_{a\leq \sqrt{x}}\frac{\log a}{a}+O\left(\frac{\log x}{x}\right).
+	&=(\log x+\gamma)\left(\log\sqrt{x}+\gamma+O\left(\frac{1}{\sqrt{x}}\right)\right)-\sum_{a\leq \sqrt{x}}\frac{\log a}{a}+O\left(\frac{1}{\sqrt{x}}\right)\\
+	&=(\log x+\gamma)\left(\frac{1}{2}\log x+\gamma+O\left(\frac{1}{\sqrt{x}}\right)\right)-\sum_{a\leq \sqrt{x}}\frac{\log a}{a}+O\left(\frac{1}{\sqrt{x}}\right)\\
+	&=\frac{1}{2}\log^2 x+\frac{3\gamma}{2}\log x+\gamma^2-\sum_{a\leq \sqrt{x}}\frac{\log a}{a}+O\left(\frac{\log x}{\sqrt{x}}\right).
 \end{align*}
 Using Abel's summation formula for the sum with $a(n)=1$, and $f(n)=\frac{\log n}{n}$.
 \begin{align*}
@@ -295,9 +295,25 @@ Working on the integral
 	u=\log t,\quad du=\frac{dt}{t},&\quad u(1)=0,\quad u(\sqrt{x})=\log\sqrt x\\
 	I_1&=\int_{0}^{\log\sqrt{x}}1-u\,du\\
 	I_1&=\left(u-\frac{u^2}{2}\right)_0^{\log\sqrt{x}}\\
-	I_1&=\log\sqrt{x}-\frac{\log^2\sqrt{x}}{2}\\
+	I_1&=\log\sqrt{x}-\frac{\log^2\sqrt{x}}{2}.
+\end{align*}
+Working on the second integral
+\begin{align*}
 	|I_2|&\leq\int_{1}^{\sqrt{x}}\left|\fract{t}\frac{1-\log t}{t^2}\right|\,dt\\
 	&\leq\int_{1}^{\sqrt{x}}\left|\frac{\log t}{t^2}\right|\,dt\\
+	\int_{1}^{\sqrt{x}}\frac{\log t}{t^2}\,dt&=-\left(\frac{\log t}{t}\right)_{1}^{\sqrt{x}}+\int_{1}^{\sqrt{x}}\frac{1}{t^2}\,dt\\
+	&=-\left(\frac{\log t}{t}+\frac{1}{t}\right)_{1}^{\sqrt{x}}\\
+	&=-\left(\frac{\log t+1}{t}\right)_{1}^{\sqrt{x}}\\
+	&=1-\frac{\log x+2}{2\sqrt{x}}.
+\end{align*}
+With this we can bound $I_2$ with
+\[
+	I_2=O\left(\frac{\log x}{\sqrt{x}}\right).
+\]
+Working on the last sum from the hyperbola method
+\begin{align*}
+	\left(\sum_{a\leq \sqrt{x}}\frac{1}{a}\right)^2&=\left(\frac{1}{2}\log x+\gamma+O\left(\frac{1}{\sqrt{x}}\right)\right)^2\\
+	&=
 \end{align*}
 \stepcounter{section}
 \section*{Problem 4 [10 Marks]} Obtain an estimate, similar to the estimate for
