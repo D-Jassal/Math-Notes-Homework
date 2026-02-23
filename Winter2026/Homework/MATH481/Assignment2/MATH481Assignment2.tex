@@ -38,32 +38,267 @@
 \stepcounter{section}
 \section*{Problem 1 [10 Marks]} Let $k\geq 2$ be an integer. We define $d_{k}(n)$ as the number of ways $n$ can be written as the product of $k$ positive integers.
 \begin{enumerate}
-    \item Verify that $d_{k}(n)=\sum_{d|n}d_{k-1}(d)$
+    \item Verify that $d_{k}(n)=\sum_{d|n}d_{k-1}(d)$\\
+    \textit{Solution.} Let $a_1,\dots,a_k\in\N$ be such that $a_1a_2\cdots a_k=n$. Set $d=a_1a_2\cdots a_{k-1}$. Then $d\mid n$ because $a_k=\frac{n}{d}$. Once $d$ is fixed $a_k$ is determined, and for each divisor $d$ of $n$ we have $d_{k-1}(d)$ factorizations of the ordered tuple $(a_1,\dots,a_{k-1},\frac{n}{d})$. When summing over $d\mid n$ we get
+	\[
+		d_{k}(n)=\sum_{d|n}d_{k-1}(d).
+	\]
     \item Show that 
     \[
         \sum_{n\leq x}d_{k}(n)=\frac{x(\log x)^{k-1}}{(k-1)!}+O\left(x(\log x)^{k-2}\right)
     \]
-\end{enumerate}
+	\begin{proof}
+		In part (a) we showed that $d_k=d_{k-1}\ast1$, ($d_k=\underbrace{1\ast\cdots\ast1}_{k-\text{times}}$).
+		\begin{align*}
+			\sum_{n\leq x}d_k(n)&=\sum_{n\leq x}\sum_{m\mid n}d_{k-1}(m)\\
+			&=\sum_{m\leq x}d_{k-1}(m)\sum_{\substack{n\leq x\\m\mid n}}1\\
+			&=\sum_{m\leq x}d_{k-1}(m)\floor{\frac{x}{m}}\\
+			&=\sum_{m\leq x}d_{k-1}(m)\left(\frac{x}{m}-\fract{\frac{x}{m}}\right)\\
+			&=x\sum_{m\leq x}\frac{d_{k-1}(m)}{m}-\sum_{m\leq x}d_{k-1}(m)\fract{\frac{x}{m}}.
+		\end{align*}
+		Since
+		\[
+			\left|\sum_{m\leq x}d_{k-1}(m)\fract{\frac{x}{m}}\right|\leq\sum_{m\leq x}d_{k-1}(m)
+		\]
+		we can rewrite the above as
+		\[
+			\sum_{n\leq x}d_k(n)=x\sum_{m\leq x}\frac{d_{k-1}(m)}{m}-O\left(\sum_{m\leq x}d_{k-1}(m)\right).
+		\]
+		Let $a(n)=d_{k-1}(n)$, $A(x)=\sum_{m\leq x}d_{k-1}(m)$ and $f(n)=\frac{1}{n}$. By Abels summation formula we have
+		\[
+			\sum_{m\leq x}\frac{d(m)}{m}=\frac{A(x)}{x}+\int_{1}^{x}\frac{A(t)}{t^2}\,dt.
+		\]
+		\begin{claim}
+			\[
+				A_m(t)=\frac{t(\log t)^{m-1}}{(m-1)!}+O(t(\log t)^{m-2})
+			\]
+			for $m>1$.
+		\end{claim}
+		\begin{proof}[Proof of the Claim]
+			Case of $m=2$. From class we have
+			\[
+				\sum_{n\leq x}d_2(n)=x\log x+(2\gamma-1)x+O(\sqrt{x})=\frac{x(\log x)^1}{1!}+O(x(\log x)^0)
+			\]
+			Assume the formula holds for $k-1\ge 2$, i.e.
+			\[
+			A_{k-1}(x) := \sum_{n\le x} d_{k-1}(n) = \frac{x(\log x)^{k-2}}{(k-2)!} + O\bigl(x(\log x)^{k-3}\bigr).
+			\]
+			We prove it for $k$.
 
+			From part (a), $d_k(n)=\sum_{d|n} d_{k-1}(d)$. Hence
+			\[
+			A_k(x) = \sum_{n\le x}\sum_{d|n} d_{k-1}(d) = \sum_{d\le x} d_{k-1}(d) \sum_{\substack{n\le x\\ d|n}} 1.
+			\]
+			The inner sum equals $\lfloor x/d\rfloor = x/d + O(1)$. Therefore
+			\[
+			A_k(x) = x\sum_{d\le x}\frac{d_{k-1}(d)}{d} + O\Bigl(\sum_{d\le x} d_{k-1}(d)\Bigr).
+			\]
+			By the inductive hypothesis $\sum_{d\le x}d_{k-1}(d) = O(x(\log x)^{k-2})$, so
+			\[
+			A_k(x) = x\sum_{d\le x}\frac{d_{k-1}(d)}{d} + O\bigl(x(\log x)^{k-2}\bigr).
+			\]
+
+			Now evaluate $\sum_{d\le x}\frac{d_{k-1}(d)}{d}$ by partial summation. Let $B(t)=\sum_{d\le t} d_{k-1}(d)$. Then
+			\[
+			\sum_{d\le x}\frac{d_{k-1}(d)}{d} = \frac{B(x)}{x} + \int_1^x \frac{B(t)}{t^2}\,dt.
+			\]
+			By the inductive hypothesis,
+			\[
+			B(t) = \frac{t(\log t)^{k-2}}{(k-2)!} + O\bigl(t(\log t)^{k-3}\bigr).
+			\]
+			Hence
+			\[
+			\frac{B(x)}{x} = \frac{(\log x)^{k-2}}{(k-2)!} + O\bigl((\log x)^{k-3}\bigr),
+			\]
+			and
+			\[
+			\int_1^x \frac{B(t)}{t^2}\,dt = \frac{1}{(k-2)!}\int_1^x \frac{(\log t)^{k-2}}{t}\,dt + O\Bigl(\int_1^x \frac{(\log t)^{k-3}}{t}\,dt\Bigr).
+			\]
+			Substituting $u=\log t$ gives
+			\[
+			\int_1^x \frac{(\log t)^{k-2}}{t}\,dt = \int_0^{\log x} u^{k-2}\,du = \frac{(\log x)^{k-1}}{k-1},
+			\]
+			\[
+			\int_1^x \frac{(\log t)^{k-3}}{t}\,dt = \frac{(\log x)^{k-2}}{k-2} = O\bigl((\log x)^{k-2}\bigr).
+			\]
+			Thus
+			\[
+			\int_1^x \frac{B(t)}{t^2}\,dt = \frac{(\log x)^{k-1}}{(k-1)!} + O\bigl((\log x)^{k-2}\bigr).
+			\]
+			Adding $\frac{B(x)}{x}$,
+			\[
+			\sum_{d\le x}\frac{d_{k-1}(d)}{d} = \frac{(\log x)^{k-1}}{(k-1)!} + O\bigl((\log x)^{k-2}\bigr).
+			\]
+
+			Multiplying by $x$ and adding the earlier error term $O(x(\log x)^{k-2})$,
+			\[
+			A_k(x) = \frac{x(\log x)^{k-1}}{(k-1)!} + O\bigl(x(\log x)^{k-2}\bigr).
+			\]
+			This completes the induction.
+		\end{proof}
+		From the induction we have
+		\[
+			\frac{A(x)}{x}=\frac{(\log x)^{k-2}}{(k-2)!}+O((\log x)^{k-3}).	
+		\]
+		\[
+			\int_{1}^{x}\frac{A(t)}{t^2}\,dt=\int_{1}^{x}\frac{\frac{(t\log t)^{k-2}}{(k-2)!}+O((t\log t)^{k-3})}{t^2}\,dt=\frac{1}{(k-2)!}\int_{1}^{x}\frac{(t\log t)^{k-2}}{t^2}\,dt+\int_{1}^{x}\frac{O((t\log t)^{k-3})}{t^2}\,dt.
+		\]
+		Evaluating the first of these integrals with the substitution
+		\[
+			u=\log t,\quad du=\frac{dt}{t},\quad u(1)=0,\quad u(x)=\log x
+		\]
+		\begin{align*}
+			I_1&=\frac{1}{(k-2)!}\int_{1}^{x}\frac{(\log t)^{k-2}}{t}\,dt\\
+			&=\frac{1}{(k-2)!}\int_{0}^{\log x}u^{k-2}\,du\\
+			&=\frac{1}{(k-2)!}\frac{(\log x)^{k-1}}{k-1}\\
+			&=\frac{(\log x)^{k-1}}{(k-1)!}.
+		\end{align*}
+		Evaluating the second of these integrals
+		\begin{align*}
+			\int_{1}^{x}\frac{O((t\log t)^{k-3})}{t^2}\,dt&=O\left(\int_{1}^{x}\frac{(t\log t)^{k-3}}{t^2}\,dt\right)\\
+			&=O((\log x)^{k-2}).
+		\end{align*}
+		The error term from the original summation can also be evaluated using the formula derived by induction.
+		\begin{align*}
+			O\left(\sum_{m\leq x}d_{k-1}(m)\right)&=O\left(\frac{x(\log x)^{k-2}}{(k-2)!}+O(x(\log x)^{k-3})\right)\\
+			&=O(x(\log x)^{k-2}).
+		\end{align*}
+		Thus, combining all of the terms
+		\[
+			\sum_{n\leq x}d_{k}(n)=\frac{x(\log x)^{k-1}}{(k-1)!}+O\left(x(\log x)^{k-2}\right).
+		\]
+	\end{proof}
+\end{enumerate}
+\newpage
 \stepcounter{section}
-\section*{Problem 2 [10 Marks]} In this question, any constants arising in the
-main term of the estimate should be worked out explicitly. 
+\section*{Problem 2 [10 Marks]} In this question, any constants arising in the main term of the estimate should be worked out explicitly. 
 \begin{enumerate}
-    \item  Obtain an estimate for the sum
-    $S(x)=\displaystyle{\sum_{n\leq x;\; n\;\text{odd}}\frac{1}{n}}$
-    with error term $O(1/x)$.
+    \item  Obtain an estimate for the sum $S(x)=\displaystyle{\sum_{n\leq x;\; n\;\text{odd}}\frac{1}{n}}$ with error term $O(1/x)$.\\
+    \textit{Solution.} We can rewrite the odd condition for $n$ by $n=2k-1$ for $k\geq 1$. $n\leq 2k-1\Rightarrow \leq\frac{x+1}{2}$. Let $K=\floor{\frac{x+1}{2}}$ Rewriting the sum
+	\[
+		S(x)=\sum_{k=1}^{K}\frac{1}{2k-1}.
+	\]
+	This can be related back to the harmonic series
+	\[
+		H_{2k}=\sum_{m=1}^{2K}\frac{1}{m}
+	\]
+	and then splitting the sum
+	\[
+		H_{2k}=\sum_{k=1}^{K}\frac{1}{2k-1}+\sum_{k=1}^{K}\frac{1}{2K}.
+	\]
+	Rearranging we get
+	\[
+		S(x)=H_{2K}-\frac{1}{2}H_K.
+	\]
+	Subbing in the approximation
+	\[
+		\sum_{n\leq x}\frac{1}{x}=\log x+\gamma+O\left(\frac{1}{x}\right)
+	\]
+	we get
+	\[
+		S(x)=\log 2K+\gamma-\frac{1}{2}(\log K+\gamma)+O\left(\frac{1}{K}\right).
+	\]
+	Collecting terms
+	\[
+		S(x)=\log2+\frac{1}{2}\log K+\frac{\gamma}{2}+O\left(\frac{1}{K}\right).
+	\]
+	Furthermore, 
+	\[
+		K=\floor{\frac{x+1}{2}}=\frac{x+1}{2}-\fract{\frac{x+1}{2}}=\frac{x+1}{2}+O(1)
+	\]
+	subbing this in
+	\[
+		S(x)=\frac{1}{2}\log x+\frac{\log2+\gamma}{2}+O\left(\frac{1}{x}\right).
+	\]
     \item Let $D(x) =\displaystyle{\sum_{n\leq x;\;n\;\text{odd}}d(n)}$, where $d(n)$ is the divisor function. Give an estimate for $D(x)$
-    with error term $O(\sqrt{x})$.  
-
-{\it Hint: Use Dirichlet's
-hyperbola method and the result of the previous part}.
+    with error term $O(\sqrt{x})$.\\
+	{\it Hint: Use Dirichlet's hyperbola method and the result of the previous part}.\\
+	\textit{Solution.} 
+	\[
+		D(x)=\sum_{\substack{ab\leq x\\a,b\text{ odd}}}1.
+	\]
+	Applying Dirichlet's hyperbola method to the above sum with $y=\sqrt{x}$ and $a,b\leq y$.
+	\[
+		D(x)=\sum_{\substack{a\leq y\\ a\text{ odd}}}\sum_{\substack{b\leq \frac{x}{a}\\ b\text{ odd}}}1+\sum_{\substack{b\leq y\\ b\text{ odd}}}\sum_{\substack{a\leq \frac{x}{b}\\ a\text{ odd}}}1-\sum_{\substack{a\leq y\\ a\text{ odd}}}\sum_{\substack{b\leq \frac{x}{y}\\ b\text{ odd}}}1,
+	\]
+	by symmetry we have
+	\[
+		D(x)=2\sum_{\substack{a\leq y\\ a\text{ odd}}}\sum_{\substack{b\leq \frac{x}{a}\\ b\text{ odd}}}1-\left(\sum_{\substack{a\leq y\\ a\text{ odd}}}1\right)^2.
+	\]
+	Working on the first sum
+	\begin{align*}
+		\sum_{\substack{a\leq y\\ a\text{ odd}}}\sum_{\substack{b\leq \frac{x}{a}\\ b\text{ odd}}}1&=\sum_{\substack{a\leq y\\ a\text{ odd}}}\floor{\frac{x}{2a}}\\
+		&=\sum_{\substack{a\leq y\\ a\text{ odd}}}\left(\frac{x}{2a}-\fract{\frac{x}{2a}}\right)\\
+		&=\sum_{\substack{a\leq y\\ a\text{ odd}}}\frac{x}{2a}-\sum_{\substack{a\leq y\\ a\text{ odd}}}\fract{\frac{x}{2a}}\\
+		&=\frac{x}{2}\sum_{\substack{a\leq y\\ a\text{ odd}}}\frac{1}{a}-\sum_{\substack{a\leq y\\ a\text{ odd}}}O\left(1\right).
+	\end{align*}
+	From part (a) we have
+	\begin{align*}
+		\sum_{\substack{a\leq y\\ a\text{ odd}}}\sum_{\substack{b\leq \frac{x}{a}\\ b\text{ odd}}}1&=\frac{x}{2}\left(\frac{1}{2}\log y+\frac{\log2+\gamma}{2}+O\left(\frac{1}{y}\right)\right)+O(y)\\
+		&=\frac{x}{4}\log y+\frac{\log2+\gamma}{4}x+O\left(\frac{x}{y}\right)+O(y)\\
+		&=\frac{x}{4}\log \sqrt{x}+\frac{\log2+\gamma}{4}x+O\left(\sqrt{x}\right).
+	\end{align*}
+	Now working on the second of the sums
+	\begin{align*}
+		\left(\sum_{\substack{a\leq y\\ a\text{ odd}}}1\right)^2&=\left(\floor{\frac{y}{2}}\right)^2\\
+		&=\left(\frac{y}{2}-\fract{\frac{y}{2}}\right)^2\\
+		&=\left(\frac{y}{2}-O(1)\right)^2\\
+		&=\frac{y^2}{4}+O(y)\\
+		&=\frac{x}{4}+O(\sqrt{x}).
+	\end{align*}
+	Combining all of the sums
+	\[
+		D(x)=\frac{x}{4}\log x+\frac{\log4+2\gamma-1}{4}x+O\left(\sqrt{x}\right).
+	\]
 \end{enumerate}
 
 
 \stepcounter{section}
-\section*{Problem 3 [10 Marks]} Use the Dirichlet hyperbola method (or some other method) to obtain
-an estimate for the sum $\displaystyle{\sum_{n\leq x}\frac{d(n)}{n}}$ with an error term $O\left(\frac{\log x}{\sqrt{x}}\right)$
-
+\section*{Problem 3 [10 Marks]} Use the Dirichlet hyperbola method (or some other method) to obtain an estimate for the sum $\displaystyle{\sum_{n\leq x}\frac{d(n)}{n}}$ with an error term $O\left(\frac{\log x}{\sqrt{x}}\right)$\\
+\textit{Solution.} First we rewrite the divisor function using
+\[
+	d(n)=\sum_{ab=n}1.
+\]
+Substituting this into the sum
+\begin{align*}
+	S(x)=\sum_{n\leq x}\frac{d(n)}{n}&=\sum_{n\leq x}\frac{1}{n}\sum_{ab=n}1\\
+	&=\sum_{ab\leq x}\frac{1}{ab}\\
+	&=\sum_{a\leq x}\sum_{b\leq\frac{x}{a}}\frac{1}{ab}.
+\end{align*}
+We can now apply the Dirichlet hyperbola method with $y=\sqrt{x}$, $a,b\leq y$.
+\begin{align*}
+	S(x)&=\sum_{a\leq y}\sum_{b\leq\frac{x}{a}}\frac{1}{ab}+\sum_{b\leq y}\sum_{a\leq\frac{x}{b}}\frac{1}{ab}-\sum_{a\leq y}\sum_{b\leq\frac{x}{y}}\frac{1}{ab}\\
+	&=2\sum_{a\leq y}\sum_{b\leq\frac{x}{a}}\frac{1}{ab}-\sum_{a\leq y}\sum_{b\leq y}\frac{1}{ab}\\
+	&=2\sum_{a\leq y}\frac{1}{a}\sum_{b\leq\frac{x}{a}}\frac{1}{b}-\left(\sum_{a\leq y}\frac{1}{a}\right)^2.
+\end{align*}
+Working on the first of these sums
+\begin{align*}
+	\sum_{a\leq y}\frac{1}{a}\sum_{b\leq\frac{x}{a}}\frac{1}{b}&=\sum_{a\leq y}\frac{1}{a}\left(\log\left(\frac{x}{a}\right)+\gamma+O\left(\frac{a}{x}\right)\right)\\
+	&=\sum_{a\leq y}\frac{\log x}{a}-\sum_{a\leq y}\frac{\log a}{a}+\gamma\sum_{a\leq y}\frac{1}{a}+O\left(\frac{1}{x}\sum_{a\leq y}1\right)\\
+	&=\sum_{a\leq \sqrt{x}}\frac{\log x}{a}-\sum_{a\leq \sqrt{x}}\frac{\log a}{a}+\gamma\sum_{a\leq \sqrt{x}}\frac{1}{a}+O\left(\frac{1}{x}\sum_{a\leq \sqrt{x}}1\right)\\
+	&=(\log x+\gamma)\sum_{a\leq \sqrt{x}}\frac{1}{a}-\sum_{a\leq \sqrt{x}}\frac{\log a}{a}+O\left(\frac{1}{\sqrt{x}}\right)\\
+	&=(\log x+\gamma)\left(\log\sqrt{x}+\gamma+O\left(\frac{1}{x}\right)\right)-\sum_{a\leq \sqrt{x}}\frac{\log a}{a}+O\left(\frac{1}{\sqrt{x}}\right)\\
+	&=(\log x+\gamma)\left(\frac{1}{2}\log x+\gamma+O\left(\frac{1}{x}\right)\right)-\sum_{a\leq \sqrt{x}}\frac{\log a}{a}+O\left(\frac{1}{\sqrt{x}}\right)\\
+	&=\frac{1}{2}\log^2 x+\frac{3\gamma}{2}\log x+\gamma^2-\sum_{a\leq \sqrt{x}}\frac{\log a}{a}+O\left(\frac{\log x}{x}\right).
+\end{align*}
+Using Abel's summation formula for the sum with $a(n)=1$, and $f(n)=\frac{\log n}{n}$.
+\begin{align*}
+	S_1(x)&=\sum_{a\leq \sqrt{x}}\frac{\log a}{a}\\
+	&=\floor{\sqrt{x}}\frac{\log x}{x}-\int_{1}^{\sqrt{x}}\floor{t}\frac{1-\log t}{t^2}\,dt\\
+	&=\sqrt{x}-\fract{\sqrt{x}}\frac{\log x}{x}-\int_{1}^{\sqrt{x}}(t-\fract{t})\frac{1-\log t}{t^2}\,dt.
+\end{align*}
+Working on the integral
+\begin{align*}
+	I&=\int_{1}^{\sqrt{x}}(t-\fract{t})\frac{1-\log t}{t^2}\,dt\\
+	&=\int_{1}^{\sqrt{x}}t\frac{1-\log t}{t^2}\,dt-\int_{1}^{\sqrt{x}}\fract{t}\frac{1-\log t}{t^2}\,dt\\
+	I_1&=\int_{1}^{\sqrt{x}}\frac{1-\log t}{t}\,dt\\
+	u=\log t,\quad du=\frac{dt}{t},&\quad u(1)=0,\quad u(\sqrt{x})=\log\sqrt x\\
+	I_1&=\int_{0}^{\log\sqrt{x}}1-u\,du\\
+	I_1&=\left(u-\frac{u^2}{2}\right)_0^{\log\sqrt{x}}\\
+	I_1&=\log\sqrt{x}-\frac{\log^2\sqrt{x}}{2}\\
+	|I_2|&\leq\int_{1}^{\sqrt{x}}\left|\fract{t}\frac{1-\log t}{t^2}\right|\,dt\\
+	&\leq\int_{1}^{\sqrt{x}}\left|\frac{\log t}{t^2}\right|\,dt\\
+\end{align*}
 \stepcounter{section}
 \section*{Problem 4 [10 Marks]} Obtain an estimate, similar to the estimate for
 $\displaystyle{\sum_{n\leq x}\frac{1}{n}}$ for the sum $\displaystyle{\sum_{n\leq x}\frac{1}{\phi(n)}}$.
@@ -71,10 +306,8 @@ $\displaystyle{\sum_{n\leq x}\frac{1}{n}}$ for the sum $\displaystyle{\sum_{n\le
  {\it Hint: Use the convolution method.}
 
 \stepcounter{section}
-\section*{Problem 5 [10 Marks]} Using only Mertens' type estimates (but not the PNT), obtain an
-asymptotic estimate for the partial sums
-$\displaystyle{S(x) =\sum_{p\leq x;\; p\;\text{prime} }\frac{1}{p\log p}}$ with as good an error term as you can get using only results at the
-level of Mertens.
+\section*{Problem 5 [10 Marks]} Using only Mertens' type estimates (but not the PNT), obtain an asymptotic estimate for the partial sums
+$\displaystyle{S(x) =\sum_{p\leq x;\; p\;\text{prime} }\frac{1}{p\log p}}$ with as good an error term as you can get using only results at the level of Mertens.
 
 
 \stepcounter{section}
