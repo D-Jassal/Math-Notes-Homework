@@ -284,8 +284,9 @@ Working on the first of these sums
 Using Abel's summation formula for the sum with $a(n)=1$, and $f(n)=\frac{\log n}{n}$.
 \begin{align*}
 	S_1(x)&=\sum_{a\leq \sqrt{x}}\frac{\log a}{a}\\
-	&=\floor{\sqrt{x}}\frac{\log x}{x}-\int_{1}^{\sqrt{x}}\floor{t}\frac{1-\log t}{t^2}\,dt\\
-	&=\sqrt{x}-\fract{\sqrt{x}}\frac{\log x}{x}-\int_{1}^{\sqrt{x}}(t-\fract{t})\frac{1-\log t}{t^2}\,dt.
+	&=\floor{\sqrt{x}}\frac{\log \sqrt{x}}{\sqrt{x}}-\int_{1}^{\sqrt{x}}\floor{t}\frac{1-\log t}{t^2}\,dt\\
+	&=\log \sqrt{x}-\fract{\sqrt{x}}\frac{\log \sqrt{x}}{\sqrt{x}}-\int_{1}^{\sqrt{x}}(t-\fract{t})\frac{1-\log t}{t^2}\,dt\\
+	&=\log \sqrt{x}-\int_{1}^{\sqrt{x}}(t-\fract{t})\frac{1-\log t}{t^2}\,dt+O(1).
 \end{align*}
 Working on the integral
 \begin{align*}
@@ -313,19 +314,67 @@ With this we can bound $I_2$ with
 Working on the last sum from the hyperbola method
 \begin{align*}
 	\left(\sum_{a\leq \sqrt{x}}\frac{1}{a}\right)^2&=\left(\frac{1}{2}\log x+\gamma+O\left(\frac{1}{\sqrt{x}}\right)\right)^2\\
-	&=
+	&=\frac{1}{4}(\log x)^2+\gamma\log x+\gamma^2+O\left(\frac{\log x}{\sqrt{x}}\right).
+\end{align*}
+Then we have
+\begin{align*}
+	S_1(x)&=\log\sqrt{x}-I_1+I_2+O(1)\\
+	&=\log\sqrt{x}-\log\sqrt{x}+\frac{\log^2\sqrt{x}}{2}+O\left(\frac{\log x}{\sqrt{x}}\right)\\
+	&=\frac{\log^2\sqrt{x}}{2}+O\left(\frac{\log x}{\sqrt{x}}\right).\\
+\end{align*}
+All in all
+\begin{align*}
+	S(x)&=2\left(\frac{1}{2}\log^2 x+\frac{3\gamma}{2}\log x+\gamma^2-\frac{\log^2\sqrt{x}}{2}\right)+\frac{1}{4}(\log x)^2+\gamma\log x+\gamma^2+O\left(\frac{\log x}{\sqrt{x}}\right)\\
+	&=\log^2 x+3\gamma\log x+2\gamma^2-\log^2\sqrt{x}+\frac{1}{4}(\log x)^2+\gamma\log x+\gamma^2+O\left(\frac{\log x}{\sqrt{x}}\right)\\
+	&=\frac{5}{4}\log^2 x+3\gamma\log x-\frac{1}{4}\log^2 x+\gamma\log x+3\gamma^2+O\left(\frac{\log x}{\sqrt{x}}\right)\\
+	&=\log^2 x+4\gamma\log x+3\gamma^2+O\left(\frac{\log x}{\sqrt{x}}\right).
 \end{align*}
 \stepcounter{section}
-\section*{Problem 4 [10 Marks]} Obtain an estimate, similar to the estimate for
-$\displaystyle{\sum_{n\leq x}\frac{1}{n}}$ for the sum $\displaystyle{\sum_{n\leq x}\frac{1}{\phi(n)}}$.
+\section*{Problem 4 [10 Marks]} Obtain an estimate, similar to the estimate for $\displaystyle{\sum_{n\leq x}\frac{1}{n}}$ for the sum $\displaystyle{\sum_{n\leq x}\frac{1}{\phi(n)}}$.
 
- {\it Hint: Use the convolution method.}
-
+ {\it Hint: Use the convolution method.}\\
+\textit{Solution.}
 \stepcounter{section}
-\section*{Problem 5 [10 Marks]} Using only Mertens' type estimates (but not the PNT), obtain an asymptotic estimate for the partial sums
-$\displaystyle{S(x) =\sum_{p\leq x;\; p\;\text{prime} }\frac{1}{p\log p}}$ with as good an error term as you can get using only results at the level of Mertens.
-
-
+\section*{Problem 5 [10 Marks]} Using only Mertens' type estimates (but not the PNT), obtain an asymptotic estimate for the partial sums $\displaystyle{S(x) =\sum_{p\leq x;\; p\;\text{prime} }\frac{1}{p\log p}}$ with as good an error term as you can get using only results at the level of Mertens.\\
+\textit{Solution.} In the following, let $p\leq n$ mean all primes not exceeding $n$. Let $a(n)=\frac{1}{n}$ and $f(n)=\frac{1}{\log n}$, then by Abels summation formula we have
+\[
+	S(x)=\frac{1}{\log x}\sum_{p\leq x}\frac{1}{p}+\int_{2}^{x}\frac{\displaystyle\sum_{p\leq t}\frac{1}{p}}{t\log^2 t}\,dt.
+\]
+From Mertens' theorem we know that
+\[
+	\sum_{p\leq x}\frac{1}{p}=\log\log x+M+O\left(\frac{1}{\log x}\right).
+\]
+Substituting
+\[
+	S(x)=\frac{\log\log x+M+O\left(\frac{1}{\log x}\right)}{\log x}+\int_{2}^{x}\frac{\log\log t+M+O\left(\frac{1}{\log t}\right)}{t\log^2 t}\,dt.
+\]
+Working on the integral
+\begin{align*}
+	I&=\int_{2}^{x}\frac{\log\log t+M+O\left(\frac{1}{\log t}\right)}{t\log^2 t}\,dt\\
+	&=\int_{2}^{x}\frac{\log\log t}{t\log^2t}\,dt+\int_{2}^{x}\frac{M}{t\log^2t}\,dt+\int_{2}^{x}O\left(\frac{1}{t\log^3t}\right)\,dt.
+\end{align*}
+Let $u=\log t$, $du=\frac{dt}{t}$, $u(2)=\log 2$, $u(x)=\log x$
+\begin{align*}
+	\int_{2}^{x}\frac{\log\log t}{t\log^2t}\,dt&=\int_{\log2}^{\log x}\frac{\log u}{u^2}\,dt\\
+	&=\left(-\frac{\log u+1}{u}\right)_{\log2}^{\log x}\\
+	&=\frac{\log\log2+1}{\log2}-\frac{\log\log x+1}{\log x}.
+\end{align*}
+\begin{align*}
+	M\int_{2}^{x}\frac{1}{t\log^2t}\,dt&=M\left(-\frac{1}{\log t}\right)_{2}^{x}\\
+	&=M\left(\frac{1}{\log2}-\frac{1}{\log x}\right).
+\end{align*}
+\[
+	\int_{2}^{x}\frac{1}{t\log^3t}\\,dt=\int_{2}^{x}O\left(\frac{1}{u^3}\right)\,du,
+\]
+so the third integral converges to some number giving
+\[
+	O\left(\int_{2}^{x}\frac{1}{t\log^3t}\right)\,dt=O(1).
+\]
+Collecting terms
+\begin{align*}
+	S(x)&=\frac{\log\log x}{\log x}+\frac{M}{\log x}+O\left(\frac{1}{\log^2 x}\right)+\frac{\log\log2+1}{\log2}-\frac{\log\log x+1}{\log x}+\frac{M}{\log2}-\frac{M}{\log x}+O(1)\\
+	&=-\frac{1}{\log x}+\frac{\log\log2+1+M}{\log2}+O\left(\frac{1}{\log^2x}\right).
+\end{align*}
 \stepcounter{section}
 \section*{Problem 6 [30 Marks]} Let $q\in\mathbb{N}$, and consider the group $\left(\mathbb{Z}_{q}\right)^{\times}$ of invertible elements modulo $q$. A homomorphism $\chi:\left(\mathbb{Z}_{q}\right)^{\times}\leftarrow\mathbb{C}^{\times}$ is called a Dirichlet character modulo $q$. By Euler's theorem $a^{\phi(q)}\equiv 1\mod q$ for any $a\in \left(\mathbb{Z}_{q}\right)^{\times}$, and so $\left(\chi(a)\right)^{\phi(q)}=1$ for all $a\in \left(\mathbb{Z}_{q}\right)^{\times}$. In other words, each $\chi(a)$ is a $\phi(q)$-th root of unity. 
 We extend the definition of $\chi$ to all integers by setting \[\chi(n)=\begin{cases}\chi(n\;\mathrm{mod}\; q)&\;\; \text{if}\; (n,q)=1\\ 0&\;\;\text{otherwise.}\end{cases}\]

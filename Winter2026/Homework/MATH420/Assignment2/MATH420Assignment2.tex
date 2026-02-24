@@ -261,9 +261,21 @@
         We need to show that a finite division ring is commutative. 
     \end{proof}
     \item Prove that the finiteness assumption is essential: find an example of an infinite division ring $R$ which is not a field.\\
-    \textit{Solution.} The quaternions are an example of an infinite division ring that is not a field. This is because the quaternions are a division ring, but they are not commutative. 
+    \textit{Solution.} The quaternions are an example of an infinite division ring that is not a field. This is because the quaternions are a division ring, but they are not commutative.
+    \begin{proof}
+        Define
+        \[
+            \mathbb{H}=\{a+bi+cj+dk|a,b,c,d\in\R\},
+        \]
+        with multiplication defined by
+        \[
+            i^2=j^2=k^2=-1,ij=k,ji=-k,ki=j,ik=-j,jk=i,kj=-i.
+        \]
+        This is a division ring because
+        \[
+            \frac{a-bi-cj-dk}{a^2+b^2+c^2+d^2}=1.
+        \]
+        But as is evident from the definition multiplication is not commutative.
+    \end{proof}
 \end{enumerate}
-
-
-
 \end{document}
