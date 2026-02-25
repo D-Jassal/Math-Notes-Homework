@@ -1,0 +1,251 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../../preambles/hw-preamble.tex}
+\input{../../../../preambles/homework-macros.tex}
+\input{../../../../preambles/homework-title.tex}
+\input{../../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Introductory Complex Analysis}
+\renewcommand{\coursecode}{MATH 301}
+\renewcommand{\assignment}{Assignment 3}
+\renewcommand{\instructor}{Dr. Edward Dobrowolski}
+\renewcommand{\duedate}{February 25\textsuperscript{th}, 2026}
+
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Page 1 Question 1} DIfferntiate and give the appropriate region of analyticity for each of the following:
+\begin{enumerate}
+    \item[(c)]$f(z)=\sin z/\cos z$
+    \begin{align*}
+        \deriv{f(z)}{z}&=\deriv{\tan z}{z}\\
+        &=\sec^2z\\
+        &=\frac{1}{\cos^2z}.
+    \end{align*}
+    The region of analyticity is whenever $\cos z\neq0$. That being $\C\setminus\left\{\frac{\pi}{2}+n\pi:n\in\Z\right\}$.
+    \item[(d)] $f(z)=\exp\left(\frac{z^3+1}{z-1}\right)$. 
+    \begin{align*}
+        \deriv{f(z)}{z}&=\exp\left(\frac{z^3+1}{z-1}\right)\cdot\frac{(3z^2)(z-1)-(z^3+1)}{(z-1)^2}\\
+        &=\exp\left(\frac{z^3+1}{z-1}\right)\cdot\frac{2z^2-3z^2-1}{(z-1)^2}.
+    \end{align*}
+    The exponential function is entire, but the radical has a pole due to $z-1$ in the denominator. So the region of analyticity is $\C\setminus\{1\}$.
+\end{enumerate}
+\stepcounter{section}
+\section*{Page 1 Question 2}
+\begin{enumerate}
+    \item[(a)] $f(z)=3^z$.
+    \[
+        f(z)=e^{z\log3}.
+    \]
+    The exponential function is entire, so the region of analyticity is $\C$.
+    \item[(c)] $f(z)=z^{(1+i)}$
+    \begin{align*}
+        f(z)&=e^{(1+i)\log z}\\
+        \deriv{f(z)}{z}&=e^{(1+i)\log z}\cdot\frac{1+i}{z}\\
+        &=\frac{z^{1+i}}{z}\cdot(1+i)\\
+        &=(1+i)e^{i\log z}.
+    \end{align*}
+    The region of analyticity is $\C\setminus (-\infty,0]$, due to the branch cut for the priciple branch of $\log z$.
+    \item[(e)] $f(z)=\sqrt[3]{z}$
+    \begin{align*}
+        f(z)&=z^{\frac{1}{3}}\\
+        &=e^{\frac{1}{3}\log z}.
+    \end{align*}
+    Again, the region of analyticity is $\C\setminus (-\infty,0]$.
+\end{enumerate}
+\stepcounter{section}
+\section*{Page 1 Question 4} Determine whether the following complex limits exist and find their value if they do:
+\begin{enumerate}
+    \item[(a)]
+    \[
+        \lim_{z\to0}\frac{e^z-1}{z}.
+    \]
+    Since $|z|\leq\infty$ in the limite we can rewrite the function as 
+    \[
+        \frac{e^z-1}{z}=1+\frac{z}{2!}+\frac{z^2}{3!}+\cdots
+    \]
+    this function is entire, so the limit does exist. It is clear to see that the limit approaches 1 as $z$ approaches 0.
+    \item[(b)] 
+    \[
+        \lim_{z\to0}\frac{\sin|z|}{z}.
+    \]
+    First we check the limit with $z=a,a\in\R$.
+    \begin{align*}
+        \frac{\sin|z|}{z}&=\frac{\sin a}{a}\\
+        &=1,
+    \end{align*}
+    as $a\to0$
+    Next we check with $z=ib$.
+        \begin{align*}
+        \frac{\sin|z|}{z}&=\frac{\sin b}{i}\\
+        &=\frac{1}{i}\\
+        &=-i,
+    \end{align*}
+    as $t\to0$. Since, two paths do not agree the limit does not exist.
+\end{enumerate}
+\stepcounter{section}
+\section*{Page 1 Question 5} Is it true that $|\sin z|\leq1$ for all $z\in\C$?\\
+No, 
+\begin{align*}
+    \sin z&=\frac{e^{iz}-e^{-iz}}{2i}\\
+    \sin i&=\frac{e^{i\cdot i}-e^{-i\cdot i}}{2i}\\
+    |\sin i|&=\frac{e-e^{-1}}{2}\\
+    &\approx 1.1752>1.
+\end{align*}
+\stepcounter{section}
+\section*{Page 2 Question 10} Find the region of analyticity and the derivative of each of the following functions:
+\begin{enumerate}
+    \item[(a)] $f(z)=\sqrt{z^3-1}$. Let $g(z)=z^3-1$ then
+    \begin{align*}
+        \deriv{f(z)}{z}&=\frac{1}{2}g(z)^{-\frac{1}{2}}\cdot g(z)'\\
+        &=\frac{3z^2}{\sqrt{z^3-1}}.
+    \end{align*}
+    We need to ensure that $\sqrt{z^3-1}\neq0$, so we cannot have $z$ equal to cube roots of unity, those being
+    \[
+        \C\setminus\{2,e^{\frac{2\pi i}{3}},e^{\frac{4\pi i}{3}}\}
+    \]
+\end{enumerate}
+\stepcounter{section}
+\section*{Page 2 Question 11} Find the minimum of of $|e^{z^2}|$ for those $z$ with $|z|\leq 1$.\\
+\textit{Solution.} Let $z=a+bi$. Now note that 
+\[
+    |e^{z^2}|=e^{\Re(z^2)}
+\]
+and 
+\[
+    z^2=(a+bi)^2=a^2-b^2+2abi.
+\]
+Then
+\[
+    \Re(z^2)=a^2-b^2.
+\]
+Now we have
+\[
+    |e^{z^2}|=e^{a^2-b^2}.
+\]
+Since $e^x$ is increasing we need to find the minimum value of $a^2-b^2$ such that $a^2+b^2\leq1$. Set $r^2=a^2+b^2$
+\[
+    a^2-b^2=a^2-(r^2-a^2)=2a^2-r^2\Rightarrow a^2-b^2=2a^2-r^2.
+\]
+For fixed $r$, the minimum occurs when $a^2$ is minimal: $a^2\geq0$. Minimum $a^2$ is 0, giving $a^2-b^2=-r^2$ at $a=0$, $y=\pm r$. So for fixed $r$, $\min\{a^2-b^2\}=-r^2$. This minimum occurs at $r=1$ and gives -1, and this happens when $a=0$ and $b=\pm1$, or $z=\pm i$. So the minimums article
+\[
+    |e^{i^2}|=|e^{-i^2}|=e^{-1}=\frac{1}{e}.
+\]
+\stepcounter{section}
+\section*{Page 3 Question 2} For what values of $z$ is $\log z^2=2\log z$ if the principal branch of the logarithm is used on both sides of the equation.\\
+\textit{Solution.}
+\begin{align*}
+    \log z^2&=2\log z\\
+    \log |z^2|+i\arg z^2&=2\log |z|+2i\arg z\\
+    2\log |z|+i\arg z^2&=2\log |z|+2i\arg z\\
+    i\arg z^2&=2i\arg z\\
+    \arg z^2&=2\arg z.
+\end{align*}
+So we have $\arg z^2\equiv 2\arg z\mod 2\pi$. This gives $-\pi<2\arg z\leq\pi$.
+\begin{align*}
+    -\pi<2\arg z\leq\pi\\
+    -\frac{\pi}{2}<\arg z\leq\frac{\pi}{2}\\
+    \arg z\in \left(-\frac{\pi}{2},\frac{\pi}{2}\right].
+\end{align*}
+This corresponds to $z$ with $\Re(z)\geq0$ and $\Im(z)\geq0$. So the set of values of $z$ is
+\[
+    \{z\in\C:\Re(z)\geq0\}\cup\{z\in\C:\Re(z)=0,\Im(z)\geq0\}.
+\]
+\stepcounter{section}
+\section*{Page 3 Question 7} Describe geometrically the set of points $z\in\C$ satisfying
+\begin{enumerate}
+    \item[(b)] $|z-1|=3|z-2|$. Let $z=a+bi$ $a,b\in\R$
+    \begin{align*}
+        |z-1|&=3|z-2|\\
+        \sqrt{(a-1)^2+b^2}&=3\sqrt{(a-2)^2+b^2}\\
+        x^2-2x+1+y^2&=9x^2-36x+36+9y^2\\
+        x^2-2x+1+y^2-9x^2+36x-36-9y^2&=0\\
+        8x^2+8y^2-34x+35&=0\\
+        x^2-\frac{17}{4}x+y^2+\frac{35}{8}&=0\\
+        \left(x-\frac{17}{8}\right)^2-\frac{289}{64}+y^2+\frac{35}{8}&=0\\
+        \left(x-\frac{17}{8}\right)^2+y^2-\frac{9}{64}&=0\\
+        \left(x-\frac{17}{8}\right)^2+y^2&=\frac{9}{64}.
+    \end{align*}
+    Geometrically this is a circle in $\C$ with centre $(\frac{17}{8},0)$ and radius $\frac{3}{8}$.
+\end{enumerate}
+\stepcounter{section}
+\section*{Page 4 Question 13} Can a single-valued (analytic) branch of $\log z$ be defined on the following sets?
+\begin{enumerate}[label=(\alph*)]
+    \item $\{z\mid1<|z|<2\}$\\
+    \textit{Solution.} This is an annulus and is not simply connected, so you cannot define a single-valued branch of $\log z$.
+    \item $\{z\mid\Re z>0\}$\\
+    \textit{Solution.} This is the right half plane not including the imaginary axis. It is simply connected so we can define a single-valued branch of $\log z$.
+    \item $\{z\mid\Re z>\Im z\}$\\
+    \textit{Solution.} This is the half plane under the diaganol line $a=b$, $(z=a+bi)$. It is simply connected so we can define a single-valued branch of $\log z$.
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Page 4 Question 15} Let $f$ be analytic on $A$. Define $g:A\to\C$ by $g(z)=\overline{f(z)}$. When is $g$ analytic?\\
+\textit{Solution.} Let $z=x+yi$ $x,y\in\R$. Write $f(z)=u(x,y)+iv(x,y)$. So $g(z)=u(x,y)-iv(x,y)$. From the Cauchy-Riemann equations we have
+\[
+    u_x=v_y,\quad u_y=-v_x.
+\]
+For $g(z)$ we have
+\[
+    U(x,y)=u(x,y),\quad V(x,y)=-v(x,y).
+\]
+We need
+\[
+    U_x=V_y,\quad U_y=-V_x.
+\]
+\[
+    u_x=-v_y\Rightarrow u_x=-u_x\Rightarrow u_x=0,
+\]
+\[
+    u_y=-(-v_x)\Rightarrow u_y=v_x\Rightarrow u_y=-u_y\Rightarrow u_y=0.
+\]
+$u_x=0$ and $u_y=0$ implies that $u(x,y)$ is constant on $A$. From the Cauchy-Riemann equations we have $u_x=v_y=0$ and $-v_x=u_y=0$. Then also $v(x,y)$ is constant. So we have that $f(x,y)=u(x,y)+iv(x,y)=C$ for some $C\in\C$. So $g(z)$ is analytic when $f(z)$ is constant.
+
+\stepcounter{section}
+\section*{Page 4 Question 19} Suppose that $f:A\subset\C\to\C$ is analytic on the open connected set $A$ and that $f(z)$ is real for all $z\in A$. Show that $f$ is constant.\\
+\textit{Solution.} Let $z=x+iy$, $x,y\in\R$, write $f(x,y)=u(x,y)+iv(x,y)$. Since we have that $f(z)\in\R$ for all $z\in A$, we have that $v=0$. Then since $f$ is analytic by the Cauchy-Riemann equations we have
+\[
+    u_x=v_y,\quad u_y=-v_x
+\]
+\[
+    v_y=v_x=0,\Rightarrow u_x=u_y=0.
+\]
+So $u$ and $v$ are constant meaning that $f$ is constant.
+\section*{Page 5 Question 8} Use the inverse function theorem to show that if $f:A\to\C$ is analytic and $f'(z)\neq0$ for all $z\in A$, then $f$ maps open sets in $A$ to open sets.
+\begin{proof}
+    We have that $f$ is analytic on $A$ meaning that it is continuous. We want to show that for all open sets $U\subset A$ we have that $f(U)$ is also an open set. Consider $u\in A$ such that $f(u)\in f(U)$. Then by the given and the inverse function theorem we have that $f'(u)\neq0$ and that there exists an open neighbourhood of $u$, say $V$ such that $f(u)\in f(V)\subset f(U)$ since the mapping is bijective and $V\subset U$. Thus, we have that for all $u\in U$, $f(u)$ is an interior point of $f(U)$, meaning $f(U)$ is open.
+\end{proof}
+\stepcounter{section}
+\section*{Page 5 Question 15} Suppose that $f$ is an analytic function on the disk $D=\{z:|z|<1\}$ and that $\Re f(z)=3$ for all $z\in D$. Show that $f$ is constant on $D$.\\
+\textit{Solution.} Let $z=x+iy$ $x,y\in\R$. Write $f(x,y)=u(x,y)+iv(x,y)$. 
+\[
+    u_x=u_y=0.
+\] 
+By the Cauchy-Riemann equations we have
+\[
+    u_x=v_y=0,\quad u_y=-v_x=0.
+\]
+Both the imaginary and real part of $f$ are constant so we have that $f$ is constant.
+\end{document}
