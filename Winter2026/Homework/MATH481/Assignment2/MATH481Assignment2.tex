@@ -98,7 +98,7 @@
 			A_k(x) = x\sum_{d\le x}\frac{d_{k-1}(d)}{d} + O\bigl(x(\log x)^{k-2}\bigr).
 			\]
 
-			Now evaluate $\sum_{d\le x}\frac{d_{k-1}(d)}{d}$ by partial summation. Let $B(t)=\sum_{d\le t} d_{k-1}(d)$. Then
+			Now evaluate $\sum_{d\le x}\frac{d_{k-1}(d)}{d}$ by Abel's formula. Let $B(t)=\sum_{d\le t} d_{k-1}(d)$. Then
 			\[
 			\sum_{d\le x}\frac{d_{k-1}(d)}{d} = \frac{B(x)}{x} + \int_1^x \frac{B(t)}{t^2}\,dt.
 			\]
@@ -165,7 +165,7 @@
 		\end{align*}
 		Thus, combining all of the terms
 		\[
-			\sum_{n\leq x}d_{k}(n)=\frac{x(\log x)^{k-1}}{(k-1)!}+O\left(x(\log x)^{k-2}\right).
+			\sum_{n\leq x}d_{k}(n)=\frac{x(\log x)^{k-1}}{(k-1)!}+O\left(x(\log x)^{k-2}\right).\qedhere
 		\]
 	\end{proof}
 \end{enumerate}
@@ -330,13 +330,77 @@ All in all
 	&=\log^2 x+4\gamma\log x+3\gamma^2+O\left(\frac{\log x}{\sqrt{x}}\right).
 \end{align*}
 \stepcounter{section}
-\section*{Problem 4 [10 Marks]} Obtain an estimate, similar to the estimate for $\displaystyle{\sum_{n\leq x}\frac{1}{n}}$ for the sum $\displaystyle{\sum_{n\leq x}\frac{1}{\phi(n)}}$.
-
- {\it Hint: Use the convolution method.}\\
-\textit{Solution.}
+\section*{Problem 4 [10 Marks]} Obtain an estimate, similar to the estimate for $\displaystyle{\sum_{n\leq x}\frac{1}{n}}$ for the sum $\displaystyle{\sum_{n\leq x}\frac{1}{\varphi(n)}}$.\\
+{\it Hint: Use the convolution method.}\\
+\textit{Solution.} We start by rewriting $\frac{1}{\varphi(n)}$. 
+\begin{align*}
+	\frac{1}{\varphi(n)}&=\frac{1}{n}\sum_{d\mid n}\frac{\mu^2(d)}{\varphi(d)}\\
+	&=\sum_{d\mid n}\frac{d}{n}\cdot\frac{\mu^2(d)}{d\varphi(d)}\\
+	&=\sum_{d\mid n}\frac{1}{\frac{n}{d}}\cdot\frac{\mu^2(d)}{d\varphi(d)}\\
+	&=\left(\frac{1}{id}\ast\frac{\mu^2}{id\varphi}\right)(n).
+\end{align*}
+Now rewriting our sum
+\begin{align*}
+	S(x)&=\sum_{n\leq x}\sum_{d\mid n}\frac{1}{\frac{n}{d}}\cdot\frac{\mu^2(d)}{d\varphi(d)}\\
+	&=\sum_{d\leq x}\frac{\mu^2(d)}{d\varphi(d)}\sum_{\substack{n\leq x\\d\mid n}}\frac{d}{n}.
+\end{align*}
+Let $n=dk$ then $n\leq x\Rightarrow k\leq\frac{x}{d}$.
+\begin{align*}
+	S(x)&=\sum_{d\leq x}\frac{\mu^2(d)}{d\varphi(d)}\sum_{k\leq\frac{x}{d}}\frac{1}{k}\\
+	&=\sum_{d\leq x}\frac{\mu^2(d)}{d\varphi(d)}\left(\log\left(\frac{x}{d}\right)+\gamma+O\left(\frac{d}{x}\right)\right)\\
+	&=\log x\sum_{d\leq x}\frac{\mu^2(d)}{d\varphi(d)}-\sum_{d\leq x}\frac{\log d\mu^2(d)}{d\varphi(d)}+\gamma\sum_{d\leq x}\frac{\mu^2(d)}{d\varphi(d)}+O\left(\frac{1}{x}\sum_{d\leq x}\frac{\mu^2(d)}{\varphi(d)}\right).
+\end{align*}
+To evaluate the sum $\sum_{d\leq x}\frac{\mu^2(d)}{d\varphi(d)}$ please note that 
+\[
+	\sum_{d\geq 1}\frac{\mu^2(d)}{d\varphi(d)}=\sum_{\substack{d\geq 1\\d\text{ squarefree}}}\frac{1}{d\varphi(d)}.
+\]
+$\frac{1}{d\varphi(d)}$ is multiplicative because for $(a,b)=1$ we have $\frac{1}{ab\varphi(ab)}=\frac{1}{a\varphi(a)}\frac{1}{b\varphi(b)}$. So we can take the Euler product giving
+\[
+	\sum_{\substack{d\geq 1\\d\text{ squarefree}}}\frac{1}{d\varphi(d)}=\prod_{p}\left(1+\frac{1}{p(p-1)}\right)
+\]
+and since 
+\[
+	1+\frac{1}{p(p-1)}=1+\frac{1}{p^2}+O\left(\frac{1}{p^3}\right)
+\]
+and the sum $\frac{1}{p^2}$ converges we have that the original sum also converges to some value, say $C$. To find the error see that for the tail of the sum
+\[
+	\phi(n)\gg \frac{n}{\log\log n}\Rightarrow \frac{1}{\phi(n)}\ll\frac{\log\log n}{n}
+\]
+we have
+\begin{align*}
+	\sum_{d\geq 1}\frac{\mu^2(d)}{d\varphi(d)}&\ll\sum_{\substack{d\leq x\\d\text{ squarefree}}}\frac{\log\log d}{d^2}\\
+	&\ll\int_{1}^{\infty}\frac{\log\log t}{t^2}\,dt\\
+	\int_{1}^{\infty}\frac{\log\log t}{t^2}\,dt&=\left(-\frac{\log\log t}{t}\right)^\infty_{x}+\int_{x}^{\infty}\frac{1}{t^2\log t}\,dt\\
+	\sum_{d\geq 1}\frac{\mu^2(d)}{d\varphi(d)}&\ll\frac{\log\log x}{x}.
+\end{align*}
+Thus we have
+\[
+	\sum_{d\geq 1}\frac{\mu^2(d)}{d\varphi(d)}=C+O\left(\frac{\log\log x}{x}\right)
+\]
+And this sum converges to some finite constant, Say $C$.\\
+A similar argument gives that 
+\[
+	\sum_{d\geq 1}\frac{\log d\mu^2(d)}{d\varphi(d)}=A+O\left(\frac{\log x\log\log x}{x}\right)
+\]
+for some constant $A$.\\
+For the error term we have
+\begin{align*}
+	\sum_{d\leq x}\frac{1}{\phi(d)}&\ll\sum_{d\leq x}\frac{\log\log d}{d}\\
+	\sum_{d\leq x}\frac{\log\log d}{d}&\leq\int_{2}^{x}\frac{\log\log t}{t}\,dt\\
+	\int_{2}^{x}\frac{\log\log t}{t}\,dt&\leq\frac{1}{2}(\log\log x)^2\\
+	\sum_{d\leq x}\frac{1}{\phi(d)}&\ll(\log\log x)^2\\
+	\frac{1}{x}\sum_{d\leq x}\frac{1}{\phi(d)}&\ll\frac{(\log\log x)^2}{x}\\
+	O\left(\frac{1}{x}\sum_{d\leq x}\frac{1}{\phi(d)}\right)&=O\left(\frac{(\log\log x)^2}{x}\right).
+\end{align*}
+Adding all the components
+\begin{align*}
+	S(x)&=\log x\sum_{d\leq x}\frac{\mu^2(d)}{d\varphi(d)}-\sum_{d\leq x}\frac{\log d\mu^2(d)}{d\varphi(d)}+\gamma\sum_{d\leq x}\frac{\mu^2(d)}{d\varphi(d)}+O\left(\frac{1}{x}\sum_{d\leq x}\frac{\mu^2(d)}{\varphi(d)}\right)\\
+	&=(\log x+\gamma)\left(C+O\left(\frac{\log\log x}{x}\right)\right)-A+O\left(\frac{\log x\log\log x}{x}\right)+O\left(\frac{(\log\log x)^2}{x}\right)\\
+	&=C(\log x+\gamma)-A+O\left(\frac{\log x\log\log x}{x}\right).
+\end{align*}
 \stepcounter{section}
 \section*{Problem 5 [10 Marks]} Using only Mertens' type estimates (but not the PNT), obtain an asymptotic estimate for the partial sums $\displaystyle{S(x) =\sum_{p\leq x;\; p\;\text{prime} }\frac{1}{p\log p}}$ with as good an error term as you can get using only results at the level of Mertens.\\
-\textit{Solution.} In the following, let $p\leq n$ mean all primes not exceeding $n$. Let $a(n)=\frac{1}{n}$ and $f(n)=\frac{1}{\log n}$, then by Abels summation formula we have
+\textit{Solution.} In the following, let $p\leq n$ mean all primes lesser than or equal to $n$. Let $a(n)=\frac{1}{n}$ and $f(n)=\frac{1}{\log n}$, then by Abels summation formula we have
 \[
 	S(x)=\frac{1}{\log x}\sum_{p\leq x}\frac{1}{p}+\int_{2}^{x}\frac{\displaystyle\sum_{p\leq t}\frac{1}{p}}{t\log^2 t}\,dt.
 \]
@@ -376,52 +440,199 @@ Collecting terms
 	&=-\frac{1}{\log x}+\frac{\log\log2+1+M}{\log2}+O\left(\frac{1}{\log^2x}\right).
 \end{align*}
 \stepcounter{section}
-\section*{Problem 6 [30 Marks]} Let $q\in\mathbb{N}$, and consider the group $\left(\mathbb{Z}_{q}\right)^{\times}$ of invertible elements modulo $q$. A homomorphism $\chi:\left(\mathbb{Z}_{q}\right)^{\times}\leftarrow\mathbb{C}^{\times}$ is called a Dirichlet character modulo $q$. By Euler's theorem $a^{\phi(q)}\equiv 1\mod q$ for any $a\in \left(\mathbb{Z}_{q}\right)^{\times}$, and so $\left(\chi(a)\right)^{\phi(q)}=1$ for all $a\in \left(\mathbb{Z}_{q}\right)^{\times}$. In other words, each $\chi(a)$ is a $\phi(q)$-th root of unity. 
+\section*{Problem 6 [30 Marks]} Let $q\in\mathbb{N}$, and consider the group $\left(\mathbb{Z}_{q}\right)^{\times}$ of invertible elements modulo $q$. A homomorphism $\chi:\left(\mathbb{Z}_{q}\right)^{\times}\leftarrow\mathbb{C}^{\times}$ is called a Dirichlet character modulo $q$. By Euler's theorem $a^{\varphi(q)}\equiv 1\mod q$ for any $a\in \left(\mathbb{Z}_{q}\right)^{\times}$, and so $\left(\chi(a)\right)^{\varphi(q)}=1$ for all $a\in \left(\mathbb{Z}_{q}\right)^{\times}$. In other words, each $\chi(a)$ is a $\varphi(q)$-th root of unity. 
 We extend the definition of $\chi$ to all integers by setting \[\chi(n)=\begin{cases}\chi(n\;\mathrm{mod}\; q)&\;\; \text{if}\; (n,q)=1\\ 0&\;\;\text{otherwise.}\end{cases}\]
-If $\chi$ and $\psi$ are characters modulo $q$, then so is the product $\chi\psi$ as well as $\overline{\chi}$ given by $\overline{\chi}(a)=\overline{\chi(a)}$. In fact, the set of all characters modulo $q$ forms a group of order $\phi(q)$.
+If $\chi$ and $\chi$ are characters modulo $q$, then so is the product $\chi\chi$ as well as $\overline{\chi}$ given by $\overline{\chi}(a)=\overline{\chi(a)}$. In fact, the set of all characters modulo $q$ forms a group of order $\varphi(q)$.
 
 The character $\chi_{0}$ satisfying $\chi_0(a)=1$ for all $a\in \left(\mathbb{Z}_{q}\right)^{\times}$ and $\chi_0(a)=0$ if $(a,q)\neq1$ is called the trivial character modulo $q$. 
 
 \begin{enumerate}[label=(\alph*)]
-    \item Show that $\chi$ is a completely multiplicative arithmetic function.
+    \item Show that $\chi$ is a completely multiplicative arithmetic function.\\
+    \textit{Solution.} We need to show that $\chi(1)=1$ and $\chi(ab)=\chi(a)\chi(b)$ for any $a,b$. Since $(1,q)=1$ we have $\chi(1)=\chi(1\mod q)=1$. For any $a,b$ assume without loss of generality that $(a,q)\neq1$ then $(ab,q)\neq1$ so we have $\chi(ab)=0$ and $\chi(a)\chi(b)=0\times\chi(b)=0=\chi(ab)$. If $(a,q)=1$ and $(b,q)=1$ we have $(ab,q)=1$ and $ab\in(\Z_q)^\times$. Since $\chi$ acts as a group homomorphism we have $\chi(ab)=\chi(a)\chi(b)$.
+	\newpage
     \item If $\chi\neq \chi_0$, show that $\displaystyle{\sum_{a(\mathrm{mod}\; q)}\chi(a)}=0$.
-    \item Show that \[\sum_{\chi(\mathrm{mod}q)}\chi(n)=\begin{cases}\phi(q)&\;\;\text{if}\;n\equiv1\mathrm{mod}\; q\\ 0&\;\;\text{otherwise.}\end{cases}\]
+    \begin{proof}
+		Since if $(a,q)\neq1$ $\chi(a)=0$ we can rewrite the sum as 
+		\[
+			S(x)=\sum_{a\in(\Z_q^\times)}\chi(a).
+		\]
+		Find $b\in(\Z_q)^\times$ such that $\chi(b)\neq1$, this is possible since $\chi\neq\chi_0$. Then 
+		\begin{align*}
+			S(x)&=\sum_{a\in(\Z_q^\times)}\chi(ab)\\
+			&=\chi(b)\sum_{a\in(\Z_q^\times)}\chi(a)\\
+			S(x)&=\chi(b)S(x)\\
+			S(x)(1-\chi(b))&=0.
+		\end{align*}
+		Since $\chi(b)\neq1$ it must be that $S(x)=0$.
+	\end{proof}
+    \item Show that \[\sum_{\chi(\mathrm{mod}q)}\chi(n)=\begin{cases}\varphi(q)&\;\;\text{if}\;n\equiv1\mathrm{mod}\; q\\ 0&\;\;\text{otherwise.}\end{cases}\]
+	\begin{proof}
+		Let $G = (\mathbb{Z}_q)^\times$. Then $G$ is a finite abelian group of order $|G|=\varphi(q)$. The set of Dirichlet characters modulo $q$ is the set of group homomorphisms
+		\[
+			\widehat{G}=\mathrm{Hom}(G,\mathbb{C}^\times),
+		\]
+		and it is a group under pointwise multiplication. Also, $|\widehat{G}|=\varphi(q)$. We look at the sum in cases.
+		Let $n\in\mathbb{Z}$.\\
+		Case 1: $(n,q)\neq 1$. By definition of Dirichlet characters, $\chi(n)=0$ for every character $\chi$. Hence,
+		\[
+			\sum_{\chi (\mathrm{mod}\, q)} \chi(n)=0.
+		\]
+		Case 2: $(n,q)=1$. Then $n$ determines an element $a\in G$, namely $a\equiv n\pmod q$. We look at 
+		\[
+			S(a)=\sum_{\chi\in\widehat{G}} \chi(a)
+		\]
+		in cases.
+		Subcase 2a: $a=1$. If $n\equiv 1\pmod q$, then $\chi(1)=1$ for every character $\chi$. Therefore,
+		\[
+			S(1)=\sum_{\chi\in\widehat{G}} 1 =|\widehat{G}| =\varphi(q).
+		\]
+		Subcase 2b: $a\neq1$. Find $b\in(\Z_q)^\times$ such that $\chi(b)\neq1$, this is possible since $\chi\neq\chi_0$. Then 
+		\begin{align*}
+			S(x)&=\sum_{a\in(\Z_q^\times)}\chi(ab)\\
+			&=\chi(b)\sum_{a\in(\Z_q^\times)}\chi(a)\\
+			S(x)&=\chi(b)S(x)\\
+			S(x)(1-\chi(b))&=0.
+		\end{align*}
+		Since $\chi(b)\neq1$ it must be that $S(x)=0$.
+		Because $\chi(a)\neq 1$, we have $S(a)=0$. Thus, we have
+		\[
+			\sum_{\chi(\mathrm{mod}\, q)} \chi(n) = 
+			\begin{cases} 
+				\varphi(q) & \text{if } n\equiv 1 \pmod q,\\ 
+				0 & \text{otherwise.}
+			\end{cases}.\qedhere
+		\]
+	\end{proof}
     \item For $\chi\neq\chi_0$, show that $\displaystyle{\left|\sum_{n\leq x}\chi(n)\right|\leq q}$. Deduce that \[L(s,\chi)=\sum_{n=1}^{\infty}\frac{\chi(n)}{n^s}\] is convergent for $\Re(s)>0$.
+    \begin{proof}
+		We know that
+		\[
+			\sum_{n\leq q}\chi(n)=0.
+		\]
+		Write $x=mq+r$ with $0\leq r< q$ then 
+		\[
+			\sum_{n\leq x}\chi(n)=\sum_{k=0}^{m-1}\sum_{n=kq+1}^{(k+1)q}\chi(n)+\sum_{n=mq+1}^{mq+r}\chi(n)
+		\]
+		the inner sums are 0 so
+		\[
+			\left|\sum_{n\leq x}\chi(n)\right|=\left|\sum_{n=mq+1}^{mq+r}\chi(n)\right|\leq r<q.
+		\]
+		So we have 
+		\[
+			\left|\sum_{n\leq x}\chi(n)\right|\leq q.
+		\]
+		Let $A(x)=\sum_{n\leq x}\chi(n)$ and $L(s,\chi)=\sum_{n\geq1}\frac{\chi(n)}{n^s}$ with $\Re(s)>0$. Then 
+		\[
+			\sum_{n=1}^{N}\frac{\chi(n)}{n^s}=\sum_{n=1}^{N-1}A(n)(n^{-s}-(n+1)^{-s})+A(N)N^{-s}.
+		\]
+		Clearly $A(N)N^{-s}\to0$ and $N\to\infty$. Let $\sigma=\Re(s)>0$ then 
+		\[
+			|n^{-s}-(n+1)^{-s}|=O(n^{-\sigma-1}) 
+		\]
+		so
+		\[
+			\left|\sum_{n=1}^{N-1}A(n)(n^{-s}-(n+1)^{-s})\right|\leq\sum_{n=1}^{N-1}qCn^{-\sigma-1}
+		\]
+		which is also approches 0 as $N\to\infty$. Thus, $L(s,\chi)$ converges for $\Re(s)>0$.
+	\end{proof}
     \item Define $f(n)=\sum_{d|n}\chi(d)$.  Suppose that $\chi$ is a real Dirichlet character modulo $q$ (i.e. $\chi(a)=0,\pm1$ for all $a$). Show that $f(1)=1$ and $f(n)\geq0$. Moreover, show that $f(n)\geq 1$ whenever $n$ is a perfect square.
+    \begin{proof}
+		From part (a) we know that $f(1)=\chi(1)=1$ and that $\chi$ is multiplicative. This gives that $f$ is also multiplicative. Write $n=p_1^{e_1}\cdots p_n^{e_n}$ for unique primes $p_i$ $1\leq i\leq n$ and each $e_j\in\N$ with $1\leq j\leq n$. So $f(n)=\prod_{i=1}^{n}\chi(p_i)^{e_i}$. Next we compute $f$ at prime powers. $f(p^j)=\sum_{i=0}^{j}\chi(p^i)$, but $\chi(p^i)=\chi(p)^i$ and $\chi(p)\in\{-1,0,1\}$. 
+		\begin{enumerate}
+			\item[Case 1.] $\chi(p)=0$ then $f(p^i)=1$ 
+			\item[Case 2.] $\chi(p)=1$ then $f(p^i)=i+1\geq1$
+			\item[Case 3.] $\chi(p)=-1$ then $f(p^i)=\sum_{j=0}^{i}(-1)^j$ with if $i$ is odd we have $f(p^i)=1$ and if $i$ is even we have $f(p^i)=1$. 
+		\end{enumerate}
+		So $f(n)\geq0$. If $n$ is a perfect square each $e_i$ is even so we have $f(p_i^{e_i})\geq1$.
+	\end{proof}
+	\newpage
     \item Suppose $\chi\neq\chi_0$. Using Dirichlet's hyperbola method, prove that \[\sum_{n\leq x}\frac{f(n)}{\sqrt{n}}=2L(1,\chi)\sqrt{x}+O(1).\]
+    \begin{proof}
+		Let
+		\[
+			S(x) = \sum_{n \le x} \frac{f(n)}{\sqrt{n}}, \qquad 
+			f(n) = \sum_{d|n} \chi(d), \quad \chi \neq \chi_0.
+		\]
+		\begin{align*}
+			S(x) &= \sum_{n \le x} \frac{1}{\sqrt{n}} \sum_{d|n} \chi(d)\\
+			&= \sum_{dm \le x} \frac{\chi(d)}{\sqrt{dm}}\\
+			&= \sum_{d \le x} \frac{\chi(d)}{\sqrt{d}} \sum_{m \le x/d} \frac{1}{\sqrt{m}}.
+		\end{align*}
+		Define
+		\[
+			A(t) = \sum_{m \le t} \frac{1}{\sqrt{m}}.
+		\]
+		By comparing with the integral \(\int_1^t u^{-1/2}\,du\), we have
+		\[
+			A(t) = 2\sqrt{t} + C + O(t^{-1/2}), \quad C = \zeta(1/2).
+		\]
+		Take \(y = \sqrt{x}\). 
+		\[
+			S(x)=\sum{d\leq\sqrt{x}}\frac{\chi(d)}{\sqrt{d}}\sum_{m\leq\frac{x}{d}}\frac{1}{\sqrt{m}}+\sum_{m\leq x}\frac{1}{\sqrt{m}}\sum{d\leq\frac{x}{m}}\frac{\chi(d)}{\sqrt{d}}-\sum_{d\leq\sqrt{x}}\sum_{m\leq\sqrt{x}}\frac{\chi(d)}{\sqrt{dm}}.
+		\]
+		\begin{align*}
+			S_1(x) &= \sum_{d \le y} \frac{\chi(d)}{\sqrt{d}} A\left( \frac{x}{d} \right)\\
+			&=\sum_{d \le y} \frac{\chi(d)}{\sqrt{d}} \left[ 2\sqrt{\frac{x}{d}} + C + O\left( \sqrt{\frac{d}{x}} \right) \right]\\
+			&=2\sqrt{x} \sum_{d \le y} \frac{\chi(d)}{d}+ C \sum_{d \le y} \frac{\chi(d)}{\sqrt{d}}+ \sum_{d \le y} \frac{\chi(d)}{\sqrt{d}} \, O\!\left( \sqrt{\frac{d}{x}} \right)
+		\end{align*}
+		\begin{itemize}
+			\item First term: \(\displaystyle \sum_{d \le y} \frac{\chi(d)}{d} = L(1,\chi) + O(1/y)\) by partial summation from bounded \(\sum_{d \le t} \chi(d)\). Hence,
+			\[
+				2\sqrt{x} \sum_{d \le y} \frac{\chi(d)}{d} = 2\sqrt{x} L(1,\chi) + O(1).
+			\]
+			\item Second term: \(\displaystyle \sum_{d \le y} \frac{\chi(d)}{\sqrt{d}}\) converges again it is \(O(1)\). Hence, \(C \sum_{d \le y} \frac{\chi(d)}{\sqrt{d}} = O(1)\).
+			\item Third term: \(|\chi(d)| \le 1\) and \(\sqrt{d/x} \le 1\) for \(d \le y = \sqrt{x}\), so
+			\[
+				\sum_{d \le y} \frac{\chi(d)}{\sqrt{d}} \, O\!\left( \sqrt{\frac{d}{x}} \right)
+				= O\!\left( \frac{1}{\sqrt{x}} \sum_{d \le y} 1 \right) = O(1).
+			\]
+		\end{itemize}
+		Therefore,
+		\[
+			S_1(x) = 2\sqrt{x} L(1,\chi) + O(1).
+		\]
+		For \(d > y\) we have \(m \le x/d < x/y = y\).
+		\[
+			S_2(x) = \sum_{m < y} \frac{1}{\sqrt{m}} \sum_{d \le x/m} \frac{\chi(d)}{\sqrt{d}}.
+		\]
+		Let \(K = \lim_{t \to \infty} \sum_{d \le t} \frac{\chi(d)}{\sqrt{d}}\). Then
+		\[
+			\sum_{d \le x/m} \frac{\chi(d)}{\sqrt{d}} = K + O\!\left( \frac{1}{\sqrt{x/m}} \right).
+		\]
+		Hence,
+		\[
+			S_2(x) = \sum_{m < y} \frac{1}{\sqrt{m}} \left[ K + O\!\left( \sqrt{\frac{m}{x}} \right) \right]
+			= K \sum_{m < y} \frac{1}{\sqrt{m}} + O\!\left( \frac{1}{\sqrt{x}} \sum_{m < y} 1 \right).
+		\]
+		Now \(\sum_{m < y} 1 = O(\sqrt{x})\) and \(\sum_{m < y} 1/\sqrt{m} = 2\sqrt{y} + C + O(1/\sqrt{y}) = 2 x^{1/4} + O(1)\). Thus,
+		\[
+			S_2(x) = 2K x^{1/4} + O(1).
+		\]
+		\[
+			S_3(x) = \sum_{d \le y} \sum_{m \le y} \frac{\chi(d)}{\sqrt{dm}}
+			= \left( \sum_{d \le y} \frac{\chi(d)}{\sqrt{d}} \right) \left( \sum_{m \le y} \frac{1}{\sqrt{m}} \right) = O(1) \cdot O(x^{1/4}) = O(x^{1/4}).
+		\]
+		\[
+			S(x) = S_1(x) + S_2(x) - S_3(x) = \big( 2\sqrt{x} L(1,\chi) + O(1) \big) + \big( 2K x^{1/4} + O(1) \big) - O(x^{1/4}).
+		\]
+		Thus,
+		\[
+			\sum_{n \le x} \frac{f(n)}{\sqrt{n}}  = 2\sqrt{x} L(1,\chi) + O(1).\qedhere
+		\]
+	\end{proof}
     \item If $\chi\neq \chi_0$ is a real character, show that $L(1,\chi)\neq0$.
+    \begin{proof}
+		Assume for the sake of contradiction that $L(1,\chi)=0$, then from (f) we have
+		\[
+			\sum_{n\leq x}\frac{f(n)}{\sqrt{n}}=2L(1,\chi)\sqrt{x}+O(1)=O(1).
+		\]
+		Now, take $x=N^2$ and consider $n=m^2\leq N^2$. We have $f(m^2)\geq1$ and $\frac{1}{\sqrt{n}}=\frac{1}{m}$. Then
+		\[
+			\sum_{n\leq N^2}\frac{f(n)}{\sqrt{n}}\geq\sum_{m\leq N}\frac{1}{m}\sim \log N.
+		\]
+		But as $N\to\infty$ $\log N\to\infty$. This is a contradiction since the left hand side tends to $\infty$ but the right hand side if $O(1)$. Thus, $L(1,\chi)\neq0$.
+	\end{proof}
 \end{enumerate}
-
-\stepcounter{section}
-\section*{Problem 7 [10 Marks]} Let $\chi_0$ be the principal character modulo $q$ (i.e. $\chi(a)=0$ if $(a,q)>1$ and $\chi(a)=1$ if $(a,q)=1$). Prove the Merten's type estimate
-    \[
-        \sum_{p\leq x}\frac{\chi_0(p)}{p}=\log\log x+b_{\chi_0}+O_{\chi_0}(1/\log x),
-    \] where 
-    \[
-        b_{\chi_0}=A+\sum_{p|q}\log(1-1/p)-\sum_{k=2}^{\infty}\sum_{p\;\text{prime}}\frac{\chi_0(p^k)}{kp^k}
-    \] 
-    and $A$ is some absolue constant that is independent of $\chi_0$.
-
-\stepcounter{section}
-\section*{Problem 8 [10 Marks]} Let $q \in \mathbb{N}$.
-\begin{enumerate}
-	\item Prove that 
-	$$
-	\sum_{d \mid q} |\mu(d)| = 2^{\omega(q)} 
-	$$
-	\item Use the identity
-	$$
-	\sum_{d \mid q} \frac{\mu(d) \log d}{d} = - \frac{\phi(q)}{q} \sum_{p \mid q} \frac{\log p}{p-1},
-	$$
-	to prove that 
-	$$
-	\sum_{ \substack{ n \le x \\ (n,q)=1}} \frac{1}{n} = \frac{\phi(q)}{q} 
-	\Big( 
-	\log x  + \gamma + \sum_{p \mid q} \frac{\log p}{p-1} \Big) + O\Big( \frac{2^{\omega(q)}}{x} \Big),
-	$$
-	where $\gamma$ is Euler's constant.\\
-	
-\end{enumerate}	
 
 
 \end{document}
