@@ -1,0 +1,38 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 420 Lecture 11}
+\author{Deepak Jassal}
+\date{February 11\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle
+\section{Ascending Chain Condition}
+If $J_1\subseteq J_2\subseteq\cdots\subseteq J_n\subseteq\cdots$ are ideals in $R$, then there exists $N\geq1$ such that $J_n=J_N$ for all $n\geq N$.
+\ex{
+    $\R[x]$ (is a PID) satisfies the ascending chain condition. $J_i=(f_i)$, ($f_i\in\R[x]$). $(f_1)\subseteq(f_2)\subseteq\cdots\subseteq(f_n)\subseteq\cdots$. $\{f_jg:g\in\R[x]\}=(f_j)\subseteq(f_{j+1})=\{f_{j+1}g:g\in\R[x]\}$. In particular, $f_j$ is a multiple of $f_{j+1}$ ($f_{j+1}\mid f_j$). So ACC follows from well ordering principle on $\Z_{\geq0}$.
+}
+\ex{
+    $\R[x_1,\dots,x_n,\dots]$. $(x_1)\subseteq(x_1,x_2)\subseteq(x_1,x_2,x_3)\subseteq\cdots$.
+}
+\thm{Every PID is Noetherian}{
+    If $R$ is a PID, then it is Noetherian.
+}
+\pf[Proof of the Theorem]{
+    Let $J_1\subseteq J_2\subseteq\cdots\subseteq J_n\subseteq\cdots$ be an AC. Put $J=\bigcup_{n=1}^\infty$. We claim that $J$ is an ideal of $R$. Suppose $a,b\in J$ and $r\in R$. Since $a,b\in J$ there exists indices $n_1,n_2$ such that $a\in J_{n_1}$, and $b\in J_{n_2}$. Without loss of generallity assume that $n_1\leq n_2$. Then $J_{n_1}\subseteq J_{n_2}$, so $a\in J_{n_2}$, Hence $a+b\in J_{n_2}$ since $J_{n_2}$ is an ideal. Thus $a+b\in J$. Now $ar\in J_{n_2}$ hence $ar\in J$. Since $R$ is a PID, there exists $\delta\in R$ such that $J=(\delta)$. In particular $\delta\in J$. Hence there exists $N\geq1$ such that $\delta\in J_N$. It follows that $J=(\delta)\subseteq J_N$. But $J_N\in J$, hence $J=J_N$.
+}
+\cor{
+    Let D be a PID. Suppose $d\in D$, $d\neq0$. Then there exists $P_1,\dots,P_k\in D$, $P_j$ irreducible for $1\leq j\leq k$, such that $d=P_1\cdots P_k$
+}
+\lemp{}{
+    Let D be a PID. Suppose $d\in D$, $d\neq0$. Then $d$ has an irreducible divisor, if $d$ is not a unit.
+}{
+    Suppose for the sake of a contradiction that every divisor of $d$ is reducible. Since $d\mid d$ we have that $d$ is reducible, hence $d=a_1b_1$ with $a_1,b_1$ non units. $a_1$ is reducible so $a_1=a_2b_2$, $a_2,b_2$ non units. In general $a_i=a_{i+1}b_{i+1}$. Put $J_k=(a_k)$. Then $J_k\subseteq J_{k+1}$ for all $k\geq 1$. Applying ACC, choose $N$ such that $J_k=J_N$ for all $k\geq N$. Then $J_{N+1}=J_N$. Then $(a_{N+1})\subseteq (a_N)$. Thus there exists $c\in D$ such that  $a_{N+1}=a_Nc=(a_{N+1}b_{N+1})c$. This implies that $1=b_{N+1}c$, but $b_{N+1}$ is a unit, this is a contradiction.
+}
+The second step (for the corollary) proceeds by induction, and uses ACC to obtain a terminal state.\\
+Factorization in polynomial rings
+\end{document}

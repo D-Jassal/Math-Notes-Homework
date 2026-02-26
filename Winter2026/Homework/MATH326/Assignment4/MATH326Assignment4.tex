@@ -56,15 +56,167 @@ and
     \end{bmatrix}.
 \]
 \begin{enumerate}[label=(\alph*)]
-    \item Find a basis of the row space of $A$ and a basis of the row space of $B$. This can be done by a single Maple command for each matrix. Are $A$ and $B$ row equivalent.
-    \item Find the pivot matrix $P$ for the matrix $A$, and the pivot matrix $Q$ for the matrix $B$. For creating a matrix with selected columns of $A$ you can use Maple command [> P := SubMatrix(A, [1..5], [j1, j2]) The brackets [1..5] means that you want all rows from 1 to 5, in the second brackets you indicate the columns you want to take from matrix $A$.
-    \item Find the matrix $R$ such that $A = P R$ and $B = QR$ and check that these products work.
-    \item Find an invertible matrix $C$ such that $B = CA$. Check the lecture where the Lemma is proved. For this you will need to concatenate something to $P$ and something else (possibly else it not necessarily) so that the new matrices are invertible.
-    \item Find a basis of $\null(A)$ and of $\null(B)$. For this recall how to we solve equations $Ax = 0$ and $Bx = 0$. If you have completed (c) you will know that we do not need to use $A$ or $B$ anymore.
+    \item Find a basis of the row space of $A$ and a basis of the row space of $B$. This can be done by a single Maple command for each matrix. Are $A$ and $B$ row equivalent.\\
+    \textit{Solution.}
+    \[
+        r.r.e.f(A)=
+        \begin{bmatrix}
+        1& 3& 0& 2& 5\\
+        0& 0& 1& -3& -3\\
+        0& 0& 0& 0& 0\\
+        0& 0& 0& 0& 0\\                
+        \end{bmatrix},\quad
+        r.r.e.f(B)=
+        \begin{bmatrix}
+        1& 3& 0& 0.8& 3.8\\
+        0& 0& 1& -3& -3\\
+        0& 0& 0& 0& 0\\
+        0& 0& 0& 0& 0\\                
+        \end{bmatrix}.
+    \]
+    Basis row space of $A=\{(1,3,0,2,5),(0,0,1,-3,-3)\}$ and basis of the row space of $B=\{(1,3,0,0.8,3.8),(0,0,1,-3,-3)\}$ 
+    \item Find the pivot matrix $P$ for the matrix $A$, and the pivot matrix $Q$ for the matrix $B$. For creating a matrix with selected columns of $A$ you can use Maple command [> P := SubMatrix(A, [1..5], [j1, j2]) The brackets [1..5] means that you want all rows from 1 to 5, in the second brackets you indicate the columns you want to take from matrix $A$.\\
+    \textit{Solution.}
+    \[
+        P=
+        \begin{bmatrix}
+            1&0\\
+            2&1\\
+            3&2\\
+            4&1
+        \end{bmatrix},\quad
+        Q=
+        \begin{bmatrix}
+            10&4\\
+            9&4\\
+            4&1\\
+            5&3
+        \end{bmatrix}    
+    \]
+    \item Find the matrix $R$ such that $A = P R$ and $B = QR$ and check that these products work.\\
+    \textit{Solution.} For $A = PR_A$, $R_A$ is the matrix of non-pivot columns expressed in terms of pivot columns, the same is for $Q$
+    \[
+        R_A=
+        \begin{bmatrix}
+            3&2&5\\
+            0&-3&-3
+        \end{bmatrix},\quad
+    \]
+    \[
+        PR_A=
+        \begin{bmatrix}
+            1&0\\
+            2&1\\
+            3&2\\
+            4&1
+        \end{bmatrix}
+        \begin{bmatrix}
+            3&2&5\\
+            0&-3&-3
+        \end{bmatrix}=
+        A=\begin{bmatrix}
+            1& 3& 0& 2& 5\\
+            2& 6& 1& 1& 7\\
+            3& 9& 2& 0& 9\\
+            4& 12& 1& 5& 17\\
+        \end{bmatrix}.
+    \]
+    The same goes for $B$ giving
+    \[
+        R_B=
+        \begin{bmatrix}
+            3&0.8&3.8\\
+            0&-3&-3
+        \end{bmatrix}
+    \]
+    \[
+        QR_B=
+        \begin{bmatrix}
+            10&4\\
+            9&4\\
+            4&1\\
+            5&3
+        \end{bmatrix}  
+        \begin{bmatrix}
+            3&0.8&3.8\\
+            0&-3&-3
+        \end{bmatrix}=
+        \begin{bmatrix}
+            10& 30& 4& 8& 38\\
+            9& 27& 4& 6& 33\\
+            4& 12& 1& 5& 17\\
+            5& 15& 3& 1& 16&
+        \end{bmatrix}.
+    \]
+    \item Find an invertible matrix $C$ such that $B = CA$. Check the lecture where the Lemma is proved. For this you will need to concatenate something to $P$ and something else (possibly else it not necessarily) so that the new matrices are invertible.\\
+    \textit{Solution.} We can concatenate something to the matrices $P,Q$ to make them invertible
+    \[
+        P_e=
+        \begin{bmatrix}
+            1&0&0&0\\
+            2&1&0&0\\
+            3&2&1&0\\
+            4&1&0&1
+        \end{bmatrix},\quad
+        Q_e=
+        \begin{bmatrix}
+            10&4&0&0\\
+            9&4&0&0\\
+            4&1&1&0\\
+            5&3&0&1
+        \end{bmatrix}.
+    \]
+    Now
+    \[
+        C=Q_eP_e^{-1}=
+        \begin{bmatrix}
+            10&4&0&0\\
+            9&4&0&0\\
+            4&1&1&0\\
+            5&3&0&1
+        \end{bmatrix}
+        \begin{bmatrix}
+            1&0&0&0\\
+            -2&1&0&0\\
+            1&-2&1&0\\
+            -2&-1&0&1
+        \end{bmatrix}=
+        \begin{bmatrix}
+            2&4&0&0\\
+            1&5&0&0\\
+            1&2&1&0\\
+            0&2&0&1           
+        \end{bmatrix}.
+    \]
+    \item Find a basis of $\null(A)$ and of $\null(B)$. For this recall how to we solve equations $Ax = 0$ and $Bx = 0$. If you have completed (c) you will know that we do not need to use $A$ or $B$ anymore.\\
+    \textit{Solution.} Since $A=PR$ and $B=QR$, we need to solve $PR_Ax=0$, and $QR_Ax=0$, since $P,Q$ have full column rank we need to solve $R_Ax=0$, $R_Ax=0$.
+    \[
+        Rx=0\Rightarrow 3x_1+2x_3+x_5=0,\quad -3x_3-3x_5=0
+    \] 
+    this gives $x_3=-x_5$ and $x_1=-x_5$. A basis for the null space is $\{(0,1,0,0,0),(0,0,0,1,0),(-1,0,-1,0,1)\}$. Similarrily for $Bx=0$ we have the basis we have $3x_1 + 0.8x_3 + 3.8x_5 = 0 -3x_3 - 3x_5 = 0$, giving $x_3=-x_5$ and $x_1=-x_5$. This means they both have the same basis vectors for the null space.
 \end{enumerate}
 \stepcounter{section}
+\newpage
 \section*{Problem 2}
 Suppose that $A$ and $B$ are in $M_n(\mathbb{F})$. Prove that if $A$ is invertible then $\rank(AB) = \rank(B)$ and $\rank(BA) = \rank(B)$ by considering dimensions of the row space or column space on both sides, whichever is appropriate in a given case.
+\begin{proof}
+    \[
+        \col(AB)=\{(AB)x\mid x\in\mathbb{F}^n\}=\{A(B)x\mid x\in\mathbb{F}^n\}=\{Ay\mid y\in\col(B)\}.
+    \]
+    Due to the invertibility of $A$ we have that it is injective so the image of the column space of $B$ under $A$ has the same dimension as the column space of $B$ giving
+    \begin{align*}
+        \dim\col(AB)&=\dim\col(B)\\
+        \rank(AB)&=\rank(B).
+    \end{align*} 
+    \[
+        \row(BA)=\{v^T(BA)\mid v^T\in\mathbb{F}^n\}=\{wA\mid w\in\row(B)\}.
+    \]
+    Right multiplication of an invertible matrix is injective on the row vectors, so dimensionality is preserved giving
+    \begin{align*}
+        \dim\row(BA)&=\dim\row(B)\\
+        \rank(BA)&=\rank(B).
+    \end{align*} 
+\end{proof}
 \stepcounter{section}
 \section*{Problem 3}
 Let
@@ -74,6 +226,18 @@ Let
 be defined by $Tx=Ax$, where $A$ is a matrix from Problem 1.\\
 Find $\dim(\ker(T))$ and $\dim(\mathrm{image}(T))$ and verify that 
 \[
-    4=\dim(\ker(T))+\dim(\mathrm{image}(T)).
+    5=\dim(\ker(T))+\dim(\mathrm{image}(T)).
+\]
+\textit{Solution.} We can use $rref(A)$ instead of $A$ because $rref(A)$ preserves the essential components of the matrix. The image of $T$ is the column space of $A$ due the vector multiplication is being multiplied on the left of the matrix. This gives
+\[
+    \dim(\image(T))=\dim(\col(A))=2.
+\]
+The dimension of the kernel of $T$ is going to be the dimension of the null space of $A$. In (1e) we found that 
+\[
+    \dim(\ker(T))=\dim(\null(A))=3.
+\]
+This gives 
+\[
+    5=\dim(\ker(T))+\dim(\image(T)).
 \]
 \end{document}
