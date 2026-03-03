@@ -1,0 +1,39 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 420 Lecture 13}
+\author{Deepak Jassal}
+\date{March 2\textsuperscript{nd}, 2026}
+
+\begin{document}
+\maketitle
+Factorization in a polynomial ring.\\
+Last time we proved that is $R=F$ is a field, then $F[x]$ is a Euclidean domain. In particular, there is a division algorithm on $F[x]$, which can be used to implement the EA. \\
+Factoring polynomials over $R[x]$ with $R$ a ring if of significant interest. Over $\Z[x],$ one can write down an algorithm as follows:
+\[
+    f(x)=a_nx^n+\cdots+a_1x+a_0
+\]
+we factor $a_0$. For any divisor $d$ of $a_0$ and degree $r\leq n$, we look for solutions of the form $g(x)h(x)=f(x)$ where $\deg(g)=r$, and $g(x)=\cdots+g_1x+d$. This depends on prime factorization over $\Z$ which is super-polynomial time. Instead of a deterministic algorithm, how about a \underline{probablistic} algorithm? 
+\ex{
+    Is $x^2+1$ irreducible? $\Z\to\Z/3\Z$ induces a homomorphism from $\Z[x]$ to $(\Z/3\Z[x])$. $x^2+1\mod 3$ factors mod 3? Possible linear factors:
+    \[
+        x,2x,x+1,x+2,2x+1,2x+2.
+    \]
+    If $f(x)\mod p$ is irreducible over $\Z/p\Z$ for any prime $p$ then $f(x)$ is irreducible over $\Z$.
+}
+\ex{
+    $x^2+x+41$, mod 2 $x^2+x+1$, mod 3 $x^2+x+2$, doesn't work for 3. Then it doesn't work till 41. 
+}
+Pick your favourite integers $a_1,\dots,a_n$. Let $g(n)=(x-a_1)\cdots(x-a_n)$. One can show that there exists an \underline{irreducible} $f\in\Z[x]$, such that $f(x)\equiv g(x)\mod p$ all small primes.\\
+
+Q: If $f(x)$ is \underline{reducible} for all $p$, does it follow that $f$ is reducible over $\Z$?\\
+Ans: No. $x^4+1$ is reducible for every prime $p$, but not reducible over $\Z$.\\
+Assuming the Grand/Generalized Riemann Hypothesis (GRH), there is a positive number $C$ such that is $f$ is irreducible over $\Z$, there is a prime $p\leq C(\log H)^2$ such that $f(x)\mod p$ splits completely. Here 
+\[
+    H=H(f)=\max_{0\leq k\leq n}|f_k|
+\]
+\end{document}
