@@ -1,0 +1,224 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../../preambles/hw-preamble.tex}
+\input{../../../../preambles/homework-macros.tex}
+\input{../../../../preambles/homework-title.tex}
+\input{../../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Advanced Linear Algebra}
+\renewcommand{\coursecode}{MATH 326}
+\renewcommand{\assignment}{Assignment 4}
+\renewcommand{\instructor}{Dr. Edward Dobrowolski}
+\renewcommand{\duedate}{February 25\textsuperscript{th}, 2026}
+\usepackage{tensor}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Problem 1}
+Let $\mathcal{V}$ be a real inner product and let $x, y \in \mathcal{V}$. Show that $\inner{x}{y}= 0$ if and only if $\norm{x+y}=\norm{x-y}$.
+\begin{proof}
+    $(\Rightarrow)$ Assume that $\inner{x}{y}=0$, then
+    \begin{align*}
+        \norm{x+y}^2&=\inner{x+y}{x+y}\\
+        &=\inner{x}{x}+\inner{x}{y}+\inner{y}{x}+\inner{y}{y}\\
+        &=\inner{x}{x}+2\inner{x}{y}+\inner{y}{y}\\
+        &=\inner{x}{x}-2\inner{x}{y}+\inner{y}{y}
+        \intertext{Since $\inner{x}{y}=-\inner{x}{y}=0.$}
+        &=\norm{x-y}^2\\
+        \norm{x+y}&=\norm{x-y}.
+    \end{align*}
+    $(\Leftarrow)$ Assume that $\norm{x+y}=\norm{x-y}$, then
+    \begin{align*}
+        \norm{x+y}^2&=\norm{x-y}^2\\
+        \inner{x}{x}+2\inner{x}{y}+\inner{y}{y}&=\inner{x}{x}-2\inner{x}{y}+\inner{y}{y}\\
+        2\inner{x}{y}&=-2\inner{x}{y}\\
+        \inner{x}{y}&=0.\qedhere
+    \end{align*}
+\end{proof}
+\stepcounter{section}
+\section*{Problem 2}
+Let $\mathcal{V}$ be an $\mathbb{F}$-product space and let $u, v \in \mathcal{V}$. Show that
+\[
+    |\inner{u}{v}|\leq \norm{u}^2+\norm{v}^2.
+\]
+When is this inequality an equality?\\
+\textit{Solution.} Let $a=\norm{u}^2\geq0$ and $b=\norm{v}^2\geq0$. By the Cauchy-Schwarz-Bunyakovsky inequality we have
+\begin{align*}
+    |\inner{u}{v}|&\leq\norm{u}\norm{v}\\
+    |\inner{u}{v}|&\leq\sqrt{a}\sqrt{b}.
+\end{align*}
+By the AM-GM inequality we have
+\[
+    |\inner{u}{v}|\leq\sqrt{a}\sqrt{b}=\sqrt{ab}\leq\frac{a+b}{2}\leq a+b=\norm{u}^2+\norm{v}^2.
+\]
+Thus we have shown the first part. To see when this is an equality note that
+\[
+    |\inner{u}{v}|=a+b\Rightarrow|\inner{u}{v}|=\frac{a+b}{2}\Rightarrow\frac{a+b}{2}=a+b,
+\]
+from here see that 
+\begin{align*}
+    \frac{a+b}{2}&=a+b\\
+    a+b&=0,
+\end{align*}
+since $a,b\geq0$, we have equality whenever
+\[
+    \norm{u}^2=\norm{v}^2=0.
+\]
+\stepcounter{section}
+\section*{Problem 3}
+Let $\mathcal{V}$ be a complex vector space and let $u, v \in \mathcal{V}$. Show that
+\[
+    \inner{u}{v}=\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{i\theta}\norm{u+e^{i\theta}v}^2\,d\theta.
+\]
+\begin{align*}
+    \inner{u}{v}&=\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{i\theta}\norm{u+e^{i\theta}v}^2\,d\theta\\
+    &=\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{i\theta}\inner{u+e^{i\theta}v}{u+e^{i\theta}v}\,d\theta\\
+    &=\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{i\theta}\left(\inner{u}{u}+\inner{e^{i\theta}v}{u}+\inner{u}{e^{i\theta}v}+\inner{e^{i\theta}v}{e^{i\theta}v}\right)\,d\theta\\
+    &=\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{i\theta}\left(\norm{u}^2+e^{i\theta}\inner{v}{u}+e^{-i\theta}\inner{u}{v}+e^{i\theta}e^{-i\theta}\inner{v}{v}\right)\,d\theta\\
+    &=\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{i\theta}\left(\norm{u}^2+e^{i\theta}\inner{v}{u}+e^{-i\theta}\inner{u}{v}+\norm{v}^2\right)\,d\theta\\
+    &=\frac{\norm{u}^2+\norm{v}^2}{2\pi}\int_{-\pi}^{\pi}e^{i\theta}\,d\theta+\frac{\inner{v}{u}}{2\pi}\int_{-\pi}^{\pi}e^{2i\theta}\,d\theta+\frac{\inner{u}{v}}{2\pi}\int_{-\pi}^{\pi}\,d\theta\\
+    &=0+0+\frac{2\pi\inner{u}{v}}{2\pi}\\
+    &=\inner{u}{v}.
+\end{align*}
+\newpage
+\stepcounter{section}
+\section*{Problem 4}
+Let $\mathcal{V}$ be the real product space $C_\R[0, 1]$, let $f \in \mathcal{V}$, and suppose that $f (t) > 0$ for all $t \in [0, 1]$. Use the Cauchy-Schwarz-Bunyakovsky inequality to deduce that
+\[
+    \frac{1}{\int_{0}^{1}f(t)\,dt}\leq\int_{0}^{1}\frac{1}{f(t)}\,dt.
+\]
+\begin{proof}
+    Let
+    \[
+        \inner{\phi}{\psi}=\int_{0}^{1}\phi(t)\psi(t)\,dt
+    \]
+    and
+    \[
+        \norm{\phi}=\left(\int_{0}^{1}\phi(t)^2\,dt\right)^{\frac{1}{2}}
+    \]
+    for $\phi,\psi\in C_\R[0, 1]$. Let $g(t)=\sqrt{f(t)}$ then by the Cauchy-Schwarz-Bunyakovsky inequality we have
+    \begin{align*}
+        |\inner{g}{g^{-1}}|&\leq\norm{g}\norm{g^{-1}}\\
+        \left|\int_{0}^{1}g(t)g^{-1}(t)\,dt\right|&\leq\left(\int_{0}^{1}g^2(t)\,dt\right)^{\frac{1}{2}}\left(\int_{0}^{1}g^{-2}(t)\,dt\right)^{\frac{1}{2}}\\
+        \left|\int_{0}^{1}1\,dt\right| &\leq\left(\int_{0}^{1}f(t)\,dt\right)^{\frac{1}{2}}\left(\int_{0}^{1}\frac{1}{f(t)}\,dt\right)^{\frac{1}{2}}\\
+        1&\leq\int_{0}^{1}f(t)\,dt\int_{0}^{1}\frac{1}{f(t)}\,dt\\
+        \frac{1}{\int_{0}^{1}f(t)\,dt}&\leq\int_{0}^{1}\frac{1}{f(t)}\,dt.\qedhere
+    \end{align*} 
+\end{proof}
+\stepcounter{section}
+\section*{Problem 5}
+Let $x^T = [x_1, x_2, x_3]$ and $y^T = [y_1, y_2, y_3]$ be vectors in $\R^3$. Further let $f (x, y) = 12x_1y_1 +4x_1y_2 +3x_1y_3 +4x_2y_1 +2x_2y_2 -x_2y_3 +3x_3y_1 -x_3y_2 +7x_3y_3$.
+\begin{enumerate}[label=(\alph*)]
+    \item Represent $f$ in the form
+    \[
+        f(x,y)=x^TAy,
+    \]
+    where $A \in M_3$, and prove that $f (x, y)$ is an inner product on $\R^3$.
+    \begin{proof}
+        \[
+            A=
+            \begin{bmatrix}
+                12&4&3\\
+                4&2&-1\\
+                3&-1&7
+            \end{bmatrix}.
+        \]
+        Note that $A$ is a symmetric matrix, therefore all of its eigenvalues are real and positive. This gives that $f(x,y)$ is an inner product. Also each minor determinant of $A$ is positive, which by Sylvesters criterion gives that $f(x,y)$ is an inner product. 
+    \end{proof}
+    \item Find the formula for the norm of $x$ in the norm generated by $f$.\\
+    \textit{Solution.} Let $x=[x_1,x_2,x_3]^T$. We know that 
+    \[
+        \norm{x}=\sqrt{\inner{x}{x}}=\sqrt{f(x,x)}.
+    \]
+    From here we have
+    \begin{align*}
+        f(x,x)&=12x_1x_1 +4x_1x_2 +3x_1x_3 +4x_2x_1 +2x_2x_2 -x_2x_3 +3x_3x_1 -x_3x_2 +7x_3x_3\\
+        &=12x_1^2+4x_1x_23+3x_1x_3 +4x_2x_1 +2x_2^2 -x_2x_3 +3x_3x_1 -x_3x_2 +7x_3^2\\
+        \norm{x}&=\sqrt{12x_1^2+4x_1x_23+3x_1x_3 +4x_2x_1 +2x_2^2 -x_2x_3 +3x_3x_1 -x_3x_2 +7x_3^2}.
+    \end{align*}
+\end{enumerate}
+\stepcounter{section}
+\section*{Problem 6}
+Let $\mathcal{P}_{n-1}$ be the space of all real polynomials of degree not exceeding $n - 1$. If $p(x)=\sum_{k=0}^{n-1}p_kx^k$ and $q(x)=\sum_{k=0}^{n-1}q_kx^k$, define
+\[
+    \inner{p}{q}=\sum_{i,j=0}^{n-1}\frac{p_iq_j}{i+j+1}.
+\]
+\begin{enumerate}[label=(\alph*)]
+    \item Show that $\inner{p}{q}$ is an inner product on $\mathcal{P}_{n-1}$.\\
+    \textit{Hint.} We can consider $\mathcal{P}_{n-1}$ as a subspace of $C_R[0, 1]$. Hence $\int_{0}^{1}p(x)q(x)\,dx$ is also an inner product on $\mathcal{P}_{n-1}$. Calculate this inner product on a few polynomials $p$ and $q$ and compare the results with the formula above.
+    \begin{proof}
+        Since addition and multiplication is commutative in $\R$ we have for $p,q\in\mathcal{P}$.
+        \[
+            \inner{p}{q}=\sum_{i,j=0}^{n-1}\frac{p_iq_j}{i+j+1}=\sum_{i,j=0}^{n-1}\frac{q_jp_i}{j+i+1}=\inner{q}{p}.
+        \]
+        So $\inner{p}{q}$ is symmetric.\\
+        Let $a,b\in\R$ and $p,q,r\in\mathcal{P}_{n-1}$. Then,
+        \begin{align*}
+            \inner{ap+br}{q}&=\sum_{i,j=0}^{n-1}\frac{(ap_i+br_i)q_j}{i+j+1}\\
+            &=\sum_{i,j=0}^{n-1}a\frac{p_iq_j}{i+j+1}+b\frac{r_iq_j}{i+j+1}\\
+            &=a\sum_{i,j=0}^{n-1}\frac{p_iq_j}{i+j+1}+b\sum_{i,j=0}^{n-1}\frac{r_iq_j}{i+j+1}\\
+            &=a\inner{p}{q}+b\inner{r}{q}.
+        \end{align*}
+        So $\inner{p}{q}$ is linear in the first slot.\\
+        Let
+        \[
+            \inner{p}{q}_{L^2}=\int_{0}^{1}p(x)q(x)\,dx.
+        \]
+        We know that
+        \[
+            p(x)q(x)=\sum_{j,k=0}^{n-1}p_iq_jx^{i+j}.
+        \]
+        Substituting this into the integral
+        \begin{align*}
+            \inner{p}{q}_{L^2}&=\int_{0}^{1}p(x)q(x)\,dx\\
+            &=\int_{0}^{1}\sum_{j,k=0}^{n-1}p_iq_jx^{i+j}\,dx
+            \intertext{Since the sum is finite}
+            &=\sum_{j,k=0}^{n-1}p_iq_j\int_{0}^{1}x^{i+j}\,dx\\
+            &=\sum_{i,j=0}^{n-1}\frac{p_iq_j}{i+j+1}\\
+            &=\inner{p}{q}.
+        \end{align*}
+        Since $\inner{p}{q}_{L^2}$ is an inner product, we have that $\inner{p}{q}$ is positive definate and therefore is an inner product.
+    \end{proof}
+    \item Deduce that the matrix $A = [(i + j - 1)^{-1}] \in M_n$ is positive definite.\\
+    \textit{Deduction.} Let 
+    \[
+        p=\begin{bmatrix}
+            p_1\\\vdots\\p_n
+        \end{bmatrix},\quad
+        q=\begin{bmatrix}
+            q_1\\\vdots\\q_n
+        \end{bmatrix}.
+    \]
+    \[
+        pAq^T=\sum_{i,j=1}^{n}\frac{p_iq_j}{i+j-1}
+    \]
+    re-indexing the sum $i=i+1$ and $j=j+1$ we get
+    \[
+        pAq^T=\sum_{i,j=0}^{n-1}\frac{p_{i+1}q_{j+1}}{i+j1}=\inner{p}{q}.
+    \]
+    Since in part (a) we showed that $\inner{p}{q}$ is an inner product, that gives that $A$ is a positive definate matrix.
+\end{enumerate}
+
+\end{document}

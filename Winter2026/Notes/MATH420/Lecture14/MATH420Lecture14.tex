@@ -1,0 +1,67 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 420 Lecture 15}
+\author{Deepak Jassal}
+\date{March 2\textsuperscript{nd}, 2026}
+
+\begin{document}
+\maketitle
+\stepcounter{section}
+\section*{Modules}
+They are generalizations of vector spaces.
+\defn{Modules}{
+    Let $R$ be a ring. An Abelian group $(M,\oplus)$ is said to be a left-$R$ module with respect to an operation
+    \[
+        \dot:R\times M\to M
+    \]
+    if given $r\in R, x,y\in M$
+    \begin{enumerate}
+        \item $r\dot(x\oplus y)=r\dot x\oplus r\dot y$,$(r+ y)\dot x=r\dot x\oplus y\dot x$;
+        \item $r\dot(x\dot y)=(r\dot x)\dot y$;
+        \item $1\dot x=x$.
+    \end{enumerate}
+}
+All Abelian groups are $\Z-$modules.
+\ex{
+    $\Z^3$ is a $\Z-$module.\\
+}
+Any subgroup of $(\Z^n,+)$ is a $\Z-$module, such a subgroup is denoted by $\Lambda$, say (lattice). The rank of $\Lambda$ is the max number of linearly independant vectors in $\Lambda$.\\
+$\rank(\Z^3)=3$.\\
+Q: Given $\Lambda\subset\Z^n$, compute a basis of a $\Lambda$. i.e., $B\subset\Lambda$ such that $\spn_{\Z}(B)=\Lambda$, $|B|=\rank(\Lambda)$.\\
+Shortest basis problem for $\Lambda\subset\Z^n$ is NP-hard.\\
+If $\Lambda=\spn_Z(B),B=\{\vec{b_1},\dots,\vec{b_n}\}\subset\Z^n$, then a theorem of Minkowski assers that there exists a possitive number $f(a)$ such that the shortest vector $\vec{v}\in\Lambda$ has length at most $f(n)(\det\Lambda)^{\frac{1}{n}}$, $\det\Lambda=|\det(B)|$.
+\defn{Rank of a Ring}{
+    A commutative ring is said to have an \underline{order} rank of $r$ if $(R,+)$ is isomorphic to $\Z^r$ as a $\Z-$module, $R$ is unital.
+}
+Q: Given an order $R$ of a finite rank, decide if $x^2+1=0$ has a solution in $R$.\\
+(Lenstra) This can be decided with an algorithm in P. But to decide $x^2+x+1=0$ is NP hard. 
+\ex{
+    Elliptic Cruves
+    \[
+        E:y^2=x^3+Ax+B,\quad A,B\in\Z,\quad 4A^3+27B^2\neq0.
+    \]
+    \[
+        E(\Q)=\{(x,y)\in\Q^2:y^2=x^3+Ax+B\}.
+    \]
+    Mordell (1922): $E(\Q)\cong G\oplus\Z^r$, for some $r\geq0$, $G$ a finite Abelian group, as groups. $G$ is the torsion part and $\Z^r$ is the free part. The $r$ in Mordell's theorem is the (algebraic) rank of $E$. 
+}
+Tate module.\\
+Fix a prime $p$ (usually $p\nmid16(4A^3-27B^2)$). Over $\C$, $E(\C)$ has a $p-$torsion point. $E(\C)$ is a group, ``torsion'' in a group means elements of finite order.\\
+Let $E[P]$ denote the set of $p-$torsion points in $E(\C)$.\\
+We can play the same game for $p^n,$ $n\geq1$. Get $E[p^n]$. Turns out $E[P^n]$ are \underline{algebraic} for all $p^n$.
+\section*{Algebras}
+\ex{
+    Set of polynomials with real coefficients is an $\R-$algebra. $\R[x]$ clearly has the same structure of a $\R-$vector space is also a ring. 
+}
+\defn{$A$-Algebra}{
+    Let $A$ be a ring. An $A$-algebra is a ring $B$ together with a homomorphism $i_B:A\to B$.
+}
+\defn{}{
+    Let $B,C$ be $A-$algebras. A homomorphism $\phi:B\to C$ is a map such that $\phi(i_B(a))=i(a)$, for all $a\in A$, where $\phi$ is a ring homomorphism.
+}
+\end{document}
