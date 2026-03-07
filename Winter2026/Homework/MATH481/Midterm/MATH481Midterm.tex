@@ -1,0 +1,367 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../../preambles/hw-preamble.tex}
+\input{../../../../preambles/homework-macros.tex}
+\input{../../../../preambles/homework-title.tex}
+\input{../../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Analytic Number Theory}
+\renewcommand{\coursecode}{MATH 481}
+\renewcommand{\assignment}{Midterm}
+\renewcommand{\instructor}{Dr. Alia Hamieh}
+\renewcommand{\duedate}{March 7\textsuperscript{th}, 2026}
+
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Problem 1 [5 Marks]}
+We recall the definition of Liouville's function $\lambda(n)$. We set $\lambda(1)=1$, and if $n=p_1^{e_1}\cdots p_k^{e_k}$, we define $\lambda(n)=(-1)^{e_1+\cdots+e_k}$. Prove that for every $n\in\mathbb{N}$, we have 
+\[
+    \sum_{d|n}\lambda(d)=\begin{cases}1&\text{if}\; n \;\text{is a square}\\0&\text{otherwise.}\end{cases}
+\]
+
+\begin{proof}
+    Notice that if $n=p^m$ for some prime $p$ we have
+    \[
+        \sum_{d|p^m}\lambda(d)=\sum_{i=0}^{m}(-1)^i.
+    \]
+    For odd $m$ we have
+    \[
+        \sum_{i=0}^{m}(-1)^i=1-1+\cdots+1-1=0,
+    \]
+    this is because we have $m+1$ terms and since $m$ is odd, $m+1$ is even, so there is an equal number of +1's and -1's.
+    For even $m$ we have
+    \[
+        \sum_{i=0}^{m}(-1)^i=1-1+\cdots+1=1,
+    \]
+    this is because there is an odd number of terms ($m+1$ terms, with $m$ even). Giving $\frac{m}{2}$ pairs of $1-1$ and one extra +1. Therefore we have
+    \[
+        \sum_{i=0}^{m}(-1)^i=\begin{cases}1&\text{if}\; m \;\text{is even}\\0&\text{otherwise.}\end{cases}
+    \]
+    We know that $\lambda$ is a multiplicative function, that is $\lambda(ab)=\lambda(a)\lambda(b)$ whenever $(a,b)=1$. Let
+    \[
+        S(n)=\sum_{d|n}\lambda(d).
+    \]
+    If $n=ab$ with $(a,b)=1$ we can write $d$ as $d_a$ and $d_b$ with $d_a\mid a$, $d_b\mid b$ with $(d_a,d_b)$, then $\lambda(d)=\lambda(d_a)\lambda(d_b)$ and
+    \[
+        S(n)=\sum_{d_a|a}\sum_{d_b|b}\lambda(d_a)\lambda(d_b)=\sum_{d_a|a}\lambda(d_a)\sum_{d_b|b}\lambda(d_b)=S(a)S(b).
+    \]
+    Since $n=ab$ and $(a,b)=1$ we have that $S(n)$ is multiplicative.\\
+    If $n=p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}$ for primes $p_1,p_2,\dots,p_k$ and natural numbers $e_1,e_2,\dots,e_k$, then by the multiplicativity of $S(n)$ we have
+    \[
+        S(n)=\prod_{i=1}^{k}S(p_i^{e_i}).
+    \]
+    Above we showed that 
+    \[
+        S(p_i^{e_i})=\begin{cases}1&\text{if}\; e_i \;\text{is even}\\0&\text{otherwise.}\end{cases}.
+    \]
+    So, all of the terms in the sum are 1 if and only each prime in the decomposition of $n$ are perfect squares. Since if there was even one non perfect square prime power (a prime with an odd exponent) we would have a 0 in the product, giving 0. Therefore, we have shown that
+    \[
+        \sum_{d|n}\lambda(d)=\begin{cases}1&\text{if}\; n \;\text{is a square}\\0&\text{otherwise.}\end{cases}\qedhere
+    \]
+\end{proof}
+\stepcounter{section}
+\section*{Problem 2 [9 Marks]}
+Let $f$ be a completely multiplicative function such that $f(p)=f(p)^2$ for each prime $p$. If the series $\sum_{n=1}^{\infty}\frac{f(n)}{n^s}$ converges absolutely for $\mathrm{Re}(s)>\sigma_a$ and has sum $F(s)$, prove that $F(s)\neq0$ and that 
+\[
+    \sum_{n=1}^{\infty}\frac{f(n)\lambda(n)}{n^s}=\frac{F(2s)}{F(s)}\quad\quad\text{if}\;\sigma>\sigma_a.
+\]
+\begin{proof}
+    From the given we have that for all primes $p$
+    \begin{align*}
+        f(p)&=f(p)^2\\
+        f(p)^2-f(p)&=0\\
+        f(p)(f(p)-1)&=0\\
+        f(p)&=0,1.
+    \end{align*}
+    This shows that $f$ is a characteristic function for natural numbers with a prime factorization of primes consisting from a set, say $\mathcal{P}$. Since $f$ is completely multiplicative we can write it as an Euler sum over all primes $p$ for $\Re(s)>\sigma_a$
+    \[
+        F(s)=\sum_{n=1}^{\infty}\frac{f(n)}{n^s}=\prod_{p}\left(1+\sum_{m=1}^{\infty}\frac{f(p^m)}{p^{ms}}\right).
+    \]
+    Since $f(p^k)=f(p)^k$ and $f(p)=1$ if $p\in\mathcal{P}$ and 0 otherwise we have
+    \begin{align*}
+        F(s)&=\prod_{p\in\mathcal{P}}\left(1+\sum_{m=1}^{\infty}\frac{1}{p^{ms}}\right)\\
+        &=\prod_{p\in\mathcal{P}}\left(1+\frac{1}{p^{s}}+\frac{1}{p^{2s}}+\frac{1}{p^{3s}}+\cdots\right)\\
+        &=\prod_{p\in\mathcal{P}}\frac{1}{1-p^{-s}}\\
+        &=\prod_{p\in\mathcal{P}}\left(1-\frac{1}{p^s}\right)^{-1}.
+    \end{align*}
+    Since $F(s)$ converges absolutely for $\Re(s)>\sigma_a$ we have that $\left(1-\frac{1}{p}\right)^{-1}\neq0$ in the half plane of convergence. Since each term of the infinite product is non-zero, and we have absolute convergence we have that $F(s)\neq0$ whenever $\Re(s)>\sigma_a$.\\
+    Since $\lambda(p^k)=(-1)^k$, we see that $f(n)\lambda(n)$ is a characteristic for numbers with all prime factors in the set $\mathcal{P}$ differing by a sign depending on the value of $\lambda(n)$. This allows us to rewrite the sum (for when $\Re(s)>\sigma_a$)
+    \begin{align*}
+        S_\lambda(s)&=\sum_{n=1}^{\infty}\frac{f(n)\lambda(n)}{n^s}\\
+        &=\prod_{p}\left(1+\sum_{m=1}^{\infty}\frac{f(p^m)\lambda(p^m)}{p^{ms}}\right)\\
+        &=\prod_{p\in\mathcal{P}}\left(1-\frac{1}{p^{s}}+\frac{1}{p^{2s}}-\frac{1}{p^{3s}}+\cdots\right)\\
+        &=\prod_{p\in\mathcal{P}}\left(1+\frac{1}{p^s}\right)^{-1}.
+    \end{align*}
+    Note that
+    \[
+        F(2s)=\prod_{p\in\mathcal{P}}\left(1-\frac{1}{p^{2s}}\right)^{-1}=\prod_{p\in\mathcal{P}}\frac{1}{(1-\frac{1}{p^{s}})(1+\frac{1}{p^{s}})}.
+    \]
+    Then,
+    \begin{align*}
+        \frac{F(2s)}{F(s)}&=\frac{\displaystyle{\prod_{p\in\mathcal{P}}\frac{1}{(1-\frac{1}{p^{s}})(1+\frac{1}{p^{s}})}}}{\displaystyle{\prod_{p\in\mathcal{P}}\frac{1}{1-\frac{1}{p^{s}}}}}\\
+        &=S_\lambda(s).
+    \end{align*}
+    Therefore,
+    \[
+        \sum_{n=1}^{\infty}\frac{f(n)\lambda(n)}{n^s}=\frac{F(2s)}{F(s)}\quad\quad\text{if}\;\sigma>\sigma_a.\qedhere
+    \]
+\end{proof}
+\stepcounter{section}
+\section*{Problem 3 [12 Marks]}
+Let $x\geq2$, and let $\varphi$ be Euler's function.
+\begin{enumerate}[label=(\alph*)]
+    \item Prove that 
+    \[
+        \sum_{n\leq x}\frac{\varphi(n)}{n^2}=\frac{6}{\pi^2}\log x+\frac{6\gamma}{\pi^2}-A+O\left(\frac{\log x}{x}\right),
+    \]
+    where $\gamma$ is Euler's constant and $A=\sum_{n=1}^{\infty}\frac{\mu(n)\log n}{n^2}$.
+    \begin{proof}
+        Let 
+        \[
+            S(x)=\sum_{n\leq x}\frac{\varphi(n)}{n^2}.
+        \]
+        Note that 
+        \begin{align*}
+            \varphi(n)&=\mu\ast id(n)\\
+            &=\sum_{d\mid n}\mu(d)\frac{n}{d}\\
+            &=n\sum_{d\mid n}\frac{\mu(d)}{d}.
+        \end{align*}
+        Using this to rewrite the sum we have
+        \begin{align*}
+            S(x)&=\sum_{n\leq x}\frac{1}{n^2}n\sum_{d\mid n}\frac{\mu(d)}{d}\\
+            &=\sum_{n\leq x}\frac{1}{n}\sum_{d\mid n}\frac{\mu(d)}{d}\\
+            &=\sum_{d\leq x}\frac{\mu(d)}{d}\sum_{\substack{n\leq x\\ d\mid n}}\frac{1}{n}\\
+            &=\sum_{d\leq x}\frac{\mu(d)}{d}\frac{1}{d}\sum_{m\leq\frac{x}{d}}\frac{1}{m}\\
+            &=\sum_{d\leq x}\frac{\mu(d)}{d^2}\left(\log\frac{x}{d}+\gamma+O\left(\frac{d}{x}\right)\right)\\
+            &=\log x\sum_{d\leq x}\frac{\mu(d)}{d^2}-\sum_{d\leq x}\frac{\mu(d)\log d}{d^2}+\gamma\sum_{d\leq x}\frac{\mu(d)}{d^2}+O\left(\frac{d}{x}\sum_{d\leq x}\frac{\mu(d)}{d^2}\right).
+        \end{align*}
+        \begin{align*}
+            \sum_{d\leq x}\frac{\mu(d)}{d^2}&=\sum_{d=1}^{\infty}\frac{\mu(d)}{d^2}+O\left(\frac{1}{x}\right)\\
+            &=\frac{1}{\zeta(2)}+O\left(\frac{1}{x}\right)\\
+            &=\frac{6}{\pi^2}+O\left(\frac{1}{x}\right).
+        \end{align*}
+        \begin{align*}
+            \sum_{d\leq x}\frac{\mu(d)\log d}{d^2}&=\sum_{d=1}^{\infty}\frac{\mu(d)\log d}{d^2}+O\left(\frac{\log x}{x}\right)\\
+            &=A+O\left(\frac{\log x}{x}\right).
+        \end{align*}
+        \begin{align*}
+            O\left(\frac{d}{x}\sum_{d\leq x}\frac{\mu(d)}{d^2}\right)&=O\left(\frac{1}{x}\sum_{d\leq x}\frac{|\mu(d)|}{d}\right)\\
+            &=O\left(\frac{1}{x}\sum_{d\leq x}\frac{1}{d}\right)\\
+            &=O\left(\frac{1}{x}O(\log x)\right)\\
+            &=O\left(\frac{\log x}{x}\right).
+        \end{align*}
+        Combining terms we have
+        \begin{align*}
+            S(x)&=\log x\sum_{d\leq x}\frac{\mu(d)}{d^2}-\sum_{d\leq x}\frac{\mu(d)\log d}{d^2}+\gamma\sum_{d\leq x}\frac{\mu(d)}{d^2}+O\left(\frac{d}{x}\sum_{d\leq x}\frac{\mu(d)}{d^2}\right)\\
+            &=\log x\left(\frac{6}{\pi^2}+O\left(\frac{1}{x}\right)\right)+\gamma\left(\frac{6}{\pi^2}+O\left(\frac{1}{x}\right)\right)-A+O\left(\frac{\log x}{x}\right)+O\left(\frac{\log x}{x}\right)\\
+            &=\frac{6}{\pi^2}\log x+\frac{6\gamma}{\pi^2}-A+O\left(\frac{\log x}{x}\right).\qedhere
+        \end{align*}
+    \end{proof}
+    \newpage
+    \item Prove that for $\alpha>1$ with $\alpha\neq2$ we have
+    \[
+        \sum_{n\leq x}\frac{\varphi(n)}{n^\alpha}=\frac{6}{\pi^2}\frac{x^{2-\alpha}}{2-\alpha}+\frac{\zeta(\alpha-1)}{\zeta(\alpha)}+O(x^{1-\alpha}\log x ). 
+    \]
+    \begin{proof}
+        Let
+        \[
+            S_\alpha(x)\sum_{n\leq x}\frac{\varphi(n)}{n^\alpha}
+        \]
+        for $\alpha>1$ with $\alpha\neq2$.
+        Similar to part (a)
+        \begin{align*}
+            \varphi(n)&=\mu\ast id(n)\\
+            &=\sum_{d\mid n}\mu(d)\frac{n}{d}\\
+            &=n\sum_{d\mid n}\frac{\mu(d)}{d}.
+        \end{align*}
+        Using this to rewrite the sum we have
+        \begin{align*}
+            S_\alpha(x)&=\sum_{n\leq x}\frac{1}{n^\alpha}n\sum_{d\mid n}\frac{\mu(d)}{d}\\
+            &=\sum_{n\leq x}\frac{1}{n^{\alpha-1}}\sum_{d\mid n}\frac{\mu(d)}{d}\\
+            &=\sum_{d\leq x}\frac{\mu(d)}{d}\sum_{\substack{n\leq x\\ d\mid n}}\frac{1}{n^{\alpha-1}}\\
+            &=\sum_{d\leq x}\frac{\mu(d)}{d}d^{1-\alpha}\sum_{m\leq\frac{x}{d}}m^{1-\alpha}\\
+            &=\sum_{d\leq x}\frac{\mu(d)}{d^\alpha}\sum_{m\leq\frac{x}{d}}m^{1-\alpha}.
+        \end{align*}
+        We can compute the right most sum using Abel's summation formula with $a(n)=1$ and $f(n)=n^{1-\alpha}$. This gives $A(n)=\floor{n}$, and $f'(n)=(1-\alpha)n^{-\alpha}$. Set $y=\frac{x}{d}$
+        \begin{align*}
+            \sum_{m\leq y}m^{1-\alpha}&=\floor{y}y^{1-\alpha}-(1-\alpha)\int_{1}^{y}\floor{t}t^{-\alpha}\,dt\\
+            &=(y-\fract{y})y^{1-\alpha}-(1-\alpha)\int_{1}^{y}(t-\fract{t})t^{-\alpha}\,dt\\
+            &=y^{2-\alpha}-\fract{y}y^{1-\alpha}-(1-\alpha)\int_{1}^{y}t^{1-\alpha}\,dt+(1-\alpha)\int_{1}^{y}\fract{t}t^{-\alpha}\,dt.
+        \end{align*}
+        Computing the first of these integrals
+        \begin{align*}
+            \int_{1}^{y}t^{1-\alpha}\,dt&=\left[\frac{t^{2-\alpha}}{2-\alpha}\right]_1^y\\
+            &=\frac{y^{2-\alpha}-1}{2-\alpha}\\
+            (1-\alpha)\int_{1}^{y}t^{1-\alpha}\,dt&=\frac{\alpha-1}{2-\alpha}(y^{2-\alpha}-1).
+        \end{align*}
+        For the second integral note that since $\alpha>1$ this integral converges as $y\to\infty$ so we have
+        \begin{align*}
+            (1-\alpha)\int_{1}^{y}\fract{t}t^{-\alpha}\,dt&=(1-\alpha)\int_{1}^{\infty}\fract{t}t^{-\alpha}\,dt-(1-\alpha)\int_{y}^{\infty}\fract{t}t^{-\alpha}\,dt
+            \intertext{Let $C=(1-\alpha)\int_{1}^{\infty}\fract{t}t^{-\alpha}\,dt$}\\
+            &=C-(1-\alpha)\int_{y}^{\infty}\fract{t}t^{-\alpha}\,dt,
+        \end{align*}
+        \begin{align*}
+            (1-\alpha)\int_{y}^{\infty}\fract{t}t^{-\alpha}\,dt&\leq(1-\alpha)\int_{y}^{\infty}t^{-\alpha}\,dt\\
+            &(1-\alpha)\leq\frac{y^{1-\alpha}}{\alpha-1}\\
+            &=O(y^{1-\alpha}).
+        \end{align*}
+        This all gives
+        \[
+            (1-\alpha)\int_{1}^{y}\fract{t}t^{-\alpha}\,dt=C+O(y^{1-\alpha}).
+        \]
+        \begin{align*}
+            \sum_{m\leq y}m^{1-\alpha}&=\frac{y^{2-\alpha}}{2-\alpha}-\frac{\alpha-1}{2-\alpha}-\fract{y}y^{1-\alpha}+C+O(y^{1-\alpha})
+            \intertext{Let $C'=C-\frac{\alpha-1}{2-\alpha}$}
+            &=\frac{y^{2-\alpha}}{2-\alpha}+C'+O(y^{1-\alpha}).
+        \end{align*}
+        Note that as $y\to\infty$ the right hand side becomes $\zeta(\alpha-1)$, and for the left hand side $\frac{y^{2-\alpha}}{2-\alpha}\to0$ and $O(y^{\alpha-1})\to0$, thus we have $C'=\zeta(\alpha-1)$. Thus
+        \[
+            \sum_{m\leq\frac{x}{d}}m^{1-\alpha}=\frac{\left(\frac{x}{d}\right)^{2-\alpha}}{2-\alpha}+\zeta(\alpha-1)+O_{\alpha}\left(\left(\frac{x}{d}\right)^{1-\alpha}\right).
+        \]
+        Plugging this estimate into the original sum 
+        \begin{align*}
+            S_\alpha(x)&=\sum_{d\leq x}\frac{\mu(d)}{d^\alpha}\left(\frac{\left(\frac{x}{d}\right)^{2-\alpha}}{2-\alpha}+\zeta(\alpha-1)+O_{\alpha}\left(\left(\frac{x}{d}\right)^{1-\alpha}\right)\right)\\
+            &=\sum_{d\leq x}\frac{\mu(d)}{d^\alpha}\frac{\left(\frac{x}{d}\right)^{2-\alpha}}{2-\alpha}+\zeta(\alpha-1)\sum_{d\leq x}\frac{\mu(d)}{d^\alpha}+O\left(\sum_{d\leq x}\frac{\mu(d)}{d^\alpha}\left(\frac{x}{d}\right)^{1-\alpha}\right)\\
+            &=\frac{x^{2-\alpha}}{2-\alpha}\sum_{d\leq x}\frac{\mu(d)}{d^2}+\zeta(\alpha-1)\sum_{d\leq x}\frac{\mu(d)}{d^\alpha}+O_{\alpha}\left(x^{1-\alpha}\sum_{d\leq x}\frac{|\mu(d)|}{d}\right)\\
+            &=\frac{x^{2-\alpha}}{2-\alpha}\left(\frac{1}{\zeta(2)}+O\left(\frac{1}{x}\right)\right)+\zeta(\alpha-1)\left(\frac{1}{\zeta(\alpha)}+O\left(x^{1-\alpha}\right)\right)+O_{\alpha}(x^{1-\alpha}\log x).
+        \end{align*}
+        Thus,
+        \[
+            S_\alpha(x)=\frac{6}{\pi^2}\frac{x^{2-\alpha}}{2-\alpha}+\frac{\zeta(\alpha-1)}{\zeta(\alpha)}+O(x^{1-\alpha}\log x ).\qedhere
+        \]
+    \end{proof}
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Problem 4 [12 Marks]}
+Let $\omega(n)$ be the number of distinct prime factors of $n$. 
+\begin{enumerate}[label=(\alph*)]
+    \item Compute an asymptotic estimate for $\sum_{n\leq x}\omega(n)$ with an error term of size $O(x)$.\\
+    \textit{Solution.} From the HIlderbrand text page 20 we have that
+    \[
+        \omega(n)=\sum_{p\mid n}1,
+    \]
+    for primes $p$. Let
+    \[
+        S(x)=\sum_{n\leq x}\omega(n)=\sum_{p\leq x}\sum_{\substack{n\leq x\\p\mid n}}1=\sum_{p\leq x}\floor{\frac{x}{p}}.
+    \]
+    Note that 
+    \[
+        \floor{\frac{x}{p}}=\frac{x}{p}+O(1).
+    \]
+    Now
+    \begin{align*}
+        S(x)&=\sum_{p\leq x}\frac{x}{p}+O(1)
+        \intertext{Since we are summing over primes}
+        &=x\sum_{p\leq x}\frac{1}{p}+O(\pi(x))
+        \intertext{By Mertens' theorem (I used this in assignment 2)}
+        &=x\left(\log\log x+M+O\left(\frac{1}{\log x}\right)\right)+O(\pi(x))\\
+        &=x\log\log x+Mx+O\left(\frac{x}{\log x}\right).
+    \end{align*}
+    Since $O\left(\frac{x}{\log x}\right)$ is a better error term than $O(x)$ we can write the sum as 
+    \[
+        S(x)=x\log\log x+Mx+O(x).
+    \]
+    \item Show that $\omega(n)=O(\log n/\log\log n)$.\\
+    {\it Hint: In the interval $[1,n]$, consider the integer $N$ with the largest number of distinct prime factors. We can write $N$ as $N=\prod_{p\leq t}p$, where $t$ is chosen so that $N\leq n$. Observe that $\omega(n)\leq \omega(N)=\pi(t)$ and $\log N=\theta(t)$. Use Chebyshev's bounds for $\pi(t)$ and $\theta(t)$.}\\\\
+    \textit{Solution.} Let $n\in\N$ be given. Set 
+    \[
+        N=\prod_{p\leq t}p
+    \]
+    for the first $\pi(t)$ primes such that $N\leq n$. Note that
+    \[
+        \omega(n)\leq\omega(N)=\pi(t),
+    \]
+    and 
+    \[
+        \log N=\sum_{p\leq t}\log p=\theta(t).
+    \]
+    By Chebyshev we know that
+    \[
+        c_1t\leq\theta(t)\leq c_2t
+    \]
+    for some $c_1,c_2\in\R$ and $t$ suffieciently large. Since $\log N\leq\log n$ we have
+    \[
+        \theta(t)\leq\log n\Rightarrow c_1t\leq\log n\Rightarrow t\leq\frac{1}{c_1}\log n
+    \]
+    
+    Also by Chebyshev we have
+    \[
+        \pi(t)\leq C\frac{t}{\log t}.
+    \]
+    From these we obtain
+    \[
+        \omega(n)\leq\pi(t)\leq C\frac{t}{\log t}\leq C\frac{\frac{1}{c_1}\log n}{\log \left(\frac{1}{c_1}\log n\right)}=C'\frac{\log n}{\log\log n}.
+    \]
+    Thus we have
+    \[
+        \omega(n)=O\left(\frac{\log n}{\log\log n}\right)
+    \]
+    which is the desired result.
+\end{enumerate}
+
+
+\stepcounter{section}
+\section*{Problem 5 [12 Marks]}
+Prove that 
+\[
+    \mathop{\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}}\limits_{(m,n)=1}\frac{1}{m^2n^2}=\frac{\zeta^2(2)}{\zeta(4)}.
+\]
+
+More generally, if $\mathrm{Re}(s_i)>1$ for all $i=1,2,\dots,r$, express the multiple sum 
+\[
+    \mathop{\sum_{m_1=1}^{\infty}\cdots\sum_{m_r=1}^{\infty}}\limits_{(m_1,m_2,\cdots,m_r)=1}\frac{1}{m_1^{s_1}m_2^{s_2}\cdots m_r^{s_r}}
+\] 
+in terms of the Riemann zeta function.
+\begin{proof}
+    (Part 1) We can replace the comprime condition using the Möbius function
+    \begin{align*}
+        \mathop{\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}}\limits_{(m,n)=1}\frac{1}{m^2n^2}&=\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}\frac{1}{m^2n^2}\sum_{d\mid(m,n)}\mu(d)\\
+        &=\sum_{d=1}^{\infty}\mu(d)\sum_{a=1}^{\infty}\sum_{b=1}^{\infty}\frac{1}{(da)^2(db)^2}\\
+        &=\sum_{d=1}^{\infty}\frac{\mu(d)}{d^4}\sum_{a=1}^{\infty}\frac{1}{a^2}\sum_{b=1}^{\infty}\frac{1}{b^2}\\
+        &=\zeta^2(2)\sum_{d=1}^{\infty}\frac{\mu(d)}{d^4}\\
+        &=\zeta^2(2)\frac{1}{\zeta(4)}\\
+        &=\frac{\zeta^2(2)}{\zeta(4)}.
+    \end{align*}
+    (Part 2) Again we replace the coprime condition using the Möbius function
+    \begin{align*}
+        \mathop{\sum_{m_1=1}^{\infty}\cdots\sum_{m_r=1}^{\infty}}\limits_{(m_1,m_2,\cdots,m_r)=1}\frac{1}{m_1^{s_1}m_2^{s_2}\cdots m_r^{s_r}}&=\sum_{m_1=1}^{\infty}\cdots\sum_{m_r=1}^{\infty}\frac{1}{m_1^{s_1}m_2^{s_2}\cdots m_r^{s_r}}\sum_{d\mid(m_1,m_2,\cdots,m_r)}\mu(d)
+        \intertext{Let $m_i=a_id$ for $1\leq i\leq r$}
+        &=\sum_{d=1}^{\infty}\mu(d)\sum_{a_1=1}^{\infty}\cdots\sum_{a_r=1}^{\infty}\frac{1}{(a_1d)^{s_1}(a_2d)^{s_2}\cdots (a_rd)^{s_r}}\\
+        &=\sum_{d=1}^{\infty}\frac{\mu(d)}{d^{s_1+\cdots+s_r}}\sum_{a_1=1}^{\infty}\frac{1}{a_1^{s_1}}\cdots\sum_{a_r=1}^{\infty}\frac{1}{a_r^{s_r}}\\
+        &=\left(\prod_{i=1}^{r}\zeta(s_i)\right)\sum_{d=1}^{\infty}\frac{\mu(d)}{d^{s_1+\cdots+s_r}}\\
+        &=\left(\prod_{i=1}^{r}\zeta(s_i)\right)\frac{1}{\zeta(s_1+\cdots+s_r)}.
+    \end{align*}
+    Thus, for $\Re(s_i)>1$ for $1\leq i\leq r$ we have
+    \[
+        \mathop{\sum_{m_1=1}^{\infty}\cdots\sum_{m_r=1}^{\infty}}\limits_{(m_1,m_2,\cdots,m_r)=1}\frac{1}{m_1^{s_1}m_2^{s_2}\cdots m_r^{s_r}}=\frac{\displaystyle{\prod_{i=1}^{r}\zeta(s_i)}}{\zeta(s_1+\cdots+s_r)}.\qedhere
+    \]
+\end{proof}
+
+
+
+
+\end{document}

@@ -7,7 +7,7 @@
 
 \title{MATH 481 Lecture 7}
 \author{Deepak Jassal}
-\date{February 3\textsuperscript{rd}, 2026}
+\date{January 29\textsuperscript{th}, 2026}
 
 \begin{document}
 \setcounter{section}{2}
@@ -80,4 +80,96 @@ We can see that the first sum, sums over lattice points under hyperbola $ab=x$ o
     $d(n)\leq2$, $d(n)\geq\exp\left(\frac{(1+\varepsilon)\log2\log n}{\log\log n}\right)$ for any $\varepsilon>0$. $d(n)\leq C(\varepsilon)n^\varepsilon$ for any $\varepsilon>0$. $d(n)\ll_\varepsilon n^\varepsilon$.
 \end{remark}
 \section{Elementary Results for the Prime Coutning Function}
+The PNT 
+\[
+    \pi(x)\sim\frac{x}{\log x}
+\]
+was proven independantly by Hadamard and de la Vall\'{e} Poussin in the 1890's. Chebyshev proved (1848-1850) the following in equality: $\exists c_1,c_2>0$ such that
+\[
+    c_1\frac{x}{\log x}\leq \pi(x)\leq c_2\frac{x}{\log x}    
+\]
+for all $x\geq 2$, in other words
+\[
+    \pi(x)\asymp\frac{x}{\log x}.
+\]
+This inequality is enough to prove Bertrand's postulate (there always exists a prime between $n$ and $2n$).\\
+Chebyshev's functions are given by
+\[
+    \Psi(x)=\sum_{n\leq x}\Lambda(n),\quad \theta(x)=\sum_{\substack{p\leq x\\p \text{ prime}}}\log p.
+\]
+\thm{Asymptotic Equivalence for Chebyshev's Functions}{
+    For all $x\geq2$, we have:
+    \begin{enumerate}
+        \item $\Psi(x)\asymp x$, i.e., $\exists c_1,c_2>0$ such that $c_1x\leq \Psi(x)\leq c_2x$ for all $x\geq2$.
+        \item $\theta(x)\asymp x$
+        \item $\pi(x)\asymp\frac{x}{\log x}$
+    \end{enumerate}
+}
+\pf[Proof of Theorem 3.1]{
+    We will prove (1) and then deduce (2) and (3).\\
+    Consider
+    \begin{align*}
+        S(x)&=\sum_{n\leq x}\log n\\
+        &=\sum_{n\leq x}\sum_{d\mid n}\Lambda(d)\\
+        &=\sum_{d\leq x}\sum_{m\leq\frac{x}{d}}\Lambda(d)\\
+        &=\sum_{d\leq x}\Lambda(d)\sum_{m\leq\frac{x}{d}}1\\
+        S(x)&=\sum_{d\leq x}\Lambda(d)\floor{\frac{x}{d}}.
+    \end{align*}
+    Now we introduce
+    \begin{align*}
+        D(x)&=S(x)-2S\left(\frac{x}{2}\right)\\
+        &=\sum_{d\leq x}\Lambda(d)\floor{\frac{x}{d}}-2\sum_{d\leq\frac{x}{2}}\Lambda(d)\floor{\frac{x}{2d}}\\
+        &=\sum_{d\leq x}\Lambda(d)\floor{\frac{x}{d}}-2\sum_{d\leq x}\Lambda(d)\floor{\frac{x}{2d}}+\sum_{\frac{x}{2}<d\leq x}\Lambda(d)\floor{\frac{x}{2d}}\\
+        &=\sum_{d\leq x}\Lambda(d)\left(\underbrace{\floor{\frac{x}{d}}-2\floor{\frac{x}{2d}}}_{f(x)}\right)
+        \intertext{where 
+        \(f(t)=\floor{t}-2\floor{\frac{t}{2}}=
+        \begin{cases}
+            1, & 1\leq t\leq 2\\
+            0, & t\geq 2
+        \end{cases}\)}
+        &=\sum_{d\leq x}\Lambda(d)f\left(\frac{x}{d}\right)\\
+        &=\underbrace{\sum_{d\leq\frac{x}{2}}\Lambda(d)f\left(\frac{x}{d}\right)}_{\leq0}+\sum_{\frac{x}{2}<d\leq x}\Lambda(d)f\left(\frac{x}{d}\right)\\
+        &\geq\sum_{\frac{x}{2}<d\leq x}\Lambda(d)f\left(\frac{x}{2}\right)\\
+        &=\sum_{\frac{x}{2}<d\leq x}\Lambda(d)\\
+        &=\Psi(x)-\Psi\left(\frac{x}{2}\right).
+    \end{align*}
+    Here, $D(x)\geq \Psi(x)-\Psi\left(\frac{x}{2}\right)$.\\
+    On the other hand
+    \begin{align*}
+        D(x)&=S(x)-2S\left(\frac{x}{2}\right)\\
+        &=\sum_{n\leq x}\log n-2\sum_{n\leq\frac{x}{2}}\log n\\
+        &=x(\log x-1)+\Oh(\log x)-2\frac{x}{2}\left(\log\frac{x}{2}-1\right)+\Oh(\log x)\\
+        D(x)&=(\log2)x+\Oh(\log x).
+    \end{align*}
+    This means that there exists $A>0$ such that $D(x)=(\log2)x+g(x),$ where $|g(x)|\leq A\log x$ for all $x$ sufficiently large. And so $D(x)\leq(\log2)x+A\log x$ for all $x$ sufficiently large. Let $\epsilon\geq0$ be given for $x>N$ (for some $N>0$) we have 
+    \[
+        \log x\leq \frac{\epsilon}{A}x
+    \]
+    and so for $x$ large enough say $x>x_0$ we have
+    \[
+        D(x)\leq(\log2+\epsilon)x
+    \]
+    since $g(x)>-A\log x$ for $x$ sufficiently large. We also have
+    \begin{align*}
+        D(x)&\geq(\log2)x-A\log x\\
+        &\geq(\log2-\epsilon)x.
+    \end{align*}
+} 
+Therefore, 
+\[
+    (\log2-\epsilon)x\leq D(x)\leq(\log2+\epsilon)x
+\]
+for all $x\geq x_0$. We also have,
+\[
+    D(x)\geq\Psi(x)-\Psi\left(\frac{x}{2}\right)
+\]
+so we have
+\[
+    \Psi(x)-\Psi\left(\frac{x}{2}\right)\leq D(x)\leq\Psi(x).
+\]
+In particular, we get
+\[
+    \Psi(x)\geq(\log2-\epsilon)x
+\]
+for $x\geq x_0$.
 \end{document}
