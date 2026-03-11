@@ -1,0 +1,228 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 481 Lecture 9}
+\author{Deepak Jassal}
+\date{February 5\textsuperscript{th}, 2026}
+
+\begin{document}
+\setcounter{section}{3}
+\setcounter{tcb@cnt@mydefinition}{4}
+\maketitle
+\pf[Continue Proof of Theorem 3.4]{
+    \begin{enumerate}
+        \item[(3)] 
+        \begin{align*}
+            \sum_{p\leq x}\frac{1}{p}&=\sum_{p\leq x}\frac{1}{p}\frac{\log p}{\log p}\\
+            &=\left(\sum_{p\leq x}\frac{\log p}{p}\right)\frac{1}{\log x}+\int_{2}^{x}\left(\sum_{p\leq t}\frac{\log p}{p}\right)\frac{1}{t(\log t)^2}\,dt 
+            \intertext{Let $R(x)=\Oh(1)$}
+            &=\frac{\log p+R(x)}{\log x}+\int_{2}^{x}\frac{\log t+R(t)}{t(\log t)^2}\,dt\\
+            &=1+\frac{R(x)}{\log x}+\int_{2}^{x}\frac{1}{t\log t}\,dt+\int_{2}^{x}\frac{R(x)}{t(\log t)^2}\,dt\\
+            &=1+\log\log x-\log\log2+\int_{2}^{x}\frac{R(t)}{t(\log t)^2}\,dt+\Oh\left(\frac{1}{\log x}\right).
+        \end{align*}
+        Let's consider $\int_{2}^{x}\frac{R(t)}{t(\log t)^2}\,dt$. We know that $\int_{2}^{\infty}\frac{R(t)}{t(\log t)^2}\,dt$ is convergent, since $\int_{2}^{\infty}\frac{R(t)}{t(\log t)^2}\,dt\ll\int_{\infty}^{x}\frac{1}{t(\log t)^2}\,dt<\infty$. Let's call
+        \[
+            \int_{2}^{\infty}\frac{R(t)}{t(\log t)^2}\,dt=C.
+        \]
+        Now
+        \[
+            \int_{2}^{\infty}\frac{R(t)}{t(\log t)^2}\,dt\ll\int_{2}^{\infty}\frac{1}{t(\log t)^2}\,dt=\Oh\left(\frac{1}{\log x}\right).
+        \]
+        Hence, 
+        \[
+            \sum_{p\leq x}\frac{1}{p}=\log\log x+1-\log\log2+C+\Oh\left(\frac{1}{\log x}\right).
+        \]
+        \item[(4)] We need to show that 
+        \[
+            \prod_{p\leq x}\left(1-\frac{1}{p}\right)=\frac{e^{-\gamma}}{\log x}\left(1+\Oh\left(\frac{1}{\log x}\right)\right).
+        \]
+        For now we will show that 
+        \[
+            \prod_{p\leq x}\left(1-\frac{1}{p}\right)=\frac{C}{\log x}\left(1+\Oh\left(\frac{1}{\log x}\right)\right)
+        \]
+        for some $C>0$. In the next chapter we will establish that $C=e^{-\gamma}$.\\
+        Our problem is reduced to proving
+        \[
+            \prod_{p\leq x}\left(1-\frac{1}{p}\right)=\log C-\log\log x+\log\left(1+\Oh\left(\frac{1}{\log x}\right)\right).
+        \]
+        Notice that $|\log(1+y)|\asymp |y|$ for $|y|\leq\frac{1}{2}$. So for $x$ large enough the term $\Oh\left(\frac{1}{x}\right)$ can be made less than $\frac{1}{2}$, and so 
+        \[
+            \log\left(1+\log\left(\frac{1}{\log x}\right)\right)=\Oh\left(\frac{1}{\log x}\right).
+        \]
+        Let's prove
+        \[
+            -\sum_{p\leq x}\log\left(1-\frac{1}{p}\right)=\log\log x+\log C+\Oh\left(\frac{1}{\log x}\right).
+        \]
+        Note that 
+        \[
+            \log(1-x)=-\sum_{n=1}^{\infty}\frac{x^n}{n}.
+        \]
+        So, we have
+        \begin{align*}
+            -\sum_{p\leq x}\log\left(1-\frac{1}{p}\right)&=\sum_{p\leq x}\sum_{n=1}^{\infty}\frac{\left(\frac{1}{p}\right)^n}{n}\\
+            &=\sum_{p\leq x}\sum_{n=1}^{\infty}\frac{1}{np^n}\\
+            &=\sum_{p\leq x}\left(\frac{1}{p}+\sum_{n=2}^{\infty}\frac{1}{np^n}\right)\\
+            &=\sum_{p\leq x}\frac{1}{p}+\sum_{p\leq x}\sum_{n=2}^{\infty}\frac{1}{np^n}.
+        \end{align*}
+        Consider the second sum
+        \[
+            \sum_{p\leq x}\underbrace{\frac{n=2}{\infty}\frac{1}{np^n}}_{r_p}.
+        \]
+        We have
+        \begin{align*}
+            r_p=\sum_{n=2}^{\infty}&\leq\frac{1}{2}\sum_{n=2}^{\infty}\frac{1}{p^n}\\
+            &=\frac{1}{2}\left(\frac{\frac{1}{p^2}}{1-\frac{1}{p}}\right)\\
+            &=\frac{1}{2}\left(\frac{1}{p^2-p}\right).
+        \end{align*}
+        Now 
+        \[
+            \sum_{p\leq x}r_p=\sum_{p=2}^{\infty}r_p-\sum_{p>x}r_p
+        \]
+        since $r_p\leq\frac{1}{2}\left(\frac{1}{p^2-p}\right)$, the comparison test implies that $\sum_{p=2}^{\infty}r_p$ is convergent to say $B$. We also have, 
+        \begin{align*}
+            \sum_{p>x}r_p&\leq\frac{1}{2}\sum_{p>x}\frac{1}{p^2-p}\\
+            &\leq\frac{1}{2}\sum_{n>x}\frac{1}{n^2-n}\\
+            &\leq\sum_{n\geq x}\frac{1}{n^2}\\
+            &\ll\int_{x}^{\infty}\frac{1}{t^2}\,dt\\
+            &=\Oh\left(\frac{1}{x}\right).
+        \end{align*}
+        Therefore,
+        \[
+            \sum_{p\leq x}\sum_{n=2}^{\infty}\frac{1}{np^n}=B+\Oh\left(\frac{1}{x}\right).
+        \]
+        It follows that
+        \[
+            -\sum_{p\leq x}\log\left(1-\frac{1}{p}\right)=\log\log x+A+B+\Oh\left(\frac{1}{\log x}\right).
+        \]
+    \end{enumerate}
+    Which gives the desired result.
+}
+\corp{
+    We have
+    \[
+        \int_{1}^{x}\frac{\Psi(t)}{t^2}\,dt=\log x+\Oh(1).
+    \]
+}{
+    \begin{align*}
+        \log x+\Oh(1)&=\sum_{n\leq x}\frac{\Lambda(n)}{n}\\
+        &=\left(\sum_{n\leq x}\Lambda(n)\right)\frac{1}{x}+\int_{1}^{x}\left(\sum_{n\leq t}\Lambda(n)\right)\frac{1}{t^2}\,dt\\
+        &=\frac{\Psi(x)}{x}+\int_{1}^{x}\frac{\Psi(t)}{t^2}\,dt.
+    \end{align*}
+    Hence, 
+    \[
+        \int_{1}^{x}\frac{\Psi(t)}{t^2}\,dt=\log x+\Oh(1)
+    \]
+    which is the desired result.
+}
+
+\section*{Consequences of the PNT}
+\thm{}{
+    The PNT implies the following
+    \begin{enumerate}
+        \item[(1)] The $n^{\text{th}}$ prime satisfies $p_n\sim n\log n$ as $n\to\infty$;
+        \item[(2)] $\omega(n)=\#$ of distinct prime factors of $n$,
+        \[
+            \limsup_{n\to\infty}\frac{\omega(n)}{\frac{\log n}{\log\log n}}=1;
+        \]
+        \item[(3)] Given $\varepsilon>0$, $\exists x_0=x_0(\varepsilon)$ such that for all $x\geq x_0$ there exists a prime $p$ with
+        \[
+            x<p\leq(1+\varepsilon)x;
+        \]
+        \item[(4)] The set 
+        \[
+            \left\{\frac{p}{q}:p,q\text{ prime}\right\}
+        \]
+        is dense in $\R_+$;
+        \item[(5)] $a_i\in\{1,2,3,\dots,9\}$. Consider a string $a_1,a_2,\dots,a_n$ $(a_i\neq0)$, then there exists a prime $\#$ whose decimal expansion starts with $a_1a_2\dots a_n$.
+    \end{enumerate}
+}
+\pf[Proof of Theorem 3.6]{
+    \begin{enumerate}
+        \item[(1)]
+        \[
+            \text{PNT}\Rightarrow n=\pi(p_n)\sim\frac{p_n}{\log p_n}.
+        \]
+        Let's show that $\log n\sim\log p_n$ that is $\lim_{n\to\infty}\frac{\log n}{\log p_n}=1$. We have
+        \[
+            \lim_{n\to\infty}\frac{n}{\frac{p_n}{\log p_n}}=1
+        \]
+        given $\varepsilon>0$, $\exists N\geq1$ such that
+        \[
+            \left|\frac{n}{\frac{p_n}{\log p_n}}-1\right|\leq\varepsilon
+        \]
+        for all $n\geq N$.
+        \begin{align*}
+            1-\varepsilon&\leq\frac{n}{\frac{p_n}{\log p_n}}&\leq1+\varepsilon\\
+            \frac{p_n}{\log p_n}(1-\varepsilon)&\leq n&\leq\frac{p_n}{\log p_n}(1+\varepsilon)\\
+            \log p_n-\log\log p_n+\log(1-\varepsilon)&\leq\log n&\leq\log p_n-\log\log p_n+\log(1+\varepsilon)\\
+            1-\frac{\log\log p_n}{\log p_n}+\frac{\log(1-\varepsilon)}{\log p_n}&\leq\frac{\log n}{\log p_n}&\leq1-\frac{\log\log p_n}{\log p_n}+\frac{\log(1+\varepsilon)}{\log p_n}.
+        \end{align*}
+        Hence we have
+        \[
+            \lim_{n\to\infty}\frac{\log n}{\log p_n}=1.
+        \]
+    \end{enumerate}
+    This gives the proof for part (1) or theorem 3.6.
+}
+For the rest of the chapter, we will prove the following theorem.
+\thm{}{
+    \[
+        PNT\Leftrightarrow\frac{1}{x}\sum_{n\leq x}\mu(n)\to0
+    \]
+    as $x\to\infty$. That is $\sum_{n\leq x}\mu(n)=\oh(x)$.
+}
+\begin{remark}
+    Let 
+    \[
+        Q(x)=\sum_{n\leq x}\mu^2(n)=\# \text{ of square free integers up to } x,
+    \]
+    \[
+        Q_-(x)=\sum_{n\leq x}\mu^2(n)=\# \text{ of square free integers up to } x \text{ with an odd number of prime divisors},
+    \]
+    \[
+        Q_+(x)=\sum_{n\leq x}\mu^2(n)=\# \text{ of square free integers up to } x \text{ with an even number of prime divisors}.
+    \]
+    See that
+    \begin{align*}
+        Q(x)&=Q_-(x)+Q_+(x)
+        &=\frac{6}{\pi^2}x+\Oh(\sqrt{x}).
+    \end{align*}
+    We have 
+    \[
+        \frac{1}{x}\sum_{n\leq x}\mu(n)=\frac{1}{x}\left(Q_+(x)-Q_-(x)\right).
+    \]
+    If 
+    \[
+        \frac{1}{x}\sum_{n\leq x}\mu(n)\to0
+    \]
+    as $x\to\infty$, then
+    \[
+        Q_-(x)=Q_+(x)+\oh(x)=\frac{3}{\pi^2}x+\oh(x).
+    \]
+    So the statement of theorem 3.7 is telling us that a statement about the distribution of prime numbers si equivalent to a statement about the distribution of squarefree numbers with an odd number of prime factors.
+\end{remark}
+In preparing for the proof of theorem 3.7, we require the following lemmas.
+\lem{}{
+    \[
+        \left|\sum_{n\leq x}\frac{\mu(n)}{n}\right|\leq1
+    \]
+}
+\cor{
+    Let 
+    \[
+        L(\mu)=\lim_{x\to\infty}\frac{1}{\log x}\sum_{n\leq x}\frac{\mu(n)}{n}.
+    \]
+    Then $L(\mu)=0$, and if $M(\mu)$ exists, then $M(\mu)=0$. 
+}
+\lem{}{
+    $f:\N\to\C$
+    \[
+        H(f)=\lim_{x\to\infty}\frac{1}{x\log x}\sum_{n\leq x}f(n)\log n.    
+    \]
+    $H(f)$ exists \textit{if and only if} $M(f)$ exists.
+}
+\end{document}

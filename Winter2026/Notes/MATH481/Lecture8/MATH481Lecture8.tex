@@ -14,11 +14,232 @@
 \setcounter{tcb@cnt@mydefinition}{1}
 \maketitle
 \pf[Continue Proof of Theorem 3.1]{
-    We are working to prove that $\exists c_1,c_2>0$ such that 
-    \[
-        c_1x\leq\Psi(x)\leq c_2x
-    \]
-    for all $x\geq2$.
+    \begin{enumerate}
+        \item[(1)] We are working to prove that $\exists c_1,c_2>0$ such that 
+        \[
+            c_1x\leq\Psi(x)\leq c_2x
+        \]
+        for all $x\geq2$.\\
+        Last time we showed that given any $\varepsilon>0$, there exists $x_0\geq1$ (possibly $x_0=x_0(\varepsilon)$) such that 
+        \[
+            (\log2-\varepsilon)x\leq D(x)\leq(\log2+\varepsilon)x
+        \]
+        for all $x\geq x_0$. We also showed that 
+        \[
+            \Psi(x)-\Psi\left(\frac{x}{2}\right)\leq D(x)\leq\Psi(x)
+        \]
+        for $x\geq2$. This gives us 
+        \[
+            |Psi(x)\geq D(x)\geq(\log2-\varepsilon)x
+        \]
+        for all $x\geq x_0$. We also have that 
+        \begin{align*}
+            \Psi(x)&\leq D(x)+\Psi\left(\frac{x}{2}\right)\\
+            &\leq(\log 2-\varepsilon)x+\Psi\left(\frac{x}{2}\right)& \forall x\geq x_0
+            \intertext{By choosing a small enough $\varepsilon$}
+            &\leq x+\Psi\left(\frac{x}{2}\right)& \forall x\geq x_0\\
+            &\leq x+\frac{x}{2}+\Psi\left(\frac{x}{4}\right)& \forall \frac{x}{2}\geq x_0\\
+            &\quad\quad\quad\quad\:\,\vdots\\
+            &\leq x+\frac{x}{2}+\frac{x}{4}+\cdots+\Psi\left(\frac{x}{2^k}\right)& \forall \frac{x}{2^{k-1}}\geq x_0.
+        \end{align*}
+        Choose $k$ to be the largest integer such that 
+        \[
+            \frac{x}{2^{k-1}}\geq x_0
+        \]
+        i.e.,
+        \[
+            \frac{x}{2^k}\leq x_0\leq\frac{x}{2^{k-1}}.
+        \]
+        Since $\Psi$ is an increasing function, we have 
+        \[
+            \Psi(x_0)\geq\Psi\left(\frac{x}{2}\right).
+        \]
+        It follows that 
+        \begin{align*}
+            \Psi(x)&\leq x+\frac{x}{2}+\cdots+\frac{x}{2^{k-1}}+\Psi(x_0)\\
+            &=x\sum_{i=0}^{k-1}\left(\frac{1}{2}\right)^i+\Psi(x_0)\\
+            &=2x+\Psi(x_0)
+            \intertext{For large enough $x$ we have $\Psi(x_0)\leq \varepsilon x$}
+            \Psi(x)&\leq(2+\varepsilon)x
+            \intertext{For all $x\geq X_0$, and some $X_0>1$.}
+        \end{align*}
+        Combining everything, we get
+        \[
+            (2-\varepsilon)\leq\Psi(x)\leq(2+\varepsilon)x
+        \]
+        for all $x\geq X_0$.\\
+        What if $2\leq x\leq X_0$? Trivially we have that 
+        \[
+            \frac{\Psi(x)}{x}\leq\frac{\Psi(X_0)}{2}.
+        \]
+        We also have that 
+        \[
+            \frac{\Psi(x)}{x}\geq\frac{\Psi(2)}{x}=\frac{\log2}{x}\leq\frac{\log2}{X_0}.
+        \]
+        This gives
+        \[
+            \frac{\log2}{X_0}x\leq\Psi(x)\leq\frac{\Psi(X_0)}{2}x
+        \]
+        for all $2\leq x\leq X_0$. All in all, $\exists c_1,c_2>0$ such that 
+        \[
+            c_1x\leq \Psi(x)\leq c_2x
+        \]
+        for all $x\geq2$.
+        \item[(2)] 
+        \begin{align*}
+            \Psi(x)-\theta(x)&=\sum_{n\leq x}\Lambda(n)-\sum_{p\leq x}\log p\\
+            &=\sum_{\substack{n\leq x\\ n=p^m}}\log p-\sum_{p\leq x}\log p\\    
+            &=\sum_{\substack{p^m\leq x\\ p\text{ prime}\\m\in\N}}\log p-\sum_{p\leq x}\log p\\
+            &=\sum_{\substack{p^m\leq x\\ p\text{ prime}\\m\geq2}}\log p\\
+            &=\sum_{p\leq\sqrt{x}}\sum_{\substack{m\leq\frac{\log x}{\log p}\\m\geq2}}\log p\\    
+            &=\sum_{p\leq\sqrt{x}}\log p\floor{\frac{\log x}{\log p}}\\    
+            &\leq\sum_{p\leq\sqrt{x}}\log p\frac{\log x}{\log p}\\
+            &=\log x\sum_{p\leq\sqrt{x}}1\\
+            &\leq(\log x)\sqrt{x}.
+        \end{align*}
+        We just showed that
+        \[
+            \Psi(x)-\theta(x)\leq (\log x)\sqrt{x}.
+        \]
+        No we have
+        \[
+            \theta(x)\leq \Psi(x)\leq c_2x
+        \]
+        we also have
+        \begin{align*}
+            \theta(x)&\geq\Psi(x)-(\log x)\sqrt{x}\\
+            &\geq c_1x-(\log x)\sqrt{x}
+        \end{align*}
+        for $x$ large enough we have
+        \[
+            (\log x)\sqrt{x}\leq\frac{c_1}{2}x
+        \]
+        and so 
+        \[
+            \theta(x)\geq c_1x-\frac{c_1}{2}x=\frac{c_1}{2}x.
+        \]
+        \item[(3)] 
+        \begin{align*}
+            \pi(x)&=\sum_{p\leq x}1\\
+            &\geq\sum_{p\leq x}\frac{\log p}{\log x}\\
+            &=\frac{1}{\log x}\sum_{p\leq x}\log p\\
+            &=\frac{1}{\log x}\theta(x)\geq\frac{\frac{c_1}{x}x}{\log x}\\
+            &=\sum_{p\leq\sqrt{x}}1+\sum_{\sqrt{x}<p\leq x}1\\
+            &\leq\sqrt{x}+\frac{1}{\log\sqrt{x}}\sum_{\sqrt{x}<p\leq x}\log\sqrt{x}\\
+            &\sqrt{x}+\frac{2}{\log x}\sum_{\sqrt{}\leq p\leq x}\log p\\
+            &\leq\sqrt{x}+\frac{2}{\log x}(\theta(x)-\theta(\sqrt{x}))\\
+            &\leq\sqrt{x}+\frac{2}{\log x}(c_2x-\frac{c_1}{2}\sqrt{x})\\
+            &\leq C\frac{x}{\log x}
+        \end{align*}
+        for some $C>0$. Indeed we have that 
+        \[
+            \pi(x)\asymp\frac{x}{\log x}
+        \]
+        for $x$ large enough. Repeating the argument we did to bound $\Psi(x)$ for small values of $x$, we get $\pi(x)\asymp\frac{x}{\log x}$ for all $x\geq 2$. 
+    \end{enumerate}
+    Thus, we have all of the desired results.
 }
-
+\thm{}{
+    For all $x\leq2$, we have 
+    \begin{enumerate}
+        \item[(1)] $\theta(x)=\Psi(x)+\Oh(\sqrt{x})$;
+        \item[(2)] $\pi(x)=\frac{\Psi(x)}{\log x}+\Oh\left(\frac{x}{\log^2x}\right)$.
+    \end{enumerate}
+}
+\pf[Proof of Theorem 3.2]{
+    \begin{enumerate}
+        \item[(1)]
+        \begin{align*}
+            \Psi(x)-\theta(x)&=\vdots\\
+            &\leq\log x\sum_{p\leq\sqrt{x}}1\\
+            &=\log x\pi(\sqrt{x})
+            \intertext{By theorem 3.1 part 3}
+            &\leq\log x\frac{c_2\sqrt{x}}{\log\sqrt{x}}\\
+            &\leq2c_2\sqrt{x}\\
+            &\ll\sqrt{x}.
+        \end{align*}
+        \item[(2)]
+        \begin{align*}
+            \pi(x)&=\sum_{p\leq x}1\\
+            &=\sum_{p\leq x}\frac{\log p}{\log p}\\
+            &=\left(\sum_{p\leq x}\log p\right)\frac{1}{\log x}+\int_{2}^{x}\left(\sum_{p\leq t}\log p\right)\frac{1}{t(\log t)^2}\,dt\\
+            &=\frac{\Oh(x)}{\log x}+\int_{2}^{x}\frac{\Oh(t)}{t(\log t)^2}\,dt.
+        \end{align*}
+        Observe that
+        \[
+            \int_{2}^{x}\frac{\Oh(t)}{t(\log t)^2}\,dt\ll\int_{2}^{x}\frac{1}{(\log t)^2}\,dt=\Li_2(x)\ll\frac{x}{(\log x)^2}.
+        \]
+        Hence,
+        \begin{align*}
+            \pi(x)&=\frac{\Oh(x)}{\log x}+\Oh\left(\frac{x}{(\log x)^2}\right)\\
+            &=\frac{\Psi(x)}{\log x}+\Oh\left(\frac{\sqrt{x}}{\log x}\right)+\Oh\left(\frac{x}{(\log x)^2}\right)\\
+            &=\frac{\Psi(x)}{\log x}+\Oh\left(\frac{x}{(\log x)^2}\right).
+        \end{align*}
+    \end{enumerate}
+    Thus, we have out desired results.
+}
+\cor{
+    The following are all equivalent as $x\to\infty$
+    \begin{enumerate}
+        \item[(1)] $\pi(x)\sim\frac{x}{\log x}$;
+        \item[(2)] $\theta(x)\sim x$;
+        \item[(3)] $\Psi(x)\sim x$.   
+    \end{enumerate}
+}
+\section*{Mertens' Estimate}
+\thm{}{
+    We have
+    \begin{enumerate}
+        \item[(1)] 
+        \[
+            \sum_{n\leq x}\frac{\Lambda(n)}{n}=\log x+\Oh(1)
+        \]
+        \item[(2)]
+        \[
+            \sum_{p\leq x}\frac{\log p}{p}=\log x+\Oh(1)
+        \]
+        \item[(3)]
+        \[
+            \sum_{p\leq x}\frac{1}{p}=\log\log x+A+\Oh\left(\frac{1}{\log x}\right)
+        \]
+        \item[(4)] Mertens' formula
+        \[
+            \prod_{p\leq x}\left(1-\frac{1}{p}\right)=\frac{e^{-\gamma}}{\log x}\left(1+\Oh\left(\frac{1}{\log x}\right)\right).
+        \]
+    \end{enumerate}
+}
+\pf[Proof of Theorem 3.4]{
+    \begin{enumerate}
+        \item[(1)] Let 
+        \begin{align*}
+            S(x)&=\sum_{n\leq x}\log n\\
+            &=x\log x-x+\Oh(\log x),
+        \end{align*}
+        on the other hand we have
+        \begin{align*}
+            S(x)&=\sum_{d\leq x}\Lambda(d)\floor{\frac{x}{d}}\\
+            &=\sum_{d\leq x}\Lambda(d)\left(\frac{x}{d}-\fract{\frac{x}{d}}\right)\\
+            &=x\sum_{d\leq x}\frac{\Lambda(d)}{d}+\sum_{d\leq x}\Lambda(d)\fract{\frac{x}{d}}\\
+            &=x\sum_{d\leq x}\frac{\Lambda(d)}{d}+\Oh\left(\sum_{d\leq x}\Lambda(d)\right)\\
+            &=x\sum_{d\leq x}\frac{\Lambda(d)}{d}+\Oh(x).
+        \end{align*}
+        Since $S(x)=x\log x+\Oh(x)$ we get
+        \[
+            \log x+\Oh(x)=\sum_{d\leq x}\frac{\Lambda(d)}{d}+\Oh(x).
+        \]
+        \item[(2)]
+        \begin{align*}
+            \sum_{p\leq x}\frac{\log p}{p}&=\sum_{p^m\leq x}\frac{\log p}{p^m}-\sum_{\substack{p^m\leq x\\ m\leq2}}\frac{\log p}{p^m}\\
+            &=\sum_{n\leq x}\frac{\Lambda(n)}{n}-\sum_{\substack{p^m\leq x\\ m\leq2}}\frac{\log p}{p^m}.
+        \end{align*}
+        Note that
+        \begin{align*}
+            -\sum_{\substack{p^m\leq x\\ m\leq2}}\frac{\log p}{p^m}&=\sum_{p\leq\sqrt{x}}\log p\sum_{2\leq m\leq\frac{\log x}{\log p}}\frac{1}{p^m}\\
+            &\leq\sum_{p}\log p\sum_{m=1}^{\infty}\left(\frac{1}{p}\right)^m\\
+            &=\sum_{p}\log p\left(\frac{p^{-2}}{1-p^{-1}}\right)\\
+            &=\sum_{p}\frac{\log p}{p^2-p}<\infty\\
+            &=\Oh(1).
+        \end{align*}
+    \end{enumerate}
+}
 \end{document}

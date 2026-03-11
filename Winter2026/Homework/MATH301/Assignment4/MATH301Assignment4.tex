@@ -1,0 +1,281 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../../preambles/hw-preamble.tex}
+\input{../../../../preambles/homework-macros.tex}
+\input{../../../../preambles/homework-title.tex}
+\input{../../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Introductory Complex Analysis}
+\renewcommand{\coursecode}{MATH 301}
+\renewcommand{\assignment}{Assignment 4}
+\renewcommand{\instructor}{Dr. Edward Dobrowolski}
+\renewcommand{\duedate}{March 9\textsuperscript{th}, 2026}
+
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Page 109 Problem 1} Evaluate the following:
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \[
+        \int_{\gamma}y\,dz,
+    \]
+    where gamma is the union of the line segments joining $0$ to $i$ and then $i+2$.\\
+    \textit{Solution.} Let $\gamma_1(t)=it,\,0\leq t\leq1$, then $y=t$, and $\gamma_2(t)=t+i,\,0\leq t\leq 2$, then $x=t$ and $y=1$. For both cases we have $z=x+yt,\,dz=dt$ giving
+    \begin{align*}
+        \int_{\gamma}y\,dz&=\int_{\gamma_1}y\,dz+\int_{\gamma_2}y\,dz\\
+        &=\int_{0}^{1}it\,dt+\int_{0}^{2}1\,dt\\
+        &=2+\frac{i}{2}.
+    \end{align*}
+    \item 
+    \[
+        \int_{\gamma}\sin 2z\,dz,
+    \]
+    where gamma is the line segments joining $i+1$ to $-1$.\\
+    \textit{Solution.} First note that
+    \[
+        \sin 2z=\deriv{d}{dz}\left(-\frac{\cos 2z}{2}\right).
+    \]
+    Let $F(z)=-\frac{\cos 2z}{2}$, then
+    \begin{align*}
+        \int_{\gamma}y\,dz&=F(-1)-F(1+i)\\
+        &=-\frac{\cos2}{2}+\frac{\cos(2+2i)}{2}\\
+        &=\frac{\cos(2+2i)+\cos2}{2}.
+    \end{align*}
+    \item 
+    \[
+        \oint_{\gamma}ze^{z^2} 2z\,dz,
+    \]
+    where gamma is the unit circle.\\
+    \textit{Solution.} Note that
+    \[
+        ze^{z^2} 2z=\deriv{d}{dz}(ze^{z^2})-e^{z^2}.
+    \]
+    This gives
+    \[
+        \int_{\gamma}ze^{z^2} 2z\,dz=\int_{\gamma}\deriv{d}{dz}(ze^{z^2})\,dz-\int_{\gamma}e^{z^2}\,dz,
+    \]
+    the integral of a derivative around a closed curve ia 0, and $e^{z^2}$ is enitre, this integral over a closed curve is also 0. giving
+    \[
+        \int_{\gamma}ze^{z^2} 2z\,dz=0.
+    \]
+\end{enumerate}
+
+
+
+\stepcounter{section}
+\section*{Page 110 Problem 3} Evaluate 
+\[
+    \oint_{\gamma}\frac{1}{z}\,dz,
+\]
+where $\gamma$ is the circle of radius 1 centered at 2 traversed once counterclockwise.\\
+\textit{Soltuion.} We can see that $0\not\in\gamma$. Thus, $\frac{1}{z}$ is analytic on $\gamma$, but Cauchy's theorem we have that
+\[
+    \oint_{\gamma}\frac{1}{z}\,dz=0.
+\]
+
+\stepcounter{section}
+\section*{Page 110 Problem 4} Evaluate
+\[
+    \oint_{\gamma}\frac{1}{z^2-2z}\,dz,
+\]
+where $\gamma$ is the curve in Excersize 3.\\
+\textit{Soltuion.} The function in the integrand has two poles, one at $z=0$ and another at $z=2$. Performing partial fraction decomposition
+\[
+    \frac{1}{z(z-2)}=\frac{A}{z}+\frac{B}{z-2}.
+\]
+We have $A=-\frac{1}{2}$ and $B=\frac{1}{2}$. Now we integrate
+\[
+    \oint_{\gamma}\frac{1}{z^2-2z}\,dz=-\oint_{\gamma}\frac{\frac{1}{2}}{z}\,dz+\frac{1}{2}\oint_{\gamma}\frac{1}{z-2}\,dz.
+\]
+The first integral is one of an analytic function around a closed curve, therefore it gives 0. The second integral is of a function with a pole at one point inside of the curve, by Cauchy's residue theorem this gives $2\pi i$, Multiplying by $\frac{1}{2}$, all in all we have
+\[
+    \oint_{\gamma}\frac{1}{z^2-2z}\,dz=\pi i.
+\]
+\stepcounter{section}
+\section*{Page 110 Problem 5} Does
+\[
+    \Re\left\{\int_{\gamma}f\,dz\right\}=\int_{\gamma}\Re f\,dz?
+\]
+\textit{Solution.} Take $f(z)=i$, over the curve $\gamma=[0,1]$. Then $z=it$ and $dz=i\,dt$ and $\Re f=0$. This gives
+\[
+    \int_{0}^{1}i\cdot i\,dt=\int_{0}^{1}-1\,dt=-1,
+\]
+and 
+\[
+    \int_{\gamma}\Re f\,dz=\int_{\gamma}0\,dz=0.
+\]
+Since $-1\neq0$ we have that
+\[
+    \Re\left\{\int_{\gamma}f\,dz\right\}=\int_{\gamma}\Re f\,dz
+\] 
+is not true in general.
+
+\stepcounter{section}
+\section*{Page 110 Problem 8} Evaluate
+\[
+    \int_{\gamma}\bar{z}^2\,dz
+\]
+along two paths joining (0,0) to (1,1) as follows:
+\begin{enumerate}[label=(\alph*)] 
+    \item $\gamma$ is the straight line from (0,0) to (1,1).\\
+    \textit{Solution.} Let $z(t)=t+it$ with $t\in[0,1]$, then $dz=(1+i)dt$, and $\bar{z}^2(t)=-2it^2$.
+    \[
+        \int_{\gamma}\bar{z}^2\,dz=\int_{0}^{1}(-2it^2)(1+i)\,dt=(2-2i)\left[\frac{t^3}{3}\right]_0^1=\frac{2}{3}-\frac{2}{3}i.
+    \]
+    \item $\gamma$ is the broken line joining (0,0) to (1,0), then joining (1,0) to (1,1).\\
+    \textit{Solution.} We have $\gamma=\gamma_1\cup\gamma_2$ with
+    \begin{enumerate}
+        \item $\gamma_1=z_1(t)=t$ with $t\in[0,1]$, then $dz_1=dt$ and $\bar{z}^2=t^2$.
+        \item $\gamma_2=z_2(t)=1+it$ with $t\in[0,1]$, then $dz_2=i\,dt$ and $\bar{z}^2=1-2it-t^2$. 
+    \end{enumerate}
+    \begin{align*}
+        \int_{\gamma}\bar{z}^2\,dz&=\int_{\gamma_1}\bar{z}^2\,dz+\int_{\gamma_2}\bar{z}^2\,dz\\
+        &=\int_{\gamma_1}t^2\,dt+\int_{\gamma_2}1-2it-t^2\,(i)dt\\
+        &=\frac{1}{3}+\left[it+t^2-i\frac{t^3}{3}\right]\\
+        &=\frac{1}{3}+\left(i+1-\frac{1}{3}i\right)\\
+        &=\frac{4}{3}+\frac{2}{3}i.
+    \end{align*}
+\end{enumerate}
+No $\bar{z}^2$ cannot be the derivative of an analytic function $F(z)$. This is because if it were by the fundamental theorem of line integrals we would have the same answer in parts (a) and (b) since they start and end at the same points, but we do not.
+\stepcounter{section}
+\section*{Page 110 Problem 10} Let $C$ be the arc of the circle $|z|=2$ that lies in the first quadrant. Show that
+\[
+    \left|\int_C\frac{dz}{z^2+1}\right|\leq\frac{\pi}{3}.
+\]
+\textit{Solution.} The circumference of a circle of radius 2 is $4\pi$. The length of $C$ is a quarter of the circumference of the circle, that is $\ell(C)=\pi$. From the problem we can rewrite
+\[
+    \frac{1}{z^2+1}=\frac{1}{4e^{i2\theta}+1}
+\]
+we need to find the max of this function on $C$, which is equivalent to finding the max of $4e^{i2\theta}$ on $C$. The max happens to be 3. So we have
+\[
+    \left|\frac{1}{z^2+1}\right|\leq\frac{1}{3}
+\] 
+\begin{align*}
+    \left|\int_C\frac{dz}{z^2+1}\right|&\leq\left|\int_C\frac{dz}{3}\right|\\
+    &\leq\frac{\pi}{3}.
+\end{align*}
+\newpage
+\stepcounter{section}
+\section*{Page 110 Problem 11} Evaluate the following:
+\begin{enumerate}
+    \item[(b)] 
+    \[
+        \int_{\gamma}z^2\,dz,
+    \]
+    where $\gamma$ is the curve given by $\gamma(t)=e^{it}\sin^3t,\,0\leq t\leq\frac{\pi}{2}$.
+\end{enumerate}
+\textit{Solution.} Let $z(t)=e^{it}\sin^3t$, then
+    \[
+        \int_{\gamma}z^2\,dz=\frac{1}{3}\left[z\left(\frac{\pi}{2}\right)^3-z(0)^3\right]=\frac{1}{3}\left(e^{\frac{i\pi}{2}}\right)^3\cdot1^3-0=-\frac{i}{3}.
+    \]
+\stepcounter{section}
+\section*{Page 122 Problem 1}Evaluate the following integrals
+\begin{enumerate}[label=(\alph*)]
+    \item 
+    \[
+        \int_{\gamma}(z^3+3)\,dz,
+    \]
+    where $\gamma$ is the upper half of the unit circle.\\
+    \textit{Solution.} We have $\gamma(t)=e^{it}$ with $t\in[0,\pi]$, then $dz=ie^{it}\,dt$. This gives
+    \begin{align*}
+        \int_{\gamma}(z^3+3)\,dz&=\int_{0}^{\pi}(e^{i3t}+3)ie^{it}\,dt\\
+        &=-\int_{0}^{\pi}[e^{i4t}+3e^{it}]\,dt\\
+        &=i\left[\frac{e^{i4t}}{4i}+\frac{3e^{it}}{i}\right]_{0}^{\pi}\\
+        &=\left[\frac{e^{i4t}}{4}+3e^{it}\right]_{0}^{\pi}\\
+        &=\frac{1}{4}-3-\frac{1}{4}-3\\
+        &=-6.
+    \end{align*}
+    \item 
+    \[
+        \oint_{\gamma}(z^3+3)\,dz,
+    \]
+    where $\gamma$ is the unit circle.\\
+    \textit{Soltuion.} $z^3+3$ is entire on the unit circle, the integral of an entire function over a closed contour is 0.
+    \item 
+    \[
+        \oint_{\gamma}e^{\frac{1}{Z}}\,dz,
+    \]
+    where $\gamma$ is a circle of radius 3 centered at $5i+1$.\\
+    \textit{Soltuion.} Since $e^{\frac{1}{z}}$ only has a singularity at $z=0$, and $0\not\in\gamma$, by Cauchy's theorem we have that this integral is 0. (Integral of an analytic function over a closed contour).
+    \item 
+    \[
+        \oint_{\gamma}\cos\left[3+\frac{1}{z-3}\right]\,dz,
+    \]
+    where $\gamma$ is a unit square with corners at $0,1,1+i$ and $i$.\\
+    \textit{Solution.} The functio in the integrand has a singularity at $z=3$, since $3\not\in\gamma$ we have that this function is analytic on and in $\gamma$. The integral of an analytic function over a closed contour is 0.
+\end{enumerate}
+
+
+\stepcounter{section}
+\section*{Page 123 Problem 8} Let $\gamma_1$ be the circle of radius 1 and let $\gamma_2$ be the first of radius 2 (travered counterclockwise and centered at the origin). Show
+\[
+    \oint_{\gamma_1}\frac{dz}{z^3(z^2+10)}=\oint_{\gamma_2}\frac{dz}{z^3(z^2+10)}.
+\]
+\textit{Solution.} The integrand has singularities at $z=0,\pm\sqrt{10}i$. The only singularity which lies inside of these curves is $0$, since both circles at centered at 0. Since the residue at $z=0$ is the same for both contours integrand in question we have that both integrals are equivalent by Cauchy's residue theorem.
+
+
+\stepcounter{section}
+\section*{Page 143 Problem 7} Evaluate the following integrals without performing explicit computation:
+\begin{enumerate}[label=(\alph*)]
+    \item 
+    \[
+        \int_{\gamma}\frac{dz}{z},
+    \]
+    where $\gamma(t)=\cos t+2i\sin t,\,0\leq t\leq2\pi$.\\
+    \textit{Solution.} By Cauchy's residue theorem, there is one residue in this contour so we have
+    \[
+        \oint_{\gamma}\frac{dz}{z}=2\pi i.
+    \]
+    \item 
+    \[
+        \oint_{\gamma}\frac{dz}{z^2},
+    \]
+    where $\gamma$ is defined as in (a).\\
+    \textit{Soltuion.} Residue of 0, by Cauchy's residue theorem we have
+    \[
+        \oint_{\gamma}\frac{dz}{z^2}=2\pi i\cdot 0=0.
+    \]    
+    \item 
+    \[
+        \oint_{\gamma}\frac{e^z\,dz}{z},
+    \]
+    where $\gamma(t)=2+e^{it},\,0\leq t\leq2\pi$\\
+    \textit{Solution.} $\frac{e^z}{z}$ has a simple pole at $z=0$. Since $0\not\in\gamma$, we have that $\frac{e^z}{z}$ is entire. The integral of an analytic function over a closed contour is 0.
+    \item 
+    \[
+        \oint_{\gamma}\frac{dz}{z^2-1},
+    \]
+    where $\gamma$ is a circle of radius 1 centered at 1.\\
+    \textit{Solution.} See that
+    \[
+        \oint_{\gamma}\frac{dz}{z^2-1}=\int_{\gamma}\frac{dz}{(z-1)(z+1)}.
+    \]
+    Of the singularities $z=1,-1$ we have $1\in\gamma$. At $z=1$ we have $\frac{1}{1+1}=\frac{1}{2}$. By Cauchy's residue theorem we have
+    \[
+        \oint_{\gamma}\frac{dz}{z^2-1}=2\pi i\frac{1}{2}=\pi i.
+    \]
+\end{enumerate}
+\end{document}
