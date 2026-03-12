@@ -1,0 +1,71 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 420 Lecture 16}
+\author{Deepak Jassal}
+\date{March 11\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle
+\stepcounter{section}
+\section*{Radical of an Ideal}
+\defn{}{
+    Let $R$ be a ring, $U\subseteq R$ an ideal. The \underline{radical} of the $I$, denotes rad$(I)$, is givne by
+    \[
+        \text{rad}(I)=\{r\in R:r^k\in I,\text{ for some } k\geq1\}.
+    \]
+}
+
+\ex{
+    If $R=\Z$, $I\subseteq\Z$ an ideal, what is rad$(I)$.
+}
+\ex{
+    rad(3)=(3), and rad(9)=rad(3)=(3)\\
+    Suppose $a\in$rad$(3)$, then there exists $k\geq1$, such that $a^k\in(3)$. Hence, $a^k=3\ell$ for some $\ell\in\Z$. Hence $3\mid a,$ for $a\in(3)$.
+}
+\fact{
+    For $a\in\Z$, $a=p_1^{s_1}\cdots p_k^{s_k}$, then rad$(a)=(p_1\cdots p_k)$. Proof is left as an excersize.
+}
+\defn{}{
+    For $a\in\Z$ the radical of just the integer rad$a=p_1\cdots p_k$.
+}
+Q: Suppose that $a,b,c\in\Z$ such that $a+b=c$ and $(a,b,c)=1$. How large can $\max\{|a|,|b|,|c|\}$ be compared to rad$abd$?
+\prop{
+    For all $\varepsilon>0$, $a,b,c$ as given above, we have
+    \[
+        \max\{|a|,|b|,|c|\}\ll_\varepsilon\text{rad}(abc)^{1+\epsilon}.
+    \]
+}
+Q: Let $R$ be a ring. What is rad(0)?\\
+A: Nilpotent elements of $R$.
+\propp{
+    Let $R$ be a commutative ring. Then for all $I\subseteq R$ ideals, rad$I$ is an ideal. 
+}{
+    Suppose $a,b\in$rad$I$. Then there exists $k,\ell\geq1$ such that $a^k,b^\ell\in I$. Then 
+    \[
+        (a+b)^{k+\ell}-\sum_{j=0}^{k+\ell}\binom{k+\ell}{j}a^jb^{k+\ell-j}\in I
+    \]
+    this is the binomial theorem in a commutative ring.\\
+    Suppose $r\in R$ and $(ra)^k=r^la^k\in I$. Hence, rad$(I)$ is an ideal.
+}
+\lemp{Radical of a Radical}{Radicals are idempotent, that is
+    \[
+        \text{radrad}(I)=\text{rad}I.
+    \]
+}{
+    Excersize.
+}
+\propp{
+    Let $I\subseteq R$ be an ideal. Then 
+    \[
+        \text{rad}I=\bigcap_{I\subseteq P}P
+    \]
+    that is the intersection of all prime ideals that contain the ideal $I$.
+}{
+    If $I=R$, then rad$I=I$, and there is nothing to prove. Hence, assume that $I$ is proper, that is $I\neq R$. Then rad$I\subset\bigcap_{P\subset P}P$ (because prime ideals are equal to there radicals (next homework)).
+}
+\end{document}
