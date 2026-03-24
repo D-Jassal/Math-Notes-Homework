@@ -1,0 +1,76 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 420 Lecture 17}
+\author{Deepak Jassal}
+\date{March 16\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle
+\stepcounter{section}
+\propp{
+    Let $R$ be a ring, and $S\subset R$. Let $I\subseteq R$ be an ideal, disjoint from $S$. Let $\Sigma_S(I)$ be the set of ideals of $R$ containing $I$, and disjoint from $S$. Then $\Sigma_S(I)$ contains maximal elements. i.e., there exists $J\in\Sigma_S(I)$ such that there is no $J'\in\Sigma_S(I)$ for which $J\subsetneqq J'$.
+}{
+    Note that $I\in\Sigma_S(I)$, so $\Sigma_S(I)\neq\phi$. We apply \underline{Zorn's lemma} as follows. Let $b_1\subset b_2\subset\cdots$ be an ascending chain of ideals in $\Sigma_S(I)$ and put
+    \[
+        b=\bigcup_{j=1}^\infty b_j.
+    \]
+    $b\in\Sigma_S(I)$ since otherwise there must exists some $s\in S$ such that $s\in b$. But then $s\in b_n$ for some $n\geq 1$ which is a contradiction. Hence $b$ is an upper bound for every chain. Hence, every ascending chain in $\Sigma_S(I)$, so Zorn implies that $\Sigma_S(I)$ has a maximal element. 
+}
+So what is Zorn's lemma?
+\lem{Zorn's Lemma}{
+    Let $(P,\leq)$ be a partially-ordered set (poset). Suppose that $P\neq\phi$ and every ascending chain in $P$ has an uper bound. Then, $P$ has a maximal element. 
+}
+\propp{
+    Same hypothesis as the last proposition but also assume that $S$ is multiplicative and $R$ is commutative. Then maximal elements of $\Sigma_S(I)$ are prime ideals. 
+}{
+    Let $c\in\Sigma_S(I)$ be maximal. Suppose that $a_1,a_2\in R$ such that $a_1a_2\in C$. If $a_1\in C$ then we are done. Otherwise assume that $a_1\not\in C$. Then $C\subsetneqq C+(a_1)=J_1$. And since $C$ is maximal then $J_1\not\in\Sigma_S(I)$. Hence, $S\cap J_1\neq\phi$, say $s_1\in S\cap J_1$. $s\in J$ implies $s_1=c_1+a_1r_1$ for $c_1\in C,r_1\in R$. Similarily, we must assume $a_2\not\in C$. Hence, $J_2=C+(a_2)$ properly contains $C$, so $S\cup J_2\neq\phi$, say $s_in S\cup J_2$. Then $s_2=c_2+a_2r_2$, for $c_2\in C$ and $r_2\in R$. Then 
+    \[
+        \underbrace{s_1s_2}_{\in S}=(c_1+a_1r_1)(c_2+a_2r_2)=c_1c_2+c_1a_2r_2+c_2a_1r_1+a_1r_1a_2r_2\in C.
+    \]
+    This is a contradiction sicne we assumed that $S$ and $C$ are disjoint. Thus, maximal ideals are prime ideals. 
+}
+This proposition implies  
+\propp{
+    \[
+        \text{rad(rad($I$))}=\text{rad($I$)}.
+    \]
+}{
+    $S=\{1,a,a^2,\dots\}$, $S$ is multiplicative and $a\not\in$rad$I$. The proposition implies there is a prime ideal $P$ containing $I$ and disjoint from $S$. Hence, $a\not\in\cap_{I\subset P,\text{ prime}}P$.
+}
+\defn{Jacobson Radical}{
+    Let $R$ be a ring. The Jacobson Radical of $R$ is the ideal 
+    \[
+        \mathcal{J}(R)=\bigcap_{\substack{m\text{ maximal}\\\text{ideal of $R$}}}m.
+    \]
+}
+\propp{
+    Let $R$ be a unital ring. Then $a\in\mathcal{J}(R)$ \textit{iff} $1-ac$ is a unit for all $c\in R$. 
+}{
+    It suffices to show that there exists a maximal ideal $m$ not containing $a$ \textit{iff} there exists $c\in R$ such that $1-ac$ is not a unit. \\
+    First suppose that $a\not\in m$, $m$ maximal. Then $m+(a)=R$. Then $1=m_1+ab$, with $m_1\in M$ and $b\in R$. Hence, $m_1=1-ab$, and $m_1$ is not a unit. Conversely, suppose that $1-ac$ is not a unit. Then $(1-ac)$ is a proper ideal of $R$. Thus, $(1-ac)\subset m$ for some maximal ideal $m$. We claim that $a\not\in m$. This si because if otherwise then $m_1=1-ac\implies1\in m$, which is a contradiction. 
+}
+\section*{Pell's Equation}
+\[
+    x^2-2y^2=1
+\]
+with $x,y\in\Z_{\geq1}$. Euler wanted to solve 
+\[
+    \frac{m(m+1)}{2}=n^2
+\]
+with the LHS being triangular numbers. He got
+\begin{align*}
+    4m(m+1)&=8n^2\\
+    4m^2+4m+1&=8n^2\\
+    (2m+1)^2-2(2n)^2&=1.
+\end{align*}
+Solving Pell's equation is the same as finding all units in $\Z[\sqrt{2}]$.
+
+
+
+
+\end{document}

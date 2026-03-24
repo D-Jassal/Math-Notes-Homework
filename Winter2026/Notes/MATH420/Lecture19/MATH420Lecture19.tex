@@ -1,0 +1,68 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 420 Lecture 19}
+\author{Deepak Jassal}
+\date{March 23\textsuperscript{th}, 2026}
+
+\begin{document}
+\maketitle
+\stepcounter{section}
+\thm{Chinese Remainder Theorem for Rings}{
+    Let $R$ be a unital ring, and $m_1,\dots,m_k$ are pairwise co-prime ideals in $R$. Then the map
+    \[
+        \phi:R\to R/m_1\times R/m_2\times\cdots\times R/m_k
+    \]
+    where
+    \[
+        \phi(a)=(a+m_1,\dots,a+m_k)
+    \]
+    is a surjective ring homomorphism, and 
+    \[
+        \ker(\phi)=(m_1\cdot m_2\cdots m_k)
+    \]
+}
+\begin{proof}
+    By induction on $k$.\\
+    $k=2$: Since $(m_1+m_2)=R$, there exists $a_i\in m_i$ such that $a_1+a_2=1$. Then for any $x_1,x_2\in R$ we have $\phi(a_1x_2+a_2x_1)=(x_1+m_1,x_2+m_2)$. This shows that $\phi$ is surjective.
+    \lemp{}{
+        For $I,J$ prime ideals in $R$, $I\cdot J=I\cap J$
+    }{
+        $I\cdot J=\{i_1j_1+\cdots i_kj_k:i_\ell\in I,j_\ell\in J\}$. Since $I,J$ are coprime, there exists $i\in I$ and $j\in J$ such that $i+j=1$. If $a\in I\cap J$, then $a(i+j)=a\in I\cdot J$. Hence, $I\cap J\subseteq I\cdot J$.\\
+        Conversely, suppose that $a=i_1j_1+\cdots i_kj_k\in I\cdot J$. Then each $i_\ell j_\ell\in I\cap J$, so $a\in I\cap J$. Hence, $I\cdot J\subseteq I\cap J$. Giving the desired result. 
+    }
+    Suppose $c\in m_1\cap m_2=m_1\cdot m_2$. Then $c(a_1+a_2)=c\in m_1\cdot m_2$ and
+    \[
+        \phi(c)=\phi(a_1c+a_2c)=(c+m_1,c+m_2)=(0,0).
+    \]
+    Hence $c\in\ker(\phi)$. If $c\in\ker(\phi)$, then $\phi(c)=(0+m_1,0+m_2)$. But $c=a_1c+a_2c\Rightarrow\phi(c)=(c+m_1,c+m_2)$. Hence $c\in m_1$ and $c\in m_2$. That is, $c\in m_1\cap m_2=m_1\cdot m_2$.\\
+    \textit{Inductive Hypothesis:} Let $k\geq2$. Suppose that the statement holds for $k$. We need to show that it is true for $k+1$.\\
+    We have $m_1,m_2,\dots,m_k,m_{k+1}$ pairwise co-prime ideals. Take $M=m_1\cdots m_k$. Have to show that $M+m_{k+1}=R$. By the hyopthesis, there exist $a_i\in m_{k+1}$ and $b_i\in m_i$ such that $a_1+b_i=1$. Let
+    \[
+        \alpha=\prod_{1\leq i\leq k}\underbrace{(a_i+b_i)}_{=1}. 
+    \]
+    Then $\alpha\in m_{k+1}+m_1+\cdots+m_k$. Hence, $a\in m_{k+1}+M$, so $R=m_{k+1}+M$. Hence, using the $k=2$ case
+    \[
+        \phi:R\to R/M+R/m_{k+1}
+    \]
+    is surjective. By the induction hypothesis, $R/M\cong R/m_1+\cdots R/m_k$, so we have our desired result. 
+\end{proof}
+\section*{Noetherian Rings}
+Recall that a ring $R$ is Noetherian is it satifies the ascending chain condition. 
+\propp{
+    Let $R$ be a ring. The following are equivalent for an $R$-module $M$
+    \begin{enumerate}[label=(\alph*)]
+        \item Every submomdule of $M$ is finitely generated;
+        \item Every ascending chain of submodules $M_1\subset M_2\subset\cdots$ in $M$ is eventually constant;
+        \item Every non-empty set of submodules of $M$ has a maximal element. 
+    \end{enumerate}
+}{
+    ((a)$\Rightarrow$(b)) Suppose $M_1\subset\cdots\subset M_k\subset\cdots$ is an ascending chain of modules. Then, just like the ideal case, one shows that $\bigcup_{j\geq1}M_j=N$ is a submodule of $M$. By (a), $N$ is finitely generated, say $N=\langle n_1,\dots,n_\ell\rangle$. There exists $L\geq1$ such that $n_j\in M_j$ for $1\leq j\leq \ell$. Hence, $M_t\subseteq M_L$ for all $t\geq1$, so $M_t=M_L$ for $t\geq L$.\\
+    ((b)$\Rightarrow$(c)) Let $\Sigma$ be a non-empty set of submodules. If $\Sigma$ has no maximal element, then by the contrapositive of Zorn's lemma, there must be ascending chains with no maximal element in $\sigma$, contradiciting the hypothesis.\\
+    ((c)$\Rightarrow$(a)) Let $N$ be a submodule of $M$ and let $\Sigma(N)$ be the set of finitely generated submodules contained in $N$. $\Sigma(N)$ is non-empty (since it contains $\{0\}$), hence $\Sigma(N)$ contains a maximal element, say $N'=\langle n_1,\dots,n_\ell\rangle$. If $N'\neq N$, then there exists $n\in N\setminus N'$. Then $N''=\langle n_1,\dots,n_\ell,n\rangle$ properly contains $N$. But $N''\subset N$, hence $N''\in\Sigma(N)$. Thus $N''$ is larger than $N'$ contradiciting the maximality of $N'$.
+}
+\end{document}

@@ -1,0 +1,85 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../../preambles/hw-preamble.tex}
+\input{../../../../preambles/homework-macros.tex}
+\input{../../../../preambles/homework-title.tex}
+\input{../../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Advanced Linear Algebra}
+\renewcommand{\coursecode}{MATH 326}
+\renewcommand{\assignment}{Assignment 6}
+\renewcommand{\instructor}{Dr. Edward Dobrowolski}
+\renewcommand{\duedate}{March 27th\textsuperscript{th}, 2026}
+\usepackage{tensor}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Problem 1}
+Let \(V = M_{3}(\mathbb{F})\), where \(\mathbb{F} = \mathbb{R}\) or \(\mathbb{C}\). State the standard basis of \(V\) and prove that it is a basis.
+
+This problem appears because most answers on Midterm 2 about \(\dim(V)\) were wrong.
+
+\stepcounter{section}
+\section*{Problem 2}
+Let \(V = V[-1, 1]\) be a vector space over \(\mathbb{R}\) with inner product defined as 
+\[
+\langle f, g \rangle = \int_{-1}^{1} f(x)g(x) \, dx.
+\]
+By orthogonalizing the sequence \(\{1, x, x^{2}, x^{3}, \dots\}\) we obtain Legendre polynomials. The first five Legendre polynomials are 
+\[
+P_{0}(x) = 1,\quad P_{1}(x) = x,\quad P_{2}(x) = \frac{1}{2}(3x^{2} - 1),\quad P_{3}(x) = \frac{1}{2}(5x^{3} - x),\quad P_{4}(x) = \frac{1}{8}(36x^{4} - 30x^{2} + 3).
+\]
+
+\begin{enumerate}
+    \item[(a)] Verify that \(\langle P_{2}, P_{3} \rangle = 0\).
+    \item[(b)] The listed above polynomials are standardized so that \(P_{n}(1) = 1\), however they are not orthonormal. Assuming their orthogonality, find the corresponding orthonormal polynomials.
+    \item[(c)] Let \(W = \operatorname{span}\{1, x, x^{2}, x^{3}, x^{4}\}\) and \(T: W \to \mathbb{R}\) be defined as \(T(f(x)) = f(1) + f'(2)\).
+    \item[(c1)] Verify that \(T\) is a linear functional on \(W\).
+    \item[(c2)] Find the Riesz vector of \(T\) using orthonormal basis found in (a).
+    \item[(c3)] Verify that this vector works by checking it on \(f(x) = a + bx + cx^{2} + dx^{3} + ex^{4}\).
+\end{enumerate}
+You can use software for the calculations to save time.
+
+\stepcounter{section}
+\section*{Problem 3}
+Use Gram-Schmidt procedure to find the orthonormal basis of \(\mathbb{R}^{3}\) by orthogonalizing the basis 
+\[
+\{\langle 1, 1, 1 \rangle, \langle 1, 1, 0 \rangle, \langle 1, 0, 0 \rangle\}.
+\]
+Note: \(\{e_{1}, e_{2}, e_{3}\}\) is not the solution.
+
+\stepcounter{section}
+\section*{Problem 4}
+Let \(U = \operatorname{span}\{\langle 1, 1, 1 \rangle, \langle 1, 1, 0 \rangle\}\). (Note: These are the first two vectors from Problem 3). Let \(P_{U}: \mathbb{R}^{3} \to \mathbb{R}^{3}\) be the projection on the plane \(U\).
+
+\begin{enumerate}[label=(\alph*)]
+    \item Find the matrix of \(P_{U}\).
+    \item Describe \(U^{\perp}\) geometrically and find the matrix of \(P_{U^{\perp}}\).
+    \item We know that \(\mathbb{R}^{3} = U \oplus U^{\perp}\). Let \(\mathbf{v} = \langle 1, 2, 3 \rangle\). Find \(\mathbf{u} \in U\) and \(\mathbf{w} \in U^{\perp}\) such that \(\mathbf{v} = \mathbf{u} + \mathbf{w}\).
+\end{enumerate}
+
+
+
+\end{document}
