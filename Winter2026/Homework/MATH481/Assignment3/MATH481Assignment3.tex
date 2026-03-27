@@ -1,0 +1,303 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../../preambles/hw-preamble.tex}
+\input{../../../../preambles/homework-macros.tex}
+\input{../../../../preambles/homework-title.tex}
+\input{../../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Analytic Number Theory}
+\renewcommand{\coursecode}{MATH 481}
+\renewcommand{\assignment}{Assignment 3}
+\renewcommand{\instructor}{Dr. Alia Hamieh}
+\renewcommand{\duedate}{March 21\textsuperscript{st}, 2026}
+
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Problem 1 [10 Marks]} Express the Dirichlet series $\sum_{n=1}^{\infty} \frac{\tau(n)^2}{n^s}$ in terms of the Riemann zeta function. Then use this relation to derive a convolution identity relating the functions $\tau^2(n)$ and $\tau_4(n)$.\\
+\textit{Solution.} We know that 
+\[
+    \tau(n)=1\ast1=\sum_{d\mid n}1,
+\]
+and that for a prime $p$ and integer $k$
+\[
+    \tau(p^k)^2=(k+1)^2.
+\]
+Now rewriting the Dirichlet series
+\[
+    \sum_{n=1}^{\infty} \frac{\tau(n)^2}{n^s}=\prod_{p}\sum_{k=0}^{\infty}\tau(p^k)^2p^{-ks}
+\] 
+let $p^{-s}=x$, then
+\[
+    \sum_{k=0}^{\infty}\tau(p^k)^2x^s=\sum_{k=0}^{\infty}(k+1)^2x^k
+\]
+using a generating function identity we see that
+\[
+    \sum_{k=0}^{\infty}(k+1)^2x^k=\frac{1+x}{(1-x)^3}=\frac{1+p^{-s}}{(1-p^{-s})^3}
+\]
+note that 
+\[
+    1+p^{-s}=\frac{1-p^{-2s}}{1-p^{-s}}.
+\]
+Now we have
+\[
+    \prod_{p}\sum_{k=0}^{\infty}\tau(p^k)^2p^{-ks}=\prod_{p}\frac{1+p^{-s}}{(1-p^{-s})^3}=\prod_{p}\frac{1-p^{-2s}}{(1-p^{-s})^4}=\frac{\zeta(s)^4}{\zeta(2s)}.
+\]
+Note that
+\[
+    \zeta(s)^4=\sum_{n=1}^{\infty}\frac{\tau_4(n)}{n^{s}}
+\]
+and
+\[
+    \frac{1}{\zeta(2s)}=\sum_{m=1}^{\infty}\frac{\mu(m)}{m^{2s}}
+\]
+set $n=m^2$, then this series becomes a series in $n^{-s}$. Let
+\[
+    \lambda_2(n)=
+    \begin{cases}
+        \mu(m)&\text{if } n=m^2 \text{ for some } m\in\N\\
+        0&\text{otherwise.}    
+    \end{cases}
+\]
+Comparing the coefficients of these Dirichlet series and using the Dirichlet product formula we see that
+\[
+    \tau^2(n)=\sum_{d\mid n}\tau_4(d)\lambda_2\left(\frac{n}{d}\right).
+\]
+\stepcounter{section}
+\section*{Problem 2 [15 Marks]} For each of the following functions $f(n)$ determine the abscissa of convergence $\sigma_c$ and the abscissa of absolute convergence $\sigma_a$ of the associated Dirichlet series.\\
+\textit{Note.} I looked this up and found that
+\[
+    \sigma_c=\limsup_{x\to\infty}\frac{\log|A(x)|}{\log x},\quad \sigma_a=\limsup_{x\to\infty}\frac{\log\sum_{n\leq x}|f(n)|}{\log x},
+\]
+where if the Dirichlet series is of the form $F(s)=\sum f(n)n^{-s}$, $A(x)=\sum_{n\leq x}f(n)$
+\begin{enumerate}[label=(\alph*)]
+    \item $f(n)=\omega(n)$\\
+    \textit{Solution.} See that
+    \[
+        \sum_{n=1}^{\infty}\frac{\omega(n)}{n^s}=\zeta(s)\sum_{p}\frac{p^{-s}}{1-p^{-s}}.
+    \]
+    This sum over primes converges absolutely for $\Re(s)>1$ and diverges at $s=1$.
+    \[
+        A(x)\sim x\log\log x
+    \]
+    so
+    \[
+        \frac{|A(x)|}{\log x}\to 1.
+    \]
+    Thus,
+    \[
+        \sigma_c=\sigma_a=1.
+    \]
+    \item $f(n)=e^{2\pi i\alpha n}$ with $\alpha\in\mathbb{R}\setminus\mathbb{Z}$\\
+    \textit{Solution.} Observe that $|f(n)|=1$ so $\sigma_a=1$. For the abscissa of convergence we have
+    \[
+        A(x)=\sum_{n=1}^{\floor{x}}e^{2\pi i\alpha n}=e^{2\pi i\alpha}\frac{1-e^{2\pi i\alpha \floor{x}}}{1-e^{2\pi i\alpha}},
+    \]
+    now see that
+    \[
+        |A(n)|\leq\frac{2}{|1-e^{2\pi i\alpha}|}
+    \]
+    \[
+        \sigma_c=\limsup_{x\to\infty}\frac{\log|A(x)|}{\log x}=\limsup_{x\to\infty}\frac{\log\frac{2}{|1-e^{2\pi i\alpha}|}}{\log x}=0.
+    \]
+    Thus,
+    \[
+        \sigma_a=1,\;\sigma_c=0
+    \]
+    \newpage
+    \item $f(n)$ is any periodic function of period $q$.\\
+    \textit{Solution.}
+    \[
+        \sum_{n=1}^{\infty}\frac{|f(n)|}{n^s}\leq |\max\{f(n)\}|\sum_{n=1}^{\infty}\frac{1}{n^s},
+    \]
+    thus we have $\sigma_a=1$.\\
+    For conditional convergence
+    \[
+        \sum_{n\leq x}f(n)=\floor{\frac{x}{q}}\sum_{n=1}^{q}f(n)+O(1).
+    \]
+    We now have two cases.\\
+    \textit{Case 1.} If $\sum_{n=1}^{q}f(n)=0$, then by the formula we have
+    \[
+        \sigma_c=\limsup_{x\to\infty}\frac{\log|A(x)|}{\log x}=\limsup_{x\to\infty}\frac{0}{\log x}=0.
+    \]
+    \textit{Case 2.} If $\sum_{n=1}^{q}f(n)\neq0$, then 
+    \[
+        |A(x)|\sim |C|\frac{x}{q}
+    \]
+    where $C$ is some constant. Now by the formula we have
+    \[
+        \sigma_c=\limsup_{x\to\infty}\frac{\log|A(x)|}{\log x}=\limsup_{x\to\infty}\frac{|C|\frac{x}{q}}{\log x}=1.
+    \]
+    Thus,
+    \[
+        \sigma_a=1,\quad \sigma_c=
+        \begin{cases}
+            0&\text{if} \sum_{n=1}^{q}f(n)=0\\
+            1&\text{otherwise}.    
+        \end{cases}
+    \]
+\end{enumerate}
+\newpage
+\stepcounter{section}
+\section*{Problem 3 [15 Marks]} Evaluate the integral 
+\[
+    I_{k}(y)=\frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}\frac{y^s}{s^k}\; ds,
+\] 
+where $k\geq 2$ is an integer, and $y$ and $c$ are positive real numbers. Then use this evaluation to derive a Perron's formula for the integral 
+\[
+    \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}F(s)\frac{x^s}{s^k}\; ds,
+\] 
+where $F(s)=\sum_{n=1}^{\infty}\frac{f(n)}{n^s}$ is a Dirichlet series, stating any conditions that are needed for this formula to be valid.\\
+\textit{Solution.} Observse that
+\[
+    \deriv{I_k(y)}{y}=\frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}\frac{y^{s-1}}{s^{k-1}}\,ds=\frac{1}{y}I_{k-1}(y).
+\]
+From here we see that integrating $I_n(y)/y$ yields $I_{n+1}(y)$. The case of $k=1$ is the Fourier inversion of the Heaviside step function on the line $\Re(s)=c>0$, write $s=c+it$. 
+\[
+    I_1(y)=\frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}\frac{y^s}{s}\,ds=\frac{e^{c\log y}}{2\pi}\int_{-\infty}^{\infty}\frac{e^{it\log y}}{c+it}\,dt.
+\]
+This shows that $I_1(y)$ is the Heaviside step function which gives
+\[
+    I_1(y)=
+    \begin{cases}
+        1,&y>1\\
+        \frac{1}{2},&y=0\\
+        0,&0<y<1.
+    \end{cases}
+\]
+Now to find $I_k(y)$ for $k\geq2$. We have
+\[
+    I_k(y)=\int_{1}^{y}\frac{I_{k-1}(u)}{u}\,du.
+\]
+We need to only do this for $y>1$ since when $0<y<1$ we have $I_1(y)=0$, so integrating this will give 0 each time. 
+\begin{align*}
+    k=1,\;&I_1(y)=1\\
+    k=2,\;&I_2(y)=\int_{1}^{y}\frac{1}{u}\,du=\log y\\
+    k=3,\;&I_3(y)=\int_{1}^{y}\frac{\log u}{u}\,du=\frac{(\log y)^2}{2}\\
+    k=4,\;&I_4(y)=\int_{1}^{y}\frac{(\log u)^2}{2u}\,du=\frac{(\log y)^3}{6}.
+\end{align*}
+We can show by induction that 
+\[
+    I_k(y)=\int_{1}^{y}\frac{(\log u)^{k-2}}{(k-2)!u}\,du=\frac{(\log y)^{k-1}}{(k-1)!}.
+\]
+For the integral
+\[
+    \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}F(s)\frac{x^s}{s^k}\,ds.
+\]
+We need to assume that $F(s)$ is a Dirichlet series that converges for $\Re(s)>c$ for some $c\in\R$. Then we interchange the sum and the integral giving
+\[
+    \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}F(s)\frac{x^s}{s^k}\,ds=\frac{1}{2\pi i }\sum_{n=1}^{\infty}f(n)\int_{c-i\infty}^{c+i\infty}\frac{x^s}{n^s}\cdot\frac{1}{s^k}\,ds.
+\]
+Let $y=\frac{x}{n}$, we have that the remaining integral is $I_k\left(\frac{x}{n}\right)$. So we have
+\[
+     \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}F(s)\frac{x^s}{s^k}\; ds=\frac{1}{(k-1)!}\sum_{n=1}^{\infty}f(n)\log^{k-1}\left(\frac{x}{n}\right)
+\]
+\stepcounter{section}
+\newpage
+\section*{Problem 4 [30 Marks]} 
+This question builds on and uses the results from the last question on homework 2. In that question, we proved that $L(1,\chi)\neq 0$ for all non-principal real characters $\chi$ modulo $q$. In this question, we will show that $L(1,\chi)\neq 0$ for all other non-principal characters modulo $q$. We also derive some results about $L(s,\chi_0)$, where $\chi_0$ is the principal character modulo $q$.\\
+In what follows, you may assume (without proof) that $\zeta(s)$ and $L(s,\chi)$ have the following infinite product representation for $\Re(s)>1$:
+\[
+    \zeta(s)=\prod_{p;\text{prime}}(1-p^{-s})^{-1}\quad\quad L(s,\chi)=\prod_{p;\text{prime}}(1-\chi(p)p^{-s})^{-1}.
+\]
+\begin{enumerate}[label=(\alph*)]
+    \item Let $\chi_0$ be the principal character modulo $q$ (i.e. $\chi(a)=0$ if $(a,q)>1$ and $\chi(a)=1$ if $(a,q)=1$). Show that $L(s,\chi_0)=\zeta(s)\prod_{p|q}(1-p^{-s})$.\\
+    \textit{Solution.} From the given we have that
+    \[
+        L(s,\chi_0)=\prod_{p;\text{prime}}(1-\chi_0(p)p^{-s})^{-1}.
+    \]
+    We also know that if $p\mid q$ then $\chi_0(p)=0$, and if if $p\nmid q$ then $\chi_0(p)=1$, so we have
+    \[
+        L(s,\chi_0)=\prod_{p\nmid q}(1-p^{-s})^{-1}=\frac{\prod_{p}(1-p^{-s})^{-1}}{\prod_{p\nmid q}(1-p^{-s})^{-1}}=\zeta(s)\prod_{p\nmid q}(1-p^{-s})^{-1}
+    \]
+    \item Show that $\lim_{s\to1^{+}}(s-1)L(s,\chi_0)=\frac{\phi(q)}{q}$.\\
+    \textit{Solution.} $\zeta(s)$ has a simple pole at $s=1$ so we have
+    \[
+        \lim_{s\to1^{+}}(s-1)L(s,\chi_0)=\lim_{s\to1^{+}}(s-1)\zeta(s)\prod_{p|q}(1-p^{-s})=\lim_{s\to1^{+}}\prod_{p|q}(1-p^{-s})=\frac{\phi(q)}{q}.
+    \]
+    \item Let $\chi$ be a non-principal character modulo $q$. Show that if $L(1,\chi)\neq0$, then $L(1,\overline{\chi})\neq0$.\\
+    \textit{Solution.} If $\chi$ is non-principal then $\overline{\chi}$ is also non-principal. 
+    \[
+        L(s,\chi)L(s,\overline{\chi})\prod_{p}(1-\chi(p)p^{-s})^{-1}(1-\overline{\chi(p)}p^{-s})^{-1}.
+    \]
+    Note that $(1-z)(1-\overline{z})=|1-z|^2>0$ with $z=\chi(p)p^{-s}$. So the product above is real and positive. Also, note that
+    \[
+        \overline{L(s,\chi)}=\overline{\sum_{n=1}^{\infty}\frac{\chi(n)}{n^s}}=\sum_{n=1}^{\infty}\frac{\overline{\chi(n)}}{n^s}=L(s,\overline{\chi}).
+    \]
+    So $L(1,\overline{\chi})=\overline{L(1,\chi)}$. Then
+    \[
+        L(1,\chi)\neq0\Leftrightarrow |L(1,\chi)|\neq0\Leftrightarrow|L(1,\overline{\chi})|\neq0\Leftrightarrow L(1,\overline{\chi})\neq0.
+    \]
+    \item For $\Re(s)>1$, let 
+    \[
+        F(s)=\prod_{\chi\text{mod}\;q}L(s,\chi),
+    \] 
+    where the product is taken over all Dirichlet characters modulo $q$. After writing $F(s)$ as a Dirichlet series $\sum_{n=1}^{\infty}\frac{a_n}{n^s}$, prove that $a_1=1$ and $a_n\geq0$ for all $n\geq2$.
+    \begin{proof}
+        From the given we have that
+        \[
+            F(s)=\prod_{\chi\text{mod}\;q}L(s,\chi),=\prod_{\chi\text{mod}\;q}\prod_{p;\text{prime}}(1-\chi(p)p^{-s})^{-1}=\prod_{p}\prod_{\chi}(1-\chi(p)p^{-s})^{-1}.
+        \]
+        For a fixed prime $p$, write $x=p^{-s}$. Now set
+        \[
+            E_p(x)=\prod_{\chi}(1-\chi(p)x)^{-1}.
+        \]
+        If $p\mid q$, then $\chi(p)=0$ giving a product of 1. If $p\nmid q$ let $d=$ord$(p)$ in $(\Z/q\Z)^\times$. Then, $\chi(p)$ is a $d-$th root of unity which appears $\frac{\phi(q)}{d}$ times. This gives
+        \[
+            \prod_{\chi}(1-\chi(p)x)^{-1}=\prod_{\zeta;\zeta^d=1}(1-\zeta x)^{-\frac{\phi(q)}{d}}=\left(\prod_{\zeta;\zeta^d=1}(1-\zeta x)\right)^{-\frac{\phi(q)}{d}}=(1-x^d)^{-\frac{\phi(q)}{d}}.
+        \]
+        We can expand as
+        \[
+            (1-x^d)^{-\frac{\phi(q)}{d}}=\sum_{k=0}^{\infty}\binom{k+\frac{\phi(q)}{d}-1}{k}x^{dk}.
+        \]
+        The binomial coefficients are all non-negative. Since $F(s)=\prod_pE_p(x)$ has a non-negative coefficient so does $F(s)=\sum a_nn^{-s}$. So $a_n\geq0$ for $n\geq2.$ Now see that 
+        \[
+            F(s)=\prod_{\chi}L(s,\chi)=\prod_{\chi}\sum_{n=1}^{\infty}\frac{\chi(n)}{n^{-s}}
+        \]     
+        $n=1$ contributes $\chi(1)=1$. So $a_1=\prod_{\chi}\chi(1)=\prod_{\chi}1=1$.
+    \end{proof}
+    \item Suppose that $\chi$ is a character modulo $q$ that is not real valued i.e. $\chi\neq \overline{\chi}$. Show that $L(1,\chi)\neq 0$.\\
+    {\it Hint: Suppose that $L(1,\chi)=0$ for some $\chi$ and use parts (c) and (d) to get a contradiction.}
+    \begin{proof}
+    Assume for the sake of contradiction that $L(1,\chi)=0$. By part (c) we have $L(1,\overline{\chi})=0$. We also have that $\chi\neq\overline{\chi}$. We have
+    \[
+        F(s)=L(s,\chi_0)L(s,\chi)L(s,\overline{\chi_0})\prod_{\substack{\chi'\\\chi'\neq\chi_0,\chi,\overline{\chi}}}L(s,\chi).
+    \]
+    By homework 2 we have
+    \[
+        \prod_{\substack{\chi'\\\chi'\neq\chi_0,\chi,\overline{\chi}}}L(s,\chi)=C
+    \]
+    for some finite $C$. Then as $s\to1$ we have
+    \[
+        F(s)=0\times0\times(s-1)^{-1}\times C=0. 
+    \]
+    Also from part (d) we have
+    \[
+        F(1)=\sum_{n=1}^{\infty}\frac{a_n}{n^1}=\frac{1}{1}.
+    \]
+    But, $1\neq0$, we have a contradiction. Thus, $L(1\chi)\neq0$.
+    \end{proof}
+\end{enumerate}
+\end{document}

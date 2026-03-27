@@ -38,8 +38,63 @@
 \stepcounter{section}
 \section*{Problem 1}
 Let \(V = M_{3}(\mathbb{F})\), where \(\mathbb{F} = \mathbb{R}\) or \(\mathbb{C}\). State the standard basis of \(V\) and prove that it is a basis.
-
 This problem appears because most answers on Midterm 2 about \(\dim(V)\) were wrong.
+\begin{proof}
+	The standard basis of $V$ is
+\[
+	\begin{aligned}
+		\beta = \left\{
+		\begin{bmatrix}
+		1 & 0 & 0 \\
+		0 & 0 & 0 \\
+		0 & 0 & 0
+		\end{bmatrix},
+		\begin{bmatrix}
+		0 & 1 & 0 \\
+		0 & 0 & 0 \\
+		0 & 0 & 0
+		\end{bmatrix},
+		\begin{bmatrix}
+		0 & 0 & 1 \\
+		0 & 0 & 0 \\
+		0 & 0 & 0
+		\end{bmatrix},\right. \\[4pt]
+		\left.
+		\begin{bmatrix}
+		0 & 0 & 0 \\
+		1 & 0 & 0 \\
+		0 & 0 & 0
+		\end{bmatrix},
+		\begin{bmatrix}
+		0 & 0 & 0 \\
+		0 & 1 & 0 \\
+		0 & 0 & 0
+		\end{bmatrix},
+		\begin{bmatrix}
+		0 & 0 & 0 \\
+		0 & 0 & 1 \\
+		0 & 0 & 0
+		\end{bmatrix},\right. \\[4pt]
+		\left.
+		\begin{bmatrix}
+		0 & 0 & 0 \\
+		0 & 0 & 0 \\
+		1 & 0 & 0
+		\end{bmatrix},
+		\begin{bmatrix}
+		0 & 0 & 0 \\
+		0 & 0 & 0 \\
+		0 & 1 & 0
+		\end{bmatrix},
+		\begin{bmatrix}
+		0 & 0 & 0 \\
+		0 & 0 & 0 \\
+		0 & 0 & 1
+		\end{bmatrix}
+		\right\}
+	\end{aligned}
+\]
+\end{proof}
 
 \stepcounter{section}
 \section*{Problem 2}
@@ -53,12 +108,28 @@ P_{0}(x) = 1,\quad P_{1}(x) = x,\quad P_{2}(x) = \frac{1}{2}(3x^{2} - 1),\quad P
 \]
 
 \begin{enumerate}
-    \item[(a)] Verify that \(\langle P_{2}, P_{3} \rangle = 0\).
-    \item[(b)] The listed above polynomials are standardized so that \(P_{n}(1) = 1\), however they are not orthonormal. Assuming their orthogonality, find the corresponding orthonormal polynomials.
-    \item[(c)] Let \(W = \operatorname{span}\{1, x, x^{2}, x^{3}, x^{4}\}\) and \(T: W \to \mathbb{R}\) be defined as \(T(f(x)) = f(1) + f'(2)\).
-    \item[(c1)] Verify that \(T\) is a linear functional on \(W\).
-    \item[(c2)] Find the Riesz vector of \(T\) using orthonormal basis found in (a).
-    \item[(c3)] Verify that this vector works by checking it on \(f(x) = a + bx + cx^{2} + dx^{3} + ex^{4}\).
+    \item[(a)] Verify that \(\langle P_{2}, P_{3} \rangle = 0\).\\
+    \textit{Solution.}
+	\[
+		\inner{P_2}{P_3}=\int_{-1}^{1} \left(\frac{1}{2}(3x^{2} - 1)\right)\left(\frac{1}{2}(5x^{3}-x)\right) \, dx=\frac{1}{4}\int_{-1}^{1} 15x^5-8x^3+x\,dx=0,
+	\]
+	since we are integrating an odd function over a symetric interval.
+    \item[(b)] The listed above polynomials are standardized so that \(P_{n}(1) = 1\), however they are not orthonormal. Assuming their orthogonality, find the corresponding orthonormal polynomials.\\
+    \textit{Solution.} To find the corresponding orthonormal polynomials we need to divide the polynomials by their norm.
+	\[
+		\norm{P_0}=\sqrt{\int_{-1}^{1}1\,dx}=\sqrt{2},\; \norm{P_1}=\sqrt{\int_{-1}^{1}x^2\,dx}=\sqrt{\frac{2}{3}},\;\norm{P_2}=\sqrt{\int_{-1}^{1}\left(\frac{1}{2}(3x^{2} - 1)\right)^2\,dx}=\sqrt{\frac{2}{5}}
+	\]
+	\[
+		\norm{P_3}=\sqrt{\int_{-1}^{1}\left(\frac{1}{2}(5x^{3} - x)\right)^2\,dx}=\sqrt{\frac{20}{21}},\;\norm{P_4}=\sqrt{\int_{-1}^{1}\left(\frac{1}{8}(36x^{4} - 30x^{2} + 3)\right)^2\,dx}=
+	\]
+    \item[(c)] Let \(W = \operatorname{span}\{1, x, x^{2}, x^{3}, x^{4}\}\) and \(T: W \to \mathbb{R}\) be defined as \(T(f(x)) = f(1) + f'(2)\).\\
+    \textit{Solution.}
+    \item[(c1)] Verify that \(T\) is a linear functional on \(W\).\\
+    \textit{Solution.}
+    \item[(c2)] Find the Riesz vector of \(T\) using orthonormal basis found in (a).\\
+    \textit{Solution.}
+    \item[(c3)] Verify that this vector works by checking it on \(f(x) = a + bx + cx^{2} + dx^{3} + ex^{4}\).\\
+    \textit{Solution.}
 \end{enumerate}
 You can use software for the calculations to save time.
 

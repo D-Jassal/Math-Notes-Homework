@@ -22,8 +22,222 @@ i.e.,
     \lim_{n\to\infty}\frac{1}{x}\sum_{n\leq x}\mu(n)=0.
 \]
 To this end we require lemma 3.7, 3.8 and 3.11.
-\lem{}{}
-
+\lemp{}{
+    \[
+        \mu(n)\log n=-(\mu\ast\Lambda)(n),\quad n\in\N
+    \]
+}{
+    Assume first that $n$ is squarefree and it as
+    \[
+        n=p_1p_2\cdots p_k,\quad p_i\text{ distinct primes}.
+    \]
+    Let $d$ be a divisor of $n$. For simplicitt of exposition and WLOG we will write $d$ as
+    \[
+        d=p_1p_2\cdots p_\ell,\quad\text{ and }\quad \frac{n}{d}=o_{\ell+1}p_{\ell+2}\cdots p_{k}.
+    \]
+    Observe that $\mu(n)=\mu(d)\mu\left(\frac{n}{d}\right)$, since $\mu$ is multiplicative and $\left(d,\frac{n}{d}\right)=1$. Also 
+    \[
+        \log n=\sum_{d\mid n}\Lambda\left(\frac{n}{d}\right).
+    \]
+    It follows that
+    \begin{align*}
+        \mu(n)\log n&=\sum_{d\mid n}\mu(n)\Lambda\left(\frac{n}{d}\right)\\
+        &=\sum_{d\mid n}\mu(d)\mu\left(\frac{n}{d}\right)\Lambda\left(\frac{n}{d}\right).   
+    \end{align*}
+    However, one can verify that $\mu(m)\Lambda(m)=-\Lambda(m)$ for all squarefree $m$. So 
+    \begin{align*}
+        \mu(n)\log n&=-\sum_{d\mid n}\mu(d)\Lambda\left(\frac{n}{d}\right)\\
+        &=-\mu\ast\Lambda(n).
+    \end{align*}
+    Now if $n$ is not squarefree, then let's assume first that $n$ is divisible by the squares of at least two primes. In this case
+    \[
+        \mu(n)\log n=0
+    \]
+    and
+    \[
+        -\sum_{d\mid n}\mu(d)\Lambda\left(\frac{n}{d}\right)=\sum_{p^m\mid n}\mu\left(\frac{n}{p^m}\right)\Lambda(p^m).
+    \]
+    In fact, if we write 
+    \[
+        n=p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}
+    \]
+    with $e_1,e_2\geq2$, then $\frac{n}{p_i^{e_i}}$ is not squarefree for all $m_i\leq e_i$. Hence, 
+    \[
+        \sum_{d\mid n}\mu(d)\Lambda\left(\frac{n}{d}\right)=0=\mu(n)\log n.
+    \]
+    You can follow a similar arguemnt to show that
+    \[
+        \mu(n)\log n=0=-\sum_{d\mid n}\mu(d)\Lambda\left(\frac{n}{d}\right),
+    \]
+    in the remaining case where $n$ is divisible by the square of only one prime number, let's call is $p_0$. We write $n=p_0^{e_0}n_0$, with $n_0$ squarefree and $(n_0,p_0)=1$.
+}
+Let's go back and prove lemma 3.8 which states that
+\[
+    \left|\sum_{n\leq x}\frac{\mu(n)}{n}\right|\leq1.
+\]
+\pf[Proof of Lemma 3.8]{
+    We will assume WLOG that $x\in\N$. Let's set $x=N$. We consider
+    \[
+        S(N)=\sum_{n\leq N}e(n)
+    \]
+    with
+    \[
+        e(n)=
+        \begin{cases}
+            1&n=1\\
+            0&\text{otherwise}.
+        \end{cases}
+    \]
+    One one hand we have $S(N)=1$. On the other hand, we have
+    \begin{align*}
+        S(N)&=\sum_{n\leq N}e(n)\\
+        &=\sum_{n\leq N}\mu\ast1(n)\\
+        &=\sum_{n\leq N}\sum_{d\mid n}\mu(d)\\
+        &=\sum_{d\leq N}\mu(d)\sum_{m\leq\frac{N}{d}}1\\
+        &=\sum_{d\leq N}\mu(d)\floor{\frac{N}{d}}\\
+        &=\sum_{d\leq N}\mu(d)\left(\frac{N}{d}-\fract{\frac{N}{d}}\right)\\
+        &=N\sum_{d\leq N}\frac{\mu(d)}{d}-\sum_{d\leq N}\mu(d)\fract{\frac{N}{d}}.
+    \end{align*} 
+    Now we have
+    \[
+        1=S(N)=N\sum_{d\leq N}\frac{\mu(d)}{d}-\sum_{d\leq N}\mu(d)\fract{\frac{N}{d}}
+    \]
+    which can be written as 
+    \[
+        N\sum_{d\leq N}\frac{\mu(d)}{d}=1+\sum_{d\leq N}\mu(d)\fract{\frac{N}{d}}.
+    \]
+    Observe that
+    \begin{align*}
+        \sum_{d\leq N}\mu(d)\fract{\frac{N}{d}}&=\sum_{d\leq N-1}\mu(d)\fract{\frac{N}{d}}\\
+        &\leq N-1
+    \end{align*}
+    Hence, 
+    \[
+        N\left|\sum_{d\leq N}\frac{\mu(d)}{d}\right|\leq 1+N-1=N,
+    \]
+    and so
+    \[
+        \left|\sum_{d\leq N}\frac{\mu(d)}{d}\right|\leq1.
+    \]
+    Thus, we have the desired result.
+}
+\pf[Proof of Theorem 3.7]{
+    We will show that
+    \begin{enumerate}[label=(\roman*)]
+        \item $\psi(x)\sim x\Rightarrow H(\mu)=0$
+        \item $M(\mu)=0\Rightarrow \Psi(x)\sim x.$
+    \end{enumerate}
+    Let's proceed with (i).\\
+    Suppose that $\Psi(x)\sim x$. Then given any $\varepsilon>0$, there exists $x_0>0$ such that
+    \[
+        \left|\frac{\Psi(x)}{x}-1\right|\leq\frac{\varepsilon}{4}x
+    \]
+    for all $x\geq x_0$. i.e., 
+    \[
+        |\Psi(x)-x|\leq\frac{\varepsilon}{4}x
+    \]
+    for all $x\geq x_0$.\\
+    We need to show that $H(\mu)=0$, i.e.,
+    \[
+        H(x)=\sum_{n\leq x}\mu(n)\log n,
+    \]
+    then we want to show that
+    \[
+        \lim_{x\to 0}\frac{H(x)}{x\log x}=0.
+    \]
+    In other words given $\varepsilon>0$, show that 
+    \[
+        \left|\frac{H(x)}{x\log x}\right|\leq\varepsilon
+    \]
+    for all $x$ sufficiently large. We have 
+    \begin{align*}
+        H(x)&=\sum_{n\leq x}\mu(n)\log n\\
+        &=-\sum_{n\leq x}\sum_{d\mid n}\Lambda\left(\frac{n}{d}\right)\mu(d)\\
+        &=-\sum_{d\leq x}\mu(d)\sum_{m\leq\frac{n}{d}}\Lambda(m)\\
+        &=-\sum_{d\leq x}\mu(d)\Psi\left(\frac{x}{d}\right)\\
+        &=-\sum_{d\leq\frac{x}{x_0}}\Psi\left(\frac{x}{d}\right)-\sum_{\frac{x}{x_0}<d\leq x}\mu(d)\Psi\left(\frac{x}{d}\right)
+    \end{align*}
+    for $d\leq\frac{x}{x_0}$ we have 
+    \[
+        \Psi\left(\frac{x}{d}\right)=\Psi\left(\frac{x}{d}\right)-\frac{x}{d}+\frac{x}{d}
+    \]
+    for $\frac{x}{x_0}<d\leq x$, we have 
+    \begin{align*}
+        \Psi\left(\frac{x}{d}\right)&=\sum_{n\leq\frac{x}{d}}\Lambda(n)\\
+        &\leq\sum_{n\leq\frac{x}{d}}\log n\\
+        &\leq\frac{x}{d}\log\left(\frac{x}{d}\right).
+    \end{align*}
+    Going back to $H(x)$, we have
+    \begin{align*}
+        H(x)&=-\sum_{d\leq\frac{x}{x_0}}\mu(d)\Psi\left(\frac{x}{d}\right)-\sum_{\frac{x}{x_0}<d\leq x}\mu(d)\Psi\left(\frac{x}{d}\right)\\
+        &=-\sum_{d\leq\frac{x}{x_0}}\mu(d)\left(\Psi\left(\frac{x}{d}\right)-\frac{x}{d}\right)+\sum_{d\leq\frac{x}{x_0}}\mu(d)\frac{x}{d}-\sum_{\frac{x}{x_0}<d\leq x}\mu(d)\Psi\left(\frac{x}{d}\right)\\
+        \text{so }|H(x)|&\leq\left|\sum_{d\leq\frac{x}{x_0}}\mu(d)\left(\Psi\left(\frac{x}{d}\right)-\frac{x}{d}\right)\right|+\left|x\sum_{d\leq\frac{x}{x_0}}\frac{\mu(d)}{d}\right|+\left|\sum_{\frac{x}{x_0}<d\leq x}\mu(d)\Psi\left(\frac{x}{d}\right)\right|\\
+        &\leq\sum_{d\leq\frac{x}{x_0}}\left|\Psi\left(\frac{x}{d}\right)-\frac{x}{d}\right|+\sum_{\frac{x}{x}_0<d\leq x}\left|\Psi\left(\frac{x}{d}\right)\right|+x\left|\sum_{d\leq\frac{x}{x_0}}\frac{\mu(d)}{d}\right|\\
+        &\leq\frac{\varepsilon}{4}\sum_{d\leq\frac{x}{x_0}}\frac{x}{d}+\sum_{\frac{x}{x_0}<d\leq x}\frac{x}{d}\log\frac{x}{d}+x\\
+        &\leq\frac{\varepsilon}{4}x\left(\log\left(\frac{x}{x_0}\right)+\oh(1)\right)+xx_0\log x_0+x\\
+        |H(x)|&\leq\frac{\varepsilon}{4}x\log x+\Oh_{\varepsilon}(x)+xx_0\log x_0+x\\
+        \left|\frac{H(x)}{\log x}\right|&\leq\frac{\varepsilon}{4}x+\Oh_{\varepsilon}\left(\frac{1}{\log x}\right)+\frac{x_0\log x_0}{\log x}+\frac{1}{\log x}\\
+        &\leq\frac{\varepsilon}{4}+\frac{\varepsilon}{4}+\frac{\varepsilon}{4}+\frac{\varepsilon}{4}\\
+        &\leq\varepsilon
+    \end{align*}
+    for $x$ sufficiently large, as desired.\\
+    For (ii), suppose that $M(\mu)$=0, i.e.,
+    \[
+        \frac{1}{x}\sum_{n\leq x}\mu(n)\to0\text{ as }0x\to\infty.
+    \]
+    Let's show that
+    \[
+        \sum_{n\leq x}\Lambda(n)=\Psi(x)\sim x.
+    \]
+    Recall
+    \[
+        \log n=\sum_{d\mid n}\Lambda\left(\frac{n}{d}\right),\quad (\log=1\ast\Lambda).
+    \]
+    By M{\"o}bius inversion
+    \begin{align*}
+        \Lambda(n)&=\sum_{d\mid n}\log\left(\frac{n}{d}\right)\mu(d)\\
+        &=\log\ast\mu(n).
+    \end{align*}
+    Let $f(n)=d(n)-2\gamma$,
+    \begin{align*}
+        \sum_{n\leq x}f(n)&=\sum_{n\leq x}d(n)-2\gamma\sum_{n\leq x}1\\
+        &=x\log x+(2\gamma-1)x+\oh(\sqrt{x})-2\gamma(x+\oh(1))\\
+        \sum_{n\leq x}f(n)&=x\log x-x+\Oh(\sqrt{x}).
+    \end{align*}
+    Observe that
+    \[
+        \sum_{n\leq x}\log n=x\log x-x+\Oh(\log x)
+    \]
+    and so if we get $r(n)=\log n-f(n)$, then 
+    \[Z
+        R(x)=\sum_{n\leq x}r(n)=\Oh(\sqrt{x}).
+    \]
+    Now let's get back to
+    \begin{align*}
+        \Lambda(n)&=\log\ast\mu(n)\\
+        &=(r+f)\ast\mu(n)\\
+        (r+d(n)-2\gamma\times1)\ast\mu(n)\\
+        &=r\ast\mu(n)+d\ast\mu(n)-2\gamma(1\ast\mu)(n).
+    \end{align*}
+    Hence, 
+    \[
+        \Lambda(n)=r\ast\mu(m)+1(n)-2\gamma e(n),
+    \]
+    \[
+        \sum_{n\leq x}\Lambda(n)=\sum_{n\leq x}r\ast\mu(n)+\sum_{n\leq x}1(n)-2\gamma\sum_{n\leq x}e(n),
+    \]
+    \[
+        \Psi(x)=E(x)+x+\oh(1)-2\gamma.
+    \]
+    If we estimate $E(x)$ trivially, we get
+    \begin{align*}
+        E(x)&=\sum_{n\leq x}r\ast\mu(n)\\
+        &=\sum_{d\leq x}\mu(d)\sum_{m\leq\frac{n}{d}}r(m)\\
+        |E*(x)|&\leq\sum_{d\leq x}|\mu(d)|\left|\sum_{m\leq\frac{n}{d}}r(m)\right|\\
+        &\leq\sum_{d\leq x}\left|\sum_{m\leq\frac{n}{d}}r(m)\right|\\
+        &\ll
+    \end{align*}
+}
 
 
 \end{document}
