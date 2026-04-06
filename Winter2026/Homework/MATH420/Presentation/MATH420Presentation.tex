@@ -12,6 +12,7 @@
 \usepackage{pgfplots}
 \usepackage{tikz}
 \usepackage{tikz-cd}
+\usetikzlibrary{shapes.geometric, decorations.markings, arrows.meta}
 \usetikzlibrary{3d,angles,quotes}
 \usefonttheme[onlymath]{serif}
 \makeatletter
@@ -21,10 +22,6 @@
 \usecolortheme{UNBC}
 
 
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{formula}[theorem]{Formula}
-\newtheorem{conj}[theorem]{Conjecture}
 
 \newcommand{\subuni}[0]{\mathrm{Sub}}
 \newcommand{\congset}[0]{\mathrm{Con}}
@@ -55,60 +52,60 @@
 
 \section{Background}
 \begin{frame}{What is a Manifold?}
-\begin{block}{Idea}
-  A \textbf{manifold} is a space that looks locally like Euclidean space $\mathbb{R}^n$.
-\end{block}
-\begin{columns}[T]
-  \column{0.5\textwidth}
-    \textbf{Examples:}
-    \begin{itemize}
-      \item A circle ($S^1$) – locally looks like $\mathbb{R}$
-      \item A sphere ($S^2$) – locally looks like $\mathbb{R}^2$
-      \item The surface of a donut (torus)
-      \item A saddle
-    \end{itemize}
-  \column{0.5\textwidth}
-    \begin{center}
-    \begin{tikzpicture}[scale=0.8]
-        \draw (0,0) circle (1);
-        \node at (0,-1.5) {Circle $S^1$};
-    \end{tikzpicture}
-    \begin{tikzpicture}[scale=0.5]
-        \draw (0,0) circle (1);
-        \draw (0,0) ellipse (1 and 0.4);
-        \node at (0,-1.8) {Sphere $S^2$};
-    \end{tikzpicture}
-    \end{center}
-\end{columns}
-\vfill
-\begin{quote}
-\centering
-``A manifold is a space where every point has a neighborhood that looks like $\mathbb{R}^n$.''
-\end{quote}
+  \begin{block}{Idea}
+    A \textbf{manifold} is a space that looks locally like Euclidean space $\mathbb{R}^n$.
+  \end{block}
+  \begin{columns}[T]
+    \column{0.5\textwidth}
+      \textbf{Examples:}
+      \begin{itemize}
+        \item A circle ($S^1$) – locally looks like $\mathbb{R}$
+        \item A sphere ($S^2$) – locally looks like $\mathbb{R}^2$
+        \item The surface of a donut (torus)
+        \item A saddle
+      \end{itemize}
+    \column{0.5\textwidth}
+      \begin{center}
+      \begin{tikzpicture}[scale=0.8]
+          \draw (0,0) circle (1);
+          \node at (0,-1.5) {Circle $S^1$};
+      \end{tikzpicture}
+      \begin{tikzpicture}[scale=0.5]
+          \draw (0,0) circle (1);
+          \draw (0,0) ellipse (1 and 0.4);
+          \node at (0,-1.8) {Sphere $S^2$};
+      \end{tikzpicture}
+      \end{center}
+  \end{columns}
+  \vfill
+  \begin{quote}
+  \centering
+  ``A manifold is a space where every point has a neighborhood that looks like $\mathbb{R}^n$.''
+  \end{quote}
 \end{frame}
 
 \begin{frame}{Complex Manifolds}
-\begin{block}{Idea}
-  A \textbf{complex manifold} is a manifold that locally looks like $\mathbb{C}^n$ instead of $\mathbb{R}^n$.
-\end{block}
-\begin{columns}[T]
-  \column{0.3\textwidth}
-    This can be though of as the space locally being $\mathbb{R}^{2n}$.\\
-    The gridlines show that the torus locally looks like $\mathbb{C}$ or $\mathbb{R}^{2}$.
-  \column{0.7\textwidth}
-    \begin{tikzpicture}[scale=1]
-        \begin{axis}[hide axis, axis lines=none, axis equal=true,]
-          \addplot3[surf,
-          colormap/cool,
-          samples=20,
-          domain=0:2*pi,y domain=0:2*pi,
-          z buffer=sort]
-          ({(2+cos(deg(x)))*cos(deg(y+pi/2))}, 4
-            {(2+cos(deg(x)))*sin(deg(y+pi/2))}, 
-            {sin(deg(x))});
-        \end{axis}
-    \end{tikzpicture}
-\end{columns}  
+  \begin{block}{Idea}
+    A \textbf{complex manifold} is a manifold that locally looks like $\mathbb{C}^n$ instead of $\mathbb{R}^n$.
+  \end{block}
+  \begin{columns}[T]
+    \column{0.3\textwidth}
+      This can be though of as the space locally being $\mathbb{R}^{2n}$.\\
+      The gridlines show that the torus locally looks like $\mathbb{C}$ or $\mathbb{R}^{2}$.
+    \column{0.7\textwidth}
+      \begin{tikzpicture}[scale=1]
+          \begin{axis}[hide axis, axis lines=none, axis equal=true,]
+            \addplot3[surf,
+            colormap/cool,
+            samples=20,
+            domain=0:2*pi,y domain=0:2*pi,
+            z buffer=sort]
+            ({(2+cos(deg(x)))*cos(deg(y+pi/2))}, 4
+              {(2+cos(deg(x)))*sin(deg(y+pi/2))}, 
+              {sin(deg(x))});
+          \end{axis}
+      \end{tikzpicture}
+  \end{columns}  
 \end{frame}
 
 \begin{frame}{What is a Vector Bundle?}
@@ -133,4 +130,126 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Vector Bundles}
+  \begin{definition}
+    A \textbf{vector bundle} of rank $n$ over $\mathbb{F} \in \{\mathbb{R}, \mathbb{C}\}$ is a triple $(E, X, \pi)$ where:
+    \begin{itemize}
+        \item $E$ (total space) and $X$ (base) are spaces/manifolds
+        \item $\pi: E \to X$ is a continuous/smooth map
+        \item For each $x \in X$, $\pi^{-1}(x) \cong \mathbb{F}^n$ (a vector space)
+        \item \textbf{Local triviality:} $\forall x \in X$, $\exists$ neighborhood $U$ with $\pi^{-1}(U) \cong U \times \mathbb{F}^n$
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}{The M\"obius Strip}
+  \begin{columns}
+    \column{0.5\textwidth}
+      Locally vector bundles look like $U\times V$.\\
+      But globally they can be twisted.
+    \column{0.5\textwidth}
+      \begin{figure}
+        \centering
+        \includegraphics[width=1\textwidth]{MobiusStrip.png}
+        \caption{Wikipedia}
+      \end{figure}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Cycles}
+  \begin{block}{The Intuition}
+  A \textbf{$n$-cycle} is an $n$-dimensional shape with \textbf{no boundary}.
+  \begin{itemize}
+    \item 1-cycle: A loop (circle) — no endpoints
+    \item 2-cycle: A sphere — no edges
+  \end{itemize}
+  \emph{Slogan: "A soap bubble with no holes in the film itself."}
+  \end{block}
+  \begin{block}{Cycles Detect Holes}
+  \begin{itemize}
+    \item A cycle that can be shrunk to a point is a \textbf{boundary} (it bounds something higher-dimensional)
+    \item A cycle that cannot be shrunk \textbf{detects a hole}
+  \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Examples of Cycles}
+  \begin{columns}
+    \column{0.5\textwidth}
+      \begin{itemize}
+        \item Circle on a sphere: Can shrink → trivial (no hole)
+        \item Circle around a torus: Cannot shrink → detects a hole
+      \end{itemize}
+    \column{0.5\textwidth}
+      Cyles that are not boundaries are holes
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Homology}
+  \begin{block}{Homology ($H_n(X)$)}
+    Measures the \textbf{$n$-dimensional holes} in a space $X$.\\
+    Essentially the number of $n$-dimensional cycles modulo $n$-dimensional boundaries.
+    \begin{itemize}
+      \item $H_0$: Number of connected components
+      \item $H_1$: Loops that cannot be pulled tight (tunnels)
+    \end{itemize}
+    \[
+      H_n(X) = \frac{\{\text{$n$-dimensional cycles}\}}{\{\text{$n$-dimensional boundaries}\}}
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{Cohomology}
+  \begin{block}{Cohomology ($H^n(X)$)}
+    The \textbf{dual} of homology — assigns numbers to holes in a consistent way.
+    \begin{itemize}
+      \item Has a \textbf{product} (cup product) — forms a \textbf{ring}
+      \item Essential for characteristic classes and formal group laws
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{What is an Euler Class?}
+  \begin{block}{The Intuition}
+  The \textbf{Euler class} $e(E)$ measures the obstruction to finding a nowhere-zero section of a vector bundle $E$.
+  \begin{itemize}
+    \item $e(E) = 0$ $\Rightarrow$ you can "comb the hair" (nowhere-zero section exists)
+    \item $e(E) \neq 0$ $\Rightarrow$ you cannot (every section has a zero)
+  \end{itemize}
+  \end{block}
+  \begin{block}{Why Quillen Cares}
+  For complex line bundles $L$, the Euler class satisfies:
+  \[
+    e(L_1 \otimes L_2) = F(e(L_1), e(L_2))
+  \]
+  where $F$ is a \textbf{formal group law}. The coefficients of $F$ generate the entire cobordism ring!
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{Bordism and Cobordism}
+  \begin{block}{The Cobordism Relation (Geometric)}
+  Two manifolds $M, N$ are \textbf{cobordant} if their disjoint union bounds a higher manifold $W$:
+  \[
+    \partial W = M \sqcup N
+  \]
+  \emph{Slogan: "$M$ and $N$ are the two ends of a tube."}
+  \end{block}
+
+  \begin{block}{Bordism $U_*(X)$ (Homology Version)}
+  \textbf{Bordism classes} = maps $f: M \to X$ from closed complex manifolds, modulo bordism.
+  \begin{itemize}
+    \item Covariant: $f_*: U_*(M) \to U_*(X)$
+    \item Like homology, but cycles are \textbf{manifolds} instead of simplices
+  \end{itemize}
+  \end{block}
+
+  \begin{block}{Cobordism $U^*(X)$ (Cohomology Version)}
+  Same geometric data, but \textbf{contravariant} with a ring structure.
+  \begin{itemize}
+    \item $U^*(X)$ is the \textbf{universal complex-oriented cohomology theory}
+    \item Contains ordinary cohomology and $K$-theory as special cases
+  \end{itemize}
+  \end{block}
+\end{frame}
 \end{document}
