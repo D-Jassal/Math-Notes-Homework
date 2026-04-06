@@ -1,0 +1,59 @@
+% beamercolorthemeUNBC.sty
+\ProvidesPackage{beamercolorthemeUNBC}
+\mode<presentation>{
+
+  %===========================================================
+  % UNBC Brand Colours
+  %===========================================================
+  \definecolor{UNBCGreen}{HTML}{035642}   % Primary UNBC Green
+  \definecolor{UNBCGold}{HTML}{B79527}    % UNBC Gold
+  \definecolor{UNBCDarkGold}{RGB}{153,125,3} % Optional darker accent
+
+  %===========================================================
+  % Core Beamer Colour Settings
+  %===========================================================
+  \setbeamercolor{structure}{fg=UNBCGreen}
+
+  \setbeamercolor{title}{fg=white,bg=UNBCGreen}
+  \setbeamercolor{frametitle}{fg=white,bg=UNBCGreen}
+
+  \setbeamercolor{block title}{fg=white,bg=UNBCGold}
+  %\setbeamercolor{block body}{fg=black,bg=UNBCGold}
+
+  \setbeamercolor{alerted text}{fg=UNBCGold}
+  \setbeamercolor{itemize item}{fg=UNBCGold}
+  \setbeamercolor{itemize subitem}{fg=UNBCGreen}
+
+  \setbeamercolor{footline}{fg=white,bg=UNBCGreen}
+  \setbeamercolor{background canvas}{bg=white}
+
+  \setbeamercolor{normal text}{fg=black,bg=white}
+  \setbeamercolor{math text}{fg=black}
+  \setbeamercolor{math text displayed}{fg=black}
+  \setbeamercolor{math text inlined}{fg=black}
+
+  %===========================================================
+  % Theorem-style Environments
+  %===========================================================
+  % Proposition – primary green
+  \setbeamercolor{proposition}{fg=UNBCGreen}
+  \setbeamercolor{theorem body}{fg=black,bg=white}
+
+  % Remark – neutral black text with gold title
+  \setbeamercolor{remark}{fg=UNBCGold}
+  \setbeamercolor{remark body}{fg=black,bg=white}
+
+  % Formula – subtle gold for differentiation
+  \setbeamercolor{formula}{fg=UNBCGold}
+  \setbeamercolor{formula body}{fg=black,bg=white}
+
+  % Conjecture – emphasized in gold for importance
+  \setbeamercolor{conj}{fg=UNBCGold}
+  \setbeamercolor{conj body}{fg=black,bg=white}
+
+  \setbeamercolor{block title example}{bg=UNBCGreen, fg=white}
+
+  % Optional: frame titles for theorem frames
+  \setbeamercolor{theorem title}{fg=white,bg=UNBCGreen}
+
+}

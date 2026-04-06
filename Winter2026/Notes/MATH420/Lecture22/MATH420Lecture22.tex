@@ -1,0 +1,66 @@
+\documentclass[12pt]{article}
+\usepackage{color,soul}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+% Import preambles and macros for notes
+\input{../../../../preambles/notes-preamble.tex}
+\input{../../../../preambles/notes-macros.tex}
+\input{../../../../preambles/theorem-system-section.tex}
+
+\title{MATH 420 Lecture 22}
+\author{Deepak Jassal}
+\date{April 1\textsuperscript{st}, 2026}
+
+\begin{document}
+\maketitle
+\stepcounter{section}
+\lem{Nakayama's Lemma}{
+    Let $R$ be a ring. Let $I\subset R$ be an ideal, $M$ a finitely generated $R$-module. Suppose $I\subset m$ for all maximal ideals $m$ of $R$. Then:
+    \begin{enumerate}[label=(\alph*)]
+        \item If $M=I\cdot M$, then $M=\{0\}$;
+        \item If $N$ is a submodule of $M$ such that $M=N+I\cdot M$, then $M=N$.
+    \end{enumerate}
+}
+Nakayama's lemma is most applicable to \underline{local rings}, which are rings with a unique maximal ideal. Rings with non-trivial Jacobson ideals. 
+\pf[Proof of Lemma 1.1]{
+    (a) Suppose $M\neq\{0\}$. Choose a minimal set of generators $\{a_1,\dots,a_k\}$. Since $M=I\cdot M$, we have a relation of the form $a_1=u_1a_1+\cdots+u_ka_k$, $u_j\in I$ for $1\leq j\leq k$. Then $(1-u_1)a_1=u_2a_2+\cdots+u_ka_k$. We claim that $1-u_1$ cannot lie in any maximal ideal $m$. Suppose otherwise, then $1-u_1=v\in m$, so $1=u_1+v\in m$ (since $I\subset m$). This contradicts $m$ being a proper ideal. Hence, $1-u_1$, must be a unit ($u_1\neq0$). In particular $a_1\in\langle a_2,\dots,a_k \rangle$. This contradicts the minimality of $\{a_1,\dots,a_k\}$ as a generating set. \\
+    (b) If $M=N+I\cdot M$, then $M/N\cong I(M/N)$. By part (a) we have $M/N=\{0\}$.
+}
+\corp{
+    Let $A$ be a local ring with a maximal ideal $m$. Let $F=A/m$ be the \underline{residue field} of $A$. Let $M$ be a fintely generated module over $A$. Then action of $A$ on $M/mM$ \underline{factors through} $F$, and elements $a_1,\dots,a_k$ in $M$ generate $M$ as an $A$-module \textit{iff} $a_i+mM$, $1\leq i\leq k$, generate $M/m$ as a \underline{$F$-vector-space}. Factors through means we can break the action into two parts which go through $F$.
+}{
+   If $M=\langle a_1,\dots,a_k \rangle$, then it is clear that $M/m=\langle a_1+mM,\dots,a_k+mM \rangle$.\\
+   Now suppose $M/m=\spn_F(a_1+mM,\dots,a_k+mM)$. Let $N=\langle a_1,\dots,a_k \rangle$. Then 
+   \[
+    N\underbrace{\to}_{\text{embedding}} M\underbrace{\to}_{\text{surjective}} M/mM.
+   \]
+   Hence, $M=N+mM$. Nakayama $\Rightarrow$ $M=N$.
+}{}
+\corp{
+    Let $A$ be a Noetherian local ring with a maximal ideal $m$. Elements $a_1,\dots,a_k$ generate $m$ as an ideal \textit{iff} $a_1+m^1,\dots,a_k+m^2$ generate $m/m^2$ as a vector space over $F=A/m$. In particular, the minimum number of generators of $m$ as an ideal equal $\dim_F(m/m^2)$.
+}{
+    Because $A$ is Noetherian, $m$ is finitely generated. Any ideal of $A$ is an $A$-module, apply the previoud result with $M=m$. 
+}{}
+\section{Dedekind Domains}
+Integral closure of a domain.\\
+Let $A$ be a unital, commutative domain (no zero divisors). Suppose $A\subset B$, $B$ is also a ring (that is $A$ is a subring of $B$). We say that $b\in B$ is \underline{integral} over $A$ if there exists a \underline{monic} polynomial in $A[x]$ say $f(x)=x^r+c_{r-1}x^{r-1}+\cdots+c_1x+c_0$ such that $f(b)=0$. The integral closure $\overline{A}$ of $A$ in $B$ is the set of all elements in $B$ which are integral over $A$. (Note that $A\subset \overline{A}$). 
+\defn{Dedekind Domain}{
+    An integral domain not equal to a field is said to be a Dedekind domain if 
+    \begin{enumerate}[label=(\alph*)]
+        \item $A$ is Noetherian;
+        \item $A$ is equal to its integral closure in the field of fractions;
+        \item Every non-zero prime ideal of $A$ is maximal. 
+    \end{enumerate}
+}
+\thm{}{
+    Let $\alpha$ be an algebraic integer (is a zero of a polynomial in $\Z$). Then the ring $\Z[\alpha]$ is a Dedekind domain. 
+}
+\thm{Dedekind}{
+    Let $A$ be a Dedekind domain domain, and $I\subset A$ an ideal. Then $I$ admits a \underline{unique factorization}
+    \[
+        I=P_1^{a_1}\cdots P_K^{a_k}
+    \]
+    into distinct prime ideals. The $P_1,\dots,P_k$ are precisely the prime (max) ideals containing $I$.
+}
+The ideals $A$ and $B$ of a ring $R$ are coprime if $A+B=R$.
+\end{document}

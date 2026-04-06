@@ -94,8 +94,8 @@ This problem appears because most answers on Midterm 2 about \(\dim(V)\) were wr
 		\right\}
 	\end{aligned}
 \]
+Each of these vectors is linearly independant (the sum of linear combinations of these 9 vectors can only be 0 if each coefficient is 0), the dimension of $M_3$ is 9. Since $\beta$ is a list of 9 linearly independant vectors in $M_3$ we have that $\beta$ is a basis (the standard basis) of $M_3$.
 \end{proof}
-
 \stepcounter{section}
 \section*{Problem 2}
 Let \(V = V[-1, 1]\) be a vector space over \(\mathbb{R}\) with inner product defined as 
@@ -104,14 +104,14 @@ Let \(V = V[-1, 1]\) be a vector space over \(\mathbb{R}\) with inner product de
 \]
 By orthogonalizing the sequence \(\{1, x, x^{2}, x^{3}, \dots\}\) we obtain Legendre polynomials. The first five Legendre polynomials are 
 \[
-P_{0}(x) = 1,\quad P_{1}(x) = x,\quad P_{2}(x) = \frac{1}{2}(3x^{2} - 1),\quad P_{3}(x) = \frac{1}{2}(5x^{3} - x),\quad P_{4}(x) = \frac{1}{8}(36x^{4} - 30x^{2} + 3).
+P_{0}(x) = 1,\quad P_{1}(x) = x,\quad P_{2}(x) = \frac{1}{2}(3x^{2} - 1),\quad P_{3}(x) = \frac{1}{2}(5x^{3} - 3x),\quad P_{4}(x) = \frac{1}{8}(35x^{4} - 30x^{2} + 3).
 \]
 
 \begin{enumerate}
     \item[(a)] Verify that \(\langle P_{2}, P_{3} \rangle = 0\).\\
     \textit{Solution.}
 	\[
-		\inner{P_2}{P_3}=\int_{-1}^{1} \left(\frac{1}{2}(3x^{2} - 1)\right)\left(\frac{1}{2}(5x^{3}-x)\right) \, dx=\frac{1}{4}\int_{-1}^{1} 15x^5-8x^3+x\,dx=0,
+		\inner{P_2}{P_3}=\int_{-1}^{1} \left(\frac{1}{2}(3x^{2} - 1)\right)\left(\frac{1}{2}(5x^{3}-3x)\right) \, dx=\frac{1}{4}\int_{-1}^{1} 15x^5-14x^3+3x\,dx=0,
 	\]
 	since we are integrating an odd function over a symetric interval.
     \item[(b)] The listed above polynomials are standardized so that \(P_{n}(1) = 1\), however they are not orthonormal. Assuming their orthogonality, find the corresponding orthonormal polynomials.\\
@@ -120,16 +120,52 @@ P_{0}(x) = 1,\quad P_{1}(x) = x,\quad P_{2}(x) = \frac{1}{2}(3x^{2} - 1),\quad P
 		\norm{P_0}=\sqrt{\int_{-1}^{1}1\,dx}=\sqrt{2},\; \norm{P_1}=\sqrt{\int_{-1}^{1}x^2\,dx}=\sqrt{\frac{2}{3}},\;\norm{P_2}=\sqrt{\int_{-1}^{1}\left(\frac{1}{2}(3x^{2} - 1)\right)^2\,dx}=\sqrt{\frac{2}{5}}
 	\]
 	\[
-		\norm{P_3}=\sqrt{\int_{-1}^{1}\left(\frac{1}{2}(5x^{3} - x)\right)^2\,dx}=\sqrt{\frac{20}{21}},\;\norm{P_4}=\sqrt{\int_{-1}^{1}\left(\frac{1}{8}(36x^{4} - 30x^{2} + 3)\right)^2\,dx}=
+		\norm{P_3}=\sqrt{\int_{-1}^{1}\left(\frac{1}{2}(5x^{3} - 3x)\right)^2\,dx}=\sqrt{\frac{2}{7}},\;\norm{P_4}=\sqrt{\int_{-1}^{1}\left(\frac{1}{8}(35x^{4} - 30x^{2} + 3)\right)^2\,dx}=\sqrt{\frac{2}{9}}.
+	\]
+	Thus, the corresponding orthonormal polynomials are 
+	\[
+		\hat{P_0}(x)=\frac{1}{\sqrt{2}},\;\hat{P_1}(x)=\left(\sqrt{\frac{3}{2}}\right)x,\;\hat{P_2}(x)=\left(\sqrt{\frac{5}{2}}\right)\frac{1}{2}(3x^{2} - 1),
+	\]
+	\[
+		\hat{P_3}(x)=\left(\sqrt{\frac{7}{2}}\right)\frac{1}{2}(5x^{3} - x),\;\hat{P_4}(x)=\left(\sqrt{\frac{9}{2}}\right)\frac{1}{8}(36x^{4} - 30x^{2} + 3).
 	\]
     \item[(c)] Let \(W = \operatorname{span}\{1, x, x^{2}, x^{3}, x^{4}\}\) and \(T: W \to \mathbb{R}\) be defined as \(T(f(x)) = f(1) + f'(2)\).\\
-    \textit{Solution.}
-    \item[(c1)] Verify that \(T\) is a linear functional on \(W\).\\
-    \textit{Solution.}
-    \item[(c2)] Find the Riesz vector of \(T\) using orthonormal basis found in (a).\\
-    \textit{Solution.}
-    \item[(c3)] Verify that this vector works by checking it on \(f(x) = a + bx + cx^{2} + dx^{3} + ex^{4}\).\\
-    \textit{Solution.}
+	\begin{enumerate}
+		\item[(c1)] Verify that \(T\) is a linear functional on \(W\).\\
+		\textit{Solution.}
+		Let $f,g\in W$ and $a,b\in \R$ then, 
+		\[
+			T(af+bg)=af(1)+af'(2)+bg(1)+bg'(2)=aT(f)+bT(g).
+		\]
+		Thus, $T$ is a linear functional. 
+		\item[(c2)] Find the Riesz vector of \(T\) using orthonormal basis found in (a).\\
+		\textit{Solution.} The Riesz vector $v\in W$ is a vector such that $T(f)=\inner{f}{v}$ for all $f\in W$. We can use the orthonormal bassi we found above to $v$ in the following manner
+		\[
+			v=\sum_{i=0}^{4}\overline{T(\hat{P_i})}\hat{P_i}=\sum_{i=0}^{4}T(\hat{P_i})\hat{P_i}.
+		\]
+		Using a computer algebra system I computed $v$ to be
+		\[
+			v=\frac{1635}{8}-\frac{1215}{8}x-2100x^2+\frac{2065}{8}x^3+\frac{19845}{8}x^4.
+		\]
+		\newpage
+		\item[(c3)] Verify that this vector works by checking it on \(f(x) = a + bx + cx^{2} + dx^{3} + ex^{4}\).\\
+		\textit{Solution.}
+		\[
+			T(f)=a+2b+5c+13d+33e.
+		\]
+		Note that 
+		\[
+			f=\sum_{i=0}^{4}\inner{f}{\hat{P_i}}\hat{P_i}.
+		\]
+		We can compute the desired inner product as follows
+		\[
+			\inner{f}{v}=\sum_{i=0}^{4}T(\hat{P_i})\inner{f}{\hat{P_i}},
+		\]
+		by linearity of $T$ and the above formula for $f$ we have
+		\[
+			\inner{f}{v}=T\left(\sum_{i=0}^{4}\inner{f}{\hat{P_i}}\hat{P_i}\right)=T(f).
+		\]
+	\end{enumerate}
 \end{enumerate}
 You can use software for the calculations to save time.
 
@@ -139,16 +175,105 @@ Use Gram-Schmidt procedure to find the orthonormal basis of \(\mathbb{R}^{3}\) b
 \[
 \{\langle 1, 1, 1 \rangle, \langle 1, 1, 0 \rangle, \langle 1, 0, 0 \rangle\}.
 \]
-Note: \(\{e_{1}, e_{2}, e_{3}\}\) is not the solution.
+Note: \(\{e_{1}, e_{2}, e_{3}\}\) is not the solution.\\
+\textit{Solution.}
+\[
+	u_1=v_1=\langle 1,1,1\rangle,\;\norm{u_1}=\sqrt{3},\,e_1'=\frac{1}{\sqrt{3}}\vect{1,1,1}.
+\]
+\begin{align*}
+	u_2&=v_2-\frac{\inner{v_2}{u_1}}{\norm{u_1}^2}u_1\\
+	&=\vect{1,1,0}-\frac{2}{3}\vect{1,1,1}\\
+	&=\vect{\frac{1}{3},\frac{1}{3},-\frac{2}{3}}\\
+	\norm{u_2}&=\sqrt{\frac{6}{9}}\\
+	e_2&=\frac{1}{\sqrt{6}}\vect{1,1,-2}
+\end{align*}
+\begin{align*}
+	u_3&=v_3-\frac{\inner{v_3}{u_1}}{\norm{u_1}^2}u_1-\frac{\inner{v_3}{u_2}}{\norm{u_2}^2}u_2\\
+	&=\vect{1,0,0}-\frac{1}{3}\vect{1,1,1}-\frac{1}{6}\vect{1,1,-2}\\
+	&=\vect{\frac{1}{2},-\frac{1}{2},0}\\
+	\norm{u_3}&=\frac{1}{\sqrt{2}}\\
+	e_3&=\frac{1}{\sqrt{2}}\vect{1,-1,0}.
+\end{align*}
+So the orthonormal basis is 
+\[
+	\frac{1}{\sqrt{3}}\vect{1,1,1},\;\frac{1}{\sqrt{6}}\vect{1,1,-2},\;\frac{1}{\sqrt{2}}\vect{1,-1,0}.
+\]
 
 \stepcounter{section}
 \section*{Problem 4}
 Let \(U = \operatorname{span}\{\langle 1, 1, 1 \rangle, \langle 1, 1, 0 \rangle\}\). (Note: These are the first two vectors from Problem 3). Let \(P_{U}: \mathbb{R}^{3} \to \mathbb{R}^{3}\) be the projection on the plane \(U\).
 
 \begin{enumerate}[label=(\alph*)]
-    \item Find the matrix of \(P_{U}\).
-    \item Describe \(U^{\perp}\) geometrically and find the matrix of \(P_{U^{\perp}}\).
-    \item We know that \(\mathbb{R}^{3} = U \oplus U^{\perp}\). Let \(\mathbf{v} = \langle 1, 2, 3 \rangle\). Find \(\mathbf{u} \in U\) and \(\mathbf{w} \in U^{\perp}\) such that \(\mathbf{v} = \mathbf{u} + \mathbf{w}\).
+    \item Find the matrix of \(P_{U}\).\\
+    \textit{Solution.} We can use the orthonormal basis found above to calculate $P_U$.
+	\begin{align*}
+		P_U&=e_1e_1^T+e_2e_2^T\\
+		&=\frac{1}{3}\vect{1,1,1}^T\vect{1,1,1}+\frac{1}{6}\vect{1,1,-2}^T\vect{1,1,-2}\\
+		&=\frac{1}{3}
+		\begin{bmatrix}
+			1&1&1\\
+			1&1&1\\
+			1&1&1\\
+		\end{bmatrix}
+		+\frac{1}{6}
+		\begin{bmatrix}
+			1&1&-2\\
+			1&1&-2\\
+			-2&-2&4
+		\end{bmatrix}\\
+		&=\frac{1}{2}
+		\begin{bmatrix}
+			1&1&0\\
+			1&1&0\\
+			0&0&2
+		\end{bmatrix}.
+	\end{align*}
+    \item Describe \(U^{\perp}\) geometrically and find the matrix of \(P_{U^{\perp}}\).\\
+    \textit{Solution.} $U^\perp$ is spanned by $u_3'$, that is $\vect{1,-1,0}$. We can calculate the matrix for with the following formula
+	\begin{align*}
+		P_{U^\perp}&=I-P_U\\
+		&=\frac{1}{2}
+		\begin{bmatrix}
+			1&-1&0\\
+			-1&1&0\\
+			0&0&0
+		\end{bmatrix}
+	\end{align*}
+	\newpage
+    \item We know that \(\mathbb{R}^{3} = U \oplus U^{\perp}\). Let \(\mathbf{v} = \langle 1, 2, 3 \rangle\). Find \(\mathbf{u} \in U\) and \(\mathbf{w} \in U^{\perp}\) such that \(\mathbf{v} = \mathbf{u} + \mathbf{w}\).\\
+    \textit{Solution.}
+	\[
+		\mathbf{u}=P_U\mathbf{v}=
+		\frac{1}{2}
+		\begin{bmatrix}
+			1&1&0\\
+			1&1&0\\
+			0&0&2
+		\end{bmatrix}
+		\begin{bmatrix}
+			1\\2\\3
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+			\frac{3}{2}\\\frac{3}{2}\\3
+		\end{bmatrix}
+	\]
+	and
+	\[
+		\mathbf{w}=P_{U^\perp}\mathbf{v}=
+		\frac{1}{2}
+		\begin{bmatrix}
+			1&-1&0\\
+			-1&1&0\\
+			0&0&0
+		\end{bmatrix}
+		\begin{bmatrix}
+			1\\2\\3
+		\end{bmatrix}=
+		\begin{bmatrix}
+			-\frac{1}{2},\frac{1}{2},0
+		\end{bmatrix}.
+	\]
 \end{enumerate}
 
 

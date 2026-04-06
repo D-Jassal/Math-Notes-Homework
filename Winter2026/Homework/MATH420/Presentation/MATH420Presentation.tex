@@ -1,0 +1,136 @@
+\documentclass{beamer}
+
+\usepackage{beamerthemeshadow}
+\usepackage{amssymb,framed,color,relsize,graphicx,tikz,xcolor}
+\usetikzlibrary{angles,quotes}
+\usepackage{amsmath}
+\usepackage{eucal}
+\usepackage{epstopdf}
+\usepackage{mathrsfs}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{3d,angles,quotes}
+\usefonttheme[onlymath]{serif}
+\makeatletter
+
+
+\usetheme{Berlin}
+\usecolortheme{UNBC}
+
+
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{formula}[theorem]{Formula}
+\newtheorem{conj}[theorem]{Conjecture}
+
+\newcommand{\subuni}[0]{\mathrm{Sub}}
+\newcommand{\congset}[0]{\mathrm{Con}}
+\newcommand{\congen}[2]{\mathrm{Cg}^{#1}({#2})}
+\newcommand{\subgen}[2]{\mathrm{Sg}^{#1}({#2})}
+\newcommand{\algebra}[1]{\langle {#1} \rangle}
+\newcommand{\meet}{\mathrel{\scalebox{0.8}{$\wedge$}}}
+\newcommand{\join}{\mathrel{\scalebox{0.8}{$\vee$}}}
+
+
+\title{The Algebra of Manifolds}
+\subtitle{Quillen's Theorem on Cobordism and Formal Groups}
+\titlegraphic{\includegraphics[width=5cm]{logo_green.jpeg}}
+\author{Deepak Jassal}
+\institute[UNBC]{University of Northern British Columbia\\MATH 420 Structure of Groups and Rings}
+\date{April 5\textsuperscript{th}, 2026}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame} 
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+
+\section{Background}
+\begin{frame}{What is a Manifold?}
+\begin{block}{Idea}
+  A \textbf{manifold} is a space that looks locally like Euclidean space $\mathbb{R}^n$.
+\end{block}
+\begin{columns}[T]
+  \column{0.5\textwidth}
+    \textbf{Examples:}
+    \begin{itemize}
+      \item A circle ($S^1$) – locally looks like $\mathbb{R}$
+      \item A sphere ($S^2$) – locally looks like $\mathbb{R}^2$
+      \item The surface of a donut (torus)
+      \item A saddle
+    \end{itemize}
+  \column{0.5\textwidth}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.8]
+        \draw (0,0) circle (1);
+        \node at (0,-1.5) {Circle $S^1$};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.5]
+        \draw (0,0) circle (1);
+        \draw (0,0) ellipse (1 and 0.4);
+        \node at (0,-1.8) {Sphere $S^2$};
+    \end{tikzpicture}
+    \end{center}
+\end{columns}
+\vfill
+\begin{quote}
+\centering
+``A manifold is a space where every point has a neighborhood that looks like $\mathbb{R}^n$.''
+\end{quote}
+\end{frame}
+
+\begin{frame}{Complex Manifolds}
+\begin{block}{Idea}
+  A \textbf{complex manifold} is a manifold that locally looks like $\mathbb{C}^n$ instead of $\mathbb{R}^n$.
+\end{block}
+\begin{columns}[T]
+  \column{0.3\textwidth}
+    This can be though of as the space locally being $\mathbb{R}^{2n}$.\\
+    The gridlines show that the torus locally looks like $\mathbb{C}$ or $\mathbb{R}^{2}$.
+  \column{0.7\textwidth}
+    \begin{tikzpicture}[scale=1]
+        \begin{axis}[hide axis, axis lines=none, axis equal=true,]
+          \addplot3[surf,
+          colormap/cool,
+          samples=20,
+          domain=0:2*pi,y domain=0:2*pi,
+          z buffer=sort]
+          ({(2+cos(deg(x)))*cos(deg(y+pi/2))}, 4
+            {(2+cos(deg(x)))*sin(deg(y+pi/2))}, 
+            {sin(deg(x))});
+        \end{axis}
+    \end{tikzpicture}
+\end{columns}  
+\end{frame}
+
+\begin{frame}{What is a Vector Bundle?}
+  \begin{block}{Idea}
+    A \textbf{vector bundle} is a family of vector spaces continuously attached to each point of a manifold.
+  \end{block}
+  \begin{center}
+  \begin{tikzpicture}[scale=0.8]
+      \draw[thick] (0,0) to [bend left] (4,0);
+      \draw[thick] (0,0) to [bend right] (4,0);
+      \node at (2,-0.8) {Base manifold $X$};
+      \draw[<->] (1,0.5) -- (1,1.5);
+      \draw[<->] (2,0.3) -- (2,1.8);
+      \draw[<->] (3,0.5) -- (3,1.5);
+      \node at (3.5,1.8) {Fiber $\mathbb{R}^n$};
+  \end{tikzpicture}
+  \end{center}
+  \vfill
+  \textbf{Example:} The \textbf{tangent bundle} of a sphere - at each point, attach the tangent plane.
+  \begin{itemize}
+    \item A \textbf{line bundle} is when each fiber is 1-dimensional (a line).
+  \end{itemize}
+\end{frame}
+
+\end{document}
