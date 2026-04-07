@@ -9,6 +9,9 @@
 \usepackage{mathrsfs}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{fontspec}
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
 \usepackage{pgfplots}
 \usepackage{tikz}
 \usepackage{tikz-cd}
@@ -90,7 +93,7 @@
   \end{block}
   \begin{columns}[T]
     \column{0.3\textwidth}
-      This can be though of as the space locally being $\mathbb{R}^{2n}$.\\
+      This can be thought of as the space locally being $\mathbb{R}^{2n}$.\\
       The gridlines show that the torus locally looks like $\mathbb{C}$ or $\mathbb{R}^{2}$.
     \column{0.7\textwidth}
       \begin{tikzpicture}[scale=1]
@@ -209,6 +212,17 @@
   \end{block}
 \end{frame}
 
+\begin{frame}{Formal Group Law}
+  \begin{definition}
+    A \textbf{(commutative) formal group law} over a ring $R$ is a power series $F(T_1,T_2)\in R[[T_1,T_2]]$ satisfying
+    \begin{enumerate}
+      \item \textbf{Identity:} $F(T,0)=F(0,T)=T$
+      \item \textbf{Associativity:} $F(T_1,F(T_2,T_3))=F(F(T_1,T_2),T_3)$
+      \item \textbf{Commutativity:} $F(T_1,T_2)=F(T_2,F_1)$ 
+    \end{enumerate}
+  \end{definition}    
+\end{frame}
+
 \begin{frame}{What is an Euler Class?}
   \begin{block}{The Intuition}
   The \textbf{Euler class} $e(E)$ measures the obstruction to finding a nowhere-zero section of a vector bundle $E$.
@@ -228,28 +242,36 @@
 
 
 \begin{frame}{Bordism and Cobordism}
-  \begin{block}{The Cobordism Relation (Geometric)}
-  Two manifolds $M, N$ are \textbf{cobordant} if their disjoint union bounds a higher manifold $W$:
-  \[
-    \partial W = M \sqcup N
-  \]
-  \emph{Slogan: "$M$ and $N$ are the two ends of a tube."}
-  \end{block}
-
-  \begin{block}{Bordism $U_*(X)$ (Homology Version)}
-  \textbf{Bordism classes} = maps $f: M \to X$ from closed complex manifolds, modulo bordism.
+  \begin{definition}
+    Two closed manifolds $M$ and $N$ are \textbf{cobordant} if their disjoint union forms the entire boundary of some higher-dimensional manifold $W$.
+    \[
+      \partial W = M \sqcup N
+    \]
+  \end{definition}
+  \textbf{Examples:}
   \begin{itemize}
-    \item Covariant: $f_*: U_*(M) \to U_*(X)$
-    \item Like homology, but cycles are \textbf{manifolds} instead of simplices
+    \item A circle bounds a disk.
+    \item Two circles bound a ``pair of pants'' (cylinder).
+    \item Any closed manifold bounds something? No!
   \end{itemize}
-  \end{block}
-
-  \begin{block}{Cobordism $U^*(X)$ (Cohomology Version)}
-  Same geometric data, but \textbf{contravariant} with a ring structure.
-  \begin{itemize}
-    \item $U^*(X)$ is the \textbf{universal complex-oriented cohomology theory}
-    \item Contains ordinary cohomology and $K$-theory as special cases
-  \end{itemize}
-  \end{block}
 \end{frame}
+
+\begin{frame}{The Cobordism Ring}
+  \begin{block}{Construction (Complex Cobordism $MU_*$ or $U^*(pt)$)}
+  Take all closed smooth manifolds with a \textbf{stable complex structure}.
+  \begin{itemize}
+    \item \textbf{Addition:} Disjoint union $\sqcup$
+    \item \textbf{Multiplication:} Cartesian product $\times$
+    \item \textbf{Zero:} Empty manifold
+  \end{itemize}
+  \end{block}
+  \vfill
+  \begin{alertblock}{The Big Question (1960s)}
+  What is the algebraic structure of this ring?
+  \[
+    MU_*=\bigoplus_{n\geq0} MU_n
+  \]
+  \end{alertblock}
+\end{frame}
+
 \end{document}
