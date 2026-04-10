@@ -1,0 +1,93 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../../preambles/hw-preamble.tex}
+\input{../../../../preambles/homework-macros.tex}
+\input{../../../../preambles/homework-title.tex}
+\input{../../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Advanced Linear Algebra}
+\renewcommand{\coursecode}{MATH 326}
+\renewcommand{\assignment}{Assignment 7}
+\renewcommand{\instructor}{Dr. Edward Dobrowolski}
+\renewcommand{\duedate}{April 13\textsuperscript{th}, 2026}
+\usepackage{tensor}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Problem 1}
+Let
+\[
+    A=
+    \begin{bmatrix}
+        2&1&1&1\\
+        1&3&3&1\\
+        1&0&1&2\\
+        0&1&1&3
+    \end{bmatrix}.
+\]
+Find a (psuedo) rational form of $A$. That is find a matrix $B$ such that $B^{-1}AB$ has the form
+\[
+    B^{-1}AB=
+    \begin{bmatrix}
+        0&0&0&-c_0\\
+        1&0&0&-c_1\\
+        0&1&0&-c_2\\
+        0&0&1&-c_3
+    \end{bmatrix},
+\]
+and explain what $c_0,c_1,c_2,c_3$ are. Software is allowed.
+
+\stepcounter{section}
+\section*{Problem 2}
+Let
+\[
+    A=
+    \begin{bmatrix}
+        11&-1&-5&-1\\
+        -1&11&-1&-5\\
+        -5&-1&11&-1\\
+        -1&-5&-1&11
+    \end{bmatrix}.
+\]
+Find an orthogonal matrix $Q$ such that $Q^TAQ$ is diagonal. Use of sotware is recommended.
+
+\stepcounter{section}
+\section*{Problem 3}
+Determine is 
+\[
+    A=
+    \begin{bmatrix}
+        1&1&0\\
+        0&1&1\\
+        1&0&1
+    \end{bmatrix}
+\]
+is unitarily diagonalizable.
+
+\stepcounter{section}
+\section*{Problem 4}
+Prove that real skew-symmetric matrices are unitarily diagonalizable. Recall $A\in M_n(\R)$ is called skew-symmetric if $A^T=-A$.
+
+\end{document}
