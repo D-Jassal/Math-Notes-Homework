@@ -9,9 +9,9 @@
 \usepackage{mathrsfs}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{fontspec}
-\setmainfont{Latin Modern Roman}
-\setsansfont{Latin Modern Sans}
+%\usepackage{fontspec}
+%\setmainfont{Latin Modern Roman}
+%\setsansfont{Latin Modern Sans}
 \usepackage{pgfplots}
 \usepackage{tikz}
 \usepackage{tikz-cd}
@@ -20,11 +20,8 @@
 \usefonttheme[onlymath]{serif}
 \makeatletter
 
-
 \usetheme{Berlin}
 \usecolortheme{UNBC}
-
-
 
 \newcommand{\subuni}[0]{\mathrm{Sub}}
 \newcommand{\congset}[0]{\mathrm{Con}}
@@ -33,7 +30,6 @@
 \newcommand{\algebra}[1]{\langle {#1} \rangle}
 \newcommand{\meet}{\mathrel{\scalebox{0.8}{$\wedge$}}}
 \newcommand{\join}{\mathrel{\scalebox{0.8}{$\vee$}}}
-
 
 \title{The Algebra of Manifolds}
 \subtitle{Quillen's Theorem on Cobordism and Formal Groups}
@@ -46,14 +42,10 @@
 
 \begin{frame}
   \titlepage
-\end{frame} 
-
-\begin{frame}{Outline}
-  \tableofcontents
 \end{frame}
 
-
 \section{Background}
+
 \begin{frame}{What is a Manifold?}
   \begin{block}{Idea}
     A \textbf{manifold} is a space that looks locally like Euclidean space $\mathbb{R}^n$.
@@ -212,6 +204,8 @@
   \end{block}
 \end{frame}
 
+\section{Cobordism}
+
 \begin{frame}{Formal Group Law}
   \begin{definition}
     A \textbf{(commutative) formal group law} over a ring $R$ is a power series $F(T_1,T_2)\in R[[T_1,T_2]]$ satisfying
@@ -222,24 +216,6 @@
     \end{enumerate}
   \end{definition}    
 \end{frame}
-
-\begin{frame}{What is an Euler Class?}
-  \begin{block}{The Intuition}
-  The \textbf{Euler class} $e(E)$ measures the obstruction to finding a nowhere-zero section of a vector bundle $E$.
-  \begin{itemize}
-    \item $e(E) = 0$ $\Rightarrow$ you can "comb the hair" (nowhere-zero section exists)
-    \item $e(E) \neq 0$ $\Rightarrow$ you cannot (every section has a zero)
-  \end{itemize}
-  \end{block}
-  \begin{block}{Why Quillen Cares}
-  For complex line bundles $L$, the Euler class satisfies:
-  \[
-    e(L_1 \otimes L_2) = F(e(L_1), e(L_2))
-  \]
-  where $F$ is a \textbf{formal group law}. The coefficients of $F$ generate the entire cobordism ring!
-  \end{block}
-\end{frame}
-
 
 \begin{frame}{Bordism and Cobordism}
   \begin{definition}
@@ -272,6 +248,127 @@
     MU_*=\bigoplus_{n\geq0} MU_n
   \]
   \end{alertblock}
+\end{frame}
+
+\begin{frame}{What is an Euler Class?}
+  \begin{block}{Euler Classes}
+  The \textbf{Euler class} $e(E)$ measures the obstruction to finding a nowhere-zero section of a vector bundle $E$.
+  \begin{itemize}
+    \item $e(E) = 0$ $\Rightarrow$ you can "comb the hair" (nowhere-zero section exists)
+    \item $e(E) \neq 0$ $\Rightarrow$ you cannot (every section has a zero)
+  \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{The Formal Group Law of Cobordism}
+  \begin{block}{Euler Classes}
+    For complex line bundles $L_1, L_2$, the Euler class satisfies:
+    \[
+      e(L_1 \otimes L_2) = F(e(L_1), e(L_2))
+    \]
+    where $F$ is a \textbf{formal group law} with coefficients $a_{ij} \in U^*(pt)$.
+  \end{block}
+  \begin{block}{Key Observation}
+    The cobordism ring $U^*(pt)$ \textbf{has} a formal group law $F_U$ coming from tensor product of line bundles.
+  \end{block}
+  \begin{quote}
+    \small So $U^*(pt)$ is not just a ring — it comes equipped with a formal group law.
+  \end{quote}
+\end{frame}
+
+\section{Main Results}
+
+\begin{frame}{Lazard's Theorem}
+  \begin{theorem}
+   \begin{enumerate}
+    \item There exists a \textbf{universal} formal group law $F_{univ}$ over a ring $L$
+    \item Any formal group law over any ring $R$ comes from a unique map $L \to R$
+    \item $L$ is a polynomial ring: $L \cong \mathbb{Z}[t_1, t_2, t_3, \dots]$ with $\deg t_i = 2i$
+  \end{enumerate}   
+  \end{theorem}
+
+  \begin{quote}
+    \small Lazard's theorem is \textbf{pure algebra} — no topology involved.
+  \end{quote}
+\end{frame}
+
+\begin{frame}{Applying Lazard's Theorem}
+  \begin{block}{By Lazard's Universality}
+    Since $U^*(pt)$ has a formal group law $F_U$, there exists a \textbf{unique} ring homomorphism:
+    \[
+      \phi: L \longrightarrow U^*(pt)
+    \]
+    sending the universal formal group law $F_{univ}$ to $F_U$.
+  \end{block}
+  \begin{center}
+    \begin{tikzpicture}
+      \node (L) at (0,0) {$L$};
+      \node (U) at (4,0) {$U^*(pt)$};
+      \node (Funiv) at (0,-1) {$F_{univ}$};
+      \node (FU) at (4,-1) {$F_U$};
+      \draw[->] (L) -- (U) node[midway, above] {$\phi$};
+      \draw[->] (Funiv) -- (FU) node[midway, above] {$\phi_*$};
+    \end{tikzpicture}
+  \end{center}
+  \begin{block}{What is $\phi$?}
+    $\phi$ sends each universal coefficient $t_i \in L$ to some cobordism class in $U^*(pt)$.
+  \end{block}
+  \begin{quote}
+    \small Lazard gives us a \textbf{map} from the universal ring to the cobordism ring.
+  \end{quote}
+\end{frame}
+
+\begin{frame}{Quillen's Theorem (1971)}
+  \begin{alertblock}{Quillen's Theorem}
+    The homomorphism $\phi: L \to U^*(pt)$ is an \textbf{isomorphism}.
+  \end{alertblock}
+  \begin{block}{Consequences}
+    \[
+      U^*(pt) \cong L \cong \mathbb{Z}[x_2, x_4, x_6, x_8, \dots]
+    \]
+    where deg $x_{2n}$ is $-2n$ (or $MU_{2n}$ in homology grading).
+  \end{block}
+  \begin{block}{What This Means}
+  \begin{itemize}
+    \item The cobordism ring is a \textbf{polynomial ring}
+    \item One generator in each even dimension: $x_2 = [\mathbb{CP}^1]$, $x_4 = [\mathbb{CP}^2]$, etc.
+    \item The formal group law of cobordism is the \textbf{universal} one
+  \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{What Does This Mean Geometrically?}
+  \begin{block}{Concrete Interpretation}
+    There exist manifolds $M_2, M_4, M_6, \dots$ (one in each even dimension) such that \textbf{every} complex manifold is cobordant to a unique polynomial combination of products of these generators.
+  \end{block}
+  \vfill
+  \textbf{Analogy:}
+  \begin{itemize}
+    \item Integers $\mathbb{Z}$ are generated by prime numbers.
+    \item Cobordism ring is generated by these special manifolds.
+  \end{itemize}
+  \vfill
+  \textbf{Example generators:}
+  \begin{itemize}
+    \item $x_2$: $\mathbb{CP}^1$ (the Riemann sphere)
+    \item $x_4$: $\mathbb{CP}^2$ (complex projective plane)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+  \begin{theorem}[Quillen, 1971]
+  The complex cobordism ring $U^*(pt)$ is isomorphic to Lazard's universal ring $L$:
+  \[
+    U^*(pt) \cong \mathbb{Z}[x_2, x_4, x_6, \dots]
+  \]
+  \end{theorem}
+  \begin{center}
+    \textbf{Key Idea:} The formal group law arising from tensor products of line bundles over manifolds is the \textit{most general possible}.
+  \end{center}
+  \vfill
+  \begin{flushright}
+    \textsc{Thank you!}
+  \end{flushright}
 \end{frame}
 
 \end{document}

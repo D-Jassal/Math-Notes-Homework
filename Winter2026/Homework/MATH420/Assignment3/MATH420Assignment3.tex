@@ -1,0 +1,108 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../../preambles/hw-preamble.tex}
+\input{../../../../preambles/homework-macros.tex}
+\input{../../../../preambles/homework-title.tex}
+\input{../../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Structure of Groups and Rings}
+\renewcommand{\coursecode}{MATH 420}
+\renewcommand{\assignment}{Assignment 3}
+\renewcommand{\instructor}{Dr. Stanley Yao Xiao}
+\renewcommand{\duedate}{April 8\textsuperscript{th}, 2026}
+
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Problem 1}
+Let R be a commutative ring. An R-module M of R is said to be simple if it is non-zero and have no proper non-zero submodules (i.e., a subring which is also a R-module). Let $\mathcal{J}(R)$ be the Jacobson radical of $R$. Prove that
+\[
+    \mathcal{J}(R) = \{r \in R : rM = 0 \text{ for all M simple}\}.
+\]
+\begin{proof}
+	$(\subseteq)$ Let $r\in\mathcal{J}(R)$ and $M$ a simple $R$-module. Then $M\cong R/m$ for some maximal ideal $m$. Since $r\in m$, we have $r\cdot(1+m)=0$ in $R/m$, hence $rM=0$.\\
+	$(\supseteq)$ Let $r\in R$ such that $rM=0$ for every simple $M$. Take any maximal ideal $m$. Then $R/m$ is simple, so $r\cdot(1+m)=0$ in $R/m$. Thus $r\in m$. Since $m$ was arbitrary, $r\in\cap m=\mathcal{J}(R)$.  
+\end{proof}
+\stepcounter{section}
+\section*{Problem 2}
+Let $R = \Z[\sqrt{-5}]$ be the extension of $\Z$ by the polynomial $x^2 + 5$.
+\begin{enumerate}[label=(\alph*)]
+    \item Find two distinct ideals in R whose contraction to $\Z$ is the ideal (6).\\
+    \textit{Solution.} $I=(6,1+\sqrt{-5})$ and $J=(6,2+2\sqrt{-5})$
+    \item Are there different ideals in R whose contraction to Z is the principal ideal (7)?\\
+    \textit{Solution.} $I=(7,1+\sqrt{-5})$ and $J=(7,2+\sqrt{-5})$
+    \item Can you find a positive integer m for which there exist three distinct ideals in $R$ which contract to $(m)$ in $\Z$? Find an example or prove none exist.\\
+    \textit{Example}
+	\[
+		(3)=(3,1+\sqrt{-5})(3,1-\sqrt{-5}),\quad (7)=(7,3+\sqrt{-5})(7,3-\sqrt{-5}).
+	\]
+	We have the ideals
+	\[
+		I_1=(3,1+\sqrt{-5})(7,3+\sqrt{-5}),\quad I_2=(3,1+\sqrt{-5})(7,3-\sqrt{-5}),
+	\]
+	\[
+		I_3=(3,1-\sqrt{-5})(7,3+\sqrt{-5}),\quad I_4=(3,1-\sqrt{-5})(7,3-\sqrt{-5}).
+	\]
+	Each of these ideals contract to (21).
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Problem 3}
+Consider the polynomial ring $\R[x]$.
+\begin{enumerate}[label=(\alph*)]
+    \item Find two ideals $I, J$ in $\R[x]$ which are co-prime, which as you recall, means that $I + J = \R[x]$.\\
+    \textit{Solution.} $I=(x)$ and $J=(x-1)$. This is because $x-x+1=1\in I+J$. Since this sum ideal contains a unit, it is the whole ring. 
+    \item Find necessary and sufficient conditions for two ideals $I, J$ in $\R[x]$ to be co-prime.
+    \begin{proof}
+		$\R[x]$ is a PID so let $I=(f),J=(g)$ be principally generated ideals. Then $I+J=(f,g)=(\gcd(f,g))$. We need this ideal to contain a unit to be the whole ring, so the conidtion is $\gcd(f,g)=1$.
+	\end{proof}
+    \item Prove that two ideals $I, J$ in $\R[x]$ with generators $f, g$ are co-prime if and only if their gcd is equal to 1.
+    \begin{proof}
+		$(\Rightarrow)$ Let $g=\gcd(f,g)$, and assume $I+J=\R[x]$. Then we have $1\in(f,g)$, this imlies that $1\mid g$, so $g=1$.\\
+		$(\Leftarrow)$ Assume that $\gcd(f,g)=1$, then there exists $a,b\in\Z$ such that $af+bg=1$, so $1\in(f,g)=I+J$. This means that the ideals are coprime. 
+	\end{proof}
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Problem 4}
+Let $R$ be a $\Z$-algebra. Suppose that two ideals $I, J$ contract to the same ideal in $\Z$. Is it possible for $I, J$ to be co-prime in $R$? Prove or provide a counterexample.\\
+Let $R=\Z\times\Z$, with $\phi:\Z\to R$ and $\phi(n)=(n,n)$. Let $I=\Z\times\{0\}$ and $J=\{0\}\times\Z$. Then $I\cap\Z=(0)$ and $J\cap\Z=(0)$, and $I+J=\Z\times\Z=R$.
+
+\stepcounter{section}
+\section*{Problem 5}
+Let $R$ be a commutative ring. Suppose $I \subseteq \mathcal{J}(R)$ is an ideal, where $\mathcal{J}(R)$ is the Jacobson radical of $R$. Prove that
+\[
+    \bigcap_{n\geq1}I^n=\{0\}
+\]
+\begin{proof}
+	Let $x\in\bigcap_{n\geq1}I^n$. Consider the finitely generated $R$-module, $M=Rx$. Since $x\in I^2\subseteq I\cdot I$, we have $x\in IM$. Thus $M=IM$. Then by Nakayama's lemma we have $M=\{0\}$, so $x=0$. 
+\end{proof}
+\stepcounter{section}
+\section*{Problem 6}
+Let $R$ be a Noetherian, integral domain (i.e., $R$ is Noetherian and has no zero-divisors). Prove that the polynomial ring $R[x]$ is also a Noetherian domain.
+\begin{proof}
+	By the Hilbert basis theorem we have that $R[x]$ is Noetherian because $R$ is Noetherian. Let $f,g\in R[x]$, $f,g\neq0$ with leading coefficients $a,b\in R$. If $fg=0$ then $ab=0$, since $R$ is a domain this is only possible if $a=0$ or $b=0$. Thus, $R[x]$ is a Noetherian domain. 
+\end{proof}
+\end{document}

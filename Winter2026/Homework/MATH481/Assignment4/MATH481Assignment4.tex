@@ -1,0 +1,152 @@
+\documentclass[12pt]{article}
+
+% Import preambles and macros for homework
+\input{../../../../preambles/hw-preamble.tex}
+\input{../../../../preambles/homework-macros.tex}
+\input{../../../../preambles/homework-title.tex}
+\input{../../../../preambles/homework-config.tex}
+
+\renewcommand{\author}{Deepak Jassal}
+\renewcommand{\authorlast}{Jassal}
+\renewcommand{\coursename}{Analytic Number Theory}
+\renewcommand{\coursecode}{MATH 481}
+\renewcommand{\assignment}{Assignment 4}
+\renewcommand{\instructor}{Dr. Alia Hamieh}
+\renewcommand{\duedate}{April 13\textsuperscript{th}, 2026}
+
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{2.0cm}	
+	\pgfornament{84}\\
+	{\LARGE \textsc{\coursename}\par}
+	\vspace{0.5cm}
+	{\large\coursecode\par}
+    \vspace{0.5cm}
+    {\large\instructor\par}
+	\vspace{1.5cm}
+	{\huge\bfseries\assignment\par}
+	\vspace{1cm}  
+	{\LARGE\itshape\author\par}
+    \vspace{2cm}
+	{\large\bfseries Due Date:\par}
+	\vspace{0.5cm}
+	{\Large \duedate}\\
+	\pgfornament{84}
+\end{titlepage}
+\stepcounter{section}
+\section*{Problem 1 [5 Marks]}
+Let $F(s)=\sum_{n\ge 1} \frac{a_n}{n^s}$ be a Dirichlet series that converges absolutely for $\Re s>\kappa>0$. Let $x\ge 1$. Prove that
+\[
+\sum_{n\ge 1} a_n e^{-n/x} = \frac1{2\pi i} \int_{\kappa-i\infty}^{\kappa+i\infty} F(s) \Gamma(s) x^s ds.
+\]
+
+\stepcounter{section}
+\section*{Problem 2 [5 marks]} 
+Let $F(s)=\sum_{n=1}^{\infty}\frac{f(n)}{n^s}$ with $|f(n)|\ll n^{\epsilon}$ for any $\epsilon>0$ . Let $x$ be not an integer and $c>1$.  Show that 
+\[
+    \sum_{n\leq x}f(n)=\frac{1}{2\pi i}\int_{c-iT}^{c+iT}F(s)\frac{x^s}{s}\;ds+O\left(\frac{x^{c+\epsilon}}{T}\right).
+\]
+
+
+\stepcounter{section}
+\section*{Problem 3 [30 marks]} 
+This question builds on and uses results from homework 2 and homework 3.  We have already proved that $L(1,\chi)\neq 0$ for all non-principal characters $\chi$ modulo $q$. In this question, we will derive some results about $L(s,\chi_0)$, where $\chi_0$ is the principal character modulo $q$. We will then use this result to prove that if $(a,q)=1$, then there are infinitely many primes of the form $a+kq$.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Show that for $\Re(s)>1$, we have 
+    \[
+        \sum_{\chi\mod q}\log(L(s,\chi))=\phi(q)\sum_{n=1}^\infty\sum_{p^n\equiv 1(\text{mod} q)}\frac{1}{np^{ns}}.
+    \]
+    \item Let $\chi_0$ be the principal character modulo $q$ (i.e. $\chi(a)=0$ if $(a,q)>1$ and $\chi(a)=1$ if $(a,q)=1$). Show that 
+    \[
+        \lim_{s\to1^{+}}\log L(s,\chi_0)=\infty.
+    \]
+    \item Show that 
+    \[
+        \lim_{s\to1^{+}}(s-1)\prod_{\chi(\text{mod}q)}L(s,\chi)\neq 0,
+    \] 
+    and deduce that $\sum_{p\equiv1(\text{mod} q)}\frac{1}{p}=\infty$.
+    \item For $(a,q)=1$, show that 
+    \[
+        \sum_{\chi\mod q}\overline{\chi(a)}\chi(n)=
+        \begin{cases}
+            \phi(q)&\text{if}\;n\equiv a\mod q\\
+            0&\text{otherwise.}
+        \end{cases}
+    \]
+    \item  Fix $(a,q)=1$. Show that 
+    \[
+        \lim_{s\to1^{+}}(s-1)\prod_{\chi(\text{mod} q)}L(s,\chi)^{\overline{\chi(a)}}\neq 0,
+    \] and deduce that $\sum_{p\equiv a(\text{mod} q)}\frac{1}{p}=\infty$.
+\end{enumerate}
+
+\stepcounter{section}
+\section*{Problem 4 [10 marks]} 
+Suppose $f(n)\ll n^{\epsilon}$ for any $\epsilon>0$, and let $F(s)=\sum_{n=1}^{\infty}\frac{f(n)}{n^s}$. Suppose that $F(s)=\zeta^k(s)G(s)$, where $k\in\mathbb{N}$ and $G(s)$ is a Dirichlet series absolutely convergent in $\Re(s)>1-\delta$ for some $0<\delta<1$. Show that 
+\[
+    \sum_{n\leq x}f(n)\sim\frac{G(1)}{(k-1)!}x(\log x)^{k-1}.
+\]
+
+\stepcounter{section}
+\section*{Problem 5 [10 marks]} 
+Fix $0<\alpha<1$. Show that if 
+\[
+    \theta(x)=x+O\left(x\exp(-c(\log x)^\alpha)\right)\quad\quad x\geq2,
+\]
+then 
+\[
+    \pi(x)=\mathrm{Li}(x)+O\left(x\exp(-c'(\log x)^\alpha)\right)\quad\quad x\geq2,
+\]
+with some (other) positive constant $c'$ (but the same value of the exponent $\alpha$).
+
+\stepcounter{section}
+\section*{Problem 6 [20 marks]}   
+Using complex integration as in the proof of the PNT, show that 
+\[
+    \sum_{n\leq x}\mu(n)= O\left(x\exp\left(-c\sqrt{\log x}\right)\right),
+\] 
+where $c$ is a positive constant. Moreover, show that 
+\[
+    \sum_{n\leq x}\frac{\mu(n)}{n}= O\left(\exp\left(-c\sqrt{\log x}\right)\right)
+\] 
+and deduce that $\sum_{n=1}^\infty\frac{\mu(n)}{n}=0$.
+
+{\it{Remark: One can use the method of proof of the PNT to further show that for any fixed real $t$, we have
+\[
+    \sum_{n=1}^{\infty} \mu(n)n^{-1-it}=\frac{1}{\zeta(1+it)}.
+\]
+Even more, we can show that for any $t\neq 0$, we have
+
+\[
+    \sum_{n=1}^{\infty} \frac{\Lambda(n)}{\log n} n^{-1-it}=\log \zeta(1+it)\quad\text{ and}\quad \prod_{p} \left(1-p^{-1-it}\right)^{-1}=\zeta(1+it).
+\] 
+}}
+
+\stepcounter{section}
+\section*{Problem 7 [20 marks]} 
+Let $Q(x)$ denote the number of square-free integers not exceeding $x$. In class we proved that $Q(x)=\frac{6}{\pi^2}x+O(\sqrt{x})$. In what follows, we shall improve this asymptotic by obtaining an error term that is $o(\sqrt{x})$.
+\begin{enumerate}[label=(\alph*)]
+    \item Show that
+        \[
+            Q(x)=\frac{6}{\pi^2}x - x \sum_{n>\sqrt{x}} \frac{\mu(n)}{n^2} - \sum_{n\le \sqrt{x}} \mu(n)\left\{\frac{x}{n^2}\right\},
+        \]
+        where $\{\theta\} = \theta - [\theta]$ is the fractional part of $\theta$.
+    \item Show that
+        \[
+            \sum_{n>y} \frac{\mu(n)}{n^2} \ll y^{-1} \exp(-c\sqrt{\log y})\quad \text{for } y \ge 2.
+        \]
+
+    \item Note that if $k$ is a positive integer, then $\left\{\frac{x}{n^2}\right\}$ is monotonic for $n$ in the interval $(\sqrt{\frac{x}{k+1}},\sqrt{\frac{x}{k}}]$.
+        Deduce that if $x \ge 2k^2$, then
+        \[
+            \sum_{\sqrt{\frac{x}{k+1}} < n \le \sqrt{\frac{x}{k}}} \mu(n)\left\{\frac{x}{n^2}\right\} \ll \sqrt{\frac{x}{k}}\exp(-c\sqrt{\log x}).
+        \]
+    \item By using the above for $1 \le k \le K = \exp(-b\sqrt{\log x})$, where $b$ is suitably chosen in terms of $c$, show that
+        \[
+            Q(x)=\frac{6}{\pi^2}x + O\!\left(x^{1/2}\exp\!\left(-\frac{c}{2}\sqrt{\log x}\right)\right).
+        \]
+\end{enumerate}
+
+\end{document}
