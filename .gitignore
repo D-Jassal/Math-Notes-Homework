@@ -9,6 +9,8 @@
 *.fdb_latexmk
 *.synctex.gz
 *.bbl
+*.bcf
+*.xml
 *.blg
 *.nav
 *.snm

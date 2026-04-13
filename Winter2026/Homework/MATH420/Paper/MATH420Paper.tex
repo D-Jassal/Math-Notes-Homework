@@ -1,0 +1,276 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}[theorem]{Example}
+
+\title{The Algebra of Manifolds: Quillen's Theorem on Cobordism and Formal Groups}
+\author{Deepak Jassal}
+\date{MATH 420 -- Structure of Groups and Rings\\University of Northern British Columbia\\April 5, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This paper explores the deep connection between differential topology and algebraic structures known as formal group laws, culminating in Daniel Quillen's celebrated 1969 theorem identifying the complex cobordism ring with Lazard's universal ring. We begin by introducing manifolds, vector bundles, and the fundamental concepts of homology and cohomology. The notion of cobordism is then developed as an equivalence relation on closed manifolds, leading to the construction of the complex cobordism ring $MU_*$. Parallel to this topological development, we introduce formal group laws and Lazard's universal ring from commutative algebra. Quillen's theorem establishes that the formal group law arising from the tensor product of complex line bundles over the infinite projective space is universal, yielding an explicit polynomial algebra structure on $MU_*$. We conclude by discussing geometric interpretations and ongoing research directions.
+\end{abstract}
+
+\section{Introduction}
+
+The classification of manifolds up to diffeomorphism is one of the central problems in topology. While complete classification remains out of reach for high-dimensional manifolds, a coarser equivalence relation---\textbf{cobordism}---provides remarkable algebraic structure. Two closed manifolds are cobordant if their disjoint union forms the boundary of a higher-dimensional manifold. The set of cobordism classes forms a graded ring under disjoint union and Cartesian product.
+
+In the 1960s, Milnor and Novikov independently determined that the complex cobordism ring $MU_*$ is a polynomial ring over the integers \cite{milnor1960cobordism, novikov1967methods}. However, a deeper structure lay hidden within this ring. In 1969, Daniel Quillen made a startling discovery: the tensor product of complex line bundles induces a \textbf{formal group law} on $MU_*$, and remarkably, this formal group law is the \textbf{universal} one studied by Lazard in algebraic geometry \cite{quillen1969formal, lazdar1955groupes}. Consequently, $MU_*$ is isomorphic to Lazard's universal ring $L \cong \mathbb{Z}[x_2, x_4, x_6, \dots]$.
+
+This paper aims to make this profound connection accessible by developing the necessary concepts from topology and algebra, then carefully explaining Quillen's theorem and its implications.
+
+\section{Background from Topology}
+
+\subsection{Manifolds and Vector Bundles}
+
+\begin{definition}
+An $n$-dimensional \textbf{manifold} is a Hausdorff, second-countable topological space $M$ such that every point $p \in M$ has an open neighborhood homeomorphic to $\mathbb{R}^n$.
+\end{definition}
+
+Manifolds generalize curves and surfaces to arbitrary dimensions. A \textbf{smooth manifold} additionally requires that transition maps between coordinate charts be smooth functions.
+
+\begin{definition}
+A \textbf{vector bundle} of rank $n$ over a manifold $X$ is a triple $(E, X, \pi)$ where:
+\begin{itemize}
+    \item $E$ (the total space) and $X$ (the base) are smooth manifolds,
+    \item $\pi: E \to X$ is a smooth surjection,
+    \item For each $x \in X$, the fiber $\pi^{-1}(x)$ is an $n$-dimensional vector space,
+    \item \textbf{Local triviality:} For each $x \in X$, there exists a neighborhood $U$ such that $\pi^{-1}(U) \cong U \times \mathbb{R}^n$.
+\end{itemize}
+\end{definition}
+
+Vector bundles allow us to attach algebraic data---vector spaces---to each point of a manifold. The \textbf{tangent bundle} $TM$ attaches the tangent space at each point; a \textbf{line bundle} has rank $1$.
+
+\subsection{Homology and Cohomology}
+
+\begin{definition}
+For a space $X$, the \textbf{singular homology groups} $H_n(X)$ measure $n$-dimensional ``holes'' in $X$. An $n$-cycle is a formal sum of continuous maps $\Delta^n \to X$ with vanishing boundary; homology is cycles modulo boundaries:
+\[
+H_n(X) = \frac{\ker(\partial_n: C_n(X) \to C_{n-1}(X))}{\operatorname{im}(\partial_{n+1}: C_{n+1}(X) \to C_n(X))}.
+\]
+\end{definition}
+
+\begin{definition}
+\textbf{Cohomology groups} $H^n(X)$ are dual to homology, obtained by applying $\operatorname{Hom}(-, \mathbb{Z})$ to the chain complex. Cohomology carries a \textbf{cup product}:
+\[
+\smile: H^p(X) \times H^q(X) \to H^{p+q}(X),
+\]
+making $H^*(X) = \bigoplus_{n \ge 0} H^n(X)$ into a graded-commutative ring.
+\end{definition}
+
+Cohomology rings are more refined invariants than homology groups and are essential for defining characteristic classes.
+
+\section{Cobordism Theory}
+
+\subsection{The Cobordism Relation}
+
+\begin{definition}
+Two closed $n$-manifolds $M$ and $N$ are \textbf{cobordant} if there exists a compact $(n+1)$-manifold $W$ with boundary $\partial W = M \sqcup N$. The manifold $W$ is called a \textbf{cobordism} between $M$ and $N$.
+\end{definition}
+
+Cobordism is an equivalence relation. The circle $S^1$ is cobordant to the empty manifold because it bounds the disk $D^2$. However, the torus $\mathbb{T}^2$ is \textbf{not} cobordant to the empty manifold in the oriented sense, as it has a nontrivial signature.
+
+\subsection{Complex Cobordism}
+
+To obtain a ring structure, we restrict to manifolds with additional structure.
+
+\begin{definition}
+A \textbf{stable complex structure} on a smooth manifold $M$ is a complex structure on the stable tangent bundle $TM \oplus \mathbb{R}^k$ for some $k$ sufficiently large.
+\end{definition}
+
+The set of cobordism classes of closed smooth manifolds with stable complex structure forms the \textbf{complex cobordism ring}:
+\[
+MU_* = \bigoplus_{n \ge 0} MU_n,
+\]
+where $MU_n$ consists of classes of $n$-dimensional manifolds \cite{adams1974stable}.
+
+\begin{itemize}
+    \item \textbf{Addition:} Disjoint union $\sqcup$
+    \item \textbf{Multiplication:} Cartesian product $\times$
+    \item \textbf{Zero element:} Empty manifold
+    \item \textbf{Unit:} Point manifold (for dimension $0$)
+\end{itemize}
+
+\begin{theorem}[Milnor, 1960; Novikov, 1967]
+\label{thm:milnor-novikov}
+The complex cobordism ring is a polynomial ring over the integers:
+\[
+MU_* \cong \mathbb{Z}[x_2, x_4, x_6, x_8, \dots],
+\]
+where $\deg x_{2n} = -2n$ (or grading by dimension yields $MU_{2n} \cong \mathbb{Z}$ with one generator in each even dimension) \cite{milnor1960cobordism, novikov1967methods}.
+\end{theorem}
+
+\section{Formal Group Laws}
+
+\subsection{Definition and Examples}
+
+\begin{definition}
+A \textbf{one-dimensional commutative formal group law} over a commutative ring $R$ is a power series $F(T_1, T_2) \in R[[T_1, T_2]]$ satisfying:
+\begin{enumerate}
+    \item \textbf{Identity:} $F(T, 0) = F(0, T) = T$
+    \item \textbf{Commutativity:} $F(T_1, T_2) = F(T_2, T_1)$
+    \item \textbf{Associativity:} $F(T_1, F(T_2, T_3)) = F(F(T_1, T_2), T_3)$
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+\begin{itemize}
+    \item The \textbf{additive formal group law:} $F_a(T_1, T_2) = T_1 + T_2$
+    \item The \textbf{multiplicative formal group law:} $F_m(T_1, T_2) = T_1 + T_2 + T_1 T_2$
+\end{itemize}
+\end{example}
+
+\subsection{Lazard's Universal Ring}
+
+In 1955, Michel Lazard studied the most general possible formal group law \cite{lazdar1955groupes}.
+
+\begin{theorem}[Lazard, 1955]
+\label{thm:lazard}
+There exists a commutative ring $L$ and a formal group law $F_{\text{univ}}(T_1, T_2) \in L[[T_1, T_2]]$ with the following \textbf{universal property}: For any commutative ring $R$ and any formal group law $F$ over $R$, there exists a unique ring homomorphism $\phi: L \to R$ such that $\phi_* F_{\text{univ}} = F$.
+
+Moreover, $L$ is a polynomial ring on countably many generators:
+\[
+L \cong \mathbb{Z}[t_1, t_2, t_3, \dots],
+\]
+where $\deg t_i = 2i$ (in a suitable grading) \cite{hazewinkel1978formal}.
+\end{theorem}
+
+The generators $t_i$ can be identified with coefficients of the universal formal group law:
+\[
+F_{\text{univ}}(T_1, T_2) = T_1 + T_2 + \sum_{i,j \ge 1} a_{i,j} T_1^i T_2^j,
+\]
+where the $a_{i,j}$ satisfy polynomial relations that Lazard showed are exactly those defining a polynomial ring.
+
+\section{Quillen's Theorem}
+
+\subsection{The Formal Group Law of Cobordism}
+
+Consider infinite complex projective space $\mathbb{CP}^\infty$, which classifies complex line bundles. For a complex line bundle $L$ over a space $X$, the first Chern class $c_1(L) \in H^2(X; \mathbb{Z})$ satisfies:
+\[
+c_1(L_1 \otimes L_2) = c_1(L_1) + c_1(L_2).
+\]
+
+In complex cobordism theory, there is an analogous \textbf{Euler class} $e(L) \in MU^2(X)$ for complex line bundles \cite{adams1974stable}. However, the tensor product behaves differently:
+\[
+e(L_1 \otimes L_2) = F_U(e(L_1), e(L_2)),
+\]
+where $F_U(T_1, T_2) \in MU^*(pt)[[T_1, T_2]]$ is a formal group law over the coefficient ring $MU^*(pt) \cong MU_*$ \cite{quillen1969formal}.
+
+\begin{theorem}
+The formal group law $F_U$ associated to complex cobordism is commutative and one-dimensional.
+\end{theorem}
+
+\subsection{Statement of Quillen's Theorem}
+
+By Lazard's universality (Theorem \ref{thm:lazard}), the formal group law $F_U$ over $MU_*(pt)$ corresponds to a unique ring homomorphism:
+\[
+\phi: L \longrightarrow MU^*(pt).
+\]
+
+\begin{theorem}[Quillen, 1969]
+\label{thm:quillen}
+The homomorphism $\phi: L \to MU^*(pt)$ is an \textbf{isomorphism} \cite{quillen1969formal}.
+\end{theorem}
+
+\begin{corollary}
+The complex cobordism ring is isomorphic to Lazard's universal ring:
+\[
+MU^*(pt) \cong \mathbb{Z}[x_2, x_4, x_6, x_8, \dots],
+\]
+where each generator $x_{2n}$ can be represented geometrically by the complex projective space $\mathbb{CP}^n$.
+\end{corollary}
+
+\subsection{Geometric Generators}
+
+Quillen's theorem provides explicit geometric generators for the cobordism ring \cite{johnston2004values, bakuradze2024complex}:
+\begin{itemize}
+    \item $x_2 = [\mathbb{CP}^1]$ --- the Riemann sphere (complex projective line)
+    \item $x_4 = [\mathbb{CP}^2]$ --- the complex projective plane
+    \item In general, $x_{2n} = [\mathbb{CP}^n]$ up to sign
+\end{itemize}
+
+Thus \textbf{every} closed stably complex manifold is cobordant to a polynomial combination of products of complex projective spaces.
+
+\section{Consequences and Applications}
+
+\subsection{The Structure of $MU_*$}
+
+The polynomial ring structure has profound computational implications. The Adams-Novikov spectral sequence, which computes stable homotopy groups of spheres, has $E_2$-term:
+\[
+E_2^{s,t} = \operatorname{Ext}_{MU_*MU}^{s,t}(MU_*, MU_*),
+\]
+and Quillen's theorem provides explicit algebraic tools to compute these Ext groups \cite{ravenel2013quillen}.
+
+\subsection{Connection to Elliptic Cohomology}
+
+The universality of $F_U$ means that every formal group law arising from a complex-oriented cohomology theory factors through $MU$. In particular, the formal group laws associated to elliptic cohomology theories give rise to \textbf{elliptic genera}---topological invariants generalizing the classical $A$-genus and $\hat{A}$-genus \cite{greenlees2001equivariant}.
+
+\subsection{Equivariant Generalizations}
+
+Recent work extends Quillen's theorem to \textbf{equivariant} settings, where manifolds carry actions by compact Lie groups. The equivariant cobordism ring is expected to relate to equivariant formal group laws, though the structure is more complex than in the non-equivariant case \cite{sadofsky1997equivariant, cole2000equivariant}.
+
+\section{Conclusion}
+
+We have traced the connection between two seemingly distant mathematical objects: the complex cobordism ring $MU_*$, built from geometric manifolds, and Lazard's universal ring $L$, constructed from formal power series. Quillen's theorem reveals that these rings are isomorphic, establishing a deep link between topology and algebra that has shaped modern homotopy theory.
+
+The result exemplifies a recurring theme in 20th-century mathematics: that geometric invariants often possess hidden algebraic structures, and understanding these structures can lead to complete classification theorems. Quillen's work opened the door to the ``chromatic'' filtration of stable homotopy theory, where formal group laws of varying heights correspond to periodic phenomena in the stable homotopy groups of spheres \cite{ravenel2013quillen}.
+
+Future directions include extending these ideas to equivariant and motivic settings, where new types of formal group laws continue to emerge.
+
+\begin{thebibliography}{99}
+
+\bibitem{adams1974stable}
+Adams, J.F. (1974). \textit{Stable Homotopy and Generalised Homology}. University of Chicago Press.
+
+\bibitem{bakuradze2024complex}
+Bakuradze, M. (2024). Complex cobordism modulo $c_1$-spherical cobordism and related genera. \textit{Proc. Steklov Inst. Math.}, 326, 11-20.
+
+\bibitem{cole2000equivariant}
+Cole, M., Greenlees, J.P.C., \& Kriz, I. (2000). Equivariant formal group laws. \textit{Proc. London Math. Soc.}, 80(3), 705-735.
+
+\bibitem{greenlees2001equivariant}
+Greenlees, J.P.C. (2001). Equivariant formal group laws and complex oriented cohomology theories. \textit{Homology Homotopy Appl.}, 3(2), 225-263.
+
+\bibitem{hazewinkel1978formal}
+Hazewinkel, M. (1978). \textit{Formal Groups and Applications}. Academic Press.
+
+\bibitem{johnston2004values}
+Johnston, B. (2004). The values of the Milnor genus on smooth projective connected complex varieties. \textit{Topology and its Applications}, 138(1-3), 189-206.
+
+\bibitem{lazdar1955groupes}
+Lazard, M. (1955). Sur les groupes de Lie formels \`a un param\`etre. \textit{Bulletin de la Soci\'et\'e Math\'ematique de France}, 83, 251-274.
+
+\bibitem{milnor1960cobordism}
+Milnor, J.W. (1960). On the cobordism ring $\Omega_*$ and a complex analogue. \textit{American Journal of Mathematics}, 82, 505-521.
+
+\bibitem{novikov1967methods}
+Novikov, S.P. (1967). Methods of algebraic topology from the point of view of cobordism theory. \textit{Izv. Akad. Nauk SSSR Ser. Mat.}, 31, 855-951.
+
+\bibitem{quillen1969formal}
+Quillen, D. (1969). On the formal group laws of unoriented and complex cobordism theory. \textit{Bulletin of the American Mathematical Society}, 75, 1293-1298.
+
+\bibitem{ravenel2013quillen}
+Ravenel, D.C. (2013). Quillen's work on formal group laws and complex cobordism theory. \textit{Journal of K-Theory}.
+
+\bibitem{sadofsky1997equivariant}
+Sadofsky, H. (1997). Equivariant bordism and formal group laws. NSF Award \#9704437.
+
+\end{thebibliography}
+
+\end{document}

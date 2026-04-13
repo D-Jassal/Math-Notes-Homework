@@ -97,9 +97,31 @@ Find the Laurent series for
 for 
 \begin{enumerate}[label=(\alph*)]
     \item $0<|z|<1$ at $z_0=0.$\\
-    \textit{Solution.}
+    \textit{Solution.} We first express $f(z)$ through partial fraction decomposition
+    \[
+        \frac{1}{(z-2)(z-3)}=\frac{A}{z-2}+\frac{B}{z-3}\Rightarrow 1=A(z-3)+B(z-2).
+    \]
+    The solution to this linear system is $A=-1$, and $B=1$, giving
+    \[
+        f(z)=\frac{1}{z-3}-\frac{1}{z-2}.
+    \]
+    For $|z|<1$, $|z/2|<1$ and $|z/3|<1$ giving
+    \[
+        \frac{1}{z-2}=-\frac{1}{2}\cdot\frac{1}{1-\frac{z}{2}}=\sum_{n=0}^{\infty}\frac{z^n}{2^{n+1}},\quad \frac{1}{z-3}=-\frac{1}{3}\cdot\frac{1}{1-\frac{z}{3}}=-\sum_{n=0}^{\infty}\frac{z^n}{3^{n+1}}.
+    \]
+    From here we see that
+    \[
+        f(z)=\sum_{n=0}^{\infty}\left(\frac{1}{2^{n+1}}-\frac{1}{3^{n+1}}\right)z^n,\quad\quad 0<|z|<1.
+    \]
     \item $2<|z|<3$ at $z_0=0.$\\
-    \textit{Solution.}
+    \textit{Solution.} For $|2/z|<1$ and $|z/3|<1$ we have
+    \[
+        \frac{1}{z-2}=\frac{1}{z}\cdot\frac{1}{1-\frac{2}{z}}=\sum_{n=0}^{\infty}\frac{2^n}{z^{n+1}},\quad \frac{1}{z-3}=-\frac{1}{3}\cdot\frac{1}{1-\frac{z}{3}}=-\sum_{n=0}^{\infty}\frac{z^n}{3^{n+1}}.
+    \]
+    From here we see that
+    \[
+        f(z)=-\sum_{n=0}^{\infty}\left(\frac{z^n}{3^{n+1}}-\frac{2^n}{z^{n+1}}\right),\quad\quad 2<|z|<3.
+    \]
 \end{enumerate}
 
 
@@ -116,21 +138,58 @@ Follow the steps
             I=\int_{0}^{\infty}\frac{e^{ix}}{1+x^2}\,dx.
         \] 
     Explain why.\\
-    \textit{Solution.}
+    \textit{Solution.} Since $e^{ix}=\cos x+i\sin x$, we have
+    \[
+        \Re\int_{0}^{\infty}\frac{e^{ix}}{1+x^2}\,dx=\int_{0}^{\infty}\frac{\cos(x)}{1+x^2}\,dx.
+    \]
+    So we can compute $\int_{0}^{\infty}\frac{e^{ix}}{1+x^2}\,dx$, and then take the real part. 
     \item Calculate the integral where 
         \[
             \int_\gamma\frac{e^{iz}}{1+z^2}\,dz
         \]
         where $\gamma=\gamma_1+\gamma_2$, and $\gamma_1$ is the path from $-R$ to $+R$ on the $x-$axis, while $\gamma_2$ is the half-circle $\gamma_2(\theta)=Re^{i\theta}$ , $0\geq\theta\geq\pi$. So together they form a close curve. Use the residue theorem.\\
-    \textit{Solution.}
+    \textit{Solution.} The integrand has simple poles whenever $1+z^2=0$, those being $z=\pm i$. When $R>1$ only $i\in\gamma$. Note that
+    \[
+        \mathrm{Res}\left(\frac{e^{iz}}{1+z^2},z=i\right)=\lim_{z\to i}(z-i)\frac{e^{iz}}{(z-i)(z+i)}=\frac{e^{i^2}}{2i}=\frac{e^{-1}}{2i}.
+    \]
+    Thus, by the residue theorem we have
+    \[
+        \int_{\gamma}\frac{e^{iz}}{1+z^2}\,dz=(2\pi i)\frac{e^{-1}}{2i}=\frac{\pi}{e}.
+    \]
     \item Show that
         \[
             \int_{\gamma_2}\frac{e^{iz}}{1+z^2}\,dz\to0
         \]
         as $R\to\infty$.\\
-    \textit{Solution.}
+    \textit{Solution.} On $\gamma_2$ we have $z=Re^{i\theta}$, so $|z|=R$ and
+    \[
+        |1+z^2|\geq|z|^2-1=R^2-1.
+    \]
+    For the numerator, $|e^{iz}|=e^{-R\sin\theta}\leq1$ since $\sin\theta\geq0$ on $[0,\pi]$. Thus
+    \[
+        \left|\frac{e^iz}{1+z^2}\right|\geq\frac{1}{R^2-1}.
+    \]
+    The length of this interval is $R\pi$. Thus, by the ML-inequality we have
+    \[
+        \left|\int_{\gamma_2}\frac{e^{iz}}{1+z^2}\,dz\right|\leq\frac{R\pi}{R^2-1}\to 0,\quad \text{as } R\to\infty.
+    \]
     \item Deduce the value of $I$.\\
-    \textit{Solution.}
+    \textit{Solution.} Since 
+    \[
+        \int_{\gamma}=\int_{\gamma_1}+\int_{\gamma_2},
+    \]
+    letting $R\to\infty$ and using parts (2) and (3) gives
+    \[
+        \int_{-\infty}^{\infty}\frac{e^{ix}}{1+x^2}\,dx=\frac{\pi}{e}.
+    \]
+    Since $\frac{\cos x}{1+x^2}$ is even and $\frac{\sin x}{1+x^2}$ is odd, we have
+    \[
+        \frac{\pi}{e}=2\int_{0}^{\infty}\frac{\cos x}{1+x^2}\,dx+\underbrace{\int_{-\infty}^{\infty}\frac{\sin x}{1+x^2}\,dx}_{=0}=2I.
+    \]
+    Thus, we have
+    \[
+        I=\frac{\pi}{2e}.
+    \]
 \end{enumerate}
 
 
@@ -141,6 +200,16 @@ Find
     \int_{\gamma}\frac{dz}{e^z-2}
 \]
 where $\gamma$ is the circle $|z|=8$ run once counterclockwise.\\
-\textit{Solution.}
-
+\textit{Solution.} The poles of $\frac{1}{e^z-2}$ occur when $e^z=2$. Those points being $z_k=\ln2+2\pi ik,\,k\in\Z$. These are simple poles since $\frac{d}{dz}(e^z-2)=e^{z_k}\neq0$. The condition $|z_k|<8$ gives
+\[
+    \sqrt{(\ln2)^2+4\pi^2k^2}<8,
+\]
+this holds for $k = 0$, $\pm1$ but fails for $|k|\geq2$. At each pole the residue is
+\[
+    \mathrm{Res}\left(\frac{1}{e^z-2},z=z_k\right)=\frac{1}{e^{z_k}}=\frac{1}{2}.
+\]
+Therefore, by the residue theorem we have
+\[
+    \int_{\gamma}\frac{dz}{e^z-2}=2\pi i\sum_{k=-1}^{1}\frac{1}{2}=(2\pi i)\frac{3}{2}=3\pi i.
+\]
 \end{document}
