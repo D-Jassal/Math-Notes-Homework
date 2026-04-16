@@ -1,0 +1,252 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\title{\textbf{Vector Calculus Final Exam Study Guide}}
+\author{Topics: Line Integrals, Green's, Stokes', Gauss', and Power Series}
+\date{}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{example}{Example}[section]
+
+\newcommand{\F}{\mathbf{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\curl}{\nabla \times}
+\newcommand{\divg}{\nabla \cdot}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Vector Fields \& Line Integrals (The Foundation)}
+
+\subsection{Conservative Vector Fields}
+A field $\F$ is \textbf{conservative} if it is the gradient of some scalar function $f$ (i.e., $\F = \nabla f$). In physics, $f$ is potential energy; $\F$ is force.
+
+\textbf{The Curl Test (3D):} If $\curl \F = \mathbf{0}$ \textbf{and} the domain is simply connected (no holes), then $\F$ is conservative.
+
+\textbf{The 2D Test:} If $\F = \langle P, Q \rangle$, it is conservative if 
+\[
+\frac{\partial Q}{\partial x} = \frac{\partial P}{\partial y}.
+\]
+
+\subsection{Line Integrals of Scalar Functions vs. Vector Fields}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Type} & \textbf{Formula} & \textbf{Physical Meaning} \\
+\hline
+Scalar & $\int_C f(x,y,z) \, ds$ & Mass of a wire with density $f$ \\
+\hline
+Vector & $\int_C \F \cdot d\mathbf{r}$ & Work done by force $\F$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{example}[Fundamental Theorem of Line Integrals]
+Evaluate $\int_C \F \cdot d\mathbf{r}$ where $\F = \langle 2x \cos y, -x^2 \sin y \rangle$ and $C$ is the curve $y = x^2$ from $(0,0)$ to $(1,1)$.
+\end{example}
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item \textbf{Check if Conservative:} $P = 2x \cos y$, $Q = -x^2 \sin y$.
+    \[
+    \frac{\partial P}{\partial y} = -2x \sin y, \quad \frac{\partial Q}{\partial x} = -2x \sin y \quad \Rightarrow \text{Matches! Conservative.}
+    \]
+    \item \textbf{Find Potential Function $f$:}
+    \begin{align*}
+        f_x &= 2x \cos y \implies f = x^2 \cos y + g(y) \\
+        f_y &= -x^2 \sin y + g'(y) = -x^2 \sin y \implies g'(y) = 0 \implies g(y) = C.
+    \end{align*}
+    So $f(x,y) = x^2 \cos y$.
+    \item \textbf{Apply Theorem:} $\int_C \F \cdot d\mathbf{r} = f(1,1) - f(0,0)$
+    \[
+    f(1,1) = 1^2 \cos(1) = \cos(1), \quad f(0,0) = 0.
+    \]
+    \textbf{Answer:} $\cos(1)$ (Path does not matter!).
+\end{enumerate}
+
+\section{Green's Theorem (Extended)}
+
+\textbf{Standard Form:} Connects circulation around boundary $C$ to curl inside region $R$.
+\[
+\oint_C P\,dx + Q\,dy = \iint_R \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dA
+\]
+
+\textbf{Extended Form (Regions with Holes):} If $R$ has a hole (like a donut), the boundary $C$ consists of an \textbf{outer curve (counterclockwise)} and an \textbf{inner curve (clockwise)}.
+
+\begin{example}[Green's Theorem on an Annulus]
+Verify Green's Theorem for $\F = \langle \frac{-y}{x^2+y^2}, \frac{x}{x^2+y^2} \rangle$ over the annulus $1 \le r \le 2$.
+\end{example}
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item \textbf{Check the Curl Term:} $P = \frac{-y}{x^2+y^2}$, $Q = \frac{x}{x^2+y^2}$.
+    You will find $\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = 0$ everywhere \textit{except} the origin.
+    \item \textbf{The ``Extended'' Insight:} Even though the double integral is $0$, the line integral is \textbf{not} zero because the origin (hole) is inside the region. Green's theorem states:
+    \[
+    \oint_{C_{\text{outer}}} \F \cdot d\mathbf{r} - \oint_{C_{\text{inner}}} \F \cdot d\mathbf{r} = \iint 0 \, dA = 0
+    \]
+    Therefore, $\oint_{C_{\text{outer}}} \F \cdot d\mathbf{r} = \oint_{C_{\text{inner}}} \F \cdot d\mathbf{r}$.
+    \item \textbf{Calculate inner circle} ($r=1$, $x=\cos t, y=\sin t$):
+    \begin{align*}
+        dx &= -\sin t\,dt, \quad dy = \cos t\,dt \\
+        P\,dx + Q\,dy &= (-\sin t)(-\sin t) + (\cos t)(\cos t) = \sin^2 t + \cos^2 t = 1.
+    \end{align*}
+    Integral $= \int_0^{2\pi} 1 \, dt = 2\pi$.
+    \textbf{Answer:} The line integral over \textit{any} curve enclosing the origin once counterclockwise is $2\pi$.
+\end{enumerate}
+
+\section{Stokes' Theorem (The Curl Theorem)}
+
+\textbf{Statement:}
+\[
+\oint_C \F \cdot d\mathbf{r} = \iint_S (\curl \F) \cdot \mathbf{n} \, dS
+\]
+\textit{The circulation around the edge equals the flux of the curl through the surface.}
+
+\textbf{Crucial Orientation:} Right-Hand Rule. Thumb points along normal $\mathbf{n}$, fingers curl in direction of $C$.
+
+\begin{example}[Stokes' Theorem]
+Evaluate $\iint_S \curl \F \cdot d\mathbf{S}$ where $\F = \langle -y, x, z \rangle$ and $S$ is the hemisphere $x^2+y^2+z^2=1, z \ge 0$.
+\end{example}
+
+\textbf{Solution (Using the shortcut):}
+Instead of computing the curl and a surface integral over the curved dome, Stokes' Theorem says we can just do a line integral around the \textbf{boundary}.
+The boundary is the circle $x^2+y^2=1$ in the $xy$-plane ($z=0$).
+
+\begin{enumerate}
+    \item \textbf{Parameterize Boundary $C$:} $\mathbf{r}(t) = \langle \cos t, \sin t, 0 \rangle$, $0 \le t \le 2\pi$.
+    \item \textbf{Orientation:} Looking down from positive $z$, normal is UP, so $C$ is counterclockwise.
+    \item \textbf{Evaluate Line Integral:}
+    \begin{align*}
+        \F(\mathbf{r}(t)) &= \langle -\sin t, \cos t, 0 \rangle \\
+        d\mathbf{r} &= \langle -\sin t, \cos t, 0 \rangle dt \\
+        \F \cdot d\mathbf{r} &= \sin^2 t + \cos^2 t = 1.
+    \end{align*}
+    \item \textbf{Integrate:} $\int_0^{2\pi} 1 \, dt = 2\pi$.
+\end{enumerate}
+
+\section{Gauss' Theorem (The Divergence Theorem)}
+
+\textbf{Statement:}
+\[
+\iint_{\partial E} \F \cdot d\mathbf{S} = \iiint_E (\divg \F) \, dV
+\]
+\textit{The flux out of the closed surface equals the integral of the divergence inside the volume.}
+
+\begin{example}[Divergence Theorem]
+Find the flux of $\F = \langle x^3, y^3, z^3 \rangle$ through the sphere $x^2+y^2+z^2=4$.
+\end{example}
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item \textbf{Divergence:} $\divg \F = 3x^2 + 3y^2 + 3z^2 = 3(x^2+y^2+z^2) = 3\rho^2$.
+    \item \textbf{Set up Volume Integral:} Use spherical coordinates.
+    \begin{align*}
+        \iiint_E 3\rho^2 \, dV &= 3 \int_0^{2\pi} \int_0^\pi \int_0^2 \rho^2 \cdot \rho^2 \sin\phi \, d\rho \, d\phi \, d\theta \\
+        &= 3 \int_0^{2\pi} d\theta \int_0^\pi \sin\phi \, d\phi \int_0^2 \rho^4 \, d\rho \\
+        &= 3 \cdot (2\pi) \cdot (2) \cdot \left[ \frac{\rho^5}{5} \right]_0^2 \\
+        &= 12\pi \cdot \frac{32}{5} = \frac{384\pi}{5}.
+    \end{align*}
+\end{enumerate}
+
+\section{Power Series \& Taylor/Maclaurin Series}
+
+\subsection{Key Maclaurin Series to Memorize}
+\begin{align*}
+    \frac{1}{1-x} &= \sum_{n=0}^\infty x^n = 1 + x + x^2 + \dots \quad (|x| < 1) \\
+    e^x &= \sum_{n=0}^\infty \frac{x^n}{n!} = 1 + x + \frac{x^2}{2} + \dots \quad (\text{All } x) \\
+    \sin x &= \sum_{n=0}^\infty \frac{(-1)^n x^{2n+1}}{(2n+1)!} = x - \frac{x^3}{6} + \dots \quad (\text{All } x) \\
+    \cos x &= \sum_{n=0}^\infty \frac{(-1)^n x^{2n}}{(2n)!} = 1 - \frac{x^2}{2} + \dots \quad (\text{All } x) \\
+    \ln(1+x) &= \sum_{n=1}^\infty \frac{(-1)^{n-1} x^n}{n} = x - \frac{x^2}{2} + \dots \quad (-1 < x \le 1)
+\end{align*}
+
+\begin{example}[Finding a Series via Substitution]
+Find the Maclaurin series for $f(x) = x^2 e^{-x}$.
+\end{example}
+
+\textbf{Solution:}
+Start with $e^u = \sum_{n=0}^\infty \frac{u^n}{n!}$.
+Substitute $u = -x$:
+\[
+e^{-x} = \sum_{n=0}^\infty \frac{(-x)^n}{n!} = \sum_{n=0}^\infty \frac{(-1)^n x^n}{n!}.
+\]
+Multiply by $x^2$:
+\[
+x^2 e^{-x} = \sum_{n=0}^\infty \frac{(-1)^n x^{n+2}}{n!}.
+\]
+(You may shift the index if required, but this is a valid answer).
+
+\section{Taylor's Remainder Theorem}
+
+\textbf{Statement (Lagrange Remainder):} If you approximate $f(x)$ by the $n$-th degree Taylor polynomial $P_n(x)$, the error $R_n(x)$ is:
+\[
+R_n(x) = \frac{f^{(n+1)}(c)}{(n+1)!} (x-a)^{n+1}
+\]
+where $c$ is some number between $a$ and $x$.
+
+\begin{example}[Bounding the Error]
+Use the Maclaurin polynomial of degree 2 for $f(x) = \sqrt{1+x}$ to estimate $\sqrt{1.1}$. Bound the error.
+\end{example}
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item \textbf{Derivatives:}
+    \begin{align*}
+        f(x) &= (1+x)^{1/2} \implies f(0)=1 \\
+        f'(x) &= \frac{1}{2}(1+x)^{-1/2} \implies f'(0)=\frac{1}{2} \\
+        f''(x) &= -\frac{1}{4}(1+x)^{-3/2} \implies f''(0)=-\frac{1}{4}
+    \end{align*}
+    \item \textbf{Polynomial $P_2(x)$:}
+    \[
+    P_2(x) = 1 + \frac{1}{2}x - \frac{1}{8}x^2
+    \]
+    \item \textbf{Estimate $\sqrt{1.1}$:} $x = 0.1$.
+    \[
+    P_2(0.1) = 1 + 0.05 - \frac{1}{8}(0.01) = 1.05 - 0.00125 = 1.04875.
+    \]
+    \item \textbf{Error Bound ($n=2$, $a=0$, $x=0.1$):}
+    Need third derivative: $f'''(x) = \frac{3}{8}(1+x)^{-5/2}$.
+    The remainder is $R_2(0.1) = \frac{f'''(c)}{3!}(0.1)^3$.
+    We need the \textbf{maximum} of $|f'''(c)|$ on the interval $[0, 0.1]$.
+    Since the denominator $(1+c)^{5/2}$ is smallest when $c=0$, the maximum occurs at $c=0$.
+    $|f'''(c)| \le \frac{3}{8}$.
+    \[
+    |R_2(0.1)| \le \frac{3/8}{6} (0.001) = \frac{3}{48} \cdot \frac{1}{1000} = \frac{1}{16} \cdot \frac{1}{1000} = 0.0000625
+    \]
+    \textbf{Conclusion:} The true value is between $1.04875 \pm 0.0000625$.
+\end{enumerate}
+
+\section{Final Exam Strategy Map}
+Use this flowchart to decide which theorem to apply:
+
+\begin{enumerate}
+    \item \textbf{Is the curve closed?}
+    \begin{itemize}
+        \item Yes $\to$ Is the vector field 2D? $\to$ \textbf{Green's Theorem}.
+        \item Yes $\to$ Is the vector field 3D? $\to$ Is there an open surface bounded by it? $\to$ \textbf{Stokes' Theorem}.
+    \end{itemize}
+    \item \textbf{Is the surface closed?} (e.g., a sphere, a cube).
+    \begin{itemize}
+        \item Yes $\to$ \textbf{Gauss' Divergence Theorem} (Volume integral).
+    \end{itemize}
+    \item \textbf{Is the curve open?}
+    \begin{itemize}
+        \item Yes $\to$ Check if $\curl \F = \mathbf{0}$. If yes $\to$ \textbf{Fundamental Theorem of Line Integrals} (Find potential $f$).
+        \item If not conservative $\to$ \textbf{Parameterize and integrate directly} ($\int_a^b \F(\mathbf{r}(t)) \cdot \mathbf{r}'(t) \, dt$).
+    \end{itemize}
+    \item \textbf{Are you just evaluating an infinite sum?}
+    \begin{itemize}
+        \item Try to match it to the Maclaurin series formulas above (especially $e^x$, $\sin x$, $\cos x$, or the geometric series $\frac{1}{1-x}$).
+    \end{itemize}
+\end{enumerate}
+
+\end{document}

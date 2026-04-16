@@ -1,0 +1,456 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+}
+
+% Custom commands
+\newcommand{\vect}[1]{\mathbf{#1}}
+\newcommand{\grad}{\nabla}
+\newcommand{\curl}{\nabla\times}
+\newcommand{\divg}{\nabla\cdot}
+\newcommand{\R}{\mathbb{R}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}[section]
+\newtheorem{tip}{Exam Tip}[section]
+
+% For integrals
+\newcommand{\oiint}{\oint\!\!\oint}
+\newcommand{\dint}{\displaystyle\int}
+
+\title{Vector Calculus}
+\author{Final Exam Study Guide}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\large \textbf{Line Integrals • Vector Fields • Green's Theorem • Stokes' Theorem • Divergence Theorem \\ Power Series • Taylor's Remainder}
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{Topics Covered}
+\begin{enumerate}[label=\arabic*.]
+    \item Line Integrals
+    \item Vector Fields
+    \item Green's Theorem (Extended)
+    \item Stokes' Theorem
+    \item Gauss' Theorem (Divergence Theorem)
+    \item Power Series (Taylor \& Maclaurin Series)
+    \item Taylor's Remainder Theorem
+\end{enumerate}
+
+\section{Line Integrals}
+
+\subsection{Scalar Line Integrals}
+A scalar line integral integrates a function \(f(x,y,z)\) along a curve \(C\). It adds up the value of \(f\) at each tiny piece of the curve, weighted by arc length.
+
+\[
+\boxed{\int_C f\,ds = \int_a^b f(\mathbf{r}(t))\,\|\mathbf{r}'(t)\|\,dt}
+\]
+
+where \(\mathbf{r}(t)=\langle x(t), y(t), z(t)\rangle\) is a parametrization of \(C\) on \([a,b]\), and \(\|\mathbf{r}'(t)\| = \sqrt{(x')^2+(y')^2+(z')^2}\) is the speed.
+
+\subsection{Vector Line Integrals (Work Integrals)}
+A vector line integral measures the work done by a vector field \(\mathbf{F}\) along \(C\).
+
+\[
+\boxed{\int_C \mathbf{F}\cdot d\mathbf{r} = \int_a^b \mathbf{F}(\mathbf{r}(t))\cdot \mathbf{r}'(t)\,dt}
+\]
+
+This can also be written as \(\int_C P\,dx + Q\,dy + R\,dz\).
+
+\subsection{Properties}
+\begin{itemize}
+    \item \textbf{Linearity:} \(\int_C (a\mathbf{F}+b\mathbf{G})\cdot d\mathbf{r} = a\int_C \mathbf{F}\cdot d\mathbf{r} + b\int_C \mathbf{G}\cdot d\mathbf{r}\)
+    \item \textbf{Orientation:} Reversing \(C\) negates the integral: \(\int_{-C} \mathbf{F}\cdot d\mathbf{r} = -\int_C \mathbf{F}\cdot d\mathbf{r}\)
+    \item \textbf{Additivity:} If \(C = C_1 + C_2\), then \(\int_C = \int_{C_1} + \int_{C_2}\)
+\end{itemize}
+
+\begin{example}[Scalar Line Integral]
+Evaluate \(\int_C (x+y)\,ds\) along \(C: \mathbf{r}(t)=\langle\cos t,\sin t\rangle,\ t\in[0,\pi/2]\).
+
+\textbf{Solution:}
+\begin{align*}
+\mathbf{r}'(t) &= \langle -\sin t,\cos t\rangle \\
+\|\mathbf{r}'(t)\| &= \sqrt{\sin^2 t + \cos^2 t} = 1 \\
+f(\mathbf{r}(t)) &= \cos t + \sin t \\
+\int_C (x+y)\,ds &= \int_0^{\pi/2} (\cos t+\sin t)(1)\,dt = \bigl[\sin t - \cos t\bigr]_0^{\pi/2} = (1-0)-(0-1)=2.
+\end{align*}
+\end{example}
+
+\begin{example}[Work Integral]
+Find the work done by \(\mathbf{F}(x,y)=\langle y, x\rangle\) along \(\mathbf{r}(t)=\langle t,t^2\rangle,\ t\in[0,1]\).
+
+\textbf{Solution:}
+\begin{align*}
+\mathbf{r}'(t) &= \langle 1, 2t\rangle \\
+\mathbf{F}(\mathbf{r}(t)) &= \langle t^2, t\rangle \\
+\mathbf{F}\cdot\mathbf{r}' &= t^2(1) + t(2t) = 3t^2 \\
+\text{Work} &= \int_0^1 3t^2\,dt = \bigl[t^3\bigr]_0^1 = 1.
+\end{align*}
+\end{example}
+
+\begin{tip}
+Always write out \(\mathbf{r}'(t)\) explicitly before computing the dot product. A common error is forgetting to multiply by \(\|\mathbf{r}'(t)\|\) for scalar integrals.
+\end{tip}
+
+\section{Vector Fields}
+
+\subsection{Definition \& Notation}
+A vector field assigns a vector to each point in space:
+\[
+\mathbf{F}(x,y,z) = \langle P(x,y,z), Q(x,y,z), R(x,y,z)\rangle.
+\]
+
+\subsection{Conservative Vector Fields}
+\(\mathbf{F}\) is conservative if \(\mathbf{F} = \grad f\) for some scalar potential \(f\). This is the most important property for line integrals.
+
+\paragraph{Conservative Field Test (2D)}
+\(\mathbf{F}=\langle P,Q\rangle\) is conservative on a simply connected domain iff
+\[
+\frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x} \quad (\text{i.e., curl is zero}).
+\]
+
+\paragraph{Conservative Field Test (3D)}
+\(\mathbf{F}=\langle P,Q,R\rangle\) is conservative iff \(\curl \mathbf{F}=0\):
+\[
+\frac{\partial R}{\partial y} = \frac{\partial Q}{\partial z},\quad \frac{\partial P}{\partial z} = \frac{\partial R}{\partial x},\quad \frac{\partial Q}{\partial x} = \frac{\partial P}{\partial y}.
+\]
+
+\subsection{Finding the Potential Function}
+If \(\mathbf{F}=\langle P,Q\rangle\) is conservative, find \(f\) with \(\frac{\partial f}{\partial x}=P,\ \frac{\partial f}{\partial y}=Q\):
+\begin{enumerate}
+    \item Integrate \(P\) w.r.t. \(x\): \(f = \int P\,dx + g(y)\).
+    \item Differentiate w.r.t. \(y\) and set equal to \(Q\) to find \(g'(y)\).
+    \item Integrate \(g'(y)\) to get \(g(y)\).
+\end{enumerate}
+
+\subsection{Fundamental Theorem for Line Integrals}
+\[
+\boxed{\int_C \grad f\cdot d\mathbf{r} = f(\mathbf{r}(b)) - f(\mathbf{r}(a))}
+\]
+The integral depends only on the endpoints — the path doesn't matter!
+
+\begin{example}[Finding Potential Function]
+Show \(\mathbf{F} = \langle 2xy+1,\ x^2+3y^2\rangle\) is conservative and find \(f\).
+
+\textbf{Solution:}
+Check: \(\frac{\partial P}{\partial y}=2x,\ \frac{\partial Q}{\partial x}=2x\) \(\Rightarrow\) conservative.
+
+\(f = \int (2xy+1)\,dx = x^2y + x + g(y)\).  
+\(\frac{\partial f}{\partial y}=x^2+g'(y)=Q=x^2+3y^2\) \(\Rightarrow\) \(g'(y)=3y^2\) \(\Rightarrow\) \(g(y)=y^3+C\).  
+Thus \(f(x,y)=x^2y + x + y^3 + C\).
+\end{example}
+
+\subsection{Divergence \& Curl}
+\[
+\divg \mathbf{F} = \grad\cdot\mathbf{F} = \frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z}\quad\text{(scalar)}
+\]
+\[
+\curl \mathbf{F} = \grad\times\mathbf{F} = \left\langle \frac{\partial R}{\partial y}-\frac{\partial Q}{\partial z},\ \frac{\partial P}{\partial z}-\frac{\partial R}{\partial x},\ \frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\right\rangle \quad\text{(vector)}
+\]
+\begin{itemize}
+    \item \(\divg\mathbf{F}>0\): source (fluid flowing out)
+    \item \(\divg\mathbf{F}<0\): sink (fluid flowing in)
+    \item \(\curl\mathbf{F}=0\) implies \(\mathbf{F}\) is irrotational (necessary for conservative in 3D)
+\end{itemize}
+
+\section{Green's Theorem (Extended)}
+
+\begin{theorem}[Green's Theorem]
+Let \(C\) be a positively oriented (counterclockwise), piecewise-smooth, simple closed curve bounding region \(D\). If \(P,Q\) have continuous partial derivatives on \(D\):
+\[
+\boxed{\oint_C P\,dx + Q\,dy = \iint_D \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right)dA}
+\]
+\end{theorem}
+
+\subsection{Key Idea}
+Green's theorem converts a line integral around a closed curve into a double integral over the enclosed region, or vice versa.
+
+\subsection{Extended Version: Regions with Holes}
+For a region \(D\) with a hole, the boundary consists of outer curve \(C_1\) (CCW) and inner curve \(C_2\) (CW). Green's theorem becomes:
+\[
+\int_{C_1+C_2} \mathbf{F}\cdot d\mathbf{r} = \iint_D \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right)dA.
+\]
+
+\subsection{Vector Forms}
+\begin{itemize}
+    \item \textbf{Circulation/Curl form:} \(\oint_C \mathbf{F}\cdot d\mathbf{r} = \iint_D (\curl\mathbf{F})\cdot\mathbf{k}\,dA\)
+    \item \textbf{Flux/Divergence form:} \(\oint_C \mathbf{F}\cdot\mathbf{n}\,ds = \iint_D \divg\mathbf{F}\,dA\)
+\end{itemize}
+
+\subsection{Area Formula via Green's Theorem}
+\[
+\operatorname{Area}(D) = \frac12 \oint_C (x\,dy - y\,dx)
+\]
+
+\begin{example}[Applying Green's Theorem]
+Evaluate \(\oint_C (y^2\,dx + 3xy\,dy)\) where \(C\) is the boundary of the rectangle \([0,2]\times[0,1]\), oriented CCW.
+
+\textbf{Solution:}
+\(P=y^2,\ Q=3xy\).  
+\(\frac{\partial Q}{\partial x}=3y,\ \frac{\partial P}{\partial y}=2y\) \(\Rightarrow\) \(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}=y\).  
+By Green's theorem:
+\[
+\oint_C = \iint_D y\,dA = \int_0^1\int_0^2 y\,dx\,dy = \int_0^1 2y\,dy = \bigl[y^2\bigr]_0^1 = 1.
+\]
+\end{example}
+
+\begin{tip}
+Always check orientation: \(C\) must be positively oriented (CCW). If \(C\) is clockwise, you get a negative sign. For holes, the inner boundary runs clockwise.
+\end{tip}
+
+\section{Stokes' Theorem}
+
+\begin{theorem}[Stokes' Theorem]
+Let \(S\) be an oriented, piecewise-smooth surface bounded by a simple closed curve \(C\). If \(\mathbf{F}\) has continuous partial derivatives:
+\[
+\boxed{\oint_C \mathbf{F}\cdot d\mathbf{r} = \iint_S (\curl\mathbf{F})\cdot d\mathbf{S}}
+\]
+where the orientation of \(C\) is consistent with the orientation of \(S\) (right-hand rule).
+\end{theorem}
+
+\subsection{Key Idea}
+Stokes' theorem generalizes Green's theorem to 3D surfaces. It relates a line integral around \(C\) to a surface integral of the curl over any surface \(S\) bounded by \(C\).
+
+\subsection{Computing the Surface Integral Side}
+When \(S\) is parametrized by \(\mathbf{r}(u,v)\) over domain \(D\):
+\[
+\iint_S (\curl\mathbf{F})\cdot d\mathbf{S} = \iint_D (\curl\mathbf{F})(\mathbf{r}(u,v))\cdot (\mathbf{r}_u\times\mathbf{r}_v)\,dA.
+\]
+
+\subsection{Strategy for Using Stokes' Theorem}
+\begin{itemize}
+    \item Choose the easiest surface bounded by \(C\) (often a flat surface in the \(xy\), \(xz\), or \(yz\) plane).
+    \item Compute \(\curl\mathbf{F}\).
+    \item Set up the surface integral with normal vector via cross product.
+    \item Or use it in reverse: simplify a complex surface integral to a line integral.
+\end{itemize}
+
+\begin{example}[Using Stokes' Theorem]
+Evaluate \(\oint_C \mathbf{F}\cdot d\mathbf{r}\) where \(\mathbf{F}=\langle -y^2, x, z^2\rangle\) and \(C\) is the curve of intersection of the plane \(y+z=2\) and cylinder \(x^2+y^2=1\), oriented CCW from above.
+
+\textbf{Solution:} Choose \(S\): the portion of plane \(y+z=2\) inside the cylinder.  
+Parametrize: \(\mathbf{r}(x,y)=\langle x, y, 2-y\rangle\) over \(D: x^2+y^2\le 1\).
+
+\[
+\curl\mathbf{F} = \left\langle \frac{\partial z^2}{\partial y}-\frac{\partial x}{\partial z},\ \frac{\partial(-y^2)}{\partial z}-\frac{\partial z^2}{\partial x},\ \frac{\partial x}{\partial x}-\frac{\partial(-y^2)}{\partial y}\right\rangle = \langle 0,0,1+2y\rangle.
+\]
+
+Normal: \(\mathbf{r}_x\times\mathbf{r}_y = \langle1,0,0\rangle\times\langle0,1,-1\rangle = \langle0,1,1\rangle\).
+
+\[
+\oint_C \mathbf{F}\cdot d\mathbf{r} = \iint_D \langle0,0,1+2y\rangle\cdot\langle0,1,1\rangle\,dA = \iint_D (1+2y)\,dA.
+\]
+
+By symmetry, \(\iint_D 2y\,dA = 0\) (odd over symmetric disk). Thus
+\[
+\iint_D 1\,dA = \pi(1)^2 = \pi.
+\]
+\end{example}
+
+\begin{tip}
+Stokes' theorem lets you replace any surface bounded by \(C\) with a simpler one. A flat disk in the \(xy\)-plane is usually the easiest choice.
+\end{tip}
+
+\section{Gauss' Theorem (Divergence Theorem)}
+
+\begin{theorem}[Divergence Theorem]
+Let \(E\) be a simple solid region with boundary surface \(S\) (outward normal). If \(\mathbf{F}\) has continuous partial derivatives:
+\[
+\boxed{\iint_S \mathbf{F}\cdot d\mathbf{S} = \iiint_E \divg\mathbf{F}\,dV}
+\]
+where \(\divg\mathbf{F} = \frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z}\).
+\end{theorem}
+
+\subsection{Key Idea}
+The divergence theorem relates the total flux of \(\mathbf{F}\) out through a closed surface \(S\) to the triple integral of the divergence throughout the volume \(E\).
+
+\subsection{Strategy}
+\begin{itemize}
+    \item Compute \(\divg\mathbf{F}\).
+    \item Set up the triple integral over the enclosed volume \(E\).
+    \item Use cylindrical or spherical coordinates for spheres/cylinders.
+    \item If \(\divg\mathbf{F}\) is constant, the integral equals \(\divg\mathbf{F}\cdot \operatorname{Volume}(E)\).
+\end{itemize}
+
+\subsection{Closed Surfaces with Multiple Pieces}
+If the surface \(S\) has multiple pieces (e.g., a cylinder with top, bottom, and lateral surface), use the divergence theorem to convert to a single volume integral instead of computing each piece separately.
+
+\begin{example}[Divergence Theorem]
+Evaluate \(\iint_S \mathbf{F}\cdot d\mathbf{S}\) where \(\mathbf{F}=\langle x^3, y^3, z^3\rangle\) and \(S\) is the sphere \(x^2+y^2+z^2=4\).
+
+\textbf{Solution:} \(\divg\mathbf{F}=3x^2+3y^2+3z^2 = 3(x^2+y^2+z^2)=3\rho^2\). In spherical coordinates:
+\[
+\iiint_E 3\rho^2\,dV = \int_0^{2\pi}\int_0^{\pi}\int_0^2 3\rho^2\cdot\rho^2\sin\phi\,d\rho\,d\phi\,d\theta = \left(\int_0^{2\pi}d\theta\right)\left(\int_0^{\pi}\sin\phi\,d\phi\right)\left(\int_0^2 3\rho^4\,d\rho\right)
+\]
+\[
+= (2\pi)(2)\left(3\cdot\frac{2^5}{5}\right) = 4\pi\cdot\frac{96}{5} = \frac{384\pi}{5}.
+\]
+\end{example}
+
+\begin{example}[Divergence Theorem with Constant Divergence]
+Find the flux of \(\mathbf{F}=\langle 2x+1,\ 3y,\ z^2\rangle\) out of the cube \([0,1]^3\).
+
+\textbf{Solution:} \(\divg\mathbf{F}=2+3+2z=5+2z\).
+\[
+\iiint_E (5+2z)\,dV = \int_0^1\int_0^1\int_0^1 (5+2z)\,dx\,dy\,dz = \int_0^1 (5+2z)\,dz = \bigl[5z+z^2\bigr]_0^1 = 6.
+\]
+\end{example}
+
+\begin{tip}
+Use the Divergence Theorem when the surface is closed and computing the surface integral directly is messy (e.g., sphere, cylinder). It's especially powerful when \(\divg\mathbf{F}\) simplifies nicely.
+\end{tip}
+
+\section{Power Series (Taylor \& Maclaurin Series)}
+
+\subsection{Power Series}
+A power series centered at \(a\) is:
+\[
+\sum_{n=0}^{\infty} c_n (x-a)^n = c_0 + c_1(x-a) + c_2(x-a)^2 + \cdots
+\]
+The radius of convergence \(R\) is found via the Ratio Test:
+\[
+R = \lim_{n\to\infty} \left|\frac{c_n}{c_{n+1}}\right| \quad (\text{or } \frac{1}{\limsup |c_n|^{1/n}}).
+\]
+The series converges for \(|x-a|<R\), diverges for \(|x-a|>R\). At \(|x-a|=R\), check separately.
+
+\subsection{Taylor Series}
+The Taylor series of \(f\) centered at \(x=a\):
+\[
+f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n = f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \frac{f'''(a)}{3!}(x-a)^3 + \cdots
+\]
+
+\subsection{Maclaurin Series (\(a=0\))}
+Standard Maclaurin series you must know:
+\[
+\begin{array}{ll}
+e^x = \displaystyle\sum_{n=0}^{\infty} \frac{x^n}{n!}, & \text{all } x \\[6pt]
+\sin x = \displaystyle\sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{(2n+1)!}, & \text{all } x \\[6pt]
+\cos x = \displaystyle\sum_{n=0}^{\infty} (-1)^n \frac{x^{2n}}{(2n)!}, & \text{all } x \\[6pt]
+\frac{1}{1-x} = \displaystyle\sum_{n=0}^{\infty} x^n, & |x|<1 \\[6pt]
+\frac{1}{1+x} = \displaystyle\sum_{n=0}^{\infty} (-1)^n x^n, & |x|<1 \\[6pt]
+\ln(1+x) = \displaystyle\sum_{n=1}^{\infty} (-1)^{n-1} \frac{x^n}{n}, & -1 < x \le 1 \\[6pt]
+\arctan x = \displaystyle\sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{2n+1}, & |x|\le 1
+\end{array}
+\]
+
+\subsection{Operations on Power Series}
+\begin{itemize}
+    \item \textbf{Substitution:} replace \(x\) by \(u\) (e.g., \(e^{x^2} = \sum \frac{x^{2n}}{n!}\)).
+    \item \textbf{Differentiation:} differentiate term by term within the radius of convergence.
+    \item \textbf{Integration:} integrate term by term within the radius of convergence.
+    \item \textbf{Multiplication:} multiply series term by term (Cauchy product).
+\end{itemize}
+
+\begin{example}[Find the Taylor Series]
+Find the Maclaurin series for \(f(x)=x^2 e^{-x}\).
+
+\textbf{Solution:} \(e^u = \sum_{n=0}^{\infty} \frac{u^n}{n!}\). Substitute \(u=-x\): \(e^{-x} = \sum_{n=0}^{\infty} (-1)^n \frac{x^n}{n!}\).  
+Multiply by \(x^2\):
+\[
+x^2 e^{-x} = \sum_{n=0}^{\infty} (-1)^n \frac{x^{n+2}}{n!} = x^2 - x^3 + \frac{x^4}{2!} - \frac{x^5}{3!} + \cdots
+\]
+\end{example}
+
+\section{Taylor's Remainder Theorem}
+
+\subsection{Taylor Polynomials}
+The \(n\)th degree Taylor polynomial of \(f\) centered at \(a\) is:
+\[
+T_n(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(x-a)^k.
+\]
+
+\subsection{Taylor's Remainder (Lagrange Form)}
+The error \(R_n(x)=f(x)-T_n(x)\) satisfies:
+\[
+\boxed{R_n(x) = \frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1} \quad \text{for some } c \text{ between } a \text{ and } x.}
+\]
+Error bound:
+\[
+|R_n(x)| \le \frac{M|x-a|^{n+1}}{(n+1)!},
+\]
+where \(M\) is any number such that \(|f^{(n+1)}(t)|\le M\) for all \(t\) between \(a\) and \(x\).
+
+\subsection{Using the Error Bound}
+\begin{enumerate}
+    \item Identify \(n\) (degree of polynomial).
+    \item Bound the \((n+1)\)th derivative: find \(M\ge |f^{(n+1)}(t)|\) on the interval.
+    \item Plug into the formula: error \(\le \frac{M|x-a|^{n+1}}{(n+1)!}\).
+\end{enumerate}
+
+\subsection{Convergence of Taylor Series}
+The Taylor series converges to \(f(x)\) iff \(\lim_{n\to\infty} R_n(x)=0\).
+
+\begin{example}[Bounding the Error]
+Approximate \(e^{0.1}\) using \(T_3(x)\) centered at \(a=0\) and bound the error.
+
+\textbf{Solution:} \(T_3(x)=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}\).  
+\(T_3(0.1)=1+0.1+0.005+0.000166\ldots=1.10517\).
+
+Error bound: \(R_3(0.1)=\frac{f^{(4)}(c)}{4!}(0.1)^4\) for some \(c\in(0,0.1)\).  
+\(f(x)=e^x\), \(f^{(4)}(x)=e^x\). On \((0,0.1)\), \(e^c < e^{0.1} < e < 3\), so take \(M=3\).  
+\(|R_3(0.1)|\le 3\cdot\frac{(0.1)^4}{4!}=3\cdot\frac{0.0001}{24}=0.0000125\).  
+Thus the error is at most \(1.25\times10^{-5}\).
+\end{example}
+
+\begin{example}[How many terms do I need?]
+How many terms of the Maclaurin series for \(\sin x\) are needed to approximate \(\sin(0.5)\) with error \(<0.0001\)?
+
+\textbf{Solution:} \(\sin x = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \cdots\) (alternating). For alternating series, error after \(n\) terms is bounded by the first omitted term: \(|R_n|\le |a_{n+1}| = \frac{(0.5)^{2n+3}}{(2n+3)!}\).
+
+\begin{itemize}
+    \item \(n=1\) (\(T_1=x\)): error \(\le \frac{(0.5)^3}{3!}=0.125/6=0.0208\) (too big)
+    \item \(n=2\) (\(T_3=x-x^3/3!\)): error \(\le \frac{(0.5)^5}{5!}=0.03125/120\approx0.000260\) (too big)
+    \item \(n=3\) (\(T_5=x-x^3/3!+x^5/5!\)): error \(\le \frac{(0.5)^7}{7!}=0.0000127<0.0001\) OK.
+\end{itemize}
+Answer: 3 nonzero terms (up to \(x^5\)) is sufficient.
+\end{example}
+
+\begin{tip}
+For alternating series, the error is simply bounded by the first omitted term. For non-alternating series like \(e^x\), you must use the Lagrange form and bound the derivative.
+\end{tip}
+
+\section*{Quick Reference: Formula Sheet}
+\subsection*{Theorems at a Glance}
+\[
+\begin{array}{lll}
+\textbf{Theorem} & \textbf{Formula} & \textbf{Key Condition} \\
+\hline
+\text{FTLI} & \int_C \grad f\cdot d\mathbf{r}=f(B)-f(A) & \mathbf{F}\text{ conservative} \\
+\text{Green's} & \oint_C \mathbf{F}\cdot d\mathbf{r}=\iint_D \left(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\right)dA & C\text{ closed, CCW, 2D} \\
+\text{Stokes'} & \oint_C \mathbf{F}\cdot d\mathbf{r}=\iint_S \curl\mathbf{F}\cdot d\mathbf{S} & C=\partial S \\
+\text{Divergence} & \iint_S \mathbf{F}\cdot d\mathbf{S}=\iiint_E \divg\mathbf{F}\,dV & S\text{ closed surface} \\
+\text{Taylor Error} & |R_n|\le \frac{M|x-a|^{n+1}}{(n+1)!} & M\text{ bounds }|f^{(n+1)}|
+\end{array}
+\]
+
+\subsection*{Common Pitfalls}
+\begin{itemize}
+    \item \textbf{Line integrals:} missing \(\|\mathbf{r}'(t)\|\) factor in scalar integrals (vs vector integrals).
+    \item \textbf{Green's theorem:} wrong orientation — must be CCW (positive orientation).
+    \item \textbf{Green's theorem:} not applicable if \(\mathbf{F}\) has a singularity inside \(C\).
+    \item \textbf{Stokes':} normal vector orientation must match \(C\) orientation via right-hand rule.
+    \item \textbf{Divergence theorem:} only for closed surfaces — if surface is open, cannot use directly.
+    \item \textbf{Taylor remainder:} \(M\) must bound \(|f^{(n+1)}|\) on the \emph{entire} interval, not just at endpoints.
+    \item \textbf{Power series:} always check convergence at endpoints separately.
+\end{itemize}
+
+\end{document}
