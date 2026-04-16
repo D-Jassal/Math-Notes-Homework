@@ -39,16 +39,79 @@
 \section*{Problem 1 [5 Marks]}
 Let $F(s)=\sum_{n\ge 1} \frac{a_n}{n^s}$ be a Dirichlet series that converges absolutely for $\Re s>\kappa>0$. Let $x\ge 1$. Prove that
 \[
-\sum_{n\ge 1} a_n e^{-n/x} = \frac1{2\pi i} \int_{\kappa-i\infty}^{\kappa+i\infty} F(s) \Gamma(s) x^s ds.
+    \sum_{n\ge 1} a_n e^{-n/x} = \frac1{2\pi i} \int_{\kappa-i\infty}^{\kappa+i\infty} F(s) \Gamma(s) x^s ds.
 \]
-
+\begin{proof}
+    The inverse Mellin transform of $\Gamma(x)$ is $e^{-x}$, from here we have
+    \[
+        e^{-n/x}=\frac{1}{2\pi i}\int_{\kappa-i\infty}^{\kappa+i\infty}\Gamma(s)n^{-s}x^s\,ds.
+    \]
+    Multiplying both sides by the sum we obtain
+    \[
+        \sum_{n\ge 1} a_ne^{-n/x}=\frac{1}{2\pi i}\sum_{n\ge 1} \int_{\kappa-i\infty}^{\kappa+i\infty}\Gamma(s)a_nn^{-s}x^s\,ds.
+    \]    
+    We can switch the summation and integration on the RHS since $a_nn^{-s}$ converges absolutely here and $\Gamma(\kappa+it)\to0$ as $|t|\to\infty$. 
+    \[
+        \sum_{n\ge 1} a_ne^{-n/x}=\frac{1}{2\pi i} \int_{\kappa-i\infty}^{\kappa+i\infty}\sum_{n\ge 1}a_nn^{-s}\Gamma(s)x^s\,ds.
+    \]
+    Simplificiation gives     
+    \[
+        \sum_{n\ge 1} a_ne^{-n/x}=\frac{1}{2\pi i} \int_{\kappa-i\infty}^{\kappa+i\infty}F(s)\Gamma(s)x^s\,ds.\qedhere
+    \] 
+\end{proof}
 \stepcounter{section}
 \section*{Problem 2 [5 marks]} 
-Let $F(s)=\sum_{n=1}^{\infty}\frac{f(n)}{n^s}$ with $|f(n)|\ll n^{\epsilon}$ for any $\epsilon>0$ . Let $x$ be not an integer and $c>1$.  Show that 
+Let $F(s)=\sum_{n=1}^{\infty}\frac{f(n)}{n^s}$ with $|f(n)|\ll n^{\varepsilon}$ for any $\varepsilon>0$ . Let $x$ be not an integer and $c>1$.  Show that 
 \[
-    \sum_{n\leq x}f(n)=\frac{1}{2\pi i}\int_{c-iT}^{c+iT}F(s)\frac{x^s}{s}\;ds+O\left(\frac{x^{c+\epsilon}}{T}\right).
+    \sum_{n\leq x}f(n)=\frac{1}{2\pi i}\int_{c-iT}^{c+iT}F(s)\frac{x^s}{s}\;ds+O\left(\frac{x^{c+\varepsilon}}{T}\right).
 \]
-
+\begin{proof}
+    \begin{align*}
+        \frac{1}{2\pi i}\int_{c-iT}^{c+iT}F(s)\frac{x^s}{s}\;ds&=\frac{1}{2\pi i}\int_{c-iT}^{c+iT}\left(\sum_{n=1}^{\infty}\frac{f(n)}{n^s}\right)\frac{x^s}{s}\;ds\\
+        &=\frac{1}{2\pi i}\sum_{n=1}^{\infty}f(n)\int_{c-iT}^{c+iT}\frac{(x/n)^s}{s}\;ds
+    \end{align*}
+    The interchange is justified since the series converges absolutely and uniformly on the segment $[c-iT,c+iT]$. By lemma 4.16 we have
+    \[
+        \frac{1}{2\pi i}\int_{c-iT}^{c+iT}\frac{(x/n)^s}{s}\;ds=
+        \begin{cases}
+            1+O\left(\frac{(x/n)^c}{T(|\log(x/n)|)}\right)&n<x\\
+            O\left(\frac{(x/n)^c}{T(|\log(x/n)|)}\right)&x<n.
+        \end{cases}
+    \]
+    Using this we get
+    \[
+        \frac{1}{2\pi i}\sum_{n=1}^{\infty}f(n)\int_{c-iT}^{c+iT}\frac{(x/n)^s}{s}\;ds=\sum_{n\leq x}f(n)\left[1+O\left(\frac{(x/n)^c}{T(|\log(x/n)|)}\right)\right]+\sum_{n>x}f(n)\left[O\left(\frac{(x/n)^c}{T(|\log(x/n)|)}\right)\right].
+    \]
+    Rearranging we obtain
+    \[
+        \sum_{n\leq x}f(n)=\frac{1}{2\pi i}\int_{c-iT}^{c+iT}F(s)\frac{x^s}{s}\;ds+E_1+E_2,
+    \]
+    where
+    \[
+        E_1=\sum_{n\leq x}f(n)\left[O\left(\frac{(x/n)^c}{T(|\log(x/n)|)}\right)\right],\quad E_2=\sum_{n>x}f(n)\left[O\left(\frac{(x/n)^c}{T(|\log(x/n)|)}\right)\right].
+    \]
+    Taking absolute value and adding both error terms we obtain 
+    \[
+        |E_1|+|E_2|\ll\sum_{\substack{n=1\\n\neq x}}^{\infty}\frac{f(n)(x/n)^c}{T|\log(x/n)|}.
+    \]
+    For $|x-n|\geq x/2$, we have $\log(x/2)\ll1$, and $f(n)\ll n^\varepsilon$. Thus we have
+    \[
+        \sum_{\substack{n=1\\|n-x|\geq x/2}}^{\infty}\frac{f(n)(x/n)^c}{T|\log(x/n)|}=\frac{x^c}{T}\zeta(c-\varepsilon)\ll\frac{x^c}{T}.
+    \]
+    For $|n-x|<x/2$, we have $n\asymp x$ so $\log(x/n)\asymp|x-n|x$. Let $||x||=\min\{x-\floor{x},\lceil x\rceil-x\}>0$ becuase $x\not\in\Z$. This gives
+    \begin{align*}
+        \frac{x^c}{T}\sum_{\substack{n\sim x\\n\neq x}}\frac{n^{\varepsilon}}{n^c(|x-n|/x)}&\ll\frac{x^{c+\varepsilon}}{T}\sum_{\substack{n\sim x\\n\neq x}}\frac{1}{|x-n|}\\
+        &\ll\frac{x^{c+\varepsilon}}{T}.
+    \end{align*}
+    Combining the two errors we obtaining
+    \[
+        |E_1|+|E_2|=O\left(\frac{x^c}{T}+\frac{x^{c+\varepsilon}}{T}\right)=O\left(\frac{x^{c+\varepsilon}}{T}\right).
+    \]
+    Thus we have
+    \[
+        \sum_{n\leq x}f(n)=\frac{1}{2\pi i}\int_{c-iT}^{c+iT}F(s)\frac{x^s}{s}\;ds+O\left(\frac{x^{c+\varepsilon}}{T}\right).\qedhere
+    \]
+\end{proof}
 
 \stepcounter{section}
 \section*{Problem 3 [30 marks]} 
@@ -59,15 +122,59 @@ This question builds on and uses results from homework 2 and homework 3.  We hav
     \[
         \sum_{\chi\mod q}\log(L(s,\chi))=\phi(q)\sum_{n=1}^\infty\sum_{p^n\equiv 1(\text{mod} q)}\frac{1}{np^{ns}}.
     \]
+    \textit{Solution.} From the last assignment we have
+    \begin{align*}
+        L(s,\chi)&=\prod_{p}\left(1-\frac{\chi(p)}{p^s}\right)^{-1}\\
+        \log(L(s,\chi))&=-\sum_{p}\log\left(1-\frac{\chi(p)}{p^s}\right)\\
+        &=\sum_{p}\sum_{n=1}^{\infty}\frac{1}{n}\left(\frac{\chi(p)}{p^s}\right)^n\\
+        &=\sum_{p}\sum_{n=1}^{\infty}\frac{\chi(p^n)}{np^{ns}}\\
+        \sum_{\chi\mod q}\log(L(s,\chi))&=\sum_{p}\sum_{n=1}^{\infty}\frac{1}{np^{ns}}\sum_{\chi\mod q}\chi(p^n)\\
+        \sum_{\chi\mod q}\log(L(s,\chi))&=\phi(q)\sum_{n=1}^\infty\sum_{p^n\equiv 1(\text{mod} q)}\frac{1}{np^{ns}}
+    \end{align*}
+    The third line comes from the Taylor expansion of $\log(1-z)$, with $z=\chi(p)p^{-s}$. For $\Re(s)>1$, we have $|z|=p^{-\Re(s)}<1$, and the last line is from the result from homework 1 question 6c.
     \item Let $\chi_0$ be the principal character modulo $q$ (i.e. $\chi(a)=0$ if $(a,q)>1$ and $\chi(a)=1$ if $(a,q)=1$). Show that 
     \[
         \lim_{s\to1^{+}}\log L(s,\chi_0)=\infty.
     \]
+    \textit{Solution.} From assignment 3 question 4a we have
+    \begin{align*}
+        L(s,\chi)&=\zeta(s)\prod_{p\mid q}(1-p^{-s})\\
+        \log(L(s,\chi))&=\log(\zeta(s))+\sum_{p\mid q}\log(1-p^{-s})\\
+        \lim_{s\to1^{+}}\log(L(s,\chi))&=\lim_{s\to1^{+}}\log(\zeta(s))+\lim_{s\to1^{+}}\sum_{p\mid q}\log(1-p^{-s})\\
+        &=\infty+\lim_{s\to1^{+}}\sum_{p\mid q}\log(1-p^{-s})\\
+        \lim_{s\to1^{+}}\log L(s,\chi_0)&=\infty.
+    \end{align*}
     \item Show that 
     \[
         \lim_{s\to1^{+}}(s-1)\prod_{\chi(\text{mod}q)}L(s,\chi)\neq 0,
     \] 
-    and deduce that $\sum_{p\equiv1(\text{mod} q)}\frac{1}{p}=\infty$.
+    and deduce that $\sum_{p\equiv1(\text{mod} q)}\frac{1}{p}=\infty$.\\
+    \textit{Solution.} We rewrite the limit as 
+    \begin{align*}
+        \lim_{s\to1^{+}}(s-1)\prod_{\chi(\text{mod}q)}L(s,\chi)&=\lim_{s\to1^{+}}(s-1)L(z,\chi_0)\prod_{\substack{\chi(\text{mod}q)\\\chi\neq\chi_0}}L(s,\chi)\\
+        &=\lim_{s\to1^{+}}\prod_{\substack{\chi(\text{mod}q)\\\chi\neq\chi_0}}L(s,\chi).
+    \end{align*}
+    Due to the pole we found in the above step. Since $L(s,\chi)\neq0$ for non principle characters we have
+    \[
+        \lim_{s\to1^{+}}(s-1)\prod_{\chi(\text{mod}q)}L(s,\chi)\neq0.
+    \]
+    Exponentiate the sum we found in part a 
+    \[
+        (s-1)\prod_{\chi\mod q}L(s,\chi)=\exp\left(\phi(q)\sum_{n=1}^\infty\frac{1}{n}\sum_{p^n\equiv 1(\text{mod} q)}\frac{1}{p^{ns}}+\log(s-1)\right)
+    \]
+    Taking the limit we get
+    \[
+        \lim_{s\to1^{+}}(s-1)\prod_{\chi\mod q}L(s,\chi)=\lim_{s\to1^{+}}\exp\left(\phi(q)\sum_{n=1}^\infty\frac{1}{n}\sum_{p^n\equiv 1(\text{mod} q)}\frac{1}{p^{n}}+\log(1-1)\right),
+    \]
+    since we know that the left hand side is not 0 assume for contradiction that $\sum_{p\equiv 1(\text{mod} q)}\frac{1}{p}=c$ for some constant $c$. Then the double sum over all $n\geq1$ we have
+    \[
+        \lim_{s\to1^{+}}\sum_{n=1}^\infty\sum_{p^n\equiv 1(\text{mod} q)}\frac{1}{np^{n}}<\infty.
+    \]
+
+    \[
+        \lim_{s\to1^{+}}\exp\left(\phi(q)\sum_{n=1}^\infty\frac{1}{n}\sum_{p^n\equiv 1(\text{mod} q)}\frac{1}{p^{n}}+\log(1-1)\right)=\exp(c'+\log(0))=\exp(-\infty)=0.
+    \]
+    But we know that the RHS is not 0, so we have that $\sum_{p\equiv 1(\text{mod} q)}\frac{1}{p}=\infty$.
     \item For $(a,q)=1$, show that 
     \[
         \sum_{\chi\mod q}\overline{\chi(a)}\chi(n)=
@@ -76,19 +183,81 @@ This question builds on and uses results from homework 2 and homework 3.  We hav
             0&\text{otherwise.}
         \end{cases}
     \]
+    \textit{Solution.} Let $a^{-1}$ be the multiplicative inverse of $a$ mod$q$. Then we have
+    \[
+        \sum_{\chi\mod q}\overline{\chi(a)}\chi(n)=\sum_{\chi\mod q}\chi(na^{-1})=
+        \begin{cases}
+            \phi(q)&\text{if}\;n\equiv a\mod q\\
+            0&\text{otherwise.}
+        \end{cases}
+    \]
+    by homework 1 question 6c
     \item  Fix $(a,q)=1$. Show that 
     \[
         \lim_{s\to1^{+}}(s-1)\prod_{\chi(\text{mod} q)}L(s,\chi)^{\overline{\chi(a)}}\neq 0,
-    \] and deduce that $\sum_{p\equiv a(\text{mod} q)}\frac{1}{p}=\infty$.
+    \] and deduce that $\sum_{p\equiv a(\text{mod} q)}\frac{1}{p}=\infty$.\\
+    \textit{Solution.} Rewriting the limit
+    \[
+        \lim_{s\to1^{+}}(s-1)\prod_{\chi(\text{mod} q)}L(s,\chi)^{\overline{\chi(a)}}=\lim_{s\to1^{+}}(s-1)L(s,\chi_0)^{\overline{\chi_0(a)}}\prod_{\substack{\chi(\text{mod}q)\\\chi\neq\chi_0}}L(s,\chi)^{\overline{\chi(a)}}
+    \]
+    Since $\lim_{s\to1^{+}}L(s,\chi_0)=\infty$ we have $\lim_{s\to1^{+}}L(s,\chi_0)^{\overline{\chi_0(a)}}=\infty$, so $\lim_{s\to1^{+}}(s-1)L(s,\chi_0)^{\overline{\chi_0(a)}}=1$. This gives
+    \[
+        \lim_{s\to1^{+}}(s-1)\prod_{\chi(\text{mod} q)}L(s,\chi)^{\overline{\chi(a)}}=\lim_{s\to1^{+}}\prod_{\substack{\chi(\text{mod}q)\\\chi\neq\chi_0}}L(s,\chi)^{\overline{\chi(a)}}.
+    \]
+    Since $L(s,\chi)\neq0$ we have $L(s,\chi)^{\overline{\chi(a)}}\neq0.$ So we have
+    \[
+        \lim_{s\to1^{+}}(s-1)\prod_{\chi(\text{mod} q)}L(s,\chi)^{\overline{\chi(a)}}\neq 0.
+    \]
+    Now for the deduction. Taking the logarithm of the product we get
+    \begin{align*}
+        \log\left(\prod_{\chi(\text{mod} q)}L(s,\chi)^{\overline{\chi(a)}}\right)&=\sum_{\chi(\text{mod} q)}\overline{\chi(a)}\log(L(s,\chi))\\
+        &=\sum_{\chi(\text{mod} q)}\overline{\chi(a)}\sum_{n=1}^{\infty}\sum_{p}\frac{\chi(p^n)}{np^{ns}}.
+    \end{align*}
+    The convergence is absolute for $\Re(s)>1$, so we interchange the sums giving
+    \[
+        \log\left(\prod_{\chi(\text{mod} q)}L(s,\chi)^{\overline{\chi(a)}}\right)=\sum_{n=1}^{\infty}\sum_{p}\frac{1}{np^{ns}}\sum_{\chi(\text{mod} q)}\overline{\chi(a)}\chi(p^n).
+    \]
+    From the last part we have
+    \[
+        \log\left(\prod_{\chi(\text{mod} q)}L(s,\chi)^{\overline{\chi(a)}}\right)=\phi(q)\sum_{n=1}^{\infty}\sum_{p^n\equiv a\mod q}\frac{1}{np^{ns}}.    
+    \]
+    Exponentiating we have
+    \[
+        \prod_{\chi(\text{mod} q)}L(s,\chi)^{\overline{\chi(a)}}=\exp\left(\phi(q)\sum_{n=1}^{\infty}\sum_{p^n\equiv a\mod q}\frac{1}{np^{ns}}\right).
+    \]
+    Multiplying both sides by $(s-1)$ and taking a limit we obtaining
+    \[
+        \lim_{s\to1^{+}}(s-1)\prod_{\chi(\text{mod} q)}L(s,\chi)^{\overline{\chi(a)}}=\lim_{s\to1^{+}}\exp\left(\phi(q)\sum_{n=1}^{\infty}\frac{1}{n}\sum_{p^n\equiv a\mod q}\frac{1}{p^{ns}}+\log(s-1)\right).
+    \]    
+    Assume for contradiction that $\sum_{p\equiv a\mod q}\frac{1}{p}=c$ for some constant $c$. Then the double sum
+    \[
+        \lim_{s\to1^{+}}\phi(q)\sum_{n=1}^{\infty}\frac{1}{n}\sum_{p^n\equiv a\mod q}\frac{1}{p^{ns}}=c'<\infty.
+    \]
+    Then we have
+    \[
+        \lim_{s\to1^{+}}\exp\left(\phi(q)\sum_{n=1}^{\infty}\frac{1}{n}\sum_{p^n\equiv a\mod q}\frac{1}{p^{ns}}+\log(s-1)\right)=\exp(c'+\log(0))=\exp(-\infty)=0.
+    \]
+    This is a contradiction because we above showed that the right hand side is not 0. Thus, we have that
+    \[
+        \sum_{p\equiv a\mod q}\frac{1}{p}=\infty.
+    \]
+    In other words we have proven Dirichlet's theorem on arithmetic progressions.
 \end{enumerate}
 
 \stepcounter{section}
 \section*{Problem 4 [10 marks]} 
-Suppose $f(n)\ll n^{\epsilon}$ for any $\epsilon>0$, and let $F(s)=\sum_{n=1}^{\infty}\frac{f(n)}{n^s}$. Suppose that $F(s)=\zeta^k(s)G(s)$, where $k\in\mathbb{N}$ and $G(s)$ is a Dirichlet series absolutely convergent in $\Re(s)>1-\delta$ for some $0<\delta<1$. Show that 
+Suppose $f(n)\ll n^{\varepsilon}$ for any $\varepsilon>0$, and let $F(s)=\sum_{n=1}^{\infty}\frac{f(n)}{n^s}$. Suppose that $F(s)=\zeta^k(s)G(s)$, where $k\in\mathbb{N}$ and $G(s)$ is a Dirichlet series absolutely convergent in $\Re(s)>1-\delta$ for some $0<\delta<1$. Show that 
 \[
     \sum_{n\leq x}f(n)\sim\frac{G(1)}{(k-1)!}x(\log x)^{k-1}.
 \]
-
+\textit{Solution.} Using Perron's (truncated) formula we have
+\[
+    \sum_{n\leq x}f(n)=\frac{1}{2\pi i}\int_{c-iT}^{c+iT}F(s)\frac{x^s}{s}\,ds+E(x)=\frac{1}{2\pi i}\int_{c-iT}^{c+iT}\zeta^k(s)G(s)\frac{x^s}{s}\,ds+E(x)
+\]
+where $E(x)$ is the error term. Move the contour from $\Re(s)=c$ to past $\Re(s)=1$. Then we have a singulraity in the form of a pole at $\zeta^k(s)G(s)$ at $s=1$. Computing the residue we obtain 
+\[
+    \mathrm{Res}\left(\zeta^k(s)G(s)\frac{x^s}{s},s=1\right)=G(1)x\mathrm{Res}\left(\frac{\zeta^k(s)}{s}\right)=\frac{G(1)}{(k-1)!}x\lim_{s\to1}\frac{d^{k-1}}{ds^{k-1}}\left((s-1)^k\frac{\zeta^k(s)}{s}\right).
+\] 
 \stepcounter{section}
 \section*{Problem 5 [10 marks]} 
 Fix $0<\alpha<1$. Show that if 
@@ -100,7 +269,54 @@ then
     \pi(x)=\mathrm{Li}(x)+O\left(x\exp(-c'(\log x)^\alpha)\right)\quad\quad x\geq2,
 \]
 with some (other) positive constant $c'$ (but the same value of the exponent $\alpha$).
-
+\begin{proof}
+    Let 
+    \[
+        E(x)=O\left(x\exp(-c(\log x)^\alpha)\right).
+    \]
+    We have
+    \begin{align*}
+        \pi(x)&=\frac{\theta(x)}{\log x}+\int_{2}^{x}\frac{\theta(t)}{t(\log t)^2}\,dt\\
+        &=\frac{x}{\log x}+\frac{E(x)}{\log x}+\int_{2}^{x}\frac{dt}{(\log t)^2}+\int_{2}^{x}\frac{E(t)}{t(\log t)^2}\,dt.
+    \end{align*}
+    Note that
+    \[
+        \Li(x)=\frac{t}{\log t}\bigg\rvert_2^x+\int_{2}^{x}\frac{dt}{(\log t)^2}=\int_{2}^{x}\frac{dt}{(\log t)^2}+\frac{x}{\log x}-\frac{2}{\log 2}.
+    \]
+    This gives
+    \begin{align*}
+        \pi(x)&=\frac{x}{\log x}+\frac{E(x)}{\log x}-\frac{x}{\log x}+\frac{2}{\log2}+\Li(x)+\int_{2}^{x}\frac{E(t)}{t(\log t)^2}\,dt\\
+        &=\Li(x)+\frac{2}{\log2}+\frac{E(x)}{\log x}+int_{2}^{x}\frac{E(t)}{t(\log t)^2}\,dt.
+    \end{align*}
+    Now to deal with the error terms
+    \[
+        \frac{E(x)}{\log x}=O\left(x\exp(-c_1(\log x)^\alpha)\right).
+    \]
+    We have $c_1< c$ since the $1/\log x$ can be removed by lowering the power of the exponential. Now for the second error term we have
+    \begin{align*}
+        \int_{2}^{x}\frac{E(t)}{t(\log t)^2}\,dt&=O\left(\int_{2}^{x}\frac{t\exp(-c(\log t)^\alpha)}{t(\log t)^2}\right)\\
+        &=O\left(\int_{2}^{x}\frac{\exp(-c(\log t)^\alpha)}{(\log t)^2}\right)\\
+        &=O\left(\int_{2}^{\sqrt{x}}\frac{\exp(-c(\log t)^\alpha)}{(\log t)^2}\right)+O\left(\int_{\sqrt{x}}^{x}\frac{\exp(-c(\log t)^\alpha)}{(\log t)^2}\right).
+    \end{align*}
+    For $t\leq\sqrt{x}$ we have $\exp(-c(\log t)^\alpha)\leq\exp(-c(\log \sqrt{x})^\alpha)$, and $\frac{1}{(\log 2)^2}\geq\frac{1}{(\log t)^2}$ on this interval. This gives
+    \begin{align*}
+        \int_{2}^{\sqrt{x}}\frac{\exp(-c(\log t)^\alpha)}{(\log t)^2}&\leq\exp(-c2^{-\alpha}(\log x)^\alpha)\frac{1}{(\log 2)^2}\int_{2}^{\sqrt{x}}\,dt\\
+        &\leq\exp(-c2^{-\alpha}(\log x)^\alpha)\frac{1}{(\log 2)^2}(\sqrt{x}-2)\\
+        O\left(\int_{2}^{\sqrt{x}}\frac{\exp(-c(\log t)^\alpha)}{(\log t)^2}\right)&=O\left(\sqrt{x}\exp(-c2^{-\alpha}(\log x)^\alpha)\right)
+    \end{align*}
+    This is smaller than the first error term because of $\sqrt{x}$.\\
+    For $t\in[\sqrt{x},x]$ we have $\frac{1}{(\log t)^2}\leq\frac{1}{(\log\sqrt{x})^2}=\frac{4}{(\log x)^2}$. This gives
+    \begin{align*}
+        \int_{\sqrt{x}}^{x}\frac{\exp(-c(\log t)^\alpha)}{(\log t)^2}&\leq\frac{4}{(\log x)^2}\int_{\sqrt{x}}^{x}\exp(-c(\log t)^\alpha)\,dt\\
+        &\leq\frac{4}{(\log x)^2}x\exp(-c2^{-\alpha}(\log x)^\alpha)\\
+        O\left(\int_{\sqrt{x}}^{x}\frac{\exp(-c(\log t)^\alpha)}{(\log t)^2}\right)&=O\left(\frac{x\exp(-c2^{-\alpha}(\log x)^\alpha)}{(\log x)^2}\right)\\
+        &=O\left(x\exp(-c_2(\log x)^\alpha)\right).
+    \end{align*}
+    We remove the denominator for similar reasons as above. Now pick $c'=\min\{c_1,c_2\}$ and we have the desired result of 
+    \[
+        \pi(x)=\mathrm{Li}(x)+O\left(x\exp(-c'(\log x)^\alpha)\right)\quad\quad x\geq2.
+    \]
+\end{proof}
 \stepcounter{section}
 \section*{Problem 6 [20 marks]}   
 Using complex integration as in the proof of the PNT, show that 
@@ -123,30 +339,119 @@ Even more, we can show that for any $t\neq 0$, we have
     \sum_{n=1}^{\infty} \frac{\Lambda(n)}{\log n} n^{-1-it}=\log \zeta(1+it)\quad\text{ and}\quad \prod_{p} \left(1-p^{-1-it}\right)^{-1}=\zeta(1+it).
 \] 
 }}
-
-\stepcounter{section}
-\section*{Problem 7 [20 marks]} 
-Let $Q(x)$ denote the number of square-free integers not exceeding $x$. In class we proved that $Q(x)=\frac{6}{\pi^2}x+O(\sqrt{x})$. In what follows, we shall improve this asymptotic by obtaining an error term that is $o(\sqrt{x})$.
-\begin{enumerate}[label=(\alph*)]
-    \item Show that
-        \[
-            Q(x)=\frac{6}{\pi^2}x - x \sum_{n>\sqrt{x}} \frac{\mu(n)}{n^2} - \sum_{n\le \sqrt{x}} \mu(n)\left\{\frac{x}{n^2}\right\},
-        \]
-        where $\{\theta\} = \theta - [\theta]$ is the fractional part of $\theta$.
-    \item Show that
-        \[
-            \sum_{n>y} \frac{\mu(n)}{n^2} \ll y^{-1} \exp(-c\sqrt{\log y})\quad \text{for } y \ge 2.
-        \]
-
-    \item Note that if $k$ is a positive integer, then $\left\{\frac{x}{n^2}\right\}$ is monotonic for $n$ in the interval $(\sqrt{\frac{x}{k+1}},\sqrt{\frac{x}{k}}]$.
-        Deduce that if $x \ge 2k^2$, then
-        \[
-            \sum_{\sqrt{\frac{x}{k+1}} < n \le \sqrt{\frac{x}{k}}} \mu(n)\left\{\frac{x}{n^2}\right\} \ll \sqrt{\frac{x}{k}}\exp(-c\sqrt{\log x}).
-        \]
-    \item By using the above for $1 \le k \le K = \exp(-b\sqrt{\log x})$, where $b$ is suitably chosen in terms of $c$, show that
-        \[
-            Q(x)=\frac{6}{\pi^2}x + O\!\left(x^{1/2}\exp\!\left(-\frac{c}{2}\sqrt{\log x}\right)\right).
-        \]
-\end{enumerate}
-
+\textit{Solution.} First recall that
+\[
+    \frac{1}{\zeta(s)}=\sum_{n=1}^{\infty}\frac{\mu(n)}{n^s},\quad \Re(s)>1.
+\]
+Let
+\[
+    M(x)=\sum_{n\leq x}\mu(n).
+\]
+By Perrons (truncated) formula we have
+\[
+    M(x)=\frac{1}{2\pi i}\int_{c-iT}^{c+iT}\frac{\mu(n)x^s}{sn^s}\,ds=\frac{1}{2\pi i}\int_{c-iT}^{c+iT}\frac{x^s}{s\zeta(s)}\,ds.
+\]
+Let
+\[
+    \delta(t)=\frac{c_0}{\log|t|},\quad \Re(T)>2.
+\]
+be the zero free region.
+We then have
+\[
+    \frac{1}{\zeta(a+it)}\ll\log|t|
+\]
+Now let $\mathcal{C}$ be the contour defined by the line $[c-iT,c+iT]$, the horizontal segments at $\Im(s) = \pm T$ from $\sigma = c$ to $\sigma = \sigma=\delta(\pm T )$, and the vertical segment from $\delta(-T ) - iT$ to $\delta(T ) + iT$.\\
+Since $s/\zeta(s)$ is holomorphic inside the region bounded by the original Perron segment and $\mathcal{C}$ (the only singularity at $s = 0$ lies to the left of $\delta(0) > 0$, well outside this region for $c$ small, or we may indent; in either case its contribution is $O(1)$ and absorbed into the error), Cauchy's theorem gives
+\[
+    \frac{1}{2\pi i}\int_{c-iT}^{c+iT}\frac{x^s}{s\zeta(s)}\,ds=\frac{1}{2\pi i}\int_{\mathcal{C}}\frac{x^s}{s\zeta(s)}\,ds+O(1).
+\]
+For the horizontal segments we have
+\[
+    |x^s|=x^a\leq x^c,\quad\frac{1}{|\zeta(s)|}\ll \log(T),\quad \frac{1}{|s|}\ll\frac{1}{T}.
+\]
+The length of each segment is $c-\delta(T)\leq c-0=c\ll1$. Hence each horizontal piece contributes $\ll \frac{x\log T}{T}$.\\
+On the vertical segments we have
+\[
+    |x^s|=x^{\delta(t)}=xe^{-c_0\log x/\log|t|},\quad \frac{1}{\zeta(a+it)}\ll\log|t|,\frac{1}{|s|}\ll\frac{1}{|t|+1}
+\]
+Split the range $|t| \leq T$ into dyadic intervals $|t| \sim V$ (for $V = 1, 2, 4,\dots, T /2$) plus the piece $|t| \leq 1$. For $|t| \sim V$ with $V \leq 1$, the integrand satisfies
+\[
+    \left|\frac{x^s}{\zeta(s)s}\right|\ll xe^{-c_0\log x/\log V}\frac{\log V}{V}.
+\]
+The length of each inteval is $\ll V$ so we have
+\[
+    \left|\frac{x^s}{\zeta(s)s}\right|\ll xe^{-c_0\log x/\log V}\log V.
+\]
+This is maximized at $V = T$ , giving
+\[
+    \left|\frac{x^s}{\zeta(s)s}\right|\ll xe^{-c_0\log x/\log T}\log T.
+\]
+For $|t| \leq 1$, the same bound with $\log(|t| + 2) \asymp 1$ gives
+\[
+    \ll x e^{-c_0 log x} = x^{1-c_0} \ll x e^{-c_0 \sqrt{\log x}}, \text{ for x large}.
+\]
+Chose
+\[
+    T=e^{\sqrt{\log x}}
+\]
+then we have the contour integral is  
+\[
+    \ll xe^{c_0 \log x/ \log T}\log T = xe^{-c_0 \log x/\sqrt{log x}}\sqrt{\log x} = x\sqrt{\log x}e^{c_0 \sqrt{\log x}}.
+\]
+and the truncation error is
+\[
+    \ll \frac{x \log x}{T} = x \log x · e^{-\sqrt{log x}}.
+\]
+Both are $(Ox) exp^{-\frac{c_0}{2}  \sqrt{\log x}}$ for $x$ sufficiently large (the polynomial factor $\sqrt{\log x}$ or $\log x$ is absorbed into the exponential at the cost of replacing $c_0$ by $c_0/2$, since $(\log x)^\alpha = o(e^{\varepsilon\sqrt{\log x}})$ for any $\varepsilon > 0$).\\
+Setting $c = c0/2 > 0$, we obtain
+\[
+    M(x)=O(x\exp(-c\sqrt{\log x})).
+\]
+Using partial summation we get
+\[
+    \sum_{n\leq x}\frac{\mu(n)}{n}=\frac{M(x)}{x}+\int_{1}^{x}\frac{M(t)}{t^2}\,dt.
+\]
+\[
+    \frac{M(x)}{x}=O(\exp(-c\sqrt{\log x})).
+\]
+For the integral we have $|M(t)|\leq Kt\exp(-c\sqrt{\log t})$ for some $K>0$.
+\[
+    \left|\int_{1}^{x}\frac{M(t)}{t^2}\,dt\right|\leq K\int_{1}^{x}\frac{\exp(-c\sqrt{\log t})}{t}\,dt.
+\]
+Substitute $u=\sqrt{logt}$ so $dt/t=2udu$ so we have
+\[
+    K\int_{0}^{\sqrt{\log x}}2ue^{-cu}\,du
+\]
+as $x\to\infty$ we get
+\[
+    K\int_{0}^{\sqrt{\log x}}2ue^{-cu}\,du=\frac{2K}{c^2}.
+\]
+Moreover, for the tail we have
+\[
+    2K\int_{\sqrt{\log x}}^{\infty}ue^{-cu}\,du=O(e^{-c\sqrt{\log x}}\sqrt{\log x})=O(e^{-c'\sqrt{\log x}}).
+\]
+Thus we have
+\[
+    \int_{1}^{x}\frac{M(t)}{t^2}\,dt=L+O(e^{-c'\sqrt{\log x}}).
+\]
+Then
+\[
+    S(x)=L+O(e^{-c''\sqrt{\log x}})
+\]
+where $c''=\min\{c,c'\}$. Now 
+\[
+    \sum_{n=1}^{\infty}\frac{\mu(n)}{n^s}=\frac{1}{\zeta(s)}
+\]
+taking the limit as $s\to1^+$ we get
+\[
+    \lim_{s\to1^+}\sum_{n=1}^{\infty}\frac{\mu(n)}{n^s}=\lim_{s\to1^+}\frac{1}{\zeta(s)}=0.
+\]
+So 
+\[
+    \sum_{n\leq x}\frac{\mu(n)}{n}= O\left(\exp\left(-c\sqrt{\log x}\right)\right).
+\]
+Taking the limit as $x\to\infty$ we get
+\[
+    \lim_{x\to\infty}\sum_{n\leq x}\frac{\mu(n)}{n}= lim_{x\to\infty}O\left(\exp\left(-c\sqrt{\log x}\right)\right)=0.
+\]
 \end{document}
