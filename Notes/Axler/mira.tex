@@ -43,6 +43,39 @@ Using this definition we can think of an interval $[a,b]$ as the following union
     [a,b]=[x_0,x_1]\cup[x_1,x_2]\cup\cdots\cup[x_{n-1},x_n].
 \]
 \begin{definition}{Notation for infimum and supremum of a function}
-    
+    If $f$ is a real-valued function and $A$ is a subset of the domain of $f$ , then
+    \[
+        \underset{A}{\inf} f=\inf\{f(x):x\in A\}\quad\text{and}\quad \underset{A}{\sup} f=\sup\{f(x):x\in A\}.
+    \]
 \end{definition}
+Upper and lower Riemann sums approximate the area under a graph for a given interval.
+\begin{definition}
+    Suppose $f : [a, b] \to \R$ is a bounded function and $P$ is a partition $x_0,\dots,x_n$ of $[a, b]$. The \textit{lower Riemann sum} $L( f , P, [a, b])$ and the \textit{upper Riemann sum} $U( f , P, [a, b])$ are defined by
+    \[
+        L( f , P, [a, b])=\sum_{j=1}^{n}(x_j-x_{j-1})\underset{[x_{j-1},x_j]}{\inf}f
+    \]
+    and
+    \[
+        U( f , P, [a, b])=\sum_{j=1}^{n}(x_j-x_{j-1})\underset{[x_{j-1},x_j]}{\sup}f.
+    \]
+\end{definition}
+As gaps get smaller and smaller in the partition the upper sum should be a bit more than the true value of the area under the curve, and the lower sum should be a bit less.
+\begin{lemma}{Inequalities with Riemann sums}
+    Suppose $f : [a, b] \to R$ is a bounded function and $P, P'$ are partitions of $[a, b]$ such that the list defining $P$ is a sublist of the list defining $P'$. Then
+    \[
+        L(f,P,[a,b])\leq L(f,P',[a,b])\leq U(f,P',[a,b])\leq U(f,P,[a,b]).
+    \]
+\end{lemma}
+\begin{proof}
+    Suppose $P$ is the partition $x_0,\dots,x_n$ and $P'$ is the partition $x_0',\dots,x_N'$ of $[a,b]$. For each $j=1,\dots,n$, there exists $k\in\{0,\dots,N-1\}$ and a positive integer $m$ such that $x_{j-1}=x_k'<x_{k+1}'<\dots<x_{k+m}'=x_j$. We have
+    \begin{align*}
+        (x_j-x_{j-1})\underset{[x_{j-1},x_j]}{f}&=\sum_{i=1}^{m}(x_{k+i}'-x_{k+i-1}')\underset{[x_{j-1},x_j]}{\inf}f\\
+        &\leq\sum_{i=1}^{m}(x_{k+i}'-x_{k+i-1}')\underset{[x_{k+i-1},x_{k+i}]}{\inf}f.
+    \end{align*}
+    This proves $L(f,P,[a,b])\leq L(f,P',[a,b])$. The middle inequality is obvious from the fact that the infimum of a function over a set is lesser than or equal to the supremum of said function over the same set.\\
+    For the last inequality, use the same approach but instead see that 
+    \[
+        \underset{[x_{k+i-1},x_{k+i}]}{\sup}f\leq\underset{[x_{j-1},x_j]}{\sup}f.
+    \]
+\end{proof}
 \end{document}
