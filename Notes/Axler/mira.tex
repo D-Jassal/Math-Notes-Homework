@@ -1,0 +1,48 @@
+\documentclass[twoside, openright, fontsize=10pt, headings=big]{scrbook}
+
+% Load your existing preamble
+\input{../../preambles/textbook-notes-preamble.tex}
+
+% KOMA header configuration
+\usepackage{scrlayer-scrpage}
+\clearpairofpagestyles
+\automark[chapter]{chapter}
+\ohead{\pagemark}
+\ihead{\headmark}
+\cehead{\MakeUppercase{\TextbookTitle}}
+\renewcommand{\chapterpagestyle}{empty}
+
+% Define title page fields
+\def\YourName{Deepak}
+\def\TextbookTitle{Measure, Integration \& Real Analysis}
+\def\TextbookAuthor{Sheldon Axler}
+\def\CourseName{}
+\def\NoteSemester{Summer}
+\def\NoteYear{2026}
+
+\begin{document}
+
+% Title page
+\input{../../preambles/titlepage.tex}
+
+\frontmatter
+\tableofcontents
+
+\mainmatter
+
+\chapter{Riemann Integration}
+\section{Review: Riemann Integral}
+\begin{definition}{Partition}
+    Suppose $a, b \in \R$ with $a < b$. A partition of $[a, b]$ is a finite list of the form $x_0, x_1, \dots , x_n,$ where
+    \[
+        a=x_0<x_1<\cdots<x_n=b.
+    \]
+\end{definition}
+Using this definition we can think of an interval $[a,b]$ as the following union of intervals
+\[
+    [a,b]=[x_0,x_1]\cup[x_1,x_2]\cup\cdots\cup[x_{n-1},x_n].
+\]
+\begin{definition}{Notation for infimum and supremum of a function}
+    
+\end{definition}
+\end{document}

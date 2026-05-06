@@ -258,6 +258,7 @@ where $E(x)$ is the error term. Move the contour from $\Re(s)=c$ to past $\Re(s)
 \[
     \mathrm{Res}\left(\zeta^k(s)G(s)\frac{x^s}{s},s=1\right)=G(1)x\mathrm{Res}\left(\frac{\zeta^k(s)}{s}\right)=\frac{G(1)}{(k-1)!}x\lim_{s\to1}\frac{d^{k-1}}{ds^{k-1}}\left((s-1)^k\frac{\zeta^k(s)}{s}\right).
 \] 
+I believe from here I need to show that the three parts of this contour, those being the horizontal lines and the new vertical lines are finite, along with showing that the residue above is $(\log x)^{k-1}$. Then we would have that $\sum_{n\leq x}f(n)=\frac{G(1)}{(k-1)!}x(\log x)^{k-1}+C$, where $C$ is some constant, thus giving the asymptotic equivalence of the sum and the expression $\frac{G(1)}{(k-1)!}x(\log x)^{k-1}$.
 \stepcounter{section}
 \section*{Problem 5 [10 marks]} 
 Fix $0<\alpha<1$. Show that if 
@@ -274,7 +275,7 @@ with some (other) positive constant $c'$ (but the same value of the exponent $\a
     \[
         E(x)=O\left(x\exp(-c(\log x)^\alpha)\right).
     \]
-    We have
+    We have by Abel's summation formula
     \begin{align*}
         \pi(x)&=\frac{\theta(x)}{\log x}+\int_{2}^{x}\frac{\theta(t)}{t(\log t)^2}\,dt\\
         &=\frac{x}{\log x}+\frac{E(x)}{\log x}+\int_{2}^{x}\frac{dt}{(\log t)^2}+\int_{2}^{x}\frac{E(t)}{t(\log t)^2}\,dt.
@@ -286,7 +287,7 @@ with some (other) positive constant $c'$ (but the same value of the exponent $\a
     This gives
     \begin{align*}
         \pi(x)&=\frac{x}{\log x}+\frac{E(x)}{\log x}-\frac{x}{\log x}+\frac{2}{\log2}+\Li(x)+\int_{2}^{x}\frac{E(t)}{t(\log t)^2}\,dt\\
-        &=\Li(x)+\frac{2}{\log2}+\frac{E(x)}{\log x}+int_{2}^{x}\frac{E(t)}{t(\log t)^2}\,dt.
+        &=\Li(x)+\frac{2}{\log2}+\frac{E(x)}{\log x}+\int_{2}^{x}\frac{E(t)}{t(\log t)^2}\,dt.
     \end{align*}
     Now to deal with the error terms
     \[
@@ -349,8 +350,9 @@ Let
 \]
 By Perrons (truncated) formula we have
 \[
-    M(x)=\frac{1}{2\pi i}\int_{c-iT}^{c+iT}\frac{\mu(n)x^s}{sn^s}\,ds=\frac{1}{2\pi i}\int_{c-iT}^{c+iT}\frac{x^s}{s\zeta(s)}\,ds.
+    M(x)=\frac{1}{2\pi i}\int_{c-iT}^{c+iT}\frac{\mu(n)x^s}{sn^s}\,ds+E=\frac{1}{2\pi i}\int_{c-iT}^{c+iT}\frac{x^s}{s\zeta(s)}\,ds+E.
 \]
+Where $E$ is the error.\\
 Let
 \[
     \delta(t)=\frac{c_0}{\log|t|},\quad \Re(T)>2.

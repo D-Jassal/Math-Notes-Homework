@@ -1,0 +1,345 @@
+% ============================================================
+%  preamble.tex  —  Textbook Note-Taking Preamble & Macros
+%  Include with: \input{preamble}
+%  
+%  Designed for use with scrbook document class
+% ============================================================
+
+% ------------------------------------------------------------
+%  ENCODING & FONTS
+% ------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% ------------------------------------------------------------
+%  PAGE GEOMETRY
+% ------------------------------------------------------------
+\usepackage[
+  a4paper,
+  top=2.5cm, bottom=2.5cm,
+  inner=2.8cm, outer=3.5cm,   % textbook-style mirrored margins
+  marginparwidth=2.2cm,
+  marginparsep=4mm
+]{geometry}
+
+% ------------------------------------------------------------
+%  COLOUR PALETTE  (redefine here to retheme the whole file)
+% ------------------------------------------------------------
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+
+\definecolor{AccentMain}{HTML}{1A6B8A}   % deep teal  — headings, rules
+\definecolor{AccentWarm}{HTML}{C0392B}   % crimson    — warnings / important
+\definecolor{AccentSoft}{HTML}{27AE60}   % green      — examples / tips
+\definecolor{BoxBg}     {HTML}{EAF4FB}   % pale blue  — theorem background
+\definecolor{WarnBg}    {HTML}{FEF9E7}   % pale amber — caution boxes
+\definecolor{CodeBg}    {HTML}{F4F4F4}   % light grey — code background
+\definecolor{MarginClr} {HTML}{7F8C8D}   % muted grey — margin notes
+
+% ------------------------------------------------------------
+%  TikZ  (loaded early — needed by tcolorbox skins & titlepage)
+% ------------------------------------------------------------
+\usepackage{tikz}
+
+% ------------------------------------------------------------
+%  ICONS  (must be loaded BEFORE tcolorbox box definitions)
+% ------------------------------------------------------------
+\IfFileExists{fontawesome5.sty}{%
+  \usepackage{fontawesome5}%
+}{%
+  \newcommand{\faExclamationTriangle}{!}%
+  \newcommand{\faBookOpen}{}%
+  \newcommand{\faLightbulb}{}%
+}
+
+% ------------------------------------------------------------
+%  MATH PACKAGES
+% ------------------------------------------------------------
+\usepackage{amsmath, amssymb, amsthm, mathtools, bm}
+
+% ------------------------------------------------------------
+%  TCOLORBOX
+% ------------------------------------------------------------
+\usepackage{tcolorbox}
+\tcbuselibrary{most}
+
+\newcounter{tcbtheorem}[section]
+\renewcommand{\thetcbtheorem}{\thesection.\arabic{tcbtheorem}}
+
+%  Theorem
+\newtcbtheorem[use counter=tcbtheorem, number within=section]
+  {theorem}{Theorem}{
+    enhanced, breakable,
+    colback=BoxBg, colframe=AccentMain,
+    fonttitle=\bfseries\color{white},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=AccentMain, rounded corners},
+    separator sign={ --},
+  }{thm}
+
+%  Definition
+\newtcbtheorem[use counter=tcbtheorem, number within=section]
+  {definition}{Definition}{
+    enhanced, breakable,
+    colback=BoxBg!60, colframe=AccentMain!70,
+    fonttitle=\bfseries\color{AccentMain},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=AccentMain!15, colframe=AccentMain!70},
+    separator sign={ --},
+  }{def}
+
+%  Lemma
+\newtcbtheorem[use counter=tcbtheorem, number within=section]
+  {lemma}{Lemma}{
+    enhanced, breakable,
+    colback=BoxBg!40, colframe=AccentMain!50,
+    fonttitle=\bfseries, separator sign={ --},
+  }{lem}
+
+%  Corollary
+\newtcbtheorem[use counter=tcbtheorem, number within=section]
+  {corollary}{Corollary}{
+    enhanced, breakable,
+    colback=BoxBg!40, colframe=AccentMain!50,
+    fonttitle=\bfseries, separator sign={ --},
+  }{cor}
+
+%  Proposition
+\newtcbtheorem[use counter=tcbtheorem, number within=section]
+  {proposition}{Proposition}{
+    enhanced, breakable,
+    colback=BoxBg!40, colframe=AccentMain!50,
+    fonttitle=\bfseries, separator sign={ --},
+  }{prop}
+
+%  Example
+\newtcbtheorem[use counter=tcbtheorem, number within=section]
+  {example}{Example}{
+    enhanced, breakable,
+    colback=AccentSoft!8, colframe=AccentSoft!70,
+    fonttitle=\bfseries\color{AccentSoft!80!black},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=AccentSoft!20, colframe=AccentSoft!70},
+    separator sign={ --},
+  }{ex}
+
+%  Important / Warning
+\newtcolorbox{important}[1][]{
+  enhanced, breakable,
+  colback=WarnBg, colframe=AccentWarm,
+  title={\faExclamationTriangle~Important},
+  fonttitle=\bfseries\color{AccentWarm},
+  attach boxed title to top left={yshift=-2mm, xshift=4mm},
+  boxed title style={colback=WarnBg, colframe=AccentWarm},
+  #1
+}
+
+%  Remark
+\newtcolorbox{remark}[1][]{
+  enhanced, breakable,
+  colback=gray!7, colframe=gray!50,
+  title={Remark},
+  fonttitle=\bfseries\color{gray!60!black},
+  #1
+}
+
+%  Key Idea
+\newtcolorbox{keyidea}[1][Key Idea]{
+  enhanced, breakable,
+  colback=AccentMain!8, colframe=AccentMain,
+  title={#1},
+  fonttitle=\bfseries\color{white},
+  attach boxed title to top left={yshift=-2mm, xshift=4mm},
+  boxed title style={colback=AccentMain},
+}
+
+%  Intuition
+\newtcolorbox{intuition}[1][Intuition]{
+  enhanced, breakable,
+  colback=AccentSoft!10, colframe=AccentSoft,
+  title={\faLightbulb~#1},
+  fonttitle=\bfseries\color{AccentSoft!80!black},
+}
+
+%  Proof style
+\renewenvironment{proof}[1][\proofname]{%
+  \noindent\textit{#1.}\enspace\ignorespaces
+}{%
+  \hfill$\blacksquare$\par\medskip
+}
+
+% ------------------------------------------------------------
+%  MARGIN NOTES
+% ------------------------------------------------------------
+\usepackage{marginnote}
+\renewcommand*{\marginfont}{\footnotesize\color{MarginClr}\itshape}
+\newcommand{\mnote}[1]{\marginnote{\raggedright#1}}
+
+% ------------------------------------------------------------
+%  HEADERS & FOOTERS 
+% ------------------------------------------------------------
+\usepackage{titlesec}
+
+\titleformat{\chapter}[display]
+  {\color{AccentMain}\Large\bfseries}
+  {\chaptertitlename\ \thechapter}{12pt}
+  {\Huge\color{black}}
+  [\vspace{2pt}{\color{AccentMain}\titlerule[1.5pt]}]
+
+\titleformat{\section}
+  {\color{AccentMain}\large\bfseries}
+  {\thesection}{0.8em}{}
+  [\vspace{1pt}{\color{AccentMain!50}\titlerule[0.6pt]}]
+
+\titleformat{\subsection}
+  {\color{AccentMain!80!black}\normalsize\bfseries}
+  {\thesubsection}{0.7em}{}
+
+\titleformat{\subsubsection}
+  {\color{AccentMain!60!black}\normalsize\itshape\bfseries}
+  {\thesubsubsection}{0.7em}{}
+
+% ------------------------------------------------------------
+%  HYPERREF & BOOKMARKS  (load late; cleveref must come after)
+% ------------------------------------------------------------
+\usepackage[
+  colorlinks=true,
+  linkcolor=AccentMain,
+  citecolor=AccentMain!70,
+  urlcolor=AccentSoft!80!black
+]{hyperref}
+\usepackage{bookmark}
+
+% ------------------------------------------------------------
+%  LISTS
+% ------------------------------------------------------------
+\usepackage{enumitem}
+\setlist[itemize,1]{label=\textcolor{AccentMain}{\textbullet}, leftmargin=1.5em}
+\setlist[itemize,2]{label=\textcolor{AccentMain!60}{\textendash}, leftmargin=1.5em}
+\setlist[enumerate,1]{label=\textcolor{AccentMain}{\arabic*.}, leftmargin=1.8em}
+
+% ------------------------------------------------------------
+%  FIGURES & TABLES
+% ------------------------------------------------------------
+\usepackage{graphicx, float, caption, subcaption, booktabs, array, multirow}
+\captionsetup{
+  labelfont={bf, color=AccentMain},
+  font=small,
+  skip=4pt
+}
+
+% ------------------------------------------------------------
+%  CODE LISTINGS
+% ------------------------------------------------------------
+\usepackage{listings}
+\lstset{
+  backgroundcolor=\color{CodeBg},
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  framerule=0pt,
+  xleftmargin=8pt, xrightmargin=8pt,
+  keywordstyle=\color{AccentMain}\bfseries,
+  stringstyle=\color{AccentWarm},
+  commentstyle=\color{AccentSoft!80!black}\itshape,
+  numberstyle=\tiny\color{MarginClr},
+  numbers=left, numbersep=6pt,
+  showstringspaces=false,
+  captionpos=b
+}
+
+% ------------------------------------------------------------
+%  MISCELLANEOUS PACKAGES
+% ------------------------------------------------------------
+\usepackage{afterpage}     % \afterpage{\nopagecolor} — required by titlepage
+\usepackage{lipsum}        % dummy text — remove in final doc
+\usepackage{siunitx}       % \SI{9.8}{\metre\per\second\squared}
+\usepackage{physics}       % \dd, \dv, \pdv, \grad, \curl, \div, etc.
+\usepackage{cancel}        % \cancel{x}
+\usepackage{cleveref}      % \cref — must be loaded after hyperref
+
+% ------------------------------------------------------------
+%  MATH MACROS
+% ------------------------------------------------------------
+
+%  ---- Number sets ----
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+
+%  ---- Set-builder notation ----
+\newcommand{\st}{\,:\,}                    % such that
+\newcommand{\given}{\,\vert\,}             % conditional bar
+\newcommand{\setof}[2]{\left\{#1\st#2\right\}}
+
+%  ---- Math operators ----
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Span}{span}
+\providecommand{\rank}{\relax}
+\renewcommand{\rank}{\operatorname{rank}}
+\DeclareMathOperator{\nullity}{nullity}
+\providecommand{\trace}{\relax}
+\renewcommand{\trace}{\operatorname{tr}}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coker}{coker}
+
+%  ---- Linear algebra ----
+\newcommand{\mat}[1]{\mathbf{#1}}          % bold matrix/vector
+\newcommand{\T}{^{\mathsf{T}}}             % transpose
+\newcommand{\inv}{^{-1}}                   % inverse
+% physics defines \norm{} and \abs{} — override with our delimiters
+\renewcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\inner}[2]{\left\langle#1,\,#2\right\rangle}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+
+%  ---- Calculus / analysis ----
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Del}{\Delta}
+% physics redefines \lim, \limsup, \liminf — restore ours
+\renewcommand{\lim}{\operatorname*{lim}}
+\renewcommand{\limsup}{\operatorname*{lim\,sup}}
+\renewcommand{\liminf}{\operatorname*{lim\,inf}}
+\newcommand{\dint}[2]{\int_{#1}^{#2}}
+
+%  ---- Probability & statistics ----
+\newcommand{\E}[1]{\mathbb{E}\!\left[#1\right]}
+\newcommand{\Var}[1]{\mathrm{Var}\!\left(#1\right)}
+\newcommand{\Cov}[2]{\mathrm{Cov}\!\left(#1,#2\right)}
+\newcommand{\Prob}[1]{\mathbb{P}\!\left(#1\right)}
+\newcommand{\iid}{\overset{\text{iid}}{\sim}}
+\newcommand{\dist}[1]{\operatorname{#1}}
+
+%  ---- Logic / notation ----
+\newcommand{\then}{\Rightarrow}
+\renewcommand{\iff}{\Leftrightarrow}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\comp}[1]{{#1}^{\mathsf{c}}}
+
+%  ---- Misc ----
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+% ------------------------------------------------------------
+%  KOMA-SCRIPT COMPATIBILITY NOTES:
+%  - The titlesec package may cause warnings with scrbook.
+%  - For full KOMA compatibility, consider replacing titlesec
+%    with KOMA's native commands (setkomafont, addtokomafont, 
+%    chapterprefix=false, etc.)
+%  - Headers/footers are configured in the main .tex file
+%    using scrlayer-scrpage (fancyhdr has been removed)
+% ------------------------------------------------------------
+
+% ============================================================
+%  END OF PREAMBLE
+% ============================================================
