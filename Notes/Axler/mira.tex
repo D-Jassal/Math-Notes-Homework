@@ -14,11 +14,18 @@
 
 % Define title page fields
 \def\YourName{Deepak}
-\def\TextbookTitle{Measure, Integration \& Real Analysis}
+\def\TextbookTitle{Measure, Integration \\\& Real Analysis}
 \def\TextbookAuthor{Sheldon Axler}
 \def\CourseName{}
 \def\NoteSemester{Summer}
 \def\NoteYear{2026}
+
+% Make equations share the exact same counter as theorems
+\makeatletter
+\let\c@equation\c@tcbtheorem
+\renewcommand{\theequation}{\thetcbtheorem}
+\makeatother
+
 
 \begin{document}
 
@@ -27,12 +34,11 @@
 
 \frontmatter
 \tableofcontents
-
 \mainmatter
 
 \chapter{Riemann Integration}
 \section{Review: Riemann Integral}
-\begin{definition}{Partition}
+\begin{definition}{Partition}{}
     Suppose $a, b \in \R$ with $a < b$. A partition of $[a, b]$ is a finite list of the form $x_0, x_1, \dots , x_n,$ where
     \[
         a=x_0<x_1<\cdots<x_n=b.
@@ -42,14 +48,14 @@ Using this definition we can think of an interval $[a,b]$ as the following union
 \[
     [a,b]=[x_0,x_1]\cup[x_1,x_2]\cup\cdots\cup[x_{n-1},x_n].
 \]
-\begin{definition}{Notation for infimum and supremum of a function}
+\begin{definition}{Notation for infimum and supremum of a function}{}
     If $f$ is a real-valued function and $A$ is a subset of the domain of $f$ , then
     \[
         \underset{A}{\inf} f=\inf\{f(x):x\in A\}\quad\text{and}\quad \underset{A}{\sup} f=\sup\{f(x):x\in A\}.
     \]
 \end{definition}
 Upper and lower Riemann sums approximate the area under a graph for a given interval.
-\begin{definition}
+\begin{definition}{Lower and upper Riemann sums}
     Suppose $f : [a, b] \to \R$ is a bounded function and $P$ is a partition $x_0,\dots,x_n$ of $[a, b]$. The \textit{lower Riemann sum} $L( f , P, [a, b])$ and the \textit{upper Riemann sum} $U( f , P, [a, b])$ are defined by
     \[
         L( f , P, [a, b])=\sum_{j=1}^{n}(x_j-x_{j-1})\underset{[x_{j-1},x_j]}{\inf}f
@@ -60,8 +66,9 @@ Upper and lower Riemann sums approximate the area under a graph for a given inte
     \]
 \end{definition}
 As gaps get smaller and smaller in the partition the upper sum should be a bit more than the true value of the area under the curve, and the lower sum should be a bit less.
-\begin{lemma}{Inequalities with Riemann sums}
-    Suppose $f : [a, b] \to R$ is a bounded function and $P, P'$ are partitions of $[a, b]$ such that the list defining $P$ is a sublist of the list defining $P'$. Then
+\refstepcounter{tcbtheorem}
+\begin{lemma}{Inequalities with Riemann sums}{}
+    Suppose $f : [a, b] \to \R$ is a bounded function and $P, P'$ are partitions of $[a, b]$ such that the list defining $P$ is a sublist of the list defining $P'$. Then
     \[
         L(f,P,[a,b])\leq L(f,P',[a,b])\leq U(f,P',[a,b])\leq U(f,P,[a,b]).
     \]
@@ -69,13 +76,112 @@ As gaps get smaller and smaller in the partition the upper sum should be a bit m
 \begin{proof}
     Suppose $P$ is the partition $x_0,\dots,x_n$ and $P'$ is the partition $x_0',\dots,x_N'$ of $[a,b]$. For each $j=1,\dots,n$, there exists $k\in\{0,\dots,N-1\}$ and a positive integer $m$ such that $x_{j-1}=x_k'<x_{k+1}'<\dots<x_{k+m}'=x_j$. We have
     \begin{align*}
-        (x_j-x_{j-1})\underset{[x_{j-1},x_j]}{f}&=\sum_{i=1}^{m}(x_{k+i}'-x_{k+i-1}')\underset{[x_{j-1},x_j]}{\inf}f\\
+        (x_j-x_{j-1})\underset{[x_{j-1},x_j]}{\inf}f&=\sum_{i=1}^{m}(x_{k+i}'-x_{k+i-1}')\underset{[x_{j-1},x_j]}{\inf}f\\
         &\leq\sum_{i=1}^{m}(x_{k+i}'-x_{k+i-1}')\underset{[x_{k+i-1},x_{k+i}]}{\inf}f.
     \end{align*}
     This proves $L(f,P,[a,b])\leq L(f,P',[a,b])$. The middle inequality is obvious from the fact that the infimum of a function over a set is lesser than or equal to the supremum of said function over the same set.\\
     For the last inequality, use the same approach but instead see that 
     \[
-        \underset{[x_{k+i-1},x_{k+i}]}{\sup}f\leq\underset{[x_{j-1},x_j]}{\sup}f.
+        \underset{[x_{k+i-1},x_{k+i}]}{\sup}f\leq\underset{[x_{j-1},x_j]}{\sup}f.\qedhere
     \]
 \end{proof}
+\begin{lemma}{Lower Riemann sums lesser than or equal to upper Riemann sums}{ULRS<}
+    Suppose $f : [a, b] \to \R$ is a bounded function and $P, P'$ are partitions of $[a, b]$. Then
+    \[
+        L(f,P,[a,b])\leq U(f,P',[a,b]).
+    \]
+\end{lemma}
+\begin{proof}
+    Let $P''$ be a partition made from merging both $P$ and $P'$, then we have by lemma \ref{lem:ULRS<}
+    \begin{align*}
+        L(f,P,[a,b])&\leq L(f,P'',[a,b])\\
+        &\leq U(f,P'',[a,b])\\
+        &\leq U(f,P',[a,b]).\qedhere
+    \end{align*}
+\end{proof}
+\begin{definition}{Upper Lower Riemann integrals}{ULRI}
+    Suppose $f : [a, b] \to \R$ is a bounded function. The \textit{lower Riemann integral} $L( f , [a, b])$ and the \textit{upper Riemann integral} $U( f , [a, b])$ of $f$ are defined by
+    \[
+        L( f , [a, b]) = \underset{P}{\sup} L( f , P, [a, b])
+    \]
+    and
+    \[
+        U( f , [a, b]) = \underset{P}{\inf} U( f , P, [a, b]).
+    \]
+\end{definition}
+The next results follows from \ref{lem:ULRS<}.
+\begin{lemma}{Lower Riemann integrals lesser than or equal to upper Riemann integrals}{}
+    Suppose $f : [a, b] \to \R$ is a bounded function. Then
+    \[
+        L(f,[a,b])\leq U(f,[a,b]).
+    \]
+\end{lemma}
+We say a function is Riemann integrable if the upper and lower Riemann integrals.
+\begin{definition}{Riemann integrable}{RI}
+    \begin{enumerate}
+        \item A bounded function on a closed bounded interval is called \textit{Riemann integrable} if its lower Riemann integral equals its upper Riemann integral
+        \item If $f : [a, b] \to \R$ is Riemann integrable, then the \textit{Riemann integral} $\displaystyle\int_{a}^{b}f$ defined by
+        \[
+            \int_{a}^{b}f=L(f,[a,b])=U(f,[a,b]).
+        \]
+    \end{enumerate}
+\end{definition}
+\refstepcounter{tcbtheorem}
+Uniform continuity is key for the following result.
+\begin{theorem}{Continuous real valued functions are Riemann integrable}{}
+    Every continuous real-valued function on each closed bounded interval is Riemann integrable.
+\end{theorem}
+\begin{proof}
+    Suppose that $a,b\in\R$ with $a<b$, and $f:[a,b]\to\R$ is continuous. Then $f$ is uniformly continuous and bounded on this \textbf{compact} interval. Let $\varepsilon>0$. Because $f$ is uniformly continuous on $[a,b]$, then there exists $\delta>0$ such that 
+    \begin{equation}\label{eq:CRI}
+        |f(s)-f(t)|<\varepsilon\,\text{for all } s,t\in[a,b] \text{ with } |s-t|<\delta.
+    \end{equation}
+    Let $n\in\Z^+$ be such that $\frac{b-a}{n}<\delta$.\\
+    Let $P$ be the equally spaced partition $a = x_0, x_1,\dots, x_n = b$ of $[a, b]$ with
+    \[
+        x_j-x_{j-1}=\frac{b-a}{n}
+    \]
+    for each $j=1,\dots,n.$ Then
+    \begin{align*}
+        U(f,[a,b])-L(f,[a,b])&\leq U(f,P,[a,b])-L(f,P,[a,b])\\
+        &=\frac{b-a}{n}\sum_{j=1}^{n}\left(\underset{[x{j-1},x_j]}{\sup}-\underset{[x{j-1},x_j]}{\inf}\right)\\
+        (b-a)\varepsilon.
+    \end{align*}
+    This gives the desired result.
+\end{proof}
+We can write $\int_{a}^{b}f$ as $\int_{a}^{b}f(x)\,dx$.\\
+The following result can be used to estimate the value of a Riemann integral.
+\begin{theorem}{Bounds on the Riemann integral}{BRI}
+    Suppose $f : [a, b] \to \R$ is Riemann integrable. Then
+    \[
+        (b-a)\underset{[a,b]}{\inf}f\leq \int_{a}^{b}f\leq(b-a)\underset{[a,b]}{\sup}f.
+    \]
+\end{theorem}
+\begin{proof}
+    The proof is rather trivial.
+\end{proof}
+\section{Riemann Integral Is Not Good Enough}
+The Riemann integral is a good place to start when it comes to integration, but it is not wihtout flaws, namely:
+\begin{enumerate}
+    \item Riemann integration does not handle functions with a non-finite amount discontinuities;
+    \item Riemann integration does not handle unbounded functions;
+    \item Riemann integration does not work well with limits.
+\end{enumerate}
+Chapter 2 will start making a new framework which remedies these.\\
+The examples in the textbook show how limits do no play well with the Riemann integral. The following results shows that even when limits do play well with Riemann integration there are still shortcomings.
+\begin{lemma}{Interchanging Riemann integral and limit}{InterRIL}
+Suppose $a, b, M \in R$ with $a < b$. Suppose $f_1, f_2,\dots$ is a sequence of Riemann integrable functions on $[a, b]$ such that
+\[
+    |f_k(x)|\leq M
+\]
+for all $k \in \Z^+$ and all $x \in [a, b]$. Suppose $\lim_{k\to\infty} f_k(x)$ exists for each $x\in[a,b]$. Define $f:[a,b]\to\R$ by
+\[
+    f(x)=\lim_{k\to\infty}f_k(x).
+\]
+If $f$ is Riemann integrable on $[a, b]$, then
+\[
+    \int_{a}^{b}f=\lim_{k\to\infty}\int_{a}^{b}f_k.
+\]
+\end{lemma}
+\chapter{Measures}
 \end{document}

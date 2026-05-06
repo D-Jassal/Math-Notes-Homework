@@ -163,11 +163,7 @@
 }
 
 %  Proof style
-\renewenvironment{proof}[1][\proofname]{%
-  \noindent\textit{#1.}\enspace\ignorespaces
-}{%
-  \hfill$\blacksquare$\par\medskip
-}
+\renewcommand{\qedsymbol}{$\blacksquare$}
 
 % ------------------------------------------------------------
 %  MARGIN NOTES
