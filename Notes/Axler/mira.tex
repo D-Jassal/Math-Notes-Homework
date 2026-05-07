@@ -11,9 +11,13 @@
 \ihead{\headmark}
 \cehead{\MakeUppercase{\TextbookTitle}}
 \renewcommand{\chapterpagestyle}{empty}
+\newcommand{\addunumberedsubsec}[1]{%
+    \subsection*{#1}%
+    \addcontentsline{toc}{subsection}{#1}%
+}
 
 % Define title page fields
-\def\YourName{Deepak}
+\def\YourName{Deepak Jassal}
 \def\TextbookTitle{Measure, Integration \\\& Real Analysis}
 \def\TextbookAuthor{Sheldon Axler}
 \def\CourseName{}
@@ -37,7 +41,8 @@
 \mainmatter
 
 \chapter{Riemann Integration}
-\section{Review: Riemann Integral}
+\stepcounter{section}
+\addsec{1A Review: Riemann Integral}
 \begin{definition}{Partition}{}
     Suppose $a, b \in \R$ with $a < b$. A partition of $[a, b]$ is a finite list of the form $x_0, x_1, \dots , x_n,$ where
     \[
@@ -160,7 +165,7 @@ The following result can be used to estimate the value of a Riemann integral.
 \begin{proof}
     The proof is rather trivial.
 \end{proof}
-\section{Riemann Integral Is Not Good Enough}
+\addsec{1B Riemann Integral Is Not Good Enough}
 The Riemann integral is a good place to start when it comes to integration, but it is not wihtout flaws, namely:
 \begin{enumerate}
     \item Riemann integration does not handle functions with a non-finite amount discontinuities;
@@ -169,6 +174,7 @@ The Riemann integral is a good place to start when it comes to integration, but 
 \end{enumerate}
 Chapter 2 will start making a new framework which remedies these.\\
 The examples in the textbook show how limits do no play well with the Riemann integral. The following results shows that even when limits do play well with Riemann integration there are still shortcomings.
+\refstepcounter{tcbtheorem}\refstepcounter{tcbtheorem}\refstepcounter{tcbtheorem}\refstepcounter{tcbtheorem}
 \begin{lemma}{Interchanging Riemann integral and limit}{InterRIL}
 Suppose $a, b, M \in R$ with $a < b$. Suppose $f_1, f_2,\dots$ is a sequence of Riemann integrable functions on $[a, b]$ such that
 \[
@@ -184,4 +190,323 @@ If $f$ is Riemann integrable on $[a, b]$, then
 \]
 \end{lemma}
 \chapter{Measures}
+As shown previously there are drawbacks to Riemann integration, to fix these we generalize the notion of a length of an interval to subsets. From here we develop a notion of measures which then leads to integration in the next chapter. \\
+We first start by looking at outer measures, however these are not enough. We then move onto $\sigma$-algebras and measurable spaces. We then generalize measures to apply to spaces other than $\R$, and lastly we construct the Lebesgue measure. 
+\addsec{2A Outer Measure on $\R$} 
+\addunumberedsubsec{Motivation and Definition of Outer Measure}
+We approximate the area under a graph with Riemann integration by computing the area of rectangles. The heights of these rectangles depend on whether we are looking at the upper or lower sum, and the length is determined by the partition we are using.\\
+To integration functions which are not Riemann integrable we first write their domain as the union of subsets which happen to be more complicated than the intervals used in Riemann integration. To this end we will need to find a way to give a size to each subset, this is an extension of the notion of length.\\
+This task happens to be non-trivial for subsets that are not open intervals. The goal of this chapter is to develop a notion for this, and the next employs this notion to develop a new theory of integration.\\
+We first give a natural definition for length, along with a notation.
+\begin{definition}{Length of an Open Interval; $\ell(I)$}{}
+    The length $\ell{I}$ for an open interval $I$ is given by
+    \[
+        \ell(I)=
+        \begin{cases}
+            b-a&\text{ if $I=(a,b)$ for some $a,b\in\R$ with $a<b$,}\\
+            0&\text{ if } I=\varnothing,\\
+            \infty&\text{ if $I=(-\infty,a)$ or $I=(1,\infty)$ for some $a\in\R$},\\
+            \infty&\text{ if $I=(-\infty,\infty)$.}
+        \end{cases}
+    \]
+\end{definition} 
+Suppose we have $A\subseteq\R$, it only makes sense to say that the length of $A$ is at most the sum of the lengths of a sequence of open unions which contain $A$ in their union. To this end we take the infimum of all such possible sums to be the length of $A$, denoted by $|A|$, this is known as the outer measure of $A$.
+\begin{definition}{Outer Measure: $|A|$}{}
+    The outer measure $|A|$ of a set $A\subseteq\R$ is given by 
+    \[
+        |A|=\inf \left\{\sum_{k=1}^{\infty}\ell(I_k)\st I_1,I_2,\dots\text{ are open intervals such that } A=\bigcup_{k=1}^{\infty}I_k\right\}.
+    \]
+\end{definition}
+\begin{example}{Finte sets have outer measure 0}{}
+    Suppose that $A=\{a_1,a_2,\dots,a_n\}$ is a finite subset of $\R$. Suppose that $\eps>0$ and define a sequence of open intervals by
+    \[
+        I_k=
+        \begin{cases}
+            (a_k-\eps,a_k+\eps)&\text{ if } k\leq n\\
+            0&\text{ otherwise}.
+        \end{cases}
+    \]
+    Clearly $A$ is a union of these open intervals, and clearly the sum of this length is $2\eps n$. Since $\eps$ is arbitrary we have $|A|=0$.
+\end{example}
+\addunumberedsubsec{Good Properties of Outer Measure}
+The outer measure has many properties that are good, we first start by improving upon the previous result.
+\begin{lemma}{Countable Sets have Outer Measure 0}{CountOuter}
+    Every countable subset of $R$ has outer measure zero.
+\end{lemma}
+\begin{proof}
+    Suppose $A=\{a_1,a_2,\dots\}$ is a countable subset of $\R$. Let $\eps>0$ and define a sequence of open intervals by
+    \[
+        I_k=
+        \begin{cases}
+            (a_k-\frac{\eps}{2^k},a_k+\frac{\eps}{2^k})&\text{ if } k\leq n\\
+            0&\text{ otherwise}.
+        \end{cases}
+    \]
+    Clearly $A$ is a union of these open intervals, moreover the sum of this length is $2\eps$. Since $\eps$ is arbitrary we have $|A|\leq2\eps$, thus $|A|=0$.
+\end{proof}
+Since $\Q$ is a countable set, this result implies that $|\Q|=0$.\\
+The next result shows that set inclusion is respected by outer measure. 
+\begin{lemma}{Outer mesaure preserves order}{OuterOrder}
+    Suppose $A,B\subseteq\R$ such that $A\subseteq B$, then $|A|\leq|B|$.
+\end{lemma}
+\begin{proof}
+    For any sequence of intervals $I_1,I_2,\dots$ whose unions contains $B$ we have
+    \[
+        |A|\leq\sum_{k=1}^{\infty}\ell(I_k).
+    \]
+    Taking the infimum over all such sequences of intervals we obtain $|A|\leq|B|$.
+\end{proof}
+The size of a subset should not change if we were to shift all terms to the left or to the right. The following definition gives this notion more precision.
+\begin{definition}{Translation; $t+A$}{}
+    If $t\in\R$ and $A\subseteq\R$ the \textit{translation} $t+A$ is defined by
+    \[
+        t+A=\{t+a\st a\in A\}.
+    \]
+\end{definition}
+\begin{lemma}{Outer measure is translation invariant}{OuterInvar}
+    Suppose $t\in\R$ and $A\subseteq\R$ then $|t+A|=|A|$.
+\end{lemma}
+\begin{proof}
+    Suppose that $I_1,I_2,\dots$ is a sequence of open intervals whose union contains $A$ then $t+I_1,t+I_2,\dots$ is a sequence of open intervals whose union contains $t+A$. thus
+    \[
+        |t+A|\leq\sum_{k=1}^{\infty}\ell(t+I_k)=\sum_{k=1}^{\infty}\ell(I_k).
+    \]
+    Taking the infimum over all intervals that we are concerned with gives $|t+A|\leq|A|$.\\
+    To get the other direction of the inequality note that $A=-t+(t+A)$, and apply the above inequality with $A=t+A$ and $t=-t$, then we obtain $|t+A|\geq|A|$. Thus, 
+    \[
+        |t+A|=|A|.\qedhere
+    \]
+\end{proof}
+$(1,4)\cup(3,5)=(1,5)$. 
+\[
+    \ell((1,4)\cup(3,5))<\ell((1,4))+\ell((3,5)).
+\]
+This strict inequality is explained by the fact that the intersection of the two sets is non-empty, so part of it was counted twice.
+\begin{lemma}{Countable subadditivity of outer measure}{CountSubAdd}
+    Suppose that $A_1,A_2,\dots$ is a sequence of subsets of $\R$, then
+    \[
+        \left|\bigcup_{k=1}^{\infty}A_k\right|\leq\sum_{k=1}^{\infty}|A_k|.
+    \]
+\end{lemma}
+\begin{proof}
+    If $|A_k|=\infty$ for some $k\in\Z^+$ the above hold trivially. So assume that $|A_k|<\infty$ for all $k\in\Z^+$\\
+    Let $\eps>0$. For each $k\in\Z^+$ let $I_{1,k},I_{2,k},\dots$ denote the sequence of open intervals whose union contains $A_k$ such that 
+    \[
+        \sum_{j=1}^{\infty}\ell(I_{j,k})\leq\frac{\eps}{2^k}+|A_k|.
+    \]
+    Thus, 
+    \begin{equation}\label{eqn:InterIneq}
+        \sum_{k=1}^{\infty}\sum_{j=1}^{\infty}\ell(I_{j,k})\leq\eps+\sum_{k=1}^{\infty}|A_k|.
+    \end{equation}
+    We can arrange the double indexed intervals in a way such that their union contains $\bigcup_k A_k$, where starting at $k=2$ and incrementing by one we adjoin $k-1$ intervals whose indices sum to $k$:
+    \[
+        \underbrace{I_{1,1}}_2,\underbrace{I_{1,1},I_{1,1}}_3,\underbrace{I_{1,1},I_{1,1},I_{1,1}}_4,\underbrace{I_{1,1},I_{1,1},I_{1,1}}_5,\underbrace{I_{1,1},I_{1,1},I_{1,1},I_{1,1}}_6,\underbrace{I_{1,1},I_{1,1},I_{1,1},I_{1,1}}_7,\dots.
+    \]
+    Inequality \ref{eqn:InterIneq} shows that the above sum is lesser than or equal to $\eps+\sum_{k=1}^{\infty}|A_k|$. Thus, $|\bigcup_kA_k|\leq\eps+\sum_{k=1}^{\infty}|A_k|$. Since $\eps$ is arbitrary we have
+    \[
+        \left|\bigcup_{k=1}^{\infty}A_k\right|\leq\sum_{k=1}^{\infty}|A_k|.\qedhere
+    \]
+\end{proof}
+\addunumberedsubsec{Outer Measure of Closed and Bounded Intervals}
+A fact that we are yet to prove is that for $a,b\in\R$ and $a<b$ then $|[a,b]|=b-a$. let $\eps>0$ then $(a-\eps,b+\eps),\varnothing,\varnothing,\dots$ is a sequence of open intervals that contain $[a,b]$. it is clear that $[a,b]\leq b-a+2\eps$ and since $\eps$ is arbitrary we have $|[a,b]|\leq b-a$. However the other inequality is difficult to prove. This si due to the completion of $\R$. if $\R$ were countable (which it is not) we would have $|[a,b]|=0$. Thus, something about the completeness of $\R$ will help us show that $|[a,b]|\geq b-a$.\\
+The following definition helps with this proof
+\begin{definition}{Open cover; finite subcover}{}
+    Suppose $A\subset\R$.
+    \begin{enumerate}
+        \item A collection $\cC$ of open subsets of $\R$ is called an open cover of $A$ if $A$ is contained within the union of all of the sets of $\cC$.
+        \item An open cover $\cC$ of $A$ is said to have a finite subcover if $A$ is contained in the union of some finite list of sets in $\cC$.
+    \end{enumerate}
+\end{definition}
+\refstepcounter{tcbtheorem}
+The next theorem is useful in proving that $|[a,b]|\geq b-a$.
+\begin{theorem}{Heine-Borel Theorem}{HB}
+    Every open cover of a closed and bounded set has a finite subcover.
+\end{theorem}
+\begin{proof}
+    See any introductory real analysis textbook.
+\end{proof}
+\refstepcounter{tcbtheorem}
+With these results we can now prove that closed intervals have the outer measure we think they should. 
+\begin{theorem}{Outer Measure of a Closed Interval}{OuterClosed}
+    Suppose $a, b \in \R$, with $a < b$. Then $|[a, b]| = b - a$.
+\end{theorem}
+\begin{proof}
+    We have already shown that $|[a,b]|\leq b-a$. It remains to show that $|[a,b]\geq b-a$.\\
+    Suppose that $I_1,I_2,\dots$ is a sequence of open interval such that $[a,b]\subseteq\bigcup_k I_k$. By the Heine-Borel theorem we have that 
+    \begin{equation}\label{cover}
+        [a,b]\subseteq I_1,I_2,\dots,I_n
+    \end{equation}
+    for some finite $n$.\\
+    We will prove by induction on $n$ that the above implies that 
+    \begin{equation}{induction}
+        \sum_{k=1}^{n}\ell(I_k)\geq b-a.
+    \end{equation}
+    Then this will imply that $ \sum_{k=1}^{\infty}\ell(I_k)\geq\sum_{k=1}^{n}\ell(I_k)\geq b-a$, which is our desired result.\\
+    To start the induction note that \ref{cover} clearly implies \ref{induction} for the case of $n=1$.\\
+    Inductive step: Suppose that $n>1$ and that \ref{cover} implies \ref{induction} for all choices of $a,b\in\R$ with $a<b$. Suppose that $I_1,I_2,\dots I_n,I_{n+1}$ are open intervals such that 
+    \[
+        [a,b]\subseteq I_1\cup I_2\cup\cdots\cup I_n\cup I_{n+1}.
+    \]
+    Clearly we have that $b$ is contained in one of these intervals, let this interval be $I_{n+1}$. Suppose that $I_{n+1}=(c,d)$. If $c\leq a$ then clearly we have $I_{n+1}\geq b-a$ finishing the proof. Assume that $a<c<b<d$. Then,
+    \[
+        [a,c]\subseteq I_1\cup I_2\cup\cdots\cup I_n.
+    \]
+    By out inductive hypothesis we have that $\sum_{k=1}^{n}\ell(I_k)\geq c-a$. Then
+    \begin{align*}
+        \sum_{k=1}^{n+1}&\geq(c-a)+\ell(I_{n+1})\\
+        &=(c-a)+(d-c)\\
+        &=d-a\\
+        &\geq b-a,
+    \end{align*}
+    completing the induction we have our desired result. 
+\end{proof}
+This result has the following corollary, the original proof of which was given by Georg Cantor. We give an alternative proof using outer measures.
+\begin{corollary}{Nontrivial Intervals are Non-Countable}{Cantor}
+    Every interval in $\R$ that contains at least two distinct elements is uncountable.
+\end{corollary}
+\begin{proof}
+    Suppose $I$ is an interval in $\R$ that contains $a,b$ with $a<b$. Then,
+    \[
+        |I|\geq|[a,b]|=b-a\geq0.
+    \]
+    This hold because of \ref{lem:OuterOrder} and \ref{thm:OuterClosed}. Since all countable sets in $\R$ have measure 0 (see \ref{lem:CountOuter}) we have that $I$ is uncountable.
+\end{proof}
+\addunumberedsubsec{Outer Measure is Not Additive}
+So far we have sene many nice properties of outer measures, but now we have to look into a bad property of them.\\
+If outer measures were perfect we would expect that for $A,B\subseteq\R$ and $A\cap B=\varnothing$ we would get $|A\cup B|=|A|+|B|$. But as the next result will show, this is not the case. 
+\begin{theorem}{Nonadditivity of Outer Measure}{NonAddOuter}
+    There exist disjoint subsets $A$ and $B$ of $\R$ such that
+    \[
+        |A\cup B|\neq|A|+|B|
+    \]
+\end{theorem}
+\begin{proof}
+    For $a\in[-1,1]$, let $\widetilde{a}$ be the set of numbers in $[-1,1]$ that differ from $a$ by a rational, that is
+    \[
+        \widetilde{a}=\{c\in[-1,1]\st a-c\in\Q\}.
+    \]
+    If $a,b\in[-1,1]$ and $a\cap b\neq\varnothing$, then $\widetilde{a}=\widetilde{b}$.(Proof: Suppose there exists $d \in \widetilde{a}\cap \widetilde{b}$. Then $a - d$ and $b - d$ are rational numbers; subtracting, we conclude that $a - b$ is a rational number. The equation $a - c = (a - b) + (b - c)$ now implies that if $c \in [-1, 1]$, then $a - c$ is a rational number if and only if $b - c$ is a rational number. In other words, $\widetilde{a}=\widetilde{b}$.)\\
+    Clearly $a\in\widetilde{a}$ for all $a\in[-1,1]$. Thus, 
+    \[ 
+    \]
+    Let $V$ be the set that contains exactly one element in each of the distinct sets in 
+    \[
+        \{\widetilde{a}\st a\in[-1,1]\},
+    \]
+    that is $|V\bigcap \widetilde{a}|=1$ for each $a\in[-1,1]$.\\
+    Let $r_1,r_2,\dots$ be the sequence of rational numbers such that 
+    \[
+        [-2,2]\cap\Q=\{r_1,r_2,\dots\}.
+    \]
+    Then 
+    \[
+        [-1,1]\subseteq\bigcap_{k=1}^{\infty}(r_k+V), 
+    \]
+    where the set inclusion above holds because if $a \in [-1, 1]$, then letting $v$ be the unique element of $V\cap\widetilde{a}$, we have $a - v \in \Q$, which implies that $a = r_k + v \in r_k + V$ for some $k \in Z^+$.\\
+    The set inclusion above, the order-preserving property of outer measure \ref{lem:OuterOrder}, and the countable subadditivity of outer measure \ref{lem:CountSubAdd} imply
+    \[
+        |[-1,1]|\leq\sum_{k=1}^{\infty}|r_k+V|.
+    \]
+    We know that $|[-1,1]|=2$ from \ref{thm:OuterClosed} The translation invariance of outer measure \ref{lem:OuterInvar} thus allows us to rewrite the inequality above as
+    \[
+        2\leq\sum_{k=1}^{\infty}|r_k+V|.
+    \]
+    Thus $|V|>0$.\\
+    Note that the sets $r_1 + V, r_2 + V,\dots$ are disjoint. (Proof: Suppose there exists $t \in (r_j + V) \cap (r_k + V)$. Then $t = r_j + v_1 = r_k + v_2$ for some $v_1, v_2 \in V$, which implies that $v_1 - v_2 = r_k - r_j \in\Q$. Our construction of $V$ now implies that $v_1 = v_2$, which implies that $r_j = r_k$, which implies that $j = k$.)\\
+    Let $n\in\Z^+$. Clearly 
+    \[
+        \bigcap_{k=1}^{n}(r_k+V)\subseteq[-3,3]
+    \]
+    because $V\subseteq[-1,1]$ and each $r_k\in[-2,2]$. This set inclusion implies that 
+    \begin{equation}\label{less6}
+        \left|\bigcap_{k=1}^{n}(r_k+V)\right|\leq6.
+    \end{equation}
+    However
+    \begin{equation}\label{sumn}
+        \sum_{k=1}^{n}|r_k+V|=\sum_{k=1}^{n}|V|=n|V|.
+    \end{equation}
+    \ref{less6} and \ref{sumn} suggest that if we pick $n\in\Z^+$ such that $n|V|>6$ we obtain
+    \begin{equation}\label{OuterSizeLess}
+        \left|\bigcap_{k=1}^{n}(r_k+V)\right|<\sum_{k=1}^{n}|r_k+V|.
+    \end{equation}
+    If we had $|A\cup B|=|A|+|B|$ for all disjoint subsets $A,B$ of $\R$, then by induction we could show that $\left|\bigcap_{k=1}^{n}A_k\right|=\sum_{k=1}^{n}|A_k|$ for all disjoint subsets $A_1,A_2,\dots,A_n$ of $\R$.\\
+    However, by \ref{OuterSizeLess} we know that no such result can hold. Thus there exist disjoint subsets of $\R$ such that $|A\cap B|\neq|A|+|B|$.
+\end{proof}
+The axiom of choice which states that \textit{if $\mathcal{E}$ is a set whose elements are non-empty disjoint sets, then there exists a set $V$ which contains exactly one element from each set in $\mathcal{E}$}. We used this axiom in our construction of $V$ in the proof. 
+\addsec{2B Measurable Spaces and Functions}
+We showed previoudly that the outer measure is not additive. This leads one to ask if there is a notion other than the outer measure for the size of a subset of $\R$ that fixes this problem? The next result shows that there does not exist a notion of size, $\mu$, that has all of the desireable properties (listed in the next result.)
+\begin{theorem}{Nonexistence of Extension of Length to All Subsets of $\R$}{NoMu}
+    There does not exist a function $\mu$ with all the following properties.
+    \begin{enumerate}[label=(\alph*)]
+        \item $\mu$ is a function from subsets of $\R$ to $[0,\infty]$.
+        \item $\mu(I) =\ell(I)$ for every open interval $I$ of $\R$.
+        \item $\mu\left(\bigcup_{k=1}^{n}A_k\right)=\sum_{k=1}^{n}\mu(A_k)$ for every disjoint sequence $A_1,A_2,\dots$ of subsets of $\R$ (this is called countable additivity).
+        \item $\mu(t+A)=\mu(A)$ for all $t\in\R$ and $A\subseteq\R$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Suppose for the sake of contradiction there does exist a function $\mu$ that satisfies all of these properties.\\
+    Then by (b) we have $\mu(\varnothing)=0$, since $\varnothing$ is an empty open interval.\\
+    If $A\subseteq B\subseteq\R$, then we have $\mu(A)\leq\mu(B)$. This is because $B=A\cup(B\setminus A)\cup\varnothing\cup\cdots$.Then,
+    \[
+        \mu(B)=\mu(A\cup(B\setminus A)\cup\varnothing\cup\cdots)=\mu(A)+\mu(A\setminus B)+\mu(\varnothing)+\cdots\geq\mu(A).
+    \]
+    If $a,b\in\R$ with $a<b$ we have $(a,b)\subseteq[a,b]\subseteq(a-\eps,b+\eps)$ for all $\eps>0$. Thus, $b-a\leq\mu([a,b])\leq b-a+2\eps$. Since $\eps$ is arbitrary we have $\mu([a,b])$.\\
+    If $A_1,A_2,\dots$ is a sequence of subsets of $\R$, then $A_1,A_2\setminus A_1,A_3\setminus(A_1\cup A_2),\dots$ is a disjoint sequence of subsets of $\R$ whose union is $\bigcup_{k}A_k$. Thus
+    \begin{align*}
+        \mu\left(\bigcup_{k=1}^{n}A_k\right)&=\mu\left(A_1\cup(A_2\setminus A_1)\cup (A_3\setminus(A_1\cup A_2))\cup\dots\right)\\
+        &=\mu(A_1)+\mu(A_2\setminus A_1)+\mu(A_3\setminus(A_1\cup A_2))\\
+        &\leq\sum_{k=1}^{\infty}\mu(A_k).
+    \end{align*}
+    We shown that $\mu$ posseses all of the properties of the outer measure that were used in the proof of \ref{thm:NonAddOuter}. Repeating the steps of the proof of \ref{thm:NonAddOuter} we get the same result and see that there exist disjoint subsets $A,B$ of $\R$ such that $\mu(A\cup B)\neq\mu(A)+\mu(B)$. Thus, the disjoint sequence $A,B,\varnothing,\dots$ does not satisfy the property required by (c). This contradiction completes the proof.
+\end{proof}
+\addunumberedsubsec{$\sigma$-Algebras}
+Due to the last result, we need to get rid of or relax one of the requirements when generalizing our notion of the size of intervals in $\R$ to subsets of $\R$. We need the size of an interval to be it's length, so we cannot give up \ref{thm:NoMu}.b, and we need additivity to proe theorems with limits so we cannot give up \ref{thm:NoMu}.c, and if size is not translation invariant we lose some intution so we cannot give up \ref{thm:NoMu}.d. Thus we are forced to relax \ref{thm:NoMu}.a.\\
+The following definition is motivated by the intuition that for a good theory that allows limits to be taken we need this notion of size to be closed under complementation and under countable unions.
+\begin{definition}{$\sigma$-Algebras}{SigmaAlgebras}
+    Suppose that $X$ is a set and $\cS$ is a set of subsets of $X$. We call $\cS$ a $\sigma-$Algebra of $X$ if it satisfies the following three conditions
+    \begin{itemize}
+        \item $\varnothing\in\cS$;
+        \item if $E\in\cS$ then $X\setminus E\in\cS$;
+        \item if $E_1,E_2,\dots$ is a sequence of elements of $\cS$, then $\bigcup_{k=1}^\infty E_k=\cS$.
+    \end{itemize}
+\end{definition}
+\begin{example}{$\sigma$-algebras}{}
+    \begin{itemize}
+        \item Suppose that $X$ is a set, then obviously $\{\varnothing,X\}$ is a $\sigma-$algebra on $X$.
+        \item Suppose $X$ is a set, all the subsets of $X$ form a $\sigma$-alegbra.
+    \end{itemize}
+\end{example}
+The following result gives us very important properties of $\sigma-$algebras.
+\begin{theorem}{$\sigma-$algebras are closed under countable intersection}{SigmaProp}
+    Suppose that $\cS$ is a $\sigma-$algebra on a set $X$.
+    \begin{enumerate}[label=(\alph*)]
+        \item $X\in\cS$;
+        \item if $D,E\in\cS$ then $D\cup E\in\cS$ and $D\cap E\in\cS$ and $D\setminus E\in\cS$;
+        \item if $E_1,E_2,\dots$ is a sequence of elements in $\cS$ then $\bigcap_{k}E_k\in\cS$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    By the first two properties of $\sigma$-algebras we have (a).\\
+    Suppose that $D,E\in\cS$ then $D\cup E$ is the union of the sequence $D,E,\varnothing,\dots$. Thus, by the third property of $\sigma-$algebras we have $D\cup E\in\cS$.\\
+    De Morgan's law tells us that 
+    \[
+        X\setminus(D\cap E)=(X\setminus D)\cup(X\setminus E).
+    \]
+    Since $D,E\in\cS$ we have the RHS above in $\cS$ which means that $X\setminus(D\cap E)$. By the second property of $\sigma-$algebras we have $D\cap E\in\cS$.\\
+    Because $D\setminus E=D\cap(X\setminus E)$, then it is clear that if $D,E\in \cS$ then $D\setminus E\in\cS$, this completes the proof of (b).\\
+    Suppose that $E_1,E_2,\dots$ is a sequence of sets in $\cS$. De Morgan's law tells us that 
+    \[
+        X\setminus\bigcap_{k=1}^{\infty}E_k=\bigcup_{k=1}^{\infty}(X\setminus E_k).
+    \]
+    The RHS of this equation is in $\cS$, then the LHS is also in $\cS$. The we have that $X\setminus X\setminus\bigcap_{k=1}^{\infty}E_k=\bigcap_{k=1}^{\infty}E_k$, prooving (c).
+\end{proof}
+We use the term \textit{measurable} in the following definition becuase in the next section we will introduce a function called a \textit{measure}, which is defined on \textit{measurable} sets.
+\begin{definition}{Measurable space; measurable set}{MeasureableSpaceSet}
+    \begin{itemize}
+        \item A \textit{measurable space} is an ordered pair $(X,\cS)$, where $X$ is a set and $\cS$ is a $\sigma-$algebra on $X$.
+        \item An element of $\cS$ is called an $\cS$-\textit{measurable set}, or just a \textit{measurable set} if $\cS$ is clear from the context.
+    \end{itemize}
+\end{definition}
+\addunumberedsubsec{Borel Subsets of $\R$}
 \end{document}

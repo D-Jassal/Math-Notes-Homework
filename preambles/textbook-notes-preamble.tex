@@ -8,9 +8,9 @@
 % ------------------------------------------------------------
 %  ENCODING & FONTS
 % ------------------------------------------------------------
-%\usepackage[T1]{fontenc}
-%\usepackage[utf8]{inputenc}
-%\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
 \usepackage{microtype}
 
 % ------------------------------------------------------------
@@ -68,7 +68,7 @@
 \renewcommand{\thetcbtheorem}{\thesection.\arabic{tcbtheorem}}
 
 %  Theorem
-\newtcbtheorem[use counter=tcbtheorem, number within=section]
+\newtcbtheorem[use counter=tcbtheorem, number within=chapter]
   {theorem}{Theorem}{
     enhanced, breakable,
     colback=BoxBg, colframe=AccentMain,
@@ -79,7 +79,7 @@
   }{thm}
 
 %  Definition
-\newtcbtheorem[use counter=tcbtheorem, number within=section]
+\newtcbtheorem[use counter=tcbtheorem, number within=chapter]
   {definition}{Definition}{
     enhanced, breakable,
     colback=BoxBg!60, colframe=AccentMain!70,
@@ -90,7 +90,7 @@
   }{def}
 
 %  Lemma
-\newtcbtheorem[use counter=tcbtheorem, number within=section]
+\newtcbtheorem[use counter=tcbtheorem, number within=chapter]
   {lemma}{Lemma}{
     enhanced, breakable,
     colback=BoxBg!40, colframe=AccentMain!50,
@@ -98,7 +98,7 @@
   }{lem}
 
 %  Corollary
-\newtcbtheorem[use counter=tcbtheorem, number within=section]
+\newtcbtheorem[use counter=tcbtheorem, number within=chapter]
   {corollary}{Corollary}{
     enhanced, breakable,
     colback=BoxBg!40, colframe=AccentMain!50,
@@ -106,7 +106,7 @@
   }{cor}
 
 %  Proposition
-\newtcbtheorem[use counter=tcbtheorem, number within=section]
+\newtcbtheorem[use counter=tcbtheorem, number within=chapter]
   {proposition}{Proposition}{
     enhanced, breakable,
     colback=BoxBg!40, colframe=AccentMain!50,
@@ -114,7 +114,7 @@
   }{prop}
 
 %  Example
-\newtcbtheorem[use counter=tcbtheorem, number within=section]
+\newtcbtheorem[use counter=tcbtheorem, number within=chapter]
   {example}{Example}{
     enhanced, breakable,
     colback=AccentSoft!8, colframe=AccentSoft!70,
@@ -266,6 +266,15 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\F}{\mathbb{F}}
+
+% Calligraphic 
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cS}{\mathcal{S}}
 
 %  ---- Set-builder notation ----
 \newcommand{\st}{\,:\,}                    % such that
