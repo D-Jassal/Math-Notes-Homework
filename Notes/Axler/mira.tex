@@ -509,4 +509,175 @@ We use the term \textit{measurable} in the following definition becuase in the n
     \end{itemize}
 \end{definition}
 \addunumberedsubsec{Borel Subsets of $\R$}
+Next we show that if $\cA\subseteq X$ is a set of subsets, there exists a smallest $\sigma-$algebra that contains $\cA$.
+\begin{theorem}{Smallest $\sigma-$algebra containing a set of subsets}{SmallestSigma}
+    Suppose $X$ is a set and $\cA$ is a set of subsets of $X$. Then the intersection of all $\sigma-$algebras on $X$ that contain $\cA$ is a $\sigma-$alegbra on $X$.
+\end{theorem}
+\begin{proof}
+    The $\sigma-$algebra that contains all subsets of $X$, contains $\cA$. So there is at least one $\sigma-$algebra on $X$, that contains $\cA$.\\
+    Let $\cS$ be the intersection of all $\sigma-$algebras on $X$ that contain $\cA$. We know that $\varnothing\in\cS$ because $\varnothing$ is in all $\sigma-$algebras. Let $E\in\cS$, then that means that $E$ is an element of all $\sigma-$algebras which contain $\cA$. Thus, $X\setminus E$ is in all $\sigma-$algebras that contain $\cA$. Thus, $X\setminus E\in\cS.$\\
+    Suppose $E_1,E_2,\dots$ is a sequence of elements of $\cS$. Then this sequence is in each $\sigma-$algebra which contains $\cA$. Thus $\bigcup_{k}E_k$ is in each $\sigma-$alegbra which contains $\cA$. Thus, $\bigcup_{k}E_k\in\cS$.
+\end{proof}
+The following definition is very important for study of measures.
+\refstepcounter{tcbtheorem}
+\begin{definition}{Borel Sets}{BorelSets}
+    The smallest $\sigma-$algebra on $\R$ containing all open subsets of $\R$ is called the collection of \textit{Borel subsets} of $\R$. An element of this $\sigma-$algebra is called a \textit{Borel set.}
+\end{definition}
+\refstepcounter{tcbtheorem}
+\addunumberedsubsec{Inverse Images}
+\begin{definition}{Inverse images; $f^{-1}(A)$}{InverseImages}
+    If $f:X\to Y$ is a function and $A\subseteq Y$, then the set $f^{-1}(A)$ is defined by 
+    \[
+        f^{-1}(A)=\{x\in X\st f(x)\in A\}.
+    \]
+\end{definition}
+\refstepcounter{tcbtheorem}
+Inverse images have many good algebraic properties.
+\begin{lemma}{Algebra of inverse images}{InverseAlgebra}
+    Suppose $f:X\to Y$ is a function. then
+    \begin{enumerate}[label=(\alph*)]
+        \item $f^{-1}(Y\setminus A)=X\setminus f^{-1}(A)$ for every $A\subseteq Y$;
+        \item $f^{-1}\left(\bigcup_{A\in\cA}A\right)=\bigcup_{A\in\cA}f^{-1}(A)$ for every set $\cA$ of subsets of $Y$;
+        \item $f^{-1}\left(\bigcap_{A\in\cA}A\right)=\bigcap_{A\in\cA}f^{-1}(A)$ for every set $\cA$ of subsets of $Y$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Suppose $A\subseteq Y$. For $x\in X$ we have
+    \begin{align*}
+        x\in f^{-1}(Y\setminus A)&\Longleftrightarrow f(x)\in Y\setminus A\\
+        &\Longleftrightarrow f(x)\not\in A\\
+        &\Longleftrightarrow x\not\in f^{-1}(A)\\
+        &\Longleftrightarrow x\in A\setminus f^{-1}(A).
+    \end{align*}
+    Suppose that $\cA$ is a set of subsets of $Y$. Then
+    \begin{align*}
+        x\in f^{-1}\left(\bigcup_{A\in\cA}A\right)&\Longleftrightarrow f(x)\in\bigcup_{A\in\cA}A\\
+        &\Longleftrightarrow x\in f(A)\text{ for some } A\in\cA\\
+        f^{-1}(x)\in A\text{ for some } A\in\cA\\
+        f^{-1}(x)\in\bigcup_{A\in\cA}.
+    \end{align*}
+    For part (c) do the same but replace the union with an intersection and for some with for every.
+\end{proof}
+\begin{lemma}{Inverse image of composition}{InverseComp}
+    Suppose that $f:X\to Y$ and $g:Y\to W$. Then
+    \[
+        (g\circ f)^{-1}(A)=f^{-1}(g^{-1}(A))
+    \]
+    for all $A\subseteq W$.
+\end{lemma}
+\begin{proof}
+    \begin{align*}
+        x\in(g\circ f)(A)&\Longleftrightarrow (g\circ f)^{-1}(x)\in A\\
+        &\Longleftrightarrow g(f(x))\in A\\
+        &\Longleftrightarrow f(x)\in g^{-1}(A)\\
+        &\Longleftrightarrow x\in f^{-1}(g^{-1}(A)).\qedhere
+    \end{align*}
+\end{proof}
+\addunumberedsubsec{Measurable Functions}
+\begin{definition}{Measurable functions}{MeasurableFunctions}
+    Suppose $(X,\cS)$ is a measurable space. A function $f:X\to \R$ is called $\cS-$\textit{measurable} (or \textit{measurable} if $\cS$ is contextual) if
+    \[
+        f^{-1}(B)\in\cS
+    \]
+    for every Borel set $B\subseteq\R$.
+\end{definition}
+\refstepcounter{tcbtheorem}
+\begin{definition}{Characteristic function; $\chi_E$}{CharFunc}
+    Suppose that $E\subseteq X$. The \textit{characteristic function} of $E$ on $X$ is defined by
+    \[
+        \chi_E(x)=
+        \begin{cases}
+            1&\text{ if } x\in E,\\
+            0&\text{ if } x\not\in E.
+        \end{cases}
+    \]
+\end{definition}
+\refstepcounter{tcbtheorem}
+Checking to verify if a function is $\cS-$measurable is a rather daunting task. The next result shows an alternative condition we can check for to see if a function is $\cS-$measurable.
+\begin{lemma}{Condition for measurable function}{MeasureFuncCond}
+    Suppose $(x,\cS)$ is a measure space and $f:X\to\R$ a fucntion such that 
+    \[
+        f((a,\infty))\in\cS
+    \]
+    for all $a\in\R$. Then $f$ is an $\cS-$measurable function.
+\end{lemma}
+\begin{proof}
+    Page 32 of the textbook.
+\end{proof}
+We can replace the collection $\{(a,\infty)\st a\in\R\}$ with any collection of sets such that the smallest $\sigma-$algebra of such a set contains the Borel subsets of $\R$.\\
+A special case of a measurable function which is of note is when $X$ is a Borel subset of $\R$ and $\cS$ is the set of Borel subsets of $\R$. In this case we call an $\cS-$measurable function Borel measurable.
+\begin{definition}{Borel measurable function}
+    Suppose $X \subseteq\R$. A function $f : X \to\R$ is called Borel measurable if $f^{-1}(B)$ is a Borel set for every Borel set $B\subseteq\R$.
+\end{definition}
+If $X\subseteq\R$ and there is a Borel measurable function $f:X\to\R$ then $X$ must be a Borel set because $f^{-1}(\R)=X$.\\
+By \ref{lem:MeasureFuncCond} we have that for $X\subseteq\R$ and a function $f:X\to\R$, $f$ is a Borel measurable function \textit{iff} $f((a,\infty))$ is a Borel set for all $a\in\R$. 
+\begin{theorem}{Every Continuous Function is Borel Measurable}{ContBorel}
+    Every continuous real-valued function defined on a Borel subset of $\R$ is a Borel measurable function.
+\end{theorem}
+\begin{proof}
+    Suppose $X \subseteq\R$ is a Borel set and $f : X \to \R$ is continuous. To prove that $f$ is Borel measurable, fix $a \in \R$.
+    If $x \in X$ and $f(x) > a$, then (by the continuity of $f$) there exists $\delta_x>0$ such that $f(y)>a$ for all $y\in(x-\delta_x,x+\delta_x)\cap X$. Thus
+    \[
+        f^{-1}((a,\infty))=\left(\bigcup_{x\in f^{-1}((a,\infty))}(x-\delta_x,x+\delta_x)\right)\cap X.
+    \]
+    This union is an open subset of $\R$. So the intersection with $X$ is a Borel set. Thus, we have that $f^{-1}(a,\infty)$ is a Borel set.\\
+    By \ref{lem:MeasureFuncCond} we have that $f$ is Borel measurable.
+\end{proof}
+We now discuss another class of Borel measurable functions. There is a similar definition and result for decreasing and strictly decreasing functions.
+\begin{definition}{Increasing function; strictly increasing}{Increase}
+    Suppose $X \subseteq\R$ and $f : X \to\R$ is a function.
+    \begin{itemize}
+        \item $f$ is called \textit{increasing} if $f(x)\leq f(y)$ for all $x,y\in X$ when $x<y$.
+        \item $f$ is called \textit{strictly increasing} if $f(x)\leq f(y)$ for all $x,y\in X$ when $x<y$.
+    \end{itemize}
+\end{definition}
+\begin{lemma}{Every increasing function is Borel measurable}{IncreaseBorel}
+    Every increasing function defined on a Borel subset of \textit{R} is a Borel measurable function.
+\end{lemma}
+\begin{proof}
+    Suppose $X \subseteq\R$ is a Borel set and $f : X \to\R$ is increasing. To prove that $f$ is Borel measurable, fix $a \in\R$.\\
+    Let $b=\inf f^{-1}((a,\infty))$. Then it is easy to see that
+    \[
+        f^{-1}((a,\infty))=(b,\infty)\cap X\quad\text{or}\quad f^{-1}((a,\infty))=[b,\infty)\cap X.
+    \] 
+    Either we can conclude that $f^{-1}((a,\infty))$ is a Borel set.\\
+    The rest of the proof follows from \ref{lem:MeasureFuncCond}.
+\end{proof}
+\begin{lemma}{Composition of measurable functions}{MeasFuncComp}
+    Suppose $(X, \cS)$ is a measurable space and $f : X \to\R$ is an $\cS$-measurable function. Suppose $g:A\to\R$ where $A$ is a subset of $\R$ that contains the range of $f$ is a real-valued Borel measurable function. Then $(g\circ f) : X \to\R$ is an $\cS$-measurable function.
+\end{lemma}
+\begin{proof}
+    Suppose that $B\subseteq \R$ is a Borel set. Then by \ref{lem:InverseComp} we have
+    \[
+        (g\circ f)^{-1}(B)=f^{-1}(g^{-1}(B)).
+    \]
+    Since $g$ is Borel measurable we have that $g^{-1}(B)$ is a Borel subset. Since $f$ is an $\cS$-measurable we have $(g\circ f)^{-1}(B)=f^{-1}(g^{-1}(B))\in\cS$. Thus $(g\circ f)$ is an $\cS-$measurable function.
+\end{proof}
+\refstepcounter{tcbtheorem}
+\begin{theorem}{Algebraic operations with measurable functions}{MeasFuncAlg}
+    Suppose $(X, \cS)$ is a measurable space and $f , g : X \to\R$ are $\cS$-measurable. Then
+    \begin{enumerate}[label=(\alph*)]
+        \item $f+g,f-g,$ and $fg$ are $\cS-$measurable functions;
+        \item if $g(x)\neq0$ for all $x\in X$ then $\frac{f}{g}$ is an $\cS-$measurable function.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Suppose $a\in\R$ we will show that 
+    \begin{equation}\label{MeasFuncAlgProof}
+        (f+g)^{-1}((a,\infty))\in\bigcup_{r\in\Q}\left(f^{-1}((r,\infty))\cap g^{-1}((a-r,\infty))\right),
+    \end{equation}
+    which implies that $( f + g)^{-1}(a, \infty)\in\cS$.\\
+    First suppose that 
+    \[
+        x\in (f+g)^{-1}((a,\infty)).
+    \]
+    Thus $a < f (x) + g(x)$. Hence the open interval $(a - g(x), f (x))$ is nonempty, and thus it contains some rational number $r$. This implies that $r < f (x)$, which means that $x \in f^{-1}(r, \infty)$, and $a - g(x) < r$, which implies that $x \in g^{-1}(a -r, \infty)$. Thus x is an element of the right side of \ref{MeasFuncAlgProof}, completing the proof that the left side of \ref{MeasFuncAlgProof} is contained in the right side.\\
+    Composition of $g$ with $-x$ gives us that $-g$ is a Borel measurable function. Then we have $f-g=f+(-g)$. Thus, $f-g$ is also an $\cS-$measurable function.\\
+    write
+    \[
+        fg=\frac{(f+g)^2-f^2-g^2}{2}.
+    \]
+    Since $\frac{1}{2}$ and $x^2$ are Borel measurable functions we have from composition that $fg$ is an $\cS-$measurable function.\\
+    On $\R\setminus\{0\}$ which is a Borel subset the function $\frac{1}{x}$ is continuous, and there for Borel measurable. Thus, by composition $\frac{1}{g}$ is $\cS-$measurable. Thus, by the last result we have that $\frac{f}{g}$ is $\cS-$measurable.
+\end{proof}
 \end{document}
