@@ -1,0 +1,1841 @@
+\documentclass[twoside, openright, fontsize=10pt, headings=big]{scrbook}
+
+% Load your existing preamble
+\input{../../../../preambles/textbook-notes-preamble2.tex}
+\usetikzlibrary{cd}
+% KOMA header configuration
+\usepackage{scrlayer-scrpage}
+\clearpairofpagestyles
+\automark[chapter]{chapter}
+\ohead{\pagemark}
+\ihead{\headmark}
+\cehead{\MakeUppercase{\TextbookTitleShort}}
+\renewcommand{\chapterpagestyle}{empty}
+\newcommand{\addunumberedsubsec}[1]{%
+    \subsection*{#1}%
+    \addcontentsline{toc}{subsection}{#1}%
+}
+
+% Define title page fields
+\def\YourName{Deepak Jassal}
+\def\TextbookTitle{Analytic Number Theory}
+\def\TextbookTitleShort{ANT}
+\def\TextbookAuthor{Dr. Alia Hamieh}
+\def\CourseName{MATH481}
+\def\NoteSemester{Winter}
+\def\NoteYear{2026}
+
+% Make equations share the exact same counter as theorems
+%\makeatletter
+%\let\c@equation\c@tcbtheorem
+%\renewcommand{\theequation}{\thetcbtheorem}
+%\makeatother
+
+
+\begin{document}
+%No page spaces between chapters
+\let\cleardoublepage\clearpage
+% Title page
+\input{../../../../preambles/titlepage.tex}
+
+\frontmatter
+\tableofcontents
+\mainmatter
+
+\chapter{Introduction}
+Motivating questions in analytic number theory.\\
+What is the ``probability'' that a randomly chosen integer is 
+\begin{itemize}
+    \item prime?
+    \item square free?
+    \item has an odd number of prime factors?
+\end{itemize}
+Given a multiplicative function $(f:\N\to\C,\,f(mn)=f(m)f(n),\,\gcd(m,n=1))$, $\varphi(n),\,d(n),\,\sigma(n),$ etc.\\
+What is the distribution of such functions on ``randomly'' chosen integers
+\begin{itemize}
+    \item minimum/maximum
+    \item average value
+    \item typical value
+\end{itemize}
+To make some of these questions more rigorous:\\
+Let $x\geq 1$ be a real parameter\\
+The answer for the questions for $n\in\{1,2,3,\dots,\left\lfloor x\right\rfloor \}$ will depend on our choice of $x$.\\
+For example, consider $\dfrac{1}{x}\sum_{n\leq x}f(n)$ where $f(n)$ is a multiplicative function, and study it's behaviour in terms of $x$ for large values of $x$.
+\begin{example}{}{}
+    The average value $d(n)$
+\[
+    \lim_{x\to\infty}\frac{1}{x}\sum_{n\leq x}d(n)=\log(x), \quad \frac{1}{x}\sum_{n\leq x}d(n)\sim\log(x) 
+\]
+\end{example}
+Let $\pi(x)$ be the number of prime numbers less than or equal to $x$.
+\[
+    \pi(x)=\sum_{\substack{p\leq x\\ p\text{ prime}}}1.
+\]
+The (weak form) of the prime number theorem states that:
+\[
+    \pi(x)\sim\frac{x}{\log(x)}
+\]
+for large values of $x$.\\
+In other words that is 
+\[
+    \lim_{x\to\infty}\frac{\pi(x)}{\frac{x}{\log(x)}}=1.
+\]
+A stronger version of the prime number theorem asserts that 
+\[
+    \pi(x)=\Li(x)+\Oh\left(e^{-c\sqrt{\log(x)}}\right)
+\]
+where
+\[
+    \Li(x)=\int_{2}^{x}\frac{dt}{\log(t)},
+\]
+is the logarithmic integral function.\\\
+Using integration by parts we can see that 
+\[
+    \Li(x)=\frac{x}{\log(x)}+\Oh\left(\frac{x}{(\log(x))^3}\right).
+\]
+For a review of arithmetic and multiplicative functions please refer to chatper 1 of Hilderbrand's notes.\\
+\setcounter{section}{1}
+\chapter{Asymptotic Notation \\\& Average Values of Arithmetic Functions}
+\addsec{``Big Oh'' Notation}
+Let $f:A\to\C$ be a function, and let $g(x)$ be a non-negative function.\\
+We write $f(x)=\Oh(g(x))$ or $f(x)<<g(x)$ is there exists $C>0$ such that
+\[
+    |f(x)|\leq Cg(x)
+\]
+for all $x\in A$.\\
+In this course we will mostly be interested in teh asymptotic behaviour of a function $f(x)$ for large values of $x$ (i.e., $x\to\infty$). In this case, the ``big oh'' notation can be understood as follows
+\[
+    f(x)=\Oh(g(x))
+\]
+whenever there exists $C>0$ and $x_0>0$ such that
+\[
+    |f(x)|\leq Cg(x)
+\]
+for all $x\geq x_0$.
+\addsec{``Little Oh'' Notation}
+We say $f(x)=\oh(g(x))$ if 
+\[
+    \lim_{x\to\infty}\frac{f(x)}{g(x)}=0
+\] provided that $g(x)>0$ for large enough $x$.
+In other words, given $\varepsilon>0$, there exists $x_0>1$ such that 
+\[
+    \left|\frac{f(x)}{g(x)}\right|\leq \varepsilon
+\]
+for all $x\geq x_0$.
+Rearranging this expression we see that 
+\[
+    |f(x)|\leq \varepsilon g(x)\Leftrightarrow f(x)=\Oh(g(x).)
+\]
+\begin{example}{}{}
+    \begin{enumerate}
+        \item $\log(x)=\Oh(x)$ because $\lim_{x\to\infty}\frac{\log(x)}{x}=0$.
+        \item $\lim_{x\to\infty}f(x)=0\Leftrightarrow f(x)=\Oh(1)$. 
+    \end{enumerate}
+\end{example}
+\addsec{Asymptotic Equivalence}
+We write
+\[
+    f(x)\sim g(x)
+\]
+if 
+\[
+    \lim_{x\to\infty}\frac{f(x)}{g(x)}=1.
+\]
+\addsec{Order of Magnitude}
+We write 
+\[
+    f(x)\asymp g(x)
+\]
+if
+\[
+    f(x)<<g(x),\text{ and} g(x)<<f(x).
+\]
+In other words, there exists $c_1,c_2\geq 0$ such that
+\[
+    c_1g(x)\leq f(x)\leq c_2g(x)
+\]
+\begin{remark}
+    $f(x)\sim g(x) \Rightarrow f(x)\asymp g(x)$ but the backwards implication is not always true.
+\end{remark}
+\begin{example}{}{}
+    $x^2\asymp x^2,$ but $\lim_{x\to\infty}\frac{2x^2}{x^2}=2\neq1.$
+\end{example}
+\addsec{Asymptotic Formula}
+\[
+    f(x)=\underbrace{g(x)}_{\text{main term}}+\underbrace{\Oh(\mathcal{R}(x))}_{\text{error term}}
+\]
+\[
+    |f(x)-g(x)|=\Oh(\mathcal{R}(x))\Leftrightarrow \exists C>0 \text{ such that} |f(x)-g(x)|\leq C\Oh(\mathcal{R}(x)).
+\]
+An asymptotic formula is only meaningful if 
+\[
+    \mathcal{R}(x)=\oh(g(x))
+\]
+i.e., the error term is much smaller than the main term.
+\begin{example}{}{}
+    $\cos(x)=1+\Oh(x^2)$ for $|x|<1$.
+\end{example}
+\begin{proof}
+    By the mean value theorem
+    \[
+    \left|\frac{\cos(x)-\cos(0)}{x-0}\right|=|\sin(c)|
+    \]
+    for some $0\leq c<|x|$. From here we can see that
+    \[
+    \left|\frac{1-\cos(x)}{|x|}\right|=|\sin(c)|\leq \max_{0\leq y\leq |x|}\{\sin(y)\}\leq |x|.
+    \]
+    Hence, 
+    \begin{align*}
+        1-\cos(x)&\leq x^2\\
+        &=\Oh(x^2)\\
+        \cos(x)&=1+\Oh(x^2).\qedhere 
+    \end{align*}
+\end{proof}
+\addsec{Dependance on Parameters}
+Suppose that $f$ and $g$ depend on a parameter $\lambda$. Then, the notation 
+\[
+    f(x)=\Oh_{\lambda}(g(x))
+\]
+\[
+    f(x)\underset{\lambda}{<<}(g(x))
+\]
+means that the implicit constant depends on $\lambda$.
+\begin{example}{}{}
+\begin{enumerate}
+    \item $\log(x)=\Oh_\varepsilon(x^\varepsilon)$ for any $\varepsilon>0$.
+    \item Given $0<\alpha<1$ then for any $A>0$ and $\varepsilon>0$ we have
+    \[
+        x^{-\varepsilon}\underset{\alpha,\varepsilon}{<<}e^{-c(\log(x))^\alpha}\underset{\alpha,A}{<<} (\log(x))^{-A}.
+    \]
+\end{enumerate}
+\end{example}
+\addsec{Next Time}
+Next time we will consdier 
+\[
+    \frac{1}{x}\sum_{n\leq x}\mu(n),
+\]
+and then move on to developing the summation formulas that allow us to compute average values ($\frac{1}{x}\sum{n\leq x}f(n)$) of arithmetic functions.
+
+Many important problems in analytic number theory reduce to evaluating (partial) sums of the form
+\[
+    \sum_{n\leq x}a_n
+\]
+where $a_n$ is an arithmetic function.
+\begin{example}{}{}
+    \begin{enumerate}
+        \item Let $\Psi(x)=\sum_{n\leq x}\Lambda(n)$ where $\Lambda(n)$ is the Von Mangoldt function. The prime number theorem (PNT) is equivalent to $\Psi(x)\sim x$.\\ Under the Reimann hypothesis we have
+        \[
+            \Psi(x)=x+\Oh\left(x^{\frac{1}{2}+\varepsilon}\right)
+        \]
+        for any $\varepsilon>0$.
+        \item The PNT is equivalent to 
+        \[
+            \sum_{n\leq x}\mu(n)=\oh(x).
+        \]
+        i.e.,
+        \[
+            \lim_{x\to\infty}\frac{1}{x}\sum_{n\leq x}\mu(n)=0.
+        \]
+        Where $\mu(n)$ is the M\"{o}bius function.\\
+        Some interesting facts about $\sum_{n\leq x}\mu(n)$. Merten's conjectured that $|\sum_{n\leq x}\mu(n)|\leq\sqrt{x}$. In 1985 Odlyzko proved that $|\sum_{n\leq x}\mu(n)|>1.06\sqrt{x}$ for infinitely many $x$.\\
+        $\sum_{n\leq x}\mu(n)$ is not a straighforward or easy sum to work with and get significant results on it's asymptotic growth.\\
+        Instead of considering this sum we will consider the weighted sum
+        \[
+        \sum_{n\leq x}\frac{\mu(n)}{n}.
+        \]
+        This is a common trick in analytic number theory (ANT). If $\sum_{n\leq x}f(n)$ is a difficult sum to work with, instead work with $\sum_{n\leq x}\frac{\mu(n)}{\omega(n)}$ where $\omega(n)$ is a ``nice'' weight function.
+        \item Special Case of the Hardy Littlewood Conjecture
+        \[
+            \sum_{n\leq x}\Lambda(n)\Lambda(n+2)\sim Cx
+        \]
+        Where $C$ is given by \[C=\prod_{\substack{p\geq 3\\p\text{ prime}}}\left(1-\frac{1}{(p-1)^2}\right).\]
+        This is a special case of the twin prime conjecture.
+    \end{enumerate}
+\end{example}
+Let's consider some partial suns that bac be dealt with without the use of summation formulas.
+\begin{example}{}{}
+    \begin{enumerate}
+        \item $\sum_{n\leq x}n=\left\lfloor x\right\rfloor$, where $\left\lfloor x\right\rfloor=x-\{x\}=x+\Oh(x)$ and $\{x\}$ is the fractional part of $x$.
+        \item 
+        \begin{align*}
+            \sum_{n\leq x}d(n)&=\sum_{n\leq x}\sum_{d\mid n}1\\
+            &=\sum_{d\leq x}\sum_{n\leq x}1\\
+            &=\sum_{d\leq x}\left\lfloor\frac{x}{d}\right\rfloor\\
+            &=\sum_{d\leq x}\left(\frac{x}{d}+\Oh(x)\right)\\
+            &=x\sum_{d\leq x}\frac{1}{d}+\Oh(x)\\
+            &=x(\log x +\Oh(x))+\Oh(x)\\
+            \sum_{n\leq x}d(n)&=x\log x +\Oh(x).
+        \end{align*}
+        From here it is clear to see that
+        \[
+            \frac{1}{x}\sum_{n\leq x}d(n)=\log x + \Oh(1).
+        \]
+        \item We prove that
+        \[
+            \left|\sum_{n\leq x}\frac{\mu(n)}{n}\right|\leq 1.
+        \]
+        We have
+        \begin{align*}
+            \left|\sum_{n\leq x}\frac{\mu(n)}{n}\right|&=\frac{1}{x}\left|\sum_{n\leq x}\mu(n)\frac{x}{n}\right|\\
+            &=\frac{1}{x}\left|\sum_{n\leq x}\mu(n)\left(\left\lfloor \frac{x}{n}\right\rfloor + \left\{\frac{x}{n}\right\}\right)\right|\\
+            &\leq\frac{1}{x}\left|\sum_{n\leq x}\mu(n)\left\lfloor \frac{x}{n}\right\rfloor\right| + \frac{1}{x}\left|\sum_{n\leq x}\mu(n)\left\{ \frac{x}{n}\right\}\right|.
+        \end{align*}
+        We will first deal with the sum on the right
+        \begin{align*}
+            \frac{1}{x}\left|\sum_{n\leq x}\mu(n)\left\{ \frac{x}{n}\right\}\right|&\leq\frac{1}{x}\sum_{n\leq x}\left|\mu(n)\right|\left\{ \frac{x}{n}\right\}\\
+            &\leq\sum_{n\leq x}\left\{\frac{x}{n}\right\}\\
+            &=\sum_{n\leq \lfloor x\rfloor}\left\{\frac{x}{n}\right\}\\
+            &=\sum_{n\leq \lfloor x\rfloor -1}\left\{\frac{x}{n} \right\}+\left\{\frac{x}{\lfloor x\rfloor} \right\}\\
+            &\leq\floor{x}-1+\left\{\frac{\floor{x}+\{x\}}{\floor{x}}\right\}\\
+            &\leq \floor{x}-1+\left\{1+\frac{\{x\}}{\floor{x}} \right\}\\
+            &\leq \floor{x}-1+\frac{\fract{x}}{\floor{x}}\\
+            &\leq \floor{x}-1+\fract{x}=x-1.
+        \end{align*}
+        Now for the left hand sum
+        \begin{align*}
+            \sum_{n\leq x}\mu(n)\floor{\frac{x}{n}}&=\sum_{n\leq x}\mu(n)\sum_{m\leq \frac{x}{n}\Leftrightarrow l=mn\leq x}1\\
+            &\sum_{l\leq x}\sum_{n\mid l}\mu(n)\\
+            &=1
+        \end{align*}
+        From MATH480 we know that 
+        \[
+            \sum_{n\mid l}\mu(n)=
+            \begin{cases}
+                1& \text{if } l=1\\
+                0& \text{otherwise}.
+            \end{cases}
+        \]
+        Combining these two results we arrive at
+        \begin{align*}
+            \left|\sum_{n\leq x}\frac{\mu(n)}{n}\right|&=\frac{1}{x}\left|\sum_{n\leq x}\mu(n)\frac{x}{n}\right|\\
+            &\leq \frac{1}{x}(1+x-1)\\
+            =1.
+        \end{align*}
+    \end{enumerate}
+\end{example}
+\addsec{Summation of Smooth Functions (Euler's Summation Formula)}
+\begin{theorem}{Euler's Summation Formula}{eulersum}
+    Let $o<y\leq x$ be real numbers and $f\in\mathcal{C}[y,x]$. Then,
+    \[
+        \sum_{y<n\leq x}f(n)=\int_{y}^{x}f(t)\,dt+\int_{y}^{x}\fract{t}f'(t)dt-\fract{x}f(x)+\fract{y}f(y).
+    \]
+\end{theorem}
+\begin{corollary}{}{}
+    Let $x\geq 1$ be a real number, $f\in\mathcal{C}[1,x]$. Then \ref{thm:eulersum} gives
+    \[
+        \sum_{n\leq x}f(n)=\int_{1}^{x}f(t)\,dt+\int_{1}^{x}\fract{t}f'(t)dt-\fract{x}f(x)+f(1)
+    \]
+\end{corollary}
+\begin{proof}
+    Apply theorem \ref{thm:eulersum} with $y=1$.
+\end{proof}
+Before proving theorem \ref{thm:eulersum} we establish the following application which was stated earlier.
+\begin{theorem}{Partial Sums of the Harmonic Series}{harmonic}
+    \[
+        \sum_{n\leq x}\frac{1}{n}=\log x +\gamma +\Oh\left(\frac{1}{x}\right)
+    \]
+    where $\gamma$ is the Euler-Mascheroni constant defined asymptotic
+    \[
+        \gamma=\lim_{x\to\infty}\left(\sum_{n\leq x}\frac{1}{n}-\log x\right)=0.5772\dots
+    \]
+\end{theorem}
+\begin{proof}
+    Applying corollary 2.2 with $f(n)=\frac{1}{n}$ we get the following
+    \begin{align*}
+        \sum_{n\leq x}\frac{1}{n}&=\int_{1}^{x}\frac{1}{t}\,dt+\int_{1}^{x}\fract{t}\left(\frac{-1}{t^2}\right)\,dt-\fract{x}\frac{1}{x}+1\\
+        &=\log x +1 -\int_{1}^{x}\frac{\fract{t}}{t^2}\,dt+\Oh\left(\frac{1}{x}\right).
+    \end{align*}
+    Set $I(x)=\int_{1}^{x}\frac{\fract{t}}{t^2}\,dt$. Then,
+    \begin{align*}
+        I(x)&=\int_{1}^{\infty}\frac{\fract{t}}{t^2}\,dt-\int_{x}^{\infty}\frac{\fract{t}}{t^2}\,dt\\
+        &=I-\int_{x}^{\infty}\frac{\fract{t}}{t^2}\,dt.
+    \end{align*}    
+    Observe that
+    \[
+        \int_{x}^{\infty}\frac{\fract{t}}{t^2}\,dt\leq \int_{x}^{\infty}\frac{1}{t^2}\,dt=\left[\frac{-1}{t}\right]^\infty_x=\frac{1}{x}.
+    \]
+    Thus,
+    \[
+        I(x)=I+\Oh\left(\frac{1}{x}\right).
+    \]
+    We now have
+    \[
+        \sum_{n\leq x}\frac{1}{n}=\log x -I + 1+\Oh\left(\frac{1}{x}\right).    
+    \]
+    Rearranging this we see that
+    \[
+    \lim_{x\to\infty}\left(\sum_{n\leq x}\frac{1}{n}-\log x\right)=\gamma=\lim_{x\to\infty}\left(1-I+\Oh\left(\frac{1}{x}\right)\right).
+    \]
+    Hence,
+    \[
+        \sum_{n\leq x}\frac{1}{n}=\log x +\gamma +\Oh\left(\frac{1}{x}\right). \qedhere
+    \]
+\end{proof}
+\begin{proof}[Proof of Theorem \ref{thm:eulersum}]
+    Set $k=\floor{x}$ and $m=\floor{y}$. Then we rewrite the sum asymptotic
+    \[
+        \sum_{y<n\leq x}f(n)=\sum_{m+1\leq n\leq k}f(n).
+    \]
+    Consider $n$ such that $n-1,n\in[y,x]$. Then,
+    \begin{align*}
+    \int_{n-1}^{n}\floor{t}f(t)\,dt&=\int_{n-1}^{n}(n-1)f'(t)\,dt\\
+    &=(n-1)(f(n)-f(n-1))\\
+    &=nf(n)-(n-1)f(n-1)-f(n).\qedhere 
+    \end{align*}
+\end{proof}
+
+\textit{Recall.} Eulers summation formula which states that for $f\in\mathcal{C}[y,x]$ we have
+\[
+    \sum_{y\leq n\leq x}f(n)=\int_{y}^{x}f(t)\,dt+\int_{x}^{y}\fract{t}f'(t)\,dt-\fract{t}f(x)+\fract{y}f(y).
+\]
+\begin{proof}[Continuation of Proof for Theorem 2.1]
+    Set $k=\floor{x}$ and $m=\floor{y}$. We observe that
+    \[
+        \sum_{y\leq n\leq x}f(n)=\sum_{m+1\leq n\leq k}f(n).
+    \]
+    We also have for $n-1,n\in[y,x]$
+    \[
+        \int_{n-1}^{n}\floor{t}f'(t)\,dt=nf(n)-(n-1)f(n-1)-f(n).
+    \]
+    Hence,
+    \begin{align*}
+        \int_{m+1}^{k}\floor{t}f'(t)\,dt=&\int_{m+1}^{m+2}\floor{t}f(t)\,dt+\int_{m+2}^{m+3}\floor{t}f(t)\,dt+\cdots+\int_{k-1}^{k}\floor{t}f(t)\,dt\\
+        =&(m+2)f(m+2)-(m+1)f(m+1)-f(m+2)\\
+        &+(m+3)f(m+3)-(m+2)f(m+1)-f(m+3)\\
+        &+\;\,\vdots\\
+        &+kf(k)-(k-1)f(k-1)-f(k)\\
+        =&-mf(m+1)+kf(k)-\sum_{m-1\leq n\leq k}f(n).
+    \end{align*}
+    It follows that
+    \begin{align*}
+        \sum_{m-1\leq n\leq k}f(n)&=kf(k)-mf(m+1)-\int_{m+1}^{k}\floor{k}f'(t)\,dt\\
+        &=kf(k)-mf(m+1)-\int_{y}^{x}\floor{t}f'(t)\,dt+\int_{y}^{m+1}\floor{t}f'(t)\,dt+\int_{k}^{x}\floor{t}f'(t)\,dt\\
+        &=kf(k)-mf(m+1)-\int_{y}^{x}\floor{t}f'(t)\,dt+m\int_{y}^{m+1}f'(t)\,dt+k\int_{k}^{x}f'(t)\,dt\\
+        &=kf(k)-mf(m+1)-\int_{y}^{x}\floor{t}f'(t)\,dt+m(f(m+1)-f(y))+k(f(x)-f(k))\\
+        &=kf(x)-mf(y)-\int_{y}^{x}tf'(t)\,dt+\int_{y}^{x}\fract{t}f'(t)\,dt\\
+        &=kf(x)-mf(y)-[tf(t)]_y^x+\int_{x}^{y}f(t)\,dt+\int_{y}^{x}\fract{t}f'(t)\,dt\\
+        &=xf(x)-\fract{x}f(x)-yf(y)+\fract{y}f(y)-xf(x)+yf(y)+\int_{y}^{x}f(t)\,dt+\int_{y}^{x}\fract{t}f(t)\,dt.
+    \end{align*}
+    Cancelling the terms we arrive at 
+    \[
+                \sum_{y\leq n\leq x}f(n)=\int_{y}^{x}f(t)\,dt+\int_{x}^{y}\fract{t}f'(t)\,dt-\fract{t}f(x)+\fract{y}f(y).\qedhere
+    \]
+\end{proof}
+\begin{theorem}{Sum of Logartihm's}{}
+    Let $N\in\N$ then we have
+    \[
+    \sum_{n\leq N}\log n=Nlog N-N+\frac{1}{2}\log N + c+\Oh\left(\frac{1}{N}\right).
+    \]
+\end{theorem}
+
+Observe that the above formula can be written as
+\[
+    \log N!=Nlog N-N+\frac{1}{2}\log N + c+\Oh\left(\frac{1}{N}\right),
+\]
+exponentiating we obtain
+\begin{equation}\label{eqn:stirling}
+    N!=N^Ne^{-N}\sqrt{N}e^ce^{\Oh\left(\frac{1}{N}\right)}.
+\end{equation}
+What can be said about $e^{\Oh\left(\frac{1}{N}\right)}$?\\
+Let $g(N)$ be a function such that $g(N)=\Oh\left(\frac{1}{N}\right)$. i.e., $|g(N)|\leq C\frac{1}{N}$ for some $C>0$.
+\begin{align*}
+    \left|e^{g(N)}\right|&=\left|a+g(N)+\frac{g(N)^2}{2!}++\frac{g(N)^3}{3!}+\cdots\right|\\
+    &\leq1+\left|g(N)\right|+\left|\frac{g(N)^2}{2!}\right|+\cdots\\
+    &\leq1+\frac{C}{N}+\frac{C^2}{N}\\
+    &=1+\frac{C}{N}\left(1+\frac{1}{2!}\frac{C}{N}+\frac{1}{3!}\frac{C^2}{N^2}+\cdots\right)\\
+    &=1+\Oh\left(\frac{1}{N}\right).
+\end{align*}
+It follows that $e^{\Oh\left(\frac{1}{N}\right)}=1+\Oh(\frac{1}{N})$. Furthermore,
+\[
+    e^x=1+\Oh\left(x\right),\quad \text{if } |x|<1.
+\]
+Going back to equation \ref{eqn:stirling} we have
+\[
+    N!=N^Ne^{-N}\sqrt{N}e^c\left(1+\Oh\left(\frac{1}{N}\right)\right).
+\]
+Hence, we arrive at Stirling's formula.
+\begin{corollary}{Stirling's formula}{}
+    \[
+        N!=C_1N^Ne^{-N}\sqrt{N}\left(1+\Oh\left(\frac{1}{N}\right)\right).
+    \]   
+\end{corollary}
+\begin{proof}
+    By Euler's summation formula we have
+    \begin{align*}
+        \sum_{n\leq N}\log n&=\int_{1}^{N}\log t\,dt+\int_{1}^{t}\fract{t}\frac{1}{t}\,dt-\fract{N}\log N\\
+        &=N\log N-N+\int_{1}^{N}\frac{\fract{t}}{t}\,dt.
+    \end{align*}
+    Now let's consider $\int_{1}^{N}\frac{\fract{t}}{t}\,dt$.
+    \begin{align*}
+        \int_{1}^{N}\frac{\fract{t}}{t}\,dt&=\int_{1}^{N}\frac{\fract{t}+\frac{1}{2}-\frac{1}{2}}{t}\,dt\\
+        &=\frac{1}{2}\log N+\int_{1}^{N}\frac{\fract{t}-\frac{1}{2}}{t}\,dt.
+    \end{align*}
+    Out problem is now reduced to showing that $\int_{1}^{N}\frac{\fract{t}-\frac{1}{2}}{t}\,dt=c+\Oh\left(\frac{1}{N}\right)$, for some explicitly given constant $c$.\\
+    Let $\rho(t)=\frac{t}-\frac{1}{2}$, then we have
+    \[
+        \int_{1}^{N}\frac{\rho(t)}{t}\,dt
+    \]
+    let $u=\frac{1}{t}$, $dv=\rho(t)\,dt$, $du=\frac{1}{t^2}\,dt$, $v=\int_{1}^{t}\rho(x)\,dx=R(t)$. Then the above integral becomes
+    \[
+        \left[\frac{R(t)}{t}\right]_1^N+\int_{1}^{N}\frac{1}{t^2}\,dt.
+    \]
+    Notice a property of $R(t)$.
+    \begin{align*}
+        R(N)=\int_{1}^{N}\rho(x)\,dx&=\int_{1}^{2}\rho(x)\,dx+\int_{2}^{3}\rho(x)\,dx+\cdots+\int_{N-1}^{N}\rho(x)\,dx\\
+        &=\int_{1}^{2}\fract{x}-\frac{1}{2}\,dx+\int_{2}^{3}\fract{x}-\frac{1}{2}\,dx+\cdots+\int_{N-1}^{N}\fract{x}-\frac{1}{2}\,dx\\
+        &=\int_{0}^{1}x-\frac{1}{2}\,dx+\int_{0}^{1}x-\frac{1}{2}\,dx+\cdots+\int_{0}^{1}x-\frac{1}{2}\,dx\\
+        &=\left[\frac{x^2}{2}-\frac{x}{2}\right]_0^1+\left[\frac{x^2}{2}-\frac{x}{2}\right]_0^1+\cdots+\left[\frac{x^2}{2}-\frac{x}{2}\right]_0^1\\
+        &=0+0+\cdots+0\\
+        &=0.
+    \end{align*}
+    Hence, $R(N)=0$ for all $N\in\N$.\\
+    Observe that
+    \begin{align*}
+        \left|R(t)\right|&=\left|\int_{1}^{t}\rho(x)\,dx\right|\\
+        &=\left|\int_{\floor{t}}^{t}\rho(x)\,dx\right|\\
+        &\leq\int_{\floor{t}}^{t}\left|\rho(x)\right|\,dx\\
+        &\leq \frac{1}{2}\left(t-\floor{t}\right)=\frac{1}{2}\fract{t}\leq\frac{1}{2}.
+    \end{align*}
+    Hence, $\int_{1}^{\infty}\frac{R(t)}{t^2}\,dt=c$ for some constant $c$, and 
+    \[
+        \int_{N}^{\infty}\frac{R(t)}{t^2}\,dt\leq \int_{N}^{\infty}\frac{\frac{1}{2}}{t^2}\,dt\ll\frac{1}{N}.
+    \]
+    Thus we have
+    \[
+        \sum_{n\leq N}\log n =N\log N-N+\frac{1}{2}\log N+c+\Oh\left(\frac{1}{N}\right).\qedhere
+    \]
+\end{proof}
+\begin{corollary}{Sum of Logarithm's}{}
+    Given $x\in\R$ and $x\geq1$ we have
+\[
+    \sum_{n\leq N}\log n=x\log x-x+\Oh(\log x).
+\]
+\end{corollary}
+\begin{proof}
+    The result can be derived directly from Euler's summation formula, we will instead use another approach.\\
+    Applying theorem 2.4 with $N=\floor{x}$
+    \begin{align*}
+        \sum_{n\leq x}\log n&=\sum_{n\leq N}\log n\\
+        &=\floor{x}\log\floor{x}-\floor{x}+c+\frac{1}{2}\log\floor{x}+\Oh\left(\frac{1}{\floor{x}}\right)\\
+        &=(x-\fract{x})\log(x-\fract{x})-(x-\fract{x})+c+\frac{1}{2}\log(x-\fract{x})+\Oh\left(\frac{1}{(x-\fract{x})}\right)
+    \end{align*}
+    Given $|t|<1$
+    \begin{align*}
+        \log t&=-\sum_{n=1}^{\infty}\frac{t^n}{n}=1-t-\frac{t^2}{2}-\cdots\\
+        &=-1-t\left(1+\frac{t}{2}+\frac{t^2}{3}+\cdots\right)=-1+\Oh(t).
+    \end{align*}
+    Since $|t|<1$ we further have $\log t=\Oh(1)$.\\
+    Hence,
+    \[
+        \log(x-\fract{x})=\log x+\Oh(1).\qedhere
+    \]
+\end{proof}
+
+Another application of Euler's summation formula.\\
+The Reimann zeta function is defined as 
+\[
+    \zeta(s)=\sum_{n=1}^{\infty}\frac{1}{n^s},\quad s\in\C,\; \Re(s)>1.
+\]
+This is defined as an analytic function in the complex variable $s$ on the half plane $\Re(s)>1$. $\zeta(s)$ converges absolutely for $\Re(s)>1$.
+\begin{example}{}{}
+    \[
+        \zeta(2)=\sum_{n=1}^{\infty}\frac{1}{n^2}=\frac{\pi^2}{6}
+    \]
+\end{example}
+\begin{example}{}{}
+    \[
+        \zeta(2k)\in\Q^{2k},\quad k\in\N.
+    \]
+\end{example}
+\begin{theorem}{Integral Form of the Reimann Zeta Function}{}
+    \[
+        \zeta(s)=\frac{s}{s-1}-s\int_{1}^{\infty}\frac{\fract{x}}{x^{s+1}}\,dx,\quad \Re(s)>0.
+    \]
+\end{theorem}
+\begin{proof}[Proof of Theorem 2.7]
+    Consider for $x\geq1$
+    \[
+        S(x)=\sum_{n\leq x}\frac{1}{n^s},
+    \]
+    observe that 
+    \[
+        \lim_{x\to\infty}S(x)=\zeta(s).
+    \]
+    By Euler's summation formula we have
+    \begin{align*}
+        S(x)&=\sum_{n\leq x}\frac{1}{n^s}\\
+        &=\int_{1}^{x}\frac{1}{t^s}\,dt-s\int_{1}^{x}\fract{t}t^{-s-1}\,dt-\fract{x}f(x)+f(1)\\
+        &=\frac{1}{s-1}-\frac{x^{-s+1}}{s-1}-s\int_{1}^{\infty}\fract{t}t^{-s-1}\,dt+\int_{x}^{\infty}+\int_{x}^{\infty}\fract{t}t^{-s-1}\,dt-\fract{x}x^{-s}+1.
+    \end{align*}
+    Note that
+    \begin{align*}
+        \left|\int_{x}^{\infty}\fract{t}t^{-s-1}\,dt\right|&\leq\int_{x}^{\infty}\fract{t}|t^{-s-1}|\,dt\\
+        &=\int_{x}^{\infty}\fract{t}t^{\Re(s)-1}\,dt\\
+        &\leq\int_{x}^{\infty}t^{\Re(s)-1}\,dt\\
+        &=\left(\frac{t^{-\Re(s)}}{-\Re(s)}\right)^\infty_x=\frac{x^{-\Re(s)}}{-\Re(s)}.
+    \end{align*}
+    Hence, 
+    \[
+        S(x)=\frac{1}{s-1}-\frac{x^{-s-1}}{s-1}-s\left(\int_{1}^{\infty}\fract{t}t^{-s-1}\,dt+\Oh\left(\frac{x^{-\Re(s)}}{-\Re(s)}\right)\right).
+    \]
+    As $x\to\infty$ we get $\zeta(s)$
+    \begin{align*}
+        \zeta(s)&=\frac{1}{s-1}-s\int_{1}^{\infty}\fract{t}t^{-s-1}\,dt+1\\
+        &=\frac{s}{s-1}-s\int_{1}^{\infty}\fract{t}t^{-s-1}\,dt.\qedhere
+    \end{align*}
+\end{proof}
+Recall PNT
+    \[
+        \pi(x)=
+    \]
+
+\begin{lemma}{Logarithmic Integral}{}
+    \[
+        \mathrm{Li}_k(x)=\int_{2}^{x}\frac{1}{(\log t)^k}\,dt\ll_k\frac{x}{(\log x)^k}.
+    \]
+\end{lemma}
+\begin{proof}
+    \[
+        \int_{2}^{x}\frac{1}{(\log x)^k}\,dt
+    \]
+    we have
+    \[
+        \log t\geq\log2,\quad \frac{1}{\log t}\leq\frac{1}{\log2},\quad \frac{1}{(\log t)^k}<\frac{x-2}{(\log2)^k}\ll x-2\ll x.
+    \]
+    \[
+        \underbrace{\int_{2}^{\sqrt{x}}\frac{dt}{(\log t)^k}}_{I_1}+\underbrace{\int_{\sqrt{x}}^{x}\frac{dt}{(\log t)^k}}_{I_2}.
+    \]
+    \[
+        I_1\leq\int_{2}^{\sqrt{x}}\frac{dt}{(\log2)^k}=\frac{\sqrt{x}-2}{(\log2)^k}\ll_k\sqrt{x}\ll\frac{x}{(\log x)^k},
+    \]
+    for $\sqrt{x}< t< x$
+    \[
+        \log t\geq \log\sqrt{2}=\frac{1}{2}\log x
+    \]
+    \[
+        \frac{1}{(\log t)^k}\leq\frac{2^k}{(\log x)^k}.
+    \]
+    \[
+        I_2\leq \int_{\sqrt{x}}^{x}\frac{2^k}{(\log t)^k}\,dt=\frac{2^k(x-\sqrt{x})}{(\log x)^k}\ll_k\frac{x}{(\log x)^k}.
+    \]
+    Hence, 
+    \[
+        \int_{2}^{x}\frac{2^k}{(\log t)^k}\,dt=\Oh\left(\frac{x}{(\log x)^k}\right),\quad x\geq 4.
+    \]
+    For $2\leq x\leq 4$ we have
+    \[
+        \int_{2}^{x}\frac{1}{(\log t)^k}\,dt\leq\int_{2}^{x}\frac{1}{(\log 2)^k}\,dt=\frac{x-2}{(\log 2)^k}\leq\frac{x}{(\log 2)^k}\leq\left(\frac{\log x}{\log2}\right)\frac{x}{(\log x)^k}\ll\frac{x}{(\log x)^k}.\qedhere
+    \]
+\end{proof}
+\begin{theorem}{Summation of Logarithmic Integral}{}
+    \[
+        \mathrm{Li(x)}=\int_{2}^{x}\frac{dt}{\log t}=\frac{x}{\log x}\left(\sum_{i=1}^{k-1}\frac{i!}{(\log x)^i}+\Oh\left(\frac{x}{(\log x)^k}\right)\right).
+    \]
+\end{theorem}
+\begin{proof}[Proof of Theorem 2.9]
+    We have 
+    \[
+        \int_{2}^{x}\frac{dt}{\log t}
+    \]
+    \[
+        u=\frac{1}{\log t},\quad dv=dt,\quad du=\frac{-1}{(\log t)^2},\quad v=t
+    \]
+    \begin{align*}
+        \int_{2}^{x}\frac{dt}{\log t}&=\left[\frac{t}{\log t}\right]^x_2+\int_{2}^{x}\frac{dt}{t(\log t)^2}\\
+        &=\frac{x}{\log x}-\frac{2}{\log2}+\frac{x}{(\log x)^2}-\frac{2}{(\log 2)^2}+2\int_{2}^{x}\frac{dt}{(\log t)^3}\\
+        &=\frac{x}{\log x}+\frac{x}{(\log x)^2}+\frac{2x}{(\log x)^3}+\cdots+k\int_{2}^{x}\frac{dt}{(\log t)^{k+1}}+\Oh_k(1)\\
+        &=\frac{x}{\log x}+\frac{x}{(\log x)^2}+\frac{2x}{(\log x)^3}+\cdots+(k-1)!\frac{x}{(\log x)^k}+\Oh_k\left(\frac{x}{(\log x)^{k+1}}\right)\\
+        &=\frac{x}{\log x}\left(\sum_{i=1}^{k-1}\frac{i!}{(\log x)^i}+\Oh\left(\frac{1}{(\log x)^k}\right)\right).\qedhere
+    \end{align*}
+\end{proof}
+We can use Euler's summation formula for sum continuous functions. Abel's Summation Formula allows for us to sum arithmetic functions.
+\begin{theorem}{Abel's Summation Formula}{}
+    Let $0<y\leq x$, $f\in\mathcal{C}[y,x]$ and $a(n)$ an arithmetic function, then
+    \[
+        \sum_{y<n\leq x}a(n)f(n)=A(n)f(x)-A(y)f(y)-\int_{y}^{x}A(t)f'(t)\,dt,
+    \]
+    where $A(n)$ is the summatory fuction for $a(n)$ $\left(A(n)=\sum_{n\leq x}a(n)\right)$.
+\end{theorem}
+\begin{corollary}{}{}
+    Let $x\leq 1$, $f\in\mathcal{C}[1,x]$ and $a(n)$ be an atrithmetic function. Then,
+    \[
+        \sum_{n\leq x}a(n)f(n)=A(n)f(x)-\int_{y}^{x}A(t)f'(t)\,dt.
+    \]
+\end{corollary}
+\begin{proof}
+    Apply \textit{theorem 2.10}.
+\end{proof}
+\begin{example}{}{}
+    Deduce Euler's summation formula from Abel's summation formula. (Use $a(n)=1$, $A(t)=\floor{t}$.)
+\end{example}
+
+\begin{proof}[Proof of Theorem 2.10]
+    Consider 
+    \[
+        I=\int_{y}^{x}A(t)f't\,dt=\int_{y}^{x}\sum_{x\leq t}a(n)f't\,dt.
+    \]
+    Let 
+    \[
+        \chi(x,n)=\begin{cases}
+            1&\text{if } n\leq t\\
+            0&\text{otherwise}
+        \end{cases}.
+    \]
+    Using $\chi$ we Obtain
+    \begin{align*}
+        I&=\int_{y}^{x}\sum_{n\leq x}a(n)\chi(n,t)f'(t)\,dt\\
+        &=\sum_{n\leq x}a(n)\int_{y}^{x}\chi(n,t)f'(t)\,dt\\
+        &=\sum_{n\leq x}a(n)\int_{\max{n,y}}^{x}f'(t)\,dt\\
+        &=\sum_{n\leq x}a(n)\left(f(x)-f(\max{n,y})\right)\\
+        &=\sum_{n\leq x}a(n)f(x)-\left(\sum_{n\leq y}a(n)f(y)+\sum_{y<n\leq x}a(n)f(n)\right)\\
+        \int_{y}^{x}A(t)f'(t)\,dt&=A(x)f(x)-A(y)f(y)-\sum_{y<n\leq x}a(n)f(n)\\
+        \sum_{y<n\leq x}a(n)f(n)&=A(n)f(x)-A(y)f(y)-\int_{y}^{x}A(t)f'(t)\,dt.\qedhere
+    \end{align*}
+\end{proof}
+\begin{theorem}{Kronecker's Lemma}{}
+    Let $f:\N\to\C$ be an arithmetic function, let $s\in\C$ with $\Re(s)>0$. Suppose that
+    \[
+        F(s)=\sum_{n=1}^{\infty}\frac{f(n)}{n^s}
+    \]
+    converges. Then, 
+    \[
+        \frac{1}{x^s}\sum_{n\leq x}f(s)\to0\text{ as } x\to\infty.
+    \]
+    In particular if $\sum_{n=1}^{\infty}\frac{f(s)}{n}$ converges then we have $\frac{1}{x}\sum_{n\leq x}f(s)\to 0$ as $x\to\infty$.\\
+    i.e., $\sum_{n\leq x}=\oh(x).$
+\end{theorem}
+\begin{proof}[Proof of Theorem 2.12]
+    Let 
+    \[
+        S_f(x)=S(x)=\sum_{n\leq x}f(n), 
+    \]
+    and 
+    \[
+        T(x)=\sum_{n\leq x}\frac{f(n)}{n^s}.
+    \]
+    We know that $\lim_{x\to\infty}T(x)=T(s)$. We want to prove that 
+    \[
+        \lim_{x\to\infty}\frac{S(x)}{x^s}=0.
+    \]
+    \begin{align*}
+        S(x)=\sum_{n\leq x}\frac{f(n)}{n^s}n^s&=\left(\sum_{n\leq x}\frac{f(n)}{n^s}\right)x^s-s\int_{1}^{x}\left(\sum_{n\leq t}\frac{f(n)}{n^s}\right)t^{s-1}\,dt\\
+        &=T(x)x^s-s\int_{0}^{x}T(t)t^{s-1}\,dt\\
+        &=T(x)\int_{0}^{x}st^{s-1}\,dt-s\int_{0}^{x}T(t)t^{s-1}\,dt\\
+        &=\int_{0}^{x}st^{s-1}(T(x)-T(t))\,dt
+    \end{align*}
+    Hence, since $\lim_{x\to\infty}T(x)=T$ we have
+    \[
+        |S(x)|\leq\int_{0}^{x}|s|t^{\Re(s)-1}(|T(x)-T|+|T(t)-T|)\,dt.
+    \]
+    Given $\varepsilon>0$, there exists $x_0>1$ such that $|T(t)-T|<\varepsilon$ whenever $x>x_0$. Given $\varepsilon>0$ we have
+    \begin{align*}
+        |S(x)|\leq&\int_{0}^{x_0}|s|t^{\Re(s)-1}(|T(x)-T|+|T(t)-T|)\,dt\\
+        &+\int_{x_0}^{x}|s|t^{\Re(s)-1}(|T(x)-T|+|T(t)-T|)\,dt.
+    \end{align*}
+    So for $0<t<x_0$, we have
+    \begin{align*}
+        |T(x)-T|+|T(t)-T|&\leq\varepsilon +|T(t)|+|T|\\
+        &\leq\varepsilon+|T|+\sum_{n\leq t}\frac{|f(n)|}{n^{\Re(s)}}
+        &\leq\varepsilon+|T|+\sum_{n\leq x_0}\frac{|f(n)|}{n^{\Re(s)}}\\
+        &=M(\varepsilon).
+    \end{align*}
+    For $x_0<t<x$
+    \[
+        |T(x)-T|+|T(t)-T|\leq2\varepsilon.
+    \]
+    Putting the two together we get
+    \begin{align*}
+        |S(x)|&\leq\int_{0}^{x_0}|s|t^{\Re(s)-1}M(\varepsilon)\,dt+\int_{x_0}^{x}|s|t^{\Re(s)}2\varepsilon\,dt\\
+        &\leq|s|\left[M(\varepsilon)\frac{x_0\Re(s)}{\Re(s)}+2\varepsilon\left(\frac{x^{\Re(s)}-x_0^{\Re(s)}}{\Re(s)}\right)\right]
+    \end{align*}
+    dividing by $|x^s|=x^{\Re(s)}$
+    \begin{align*}
+        \frac{|S(x)|}{x^{\Re(s)}}&\leq\frac{|s|}{\Re(s)}\left[M(\varepsilon)\left(\frac{x_0}{x}\right)^{\Re(s)}+2\varepsilon-2\varepsilon\left(\frac{x_0}{x}\right)^{\Re(s)}\right].
+    \end{align*}    
+    Due the dependance on $\varepsilon$ for the term on the right we can make this arbitrarily small. Hence, $\lim_{x\to\infty}\frac{S(x)}{x^s}=0$.
+\end{proof}
+Going back to studying the means of arithmetic functions:\\
+Let 
+\[
+    M_f(x)=\frac{1}{x}\sum_{n\leq x}f(n)
+\]
+with $f:\N\to\C$, and 
+\[
+    M_f=\lim_{x\to\infty}M_f(x).
+\]
+\[
+    L_f(x)=\frac{1}{\log x}\sum_{n\leq x}\frac{f(n)}{n},
+\]
+and 
+\[
+    L_f=\lim_{x\to\infty}L_f(x).
+\]
+\begin{theorem}{Existence of Logarithmic Means}{}
+    Using the notation above, if $M_f$ exists then $L_f$ also exists and $M_f=L_f$.
+\end{theorem}
+\begin{remark}{}{}
+    \[
+        \frac{1}{x}\sum_{n\leq x}\Lambda(n)\to1\text{ as } x\to\infty.
+    \]
+    Also,
+    \[
+        \frac{1}{x}\sum_{n\leq x}\mu(n)\to0\text{ as } x\to\infty,
+    \]
+    \[
+        M_\Lambda\Leftrightarrow \text{ PNT},
+    \]
+    computing
+    \[
+        M_\Lambda\& M_\mu\Rightarrow \text{ PNT}.
+    \]
+    However $L_\Lambda$ and $L_\mu$ are much more tractable objects and we will compute them in the next chapter.
+\end{remark}
+\begin{proof}[Proof of Theorem 2.13]
+    Given $f:\N\to\C$ set 
+    \[
+        S_f(x)=\sum_{n\leq x}f(n)\quad\quad T_f(x)=\sum_{n\leq x}\frac{f(n)}{n}
+    \]
+    \[
+        M_f(x)=\frac{S_f(x)}{x}\quad\quad L_f(x)=\frac{T_f(x)}{\log x}.
+    \]
+    Suppose that
+    \[
+        \lim_{x\to\infty}M_f(x)=M_f.
+    \]
+    We need to show that $\lim_{x\to\infty}L_f(x)=M_f$.
+    \begin{align*}
+        T(x)&=\sum_{n\leq x}\frac{f(n)}{n}\\
+        &=\frac{S(x)}{x}+\int_{1}^{x}s(t)t^{-2}\,dt\\
+        \frac{T(x)}{\log x}&=\frac{S(x)}{x\log x}+\frac{1}{\log x}\int_{1}^{x}\frac{S(t)}{t^2}\,dt\\
+        &=\frac{S(x)}{x\log x}+\frac{1}{\log x}I(x)\\
+        &=0+\frac{1}{\log x}I(x).
+    \end{align*}
+    Now we need only show that $\lim_{x\to\infty}\frac{I}{\log x}=M_f$. To do this we consider 
+    \begin{align*}
+        I(x)-M_f\log x&=\int_{1}^{x}\frac{S(t)}{t^2}\,dt-M_f\int_{1}^{x}\frac{1}{t}\,dt\\
+        &=\int_{1}^{x}\frac{\frac{S(t)}{t}-M_f}{t}\,dt
+    \end{align*}
+    Thus
+    \[
+        |I(x)-M_f\log x|\leq\int_{1}^{x}\frac{\left|\frac{S(t)}{t}-M_f\right|}{t}\,dt.
+    \]
+    From here proceed as in Kronecker's lemma by splitting the integral into two intervals $[1,x_0]$ and $[x_0,x]$. Doing so will give the desired result.
+\end{proof}
+\addsec{Dirichlet Series}
+Let $f:\N\to\C$, set 
+\[
+    F(s)=\sum_{n=1}^{\infty}\frac{f(n)}{n^s}.
+\]
+Then, $F(s)$ is the Dirichlet series associated with $f$.
+\begin{theorem}{Convergence of Dirichlet Series}{}
+    Let $f:\N\to\C$ be an arithmetic function, $F(s)$ the associated Dirichlet series and $s_f(x)=\sum_{n\leq x}f(n)$ the associated summatory function. Then,
+    \begin{enumerate}[label=(\roman*)]
+        \item For any $s\in\C$ with $\Re(s)>0$ such that $F(s)$ converges we have
+        \begin{equation}\label{eqn:Dirichlet}
+            F(s)=s\int_{1}^{\infty}\frac{s_f(x)}{x^{s+1}}\,dx.
+        \end{equation}
+        \item If $S_f(x)=\Oh(x^\alpha)$ for some $\alpha\geq0$, then $F(s)$ converges then for all $s$ with $\Re(s)>\alpha$ and equation \ref{eqn:Dirichlet} holds for all such $s$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Let $\chi$ be a Dirichlet character ($|\chi(n)|=0$ or 1, $\chi$ is periodic).\\
+        For non-trivial $\chi$, we can prove that
+        \[
+            \sum_{n\leq x}\chi(n)=\Oh(1).
+        \]
+        Let $L(s,\chi)$ be the Dirichlet series associated with $\chi$.
+        \[
+            L(s,\chi)=\sum_{n=1}^{\infty}\frac{\chi(n)}{n^s}.
+        \]
+        This is absolutly convergent for $\Re(s)>1$.\\
+        By theorem 2.14(ii) and using the bound $\sum_{n\leq x}\chi(n)=\Oh(1)$ we see that $L(s,\chi)$ converges when $\Re(s)>0$.
+        \item Theorem 2.14(i) can be expressed in terms of Mellin transforms.\\
+        Given $\phi:\R^+\to\C$. The Mellin transform of $\phi$ is given by
+        \[
+            \overset{\sim}{\phi}(s)=\int_{0}^{\infty}\phi(x)x^{-s}\,dx
+        \]
+        ($s\in\C$) provided the integral converges.\\
+        Theorem 2.14(i) can then be restated as $\dfrac{F(s)}{s}$ is the Mellin transform of $\dfrac{S_f(x)}{x}$.
+    \end{enumerate}
+\end{remark}
+\begin{proof}[Proof of Theorem 2.14]
+    Let $s\in\C$ be such that $\Re(s)>0$ and $F(s)$ converges.\\
+    (i) Consdier 
+    \[
+        F_N(s)=\sum\frac{f(n)}{n^s}.
+    \]
+    By Abel's summation formula we have
+    \begin{align*}
+        F_N(s)&=\left(\sum_{n\leq N}f(n)\right)N^{-s}+s\int_{1}^{N}S_f(t)t^{-s-1}\,dt\\
+        &=S_f(N)N^{-s}+s\int_{1}^{\infty}S_f(N)T^{-s-1}\,dt.
+    \end{align*}
+    As $N\to\infty$ $F_N(s)\to F(s)$, and by \textit{theorem 2.12} $\dfrac{S_f(N)}{N^s}\to0$.\\
+    So as $N\to\infty$ we get
+    \[
+        F(s)=s\int_{1}^{\infty}S_f(t)t^{-s-1}\,dt.
+    \]
+    (ii) We have
+    \[
+        F_N(s)=\frac{S_f(N)}{N^s}+s\int_{1}^{N}S_f(t)t^{-s-1}\,dt.
+    \]
+    \[
+        \left|\frac{S_f(N)}{N^s}\right|=\left|\frac{S_f(N)}{N^{\Re(s)}}\right|=\Oh\left(N^{\alpha-\Re(s)}\right),
+    \]
+    so for $\Re(s)>\alpha$, we have $\dfrac{S_f(N)}{N^s}\to 0$ as $N\to\infty$ we also have 
+    \[
+        \left|\frac{S_f(t)}{t^{s+1}}\right|=\Oh(t^{\alpha-\Re(s)-1}).
+    \]
+    It follows that
+    \begin{align*}
+        \left|\int_{1}^{N}\frac{S_f(t)}{t^{s+1}}\,dt\right|&\leq\int_{1}^{N}\left|\frac{S_f(t)}{t^{s+1}}\right|\,dt\\
+        &=\Oh\left(\int_{1}^{N}t^{\alpha-\Re(s)-1}\,dt\right)\\
+        &=\Oh\left(N^{\alpha-\Re(s)-1}-1\right).
+    \end{align*}
+    Hence, $\int_{1}^{\infty}\frac{S_f(t)}{t^{s-1}}\,dt$ is convergent for $\Re(s)>\alpha$. Taking $N\to\infty$ we get $F(s)$ is convergent for $\Re(s)>\alpha$ and 
+    \[
+        F(s)=s\int_{1}^{\infty}\frac{S_f(t)}{t^{s-1}}\,dt.\qedhere
+    \]
+\end{proof}
+\addsec{Convolution Method}
+Say we want to compute
+\[
+    \sum_{n\leq x}f(x)
+\]
+with $f:\N\to\C$, and suppose that $f=g\ast f_0$ where both $f_0,g$ are arithmetic functions.\\
+We have
+\begin{align*}
+    \sum_{n\leq x}f(x)&=\sum_{n\leq x}g\ast f_0(n)\\
+    &=\sum_{n\leq x}\sum_{d\mid n}g(d)f_0\left(\frac{d}{n}\right)\\
+    &=\sum_{d\leq x}\sum_{\substack{n\leq x\\d\mid n}}g(d)f_0\left(\frac{d}{n}\right)\\
+    &=\sum_{d\leq x}\sum_{m\leq \frac{x}{d}}g(d)f_0\left(m\right)\\
+    &=\sum_{d\leq x}g(d)\sum_{m\leq \frac{x}{d}}f_0\left(m\right).
+\end{align*}
+If an asymptotic formula is known for the last sum we substitute and proceed.\\
+Let us evaluate $\sum_{n\leq x}\phi(n)$.\\
+We know that $\phi(n)=\mu\ast\mathrm{id}(n)$.
+\begin{theorem}{Asymptotic Formula for Sum of $\phi(n)$}{}
+    \[
+        \sum_{n\leq x}\phi(n)=\frac{3}{\pi^2}x^2+\Oh\left(x\log x\right)
+    \]
+\end{theorem}
+\begin{lemma}{Sum of $\frac{\mu(n)}{n^2}$}{}
+    \[
+        \sum_{n\leq x}\frac{\mu(n)}{n^2}=\frac{1}{\zeta(2)}.
+    \]
+    In general
+    \[
+        \sum_{n\leq x}\frac{\mu(n)}{n^s}=\frac{1}{\zeta(s)},\quad \Re(s)>1.
+    \]
+\end{lemma}
+\begin{proof}
+    \[
+        1=\sum_{n=1}^{\infty}\frac{e(n)}{n^2}
+    \]
+    where 
+    \[
+        e(n)=
+        \begin{cases}
+            1&\text{if }n=1\\
+            0&\text{otherwise}.    
+        \end{cases}
+    \]
+    \begin{align*}
+        1&=\sum_{n=1}^{\infty}\frac{e(n)}{n^2}\\
+        &=\sum_{n=1}^{\infty}\frac{\displaystyle\sum_{d\mid n}\mu(d)}{n^2}\\
+        &=\sum_{n=1}^{\infty}\frac{1}{n^2}\sum_{d\mid n}\mu(d)\\
+        &=\sum_{d=1}^\infty\mu(d)\sum_{n=1}^{\infty}\frac{1}{n^2}\\
+        &=\sum_{d=1}^\infty\mu(d)\sum_{m=1}^{\infty}\frac{1}{(md)^2}\\
+        1&=\sum_{d=1}^\infty\frac{\mu(d)}{d^2}\zeta(2)\qedhere
+    \end{align*}
+\end{proof}
+\begin{proof}[Proof of Theorem 2.15]
+    We have
+    \begin{align*}
+        \sum_{n\leq x}\phi(n)&=\sum_{n\leq x}\mu\ast\mathrm{id}(n)\\
+        &=\sum_{n\leq x}\sum_{d\mid n}\mu(d)\frac{d}{n}\\
+        &=\sum_{d\leq x}\mu(d)\left(\sum_{m\leq\frac{n}{d}}m\right)\\
+        &=\sum_{d\leq x}\mu(d)\left(\frac{\floor{\frac{x}{d}}\left(\floor{\frac{x}{d}+1}\right)}{2}\right).
+    \end{align*}
+    \begin{align*}
+        \frac{1}{2}\floor{\frac{x}{d}}\left(\floor{\frac{x}{d}+1}\right)&=\frac{1}{2}\left(\frac{x}{d}-\fract{\frac{x}{d}}\right)\left(\frac{x}{d}-\fract{\frac{x}{d}}+1\right)\\
+        &=\frac{1}{2}\left(\left(\frac{x}{d}\right)^2-2\fract{\frac{x}{d}}\frac{x}{d}+\frac{x}{d}-\fract{\frac{x}{d}}+\fract{\frac{x}{d}}^2\right)\\
+        &=\frac{1}{2}\left(\frac{x}{d}\right)^2+\Oh\left(\frac{x}{d}\right).
+    \end{align*}
+    \begin{align*}
+        \sum_{n\leq x}\phi(n)&=\sum_{d\leq x}\mu(d)\left(\frac{1}{2}\left(\frac{x}{d}\right)^2+\Oh\left(\frac{x}{d}\right)\right)\\
+        &=\frac{x^2}{2}\sum_{d\leq x}\frac{\mu(d)}{d^2}+\Oh\left(\sum_{d\leq x}\frac{x}{d}\right)\\
+        &=\frac{x^2}{2}\sum_{d\leq x}\frac{\mu(d)}{d^2}+\Oh(x\log x)\\
+        &=\frac{x^2}{2}\left(\sum_{d=1}^{\infty}\frac{\mu(d)}{d^2}-\sum_{d> x}\frac{\mu(d)}{d^2}\right)+\Oh(x\log x)\\
+        &=\frac{x^2}{2\zeta(2)}-\frac{x^2}{2}\sum_{d> x}\frac{\mu(d)}{d^2}+\Oh(x\log x).
+    \end{align*}
+    \begin{align*}
+        \left|\sum_{d>x}\frac{\mu(d)}{d^2}\right|&\leq\sum_{d\geq\floor{x}+1}\frac{\mu(d)}{d^2}\\
+        &=\int_{\floor{x}}^{\infty}\frac{dt}{t^2}\\
+        &=\Oh\left(\frac{1}{x}\right).
+    \end{align*}
+    All in all we have
+    \begin{align*}
+        \sum_{n\leq x}\phi(n)&=\frac{x^2}{2\zeta(2)}+\Oh\left(x\log x\right)\\
+        &=\frac{3}{\pi^2}x^2+\Oh\left(x\log x\right).\qedhere
+    \end{align*}
+\end{proof}
+\addsec{Dirichlet's Hyperbola Method}
+Suppose we have two arithmetic functions
+\[
+    f,g:\N\to\C.
+\]
+Let
+\[
+    F(x)=\sum_{n\leq x}f(n),\quad G(x)=\sum_{n\leq x}g(x).
+\]
+Consider $h=f\ast g$.\\
+i.e.,
+\[
+    h(n)=\sum_{d\mid n}f(d)g\left(\frac{n}{d}\right).
+\]
+We have
+\begin{align*}
+    H(x)=\sum_{n\leq x}h(n)&=\sum_{n\leq x}\sum_{d\mid n}f(d)g\left(\frac{n}{d}\right)\\
+    &=\sum_{n\leq x}\sum_{n=ab}f(a)g(b)\\
+    &=\sum_{\substack{a,b\\ ab\leq x}}f(a)g(b)
+    \intertext{let $y>0$}
+    &=\sum_{\substack{ab\leq x\\ a\leq y}}f(a)g(b)+\sum_{\substack{ab\leq x\\ a> y}}f(a)g(b)\\
+    &=\sum_{a\leq y}f(a)\sum_{b\leq\frac{x}{a}}g(b)+\sum_{b\leq \frac{x}{y}}g(b)\sum_{y<a\leq\frac{x}{b}}f(a)\\
+    &=\sum_{a\leq y}f(a)G(\frac{x}{a})+\sum_{b\leq \frac{x}{y}}g(b)\left(F\left(\frac{x}{b}\right)-F(y)\right)\\
+    &=\sum_{a\leq y}f(a)G(\frac{x}{a})+\sum_{b\leq \frac{x}{y}}g(b)F\left(\frac{x}{b}\right)-\sum_{b\leq \frac{x}{y}}g(b)F(y)\\
+    &=\sum_{a\leq y}f(a)G\left(\frac{x}{a}\right)+\sum_{b\leq \frac{x}{y}}g(b)F\left(\frac{x}{b}\right)-G\left(\frac{x}{y}\right)F(y)
+\end{align*}
+If we choose $y=\sqrt{x}$ (this choice depends on the specific functions you are dealing with), the above can be written as 
+\[
+    \sum_{n\leq x}f\ast g(n)=\sum_{a\leq \sqrt{x}}f(a)G\left(\frac{x}{a}\right)+\sum_{b\leq \sqrt{x}}g(b)F\left(\frac{x}{b}\right)-G(\sqrt{x})F(\sqrt{x}).
+\]
+Why is this called the ``hyperbola method''? If we use this method for $\sum_{n\leq x}d(n)$ we have
+\[
+    \sum_{n\leq x}d(n)=\sum_{n\leq x}\sum_{ab=n}1=\sum_{\substack{a,b\\ab\leq x}}1.
+\]
+We can see that the first sum, sums over lattice points under hyperbola $ab=x$ of points with $a\leq\sqrt{x}$ and the second sums over points with $b\leq\sqrt{x}$ and the thid term subtracts one set of points that have been double counted.
+\begin{theorem}{Sum of Divisor Function}{}
+    \[
+        \sum_{n\leq x}\mathrm{d}(n)=x\log x+(2\gamma-1)x+\Oh(\sqrt{x}).
+    \]
+\end{theorem}
+\begin{proof}[Proof of Theorem 2.17]
+    \begin{align*}
+        \sum_{n\leq x}d(n)=\sum_{\substack{a,b\\ ab\leq x}}1&=\sum_{a\leq \sqrt{x}}\sum_{b\leq \frac{x}{a}}1+\sum_{b\leq \sqrt{x}}\sum_{a\leq \frac{x}{b}}1-\sum_{b\leq \sqrt{x}}\sum_{b\leq \sqrt{x}}1\\
+        &=\sum_{a\leq \sqrt{x}}\floor{\frac{x}{a}}+\sum_{b\leq \sqrt{x}}\floor{\frac{x}{b}}-\sum_{b\leq \sqrt{x}}\floor{\sqrt{x}}\\
+        &=2\sum_{a\leq \sqrt{x}}\floor{\frac{x}{a}}-\floor{\sqrt{x}}\floor{\sqrt{x}}\\
+        &=2\sum_{a\leq \sqrt{x}}\left(\frac{x}{a}-\fract{\frac{x}{a}}\right)-(\sqrt{x}-\fract{\sqrt{x}})^2\\
+        &=2x\sum_{a\leq \sqrt{x}}\frac{1}{a}-2\sum_{a\leq \sqrt{x}}\fract{\frac{x}{a}}-x-2\sqrt{x}\fract{\sqrt{x}}-\fract{\sqrt{x}}^2\\
+        &=2x\left(\log\sqrt{x}+\gamma+\Oh\left(\frac{1}{\sqrt{x}}\right)\right)-x+\Oh(\sqrt{x})\\
+        &=2\log x+(2\gamma-1)x+\Oh(\sqrt{x}).\qedhere
+    \end{align*}
+\end{proof}
+\begin{remark}
+    Dirichlet's Divisor Problem\\
+    \[
+        \Delta(x)=D(x)-(x\log x+(2\gamma-1)x)\tag{$\ast$}
+    \]
+    \[
+        \text{Theorem 2.17}\Rightarrow \Delta(x)=\Oh(\sqrt{x})
+    \]
+    \[
+        \text{Conjecture:} \Delta(x)=\Oh(x^{\frac{1}{4}}).
+    \]
+    Hardy et al. showed that $\Delta(x)=\Oh(x^{\frac{1}{3}})$. The state of the art is $\Delta(x)=\Oh(x^\theta)$ with $\theta=0.31\dots$.\\
+    $d(n)\leq2$, $d(n)\geq\exp\left(\frac{(1+\varepsilon)\log2\log n}{\log\log n}\right)$ for any $\varepsilon>0$. $d(n)\leq C(\varepsilon)n^\varepsilon$ for any $\varepsilon>0$. $d(n)\ll_\varepsilon n^\varepsilon$.
+\end{remark}
+\chapter{Elementary Results for the \\Prime Coutning Function}
+The PNT 
+\[
+    \pi(x)\sim\frac{x}{\log x}
+\]
+was proven independantly by Hadamard and de la Vall\'{e} Poussin in the 1890's. Chebyshev proved (1848-1850) the following in equality: $\exists c_1,c_2>0$ such that
+\[
+    c_1\frac{x}{\log x}\leq \pi(x)\leq c_2\frac{x}{\log x}    
+\]
+for all $x\geq 2$, in other words
+\[
+    \pi(x)\asymp\frac{x}{\log x}.
+\]
+This inequality is enough to prove Bertrand's postulate (there always exists a prime between $n$ and $2n$).\\
+Chebyshev's functions are given by
+\[
+    \Psi(x)=\sum_{n\leq x}\Lambda(n),\quad \theta(x)=\sum_{\substack{p\leq x\\p \text{ prime}}}\log p.
+\]
+\begin{theorem}{Asymptotic Equivalence for Chebyshev's Functions}{}
+    For all $x\geq2$, we have:
+    \begin{enumerate}
+        \item $\Psi(x)\asymp x$, i.e., $\exists c_1,c_2>0$ such that $c_1x\leq \Psi(x)\leq c_2x$ for all $x\geq2$.
+        \item $\theta(x)\asymp x$
+        \item $\pi(x)\asymp\frac{x}{\log x}$
+    \end{enumerate}
+\end{theorem}
+\begin{proof}[Proof of Theorem 3.1]
+    We will prove (1) and then deduce (2) and (3).\\
+    Consider
+    \begin{align*}
+        S(x)&=\sum_{n\leq x}\log n\\
+        &=\sum_{n\leq x}\sum_{d\mid n}\Lambda(d)\\
+        &=\sum_{d\leq x}\sum_{m\leq\frac{x}{d}}\Lambda(d)\\
+        &=\sum_{d\leq x}\Lambda(d)\sum_{m\leq\frac{x}{d}}1\\
+        S(x)&=\sum_{d\leq x}\Lambda(d)\floor{\frac{x}{d}}.
+    \end{align*}
+    Now we introduce
+    \begin{align*}
+        D(x)&=S(x)-2S\left(\frac{x}{2}\right)\\
+        &=\sum_{d\leq x}\Lambda(d)\floor{\frac{x}{d}}-2\sum_{d\leq\frac{x}{2}}\Lambda(d)\floor{\frac{x}{2d}}\\
+        &=\sum_{d\leq x}\Lambda(d)\floor{\frac{x}{d}}-2\sum_{d\leq x}\Lambda(d)\floor{\frac{x}{2d}}+\sum_{\frac{x}{2}<d\leq x}\Lambda(d)\floor{\frac{x}{2d}}\\
+        &=\sum_{d\leq x}\Lambda(d)\left(\underbrace{\floor{\frac{x}{d}}-2\floor{\frac{x}{2d}}}_{f(x)}\right)
+        \intertext{where 
+        \(f(t)=\floor{t}-2\floor{\frac{t}{2}}=
+        \begin{cases}
+            1, & 1\leq t\leq 2\\
+            0, & t\geq 2
+        \end{cases}\)}
+        &=\sum_{d\leq x}\Lambda(d)f\left(\frac{x}{d}\right)\\
+        &=\underbrace{\sum_{d\leq\frac{x}{2}}\Lambda(d)f\left(\frac{x}{d}\right)}_{\leq0}+\sum_{\frac{x}{2}<d\leq x}\Lambda(d)f\left(\frac{x}{d}\right)\\
+        &\geq\sum_{\frac{x}{2}<d\leq x}\Lambda(d)f\left(\frac{x}{2}\right)\\
+        &=\sum_{\frac{x}{2}<d\leq x}\Lambda(d)\\
+        &=\Psi(x)-\Psi\left(\frac{x}{2}\right).
+    \end{align*}
+    Here, $D(x)\geq \Psi(x)-\Psi\left(\frac{x}{2}\right)$.\\
+    On the other hand
+    \begin{align*}
+        D(x)&=S(x)-2S\left(\frac{x}{2}\right)\\
+        &=\sum_{n\leq x}\log n-2\sum_{n\leq\frac{x}{2}}\log n\\
+        &=x(\log x-1)+\Oh(\log x)-2\frac{x}{2}\left(\log\frac{x}{2}-1\right)+\Oh(\log x)\\
+        D(x)&=(\log2)x+\Oh(\log x).
+    \end{align*}
+    This means that there exists $A>0$ such that $D(x)=(\log2)x+g(x),$ where $|g(x)|\leq A\log x$ for all $x$ sufficiently large. And so $D(x)\leq(\log2)x+A\log x$ for all $x$ sufficiently large. Let $\epsilon\geq0$ be given for $x>N$ (for some $N>0$) we have 
+    \[
+        \log x\leq \frac{\epsilon}{A}x
+    \]
+    and so for $x$ large enough say $x>x_0$ we have
+    \[
+        D(x)\leq(\log2+\epsilon)x
+    \]
+    since $g(x)>-A\log x$ for $x$ sufficiently large. We also have
+    \begin{align*}
+        D(x)&\geq(\log2)x-A\log x\\
+        &\geq(\log2-\epsilon)x.
+    \end{align*}
+Therefore, 
+\[
+    (\log2-\epsilon)x\leq D(x)\leq(\log2+\epsilon)x
+\]
+for all $x\geq x_0$. We also have,
+\[
+    D(x)\geq\Psi(x)-\Psi\left(\frac{x}{2}\right)
+\]
+so we have
+\[
+    \Psi(x)-\Psi\left(\frac{x}{2}\right)\leq D(x)\leq\Psi(x).
+\]
+In particular, we get
+\[
+    \Psi(x)\geq(\log2-\epsilon)x
+\]
+for $x\geq x_0$. This gives us 
+\[
+    \Psi(x)\geq D(x)\geq(\log2-\varepsilon)x
+\]
+for all $x\geq x_0$. We also have that 
+\begin{align*}
+    \Psi(x)&\leq D(x)+\Psi\left(\frac{x}{2}\right)\\
+    &\leq(\log 2-\varepsilon)x+\Psi\left(\frac{x}{2}\right)& \forall x\geq x_0
+    \intertext{By choosing a small enough $\varepsilon$}
+    &\leq x+\Psi\left(\frac{x}{2}\right)& \forall x\geq x_0\\
+    &\leq x+\frac{x}{2}+\Psi\left(\frac{x}{4}\right)& \forall \frac{x}{2}\geq x_0\\
+    &\quad\quad\quad\quad\:\,\vdots\\
+    &\leq x+\frac{x}{2}+\frac{x}{4}+\cdots+\Psi\left(\frac{x}{2^k}\right)& \forall \frac{x}{2^{k-1}}\geq x_0.
+\end{align*}
+Choose $k$ to be the largest integer such that 
+\[
+    \frac{x}{2^{k-1}}\geq x_0
+\]
+i.e.,
+\[
+    \frac{x}{2^k}\leq x_0\leq\frac{x}{2^{k-1}}.
+\]
+Since $\Psi$ is an increasing function, we have 
+\[
+    \Psi(x_0)\geq\Psi\left(\frac{x}{2}\right).
+\]
+It follows that 
+\begin{align*}
+    \Psi(x)&\leq x+\frac{x}{2}+\cdots+\frac{x}{2^{k-1}}+\Psi(x_0)\\
+    &=x\sum_{i=0}^{k-1}\left(\frac{1}{2}\right)^i+\Psi(x_0)\\
+    &=2x+\Psi(x_0)
+    \intertext{For large enough $x$ we have $\Psi(x_0)\leq \varepsilon x$}
+    \Psi(x)&\leq(2+\varepsilon)x
+    \intertext{For all $x\geq X_0$, and some $X_0>1$.}
+\end{align*}
+Combining everything, we get
+\[
+    (2-\varepsilon)\leq\Psi(x)\leq(2+\varepsilon)x
+\]
+for all $x\geq X_0$.\\
+What if $2\leq x\leq X_0$? Trivially we have that 
+\[
+    \frac{\Psi(x)}{x}\leq\frac{\Psi(X_0)}{2}.
+\]
+We also have that 
+\[
+    \frac{\Psi(x)}{x}\geq\frac{\Psi(2)}{x}=\frac{\log2}{x}\leq\frac{\log2}{X_0}.
+\]
+This gives
+\[
+    \frac{\log2}{X_0}x\leq\Psi(x)\leq\frac{\Psi(X_0)}{2}x
+\]
+for all $2\leq x\leq X_0$. All in all, $\exists c_1,c_2>0$ such that 
+\[
+    c_1x\leq \Psi(x)\leq c_2x
+\]
+for all $x\geq2$.\\
+Now for part (2)
+\begin{align*}
+    \Psi(x)-\theta(x)&=\sum_{n\leq x}\Lambda(n)-\sum_{p\leq x}\log p\\
+    &=\sum_{\substack{n\leq x\\ n=p^m}}\log p-\sum_{p\leq x}\log p\\    
+    &=\sum_{\substack{p^m\leq x\\ p\text{ prime}\\m\in\N}}\log p-\sum_{p\leq x}\log p\\
+    &=\sum_{\substack{p^m\leq x\\ p\text{ prime}\\m\geq2}}\log p\\
+    &=\sum_{p\leq\sqrt{x}}\sum_{\substack{m\leq\frac{\log x}{\log p}\\m\geq2}}\log p\\    
+    &=\sum_{p\leq\sqrt{x}}\log p\floor{\frac{\log x}{\log p}}\\    
+    &\leq\sum_{p\leq\sqrt{x}}\log p\frac{\log x}{\log p}\\
+    &=\log x\sum_{p\leq\sqrt{x}}1\\
+    &\leq(\log x)\sqrt{x}.
+\end{align*}
+We just showed that
+\[
+    \Psi(x)-\theta(x)\leq (\log x)\sqrt{x}.
+\]
+Now we have
+\[
+    \theta(x)\leq \Psi(x)\leq c_2x
+\]
+we also have
+\begin{align*}
+    \theta(x)&\geq\Psi(x)-(\log x)\sqrt{x}\\
+    &\geq c_1x-(\log x)\sqrt{x}
+\end{align*}
+for $x$ large enough we have
+\[
+    (\log x)\sqrt{x}\leq\frac{c_1}{2}x
+\]
+and so 
+\[
+    \theta(x)\geq c_1x-\frac{c_1}{2}x=\frac{c_1}{2}x.
+\]
+\\
+Now for part (3)
+\begin{align*}
+    \pi(x)&=\sum_{p\leq x}1\\
+    &\geq\sum_{p\leq x}\frac{\log p}{\log x}\\
+    &=\frac{1}{\log x}\sum_{p\leq x}\log p\\
+    &=\frac{1}{\log x}\theta(x)\geq\frac{\frac{c_1}{x}x}{\log x}\\
+    &=\sum_{p\leq\sqrt{x}}1+\sum_{\sqrt{x}<p\leq x}1\\
+    &\leq\sqrt{x}+\frac{1}{\log\sqrt{x}}\sum_{\sqrt{x}<p\leq x}\log\sqrt{x}\\
+    &\sqrt{x}+\frac{2}{\log x}\sum_{\sqrt{}\leq p\leq x}\log p\\
+    &\leq\sqrt{x}+\frac{2}{\log x}(\theta(x)-\theta(\sqrt{x}))\\
+    &\leq\sqrt{x}+\frac{2}{\log x}(c_2x-\frac{c_1}{2}\sqrt{x})\\
+    &\leq C\frac{x}{\log x}
+\end{align*}
+for some $C>0$. Indeed we have that 
+\[
+    \pi(x)\asymp\frac{x}{\log x}
+\]
+for $x$ large enough. Repeating the argument we did to bound $\Psi(x)$ for small values of $x$, we get $\pi(x)\asymp\frac{x}{\log x}$ for all $x\geq 2$.\qedhere
+\end{proof}    
+\begin{theorem}{}{}
+    For all $x\leq2$, we have 
+    \begin{enumerate}
+        \item[(1)] $\theta(x)=\Psi(x)+\Oh(\sqrt{x})$;
+        \item[(2)] $\pi(x)=\frac{\Psi(x)}{\log x}+\Oh\left(\frac{x}{\log^2x}\right)$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}[Proof of Theorem 3.2]
+    \begin{enumerate}
+        \item[(1)]
+        \begin{align*}
+            \Psi(x)-\theta(x)&=\vdots\\
+            &\leq\log x\sum_{p\leq\sqrt{x}}1\\
+            &=\log x\pi(\sqrt{x})
+            \intertext{By theorem 3.1 part 3}
+            &\leq\log x\frac{c_2\sqrt{x}}{\log\sqrt{x}}\\
+            &\leq2c_2\sqrt{x}\\
+            &\ll\sqrt{x}.
+        \end{align*}
+        \item[(2)]
+        \begin{align*}
+            \pi(x)&=\sum_{p\leq x}1\\
+            &=\sum_{p\leq x}\frac{\log p}{\log p}\\
+            &=\left(\sum_{p\leq x}\log p\right)\frac{1}{\log x}+\int_{2}^{x}\left(\sum_{p\leq t}\log p\right)\frac{1}{t(\log t)^2}\,dt\\
+            &=\frac{\Oh(x)}{\log x}+\int_{2}^{x}\frac{\Oh(t)}{t(\log t)^2}\,dt.
+        \end{align*}
+        Observe that
+        \[
+            \int_{2}^{x}\frac{\Oh(t)}{t(\log t)^2}\,dt\ll\int_{2}^{x}\frac{1}{(\log t)^2}\,dt=\Li_2(x)\ll\frac{x}{(\log x)^2}.
+        \]
+        Hence,
+        \begin{align*}
+            \pi(x)&=\frac{\Oh(x)}{\log x}+\Oh\left(\frac{x}{(\log x)^2}\right)\\
+            &=\frac{\Psi(x)}{\log x}+\Oh\left(\frac{\sqrt{x}}{\log x}\right)+\Oh\left(\frac{x}{(\log x)^2}\right)\\
+            &=\frac{\Psi(x)}{\log x}+\Oh\left(\frac{x}{(\log x)^2}\right).\qedhere
+        \end{align*}   
+    \end{enumerate}
+\end{proof}
+\begin{corollary}{}{}
+    The following are all equivalent as $x\to\infty$
+    \begin{enumerate}
+        \item[(1)] $\pi(x)\sim\frac{x}{\log x}$;
+        \item[(2)] $\theta(x)\sim x$;
+        \item[(3)] $\Psi(x)\sim x$.   
+    \end{enumerate}
+\end{corollary}
+\addsec{Mertens' Estimate}
+\begin{theorem}{}{}
+    We have
+    \begin{enumerate}
+        \item[(1)] 
+        \[
+            \sum_{n\leq x}\frac{\Lambda(n)}{n}=\log x+\Oh(1)
+        \]
+        \item[(2)]
+        \[
+            \sum_{p\leq x}\frac{\log p}{p}=\log x+\Oh(1)
+        \]
+        \item[(3)]
+        \[
+            \sum_{p\leq x}\frac{1}{p}=\log\log x+A+\Oh\left(\frac{1}{\log x}\right)
+        \]
+        \item[(4)] Mertens' formula
+        \[
+            \prod_{p\leq x}\left(1-\frac{1}{p}\right)=\frac{e^{-\gamma}}{\log x}\left(1+\Oh\left(\frac{1}{\log x}\right)\right).
+        \]
+    \end{enumerate}
+\end{theorem}
+\begin{proof}[Proof of Theorem 3.4]
+    \begin{enumerate}
+        \item[(1)] Let 
+        \begin{align*}
+            S(x)&=\sum_{n\leq x}\log n\\
+            &=x\log x-x+\Oh(\log x),
+        \end{align*}
+        on the other hand we have
+        \begin{align*}
+            S(x)&=\sum_{d\leq x}\Lambda(d)\floor{\frac{x}{d}}\\
+            &=\sum_{d\leq x}\Lambda(d)\left(\frac{x}{d}-\fract{\frac{x}{d}}\right)\\
+            &=x\sum_{d\leq x}\frac{\Lambda(d)}{d}+\sum_{d\leq x}\Lambda(d)\fract{\frac{x}{d}}\\
+            &=x\sum_{d\leq x}\frac{\Lambda(d)}{d}+\Oh\left(\sum_{d\leq x}\Lambda(d)\right)\\
+            &=x\sum_{d\leq x}\frac{\Lambda(d)}{d}+\Oh(x).
+        \end{align*}
+        Since $S(x)=x\log x+\Oh(x)$ we get
+        \[
+            \log x+\Oh(x)=\sum_{d\leq x}\frac{\Lambda(d)}{d}+\Oh(x).
+        \]
+        \item[(2)]
+        \begin{align*}
+            \sum_{p\leq x}\frac{\log p}{p}&=\sum_{p^m\leq x}\frac{\log p}{p^m}-\sum_{\substack{p^m\leq x\\ m\leq2}}\frac{\log p}{p^m}\\
+            &=\sum_{n\leq x}\frac{\Lambda(n)}{n}-\sum_{\substack{p^m\leq x\\ m\leq2}}\frac{\log p}{p^m}.
+        \end{align*}
+        Note that
+        \begin{align*}
+            -\sum_{\substack{p^m\leq x\\ m\leq2}}\frac{\log p}{p^m}&=\sum_{p\leq\sqrt{x}}\log p\sum_{2\leq m\leq\frac{\log x}{\log p}}\frac{1}{p^m}\\
+            &\leq\sum_{p}\log p\sum_{m=1}^{\infty}\left(\frac{1}{p}\right)^m\\
+            &=\sum_{p}\log p\left(\frac{p^{-2}}{1-p^{-1}}\right)\\
+            &=\sum_{p}\frac{\log p}{p^2-p}<\infty\\
+            &=\Oh(1).
+        \end{align*}
+        \item[(3)] 
+        \begin{align*}
+            \sum_{p\leq x}\frac{1}{p}&=\sum_{p\leq x}\frac{1}{p}\frac{\log p}{\log p}\\
+            &=\left(\sum_{p\leq x}\frac{\log p}{p}\right)\frac{1}{\log x}+\int_{2}^{x}\left(\sum_{p\leq t}\frac{\log p}{p}\right)\frac{1}{t(\log t)^2}\,dt 
+            \intertext{Let $R(x)=\Oh(1)$}
+            &=\frac{\log p+R(x)}{\log x}+\int_{2}^{x}\frac{\log t+R(t)}{t(\log t)^2}\,dt\\
+            &=1+\frac{R(x)}{\log x}+\int_{2}^{x}\frac{1}{t\log t}\,dt+\int_{2}^{x}\frac{R(x)}{t(\log t)^2}\,dt\\
+            &=1+\log\log x-\log\log2+\int_{2}^{x}\frac{R(t)}{t(\log t)^2}\,dt+\Oh\left(\frac{1}{\log x}\right).
+        \end{align*}
+        Let's consider $\int_{2}^{x}\frac{R(t)}{t(\log t)^2}\,dt$. We know that $\int_{2}^{\infty}\frac{R(t)}{t(\log t)^2}\,dt$ is convergent, since $\int_{2}^{\infty}\frac{R(t)}{t(\log t)^2}\,dt\ll\int_{\infty}^{x}\frac{1}{t(\log t)^2}\,dt<\infty$. Let's call
+        \[
+            \int_{2}^{\infty}\frac{R(t)}{t(\log t)^2}\,dt=C.
+        \]
+        Now
+        \[
+            \int_{2}^{\infty}\frac{R(t)}{t(\log t)^2}\,dt\ll\int_{2}^{\infty}\frac{1}{t(\log t)^2}\,dt=\Oh\left(\frac{1}{\log x}\right).
+        \]
+        Hence, 
+        \[
+            \sum_{p\leq x}\frac{1}{p}=\log\log x+1-\log\log2+C+\Oh\left(\frac{1}{\log x}\right).
+        \]
+        \item[(4)] We need to show that 
+        \[
+            \prod_{p\leq x}\left(1-\frac{1}{p}\right)=\frac{e^{-\gamma}}{\log x}\left(1+\Oh\left(\frac{1}{\log x}\right)\right).
+        \]
+        For now we will show that 
+        \[
+            \prod_{p\leq x}\left(1-\frac{1}{p}\right)=\frac{C}{\log x}\left(1+\Oh\left(\frac{1}{\log x}\right)\right)
+        \]
+        for some $C>0$. In the next chapter we will establish that $C=e^{-\gamma}$.\\
+        Our problem is reduced to proving
+        \[
+            \prod_{p\leq x}\left(1-\frac{1}{p}\right)=\log C-\log\log x+\log\left(1+\Oh\left(\frac{1}{\log x}\right)\right).
+        \]
+        Notice that $|\log(1+y)|\asymp |y|$ for $|y|\leq\frac{1}{2}$. So for $x$ large enough the term $\Oh\left(\frac{1}{x}\right)$ can be made less than $\frac{1}{2}$, and so 
+        \[
+            \log\left(1+\log\left(\frac{1}{\log x}\right)\right)=\Oh\left(\frac{1}{\log x}\right).
+        \]
+        Let's prove
+        \[
+            -\sum_{p\leq x}\log\left(1-\frac{1}{p}\right)=\log\log x+\log C+\Oh\left(\frac{1}{\log x}\right).
+        \]
+        Note that 
+        \[
+            \log(1-x)=-\sum_{n=1}^{\infty}\frac{x^n}{n}.
+        \]
+        So, we have
+        \begin{align*}
+            -\sum_{p\leq x}\log\left(1-\frac{1}{p}\right)&=\sum_{p\leq x}\sum_{n=1}^{\infty}\frac{\left(\frac{1}{p}\right)^n}{n}\\
+            &=\sum_{p\leq x}\sum_{n=1}^{\infty}\frac{1}{np^n}\\
+            &=\sum_{p\leq x}\left(\frac{1}{p}+\sum_{n=2}^{\infty}\frac{1}{np^n}\right)\\
+            &=\sum_{p\leq x}\frac{1}{p}+\sum_{p\leq x}\sum_{n=2}^{\infty}\frac{1}{np^n}.
+        \end{align*}
+        Consider the second sum
+        \[
+            \sum_{p\leq x}\underbrace{\frac{n=2}{\infty}\frac{1}{np^n}}_{r_p}.
+        \]
+        We have
+        \begin{align*}
+            r_p=\sum_{n=2}^{\infty}&\leq\frac{1}{2}\sum_{n=2}^{\infty}\frac{1}{p^n}\\
+            &=\frac{1}{2}\left(\frac{\frac{1}{p^2}}{1-\frac{1}{p}}\right)\\
+            &=\frac{1}{2}\left(\frac{1}{p^2-p}\right).
+        \end{align*}
+        Now 
+        \[
+            \sum_{p\leq x}r_p=\sum_{p=2}^{\infty}r_p-\sum_{p>x}r_p
+        \]
+        since $r_p\leq\frac{1}{2}\left(\frac{1}{p^2-p}\right)$, the comparison test implies that $\sum_{p=2}^{\infty}r_p$ is convergent to say $B$. We also have, 
+        \begin{align*}
+            \sum_{p>x}r_p&\leq\frac{1}{2}\sum_{p>x}\frac{1}{p^2-p}\\
+            &\leq\frac{1}{2}\sum_{n>x}\frac{1}{n^2-n}\\
+            &\leq\sum_{n\geq x}\frac{1}{n^2}\\
+            &\ll\int_{x}^{\infty}\frac{1}{t^2}\,dt\\
+            &=\Oh\left(\frac{1}{x}\right).
+        \end{align*}
+        Therefore,
+        \[
+            \sum_{p\leq x}\sum_{n=2}^{\infty}\frac{1}{np^n}=B+\Oh\left(\frac{1}{x}\right).
+        \]
+        It follows that
+        \[
+            -\sum_{p\leq x}\log\left(1-\frac{1}{p}\right)=\log\log x+A+B+\Oh\left(\frac{1}{\log x}\right).\qedhere
+        \]     
+    \end{enumerate}
+\end{proof}
+\begin{corollary}{}{}
+    We have
+    \[
+        \int_{1}^{x}\frac{\Psi(t)}{t^2}\,dt=\log x+\Oh(1).
+    \]    
+\end{corollary}
+\begin{proof}
+    \begin{align*}
+        \log x+\Oh(1)&=\sum_{n\leq x}\frac{\Lambda(n)}{n}\\
+        &=\left(\sum_{n\leq x}\Lambda(n)\right)\frac{1}{x}+\int_{1}^{x}\left(\sum_{n\leq t}\Lambda(n)\right)\frac{1}{t^2}\,dt\\
+        &=\frac{\Psi(x)}{x}+\int_{1}^{x}\frac{\Psi(t)}{t^2}\,dt.
+    \end{align*}
+    Hence, 
+    \[
+        \int_{1}^{x}\frac{\Psi(t)}{t^2}\,dt=\log x+\Oh(1)
+    \]
+    which is the desired result.
+\end{proof}
+
+\addsec{Consequences of the PNT}
+\begin{theorem}{}{}
+    The PNT implies the following
+    \begin{enumerate}
+        \item[(1)] The $n^{\text{th}}$ prime satisfies $p_n\sim n\log n$ as $n\to\infty$;
+        \item[(2)] $\omega(n)=\#$ of distinct prime factors of $n$,
+        \[
+            \limsup_{n\to\infty}\frac{\omega(n)}{\frac{\log n}{\log\log n}}=1;
+        \]
+        \item[(3)] Given $\varepsilon>0$, $\exists x_0=x_0(\varepsilon)$ such that for all $x\geq x_0$ there exists a prime $p$ with
+        \[
+            x<p\leq(1+\varepsilon)x;
+        \]
+        \item[(4)] The set 
+        \[
+            \left\{\frac{p}{q}:p,q\text{ prime}\right\}
+        \]
+        is dense in $\R_+$;
+        \item[(5)] $a_i\in\{1,2,3,\dots,9\}$. Consider a string $a_1,a_2,\dots,a_n$ $(a_i\neq0)$, then there exists a prime $\#$ whose decimal expansion starts with $a_1a_2\dots a_n$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}[Proof of Theorem 3.6]
+    \begin{enumerate}
+        \item[(1)]
+        \[
+            \text{PNT}\Rightarrow n=\pi(p_n)\sim\frac{p_n}{\log p_n}.
+        \]
+        Let's show that $\log n\sim\log p_n$ that is $\lim_{n\to\infty}\frac{\log n}{\log p_n}=1$. We have
+        \[
+            \lim_{n\to\infty}\frac{n}{\frac{p_n}{\log p_n}}=1
+        \]
+        given $\varepsilon>0$, $\exists N\geq1$ such that
+        \[
+            \left|\frac{n}{\frac{p_n}{\log p_n}}-1\right|\leq\varepsilon
+        \]
+        for all $n\geq N$.
+        \begin{align*}
+            1-\varepsilon&\leq\frac{n}{\frac{p_n}{\log p_n}}&\leq1+\varepsilon\\
+            \frac{p_n}{\log p_n}(1-\varepsilon)&\leq n&\leq\frac{p_n}{\log p_n}(1+\varepsilon)\\
+            \log p_n-\log\log p_n+\log(1-\varepsilon)&\leq\log n&\leq\log p_n-\log\log p_n+\log(1+\varepsilon)\\
+            1-\frac{\log\log p_n}{\log p_n}+\frac{\log(1-\varepsilon)}{\log p_n}&\leq\frac{\log n}{\log p_n}&\leq1-\frac{\log\log p_n}{\log p_n}+\frac{\log(1+\varepsilon)}{\log p_n}.
+        \end{align*}
+        Hence we have
+        \[
+            \lim_{n\to\infty}\frac{\log n}{\log p_n}=1.\qedhere
+        \]
+    \end{enumerate}
+\end{proof}
+For the rest of the chapter, we will prove the following theorem.
+\begin{theorem}{}{}
+    \[
+        PNT\Leftrightarrow\frac{1}{x}\sum_{n\leq x}\mu(n)\to0
+    \]
+    as $x\to\infty$. That is $\sum_{n\leq x}\mu(n)=\oh(x)$.
+\end{theorem}
+\begin{remark}
+    Let 
+    \[
+        Q(x)=\sum_{n\leq x}\mu^2(n)=\# \text{ of square free integers up to } x,
+    \]
+    \[
+        Q_-(x)=\sum_{n\leq x}\mu^2(n)=\# \text{ of square free integers up to } x \text{ with an odd number of prime divisors},
+    \]
+    \[
+        Q_+(x)=\sum_{n\leq x}\mu^2(n)=\# \text{ of square free integers up to } x \text{ with an even number of prime divisors}.
+    \]
+    See that
+    \begin{align*}
+        Q(x)&=Q_-(x)+Q_+(x)
+        &=\frac{6}{\pi^2}x+\Oh(\sqrt{x}).
+    \end{align*}
+    We have 
+    \[
+        \frac{1}{x}\sum_{n\leq x}\mu(n)=\frac{1}{x}\left(Q_+(x)-Q_-(x)\right).
+    \]
+    If 
+    \[
+        \frac{1}{x}\sum_{n\leq x}\mu(n)\to0
+    \]
+    as $x\to\infty$, then
+    \[
+        Q_-(x)=Q_+(x)+\oh(x)=\frac{3}{\pi^2}x+\oh(x).
+    \]
+    So the statement of theorem 3.7 is telling us that a statement about the distribution of prime numbers si equivalent to a statement about the distribution of squarefree numbers with an odd number of prime factors.
+\end{remark}
+In preparing for the proof of theorem 3.7, we require the following lemmas.
+\begin{lemma}{}{}
+    \[
+        \left|\sum_{n\leq x}\frac{\mu(n)}{n}\right|\leq1
+    \]
+\end{lemma}
+\begin{corollary}{}{}
+    Let 
+    \[
+        L(\mu)=\lim_{x\to\infty}\frac{1}{\log x}\sum_{n\leq x}\frac{\mu(n)}{n}.
+    \]
+    Then $L(\mu)=0$, and if $M(\mu)$ exists, then $M(\mu)=0$. 
+\end{corollary}
+\begin{lemma}{}{}
+    $f:\N\to\C$
+    \[
+        H(f)=\lim_{x\to\infty}\frac{1}{x\log x}\sum_{n\leq x}f(n)\log n.    
+    \]
+    $H(f)$ exists \textit{if and only if} $M(f)$ exists.
+\end{lemma}
+Recall that the goal is to prove theorem 3.7
+\[
+    \text{PNT}\Leftrightarrow\sum_{n\leq x}\mu(n)=\oh(x)
+\]
+i.e.,
+\[
+    \lim_{n\to\infty}\frac{1}{x}\sum_{n\leq x}\mu(n)=0.
+\]
+To this end we require lemma 3.7, 3.8 and 3.11.
+\begin{lemma}{}{}
+    \[
+        \mu(n)\log n=-(\mu\ast\Lambda)(n),\quad n\in\N
+    \]
+\end{lemma}
+\begin{proof}
+    Assume first that $n$ is squarefree and it as
+    \[
+        n=p_1p_2\cdots p_k,\quad p_i\text{ distinct primes}.
+    \]
+    Let $d$ be a divisor of $n$. For simplicitt of exposition and WLOG we will write $d$ as
+    \[
+        d=p_1p_2\cdots p_\ell,\quad\text{ and }\quad \frac{n}{d}=o_{\ell+1}p_{\ell+2}\cdots p_{k}.
+    \]
+    Observe that $\mu(n)=\mu(d)\mu\left(\frac{n}{d}\right)$, since $\mu$ is multiplicative and $\left(d,\frac{n}{d}\right)=1$. Also 
+    \[
+        \log n=\sum_{d\mid n}\Lambda\left(\frac{n}{d}\right).
+    \]
+    It follows that
+    \begin{align*}
+        \mu(n)\log n&=\sum_{d\mid n}\mu(n)\Lambda\left(\frac{n}{d}\right)\\
+        &=\sum_{d\mid n}\mu(d)\mu\left(\frac{n}{d}\right)\Lambda\left(\frac{n}{d}\right).   
+    \end{align*}
+    However, one can verify that $\mu(m)\Lambda(m)=-\Lambda(m)$ for all squarefree $m$. So 
+    \begin{align*}
+        \mu(n)\log n&=-\sum_{d\mid n}\mu(d)\Lambda\left(\frac{n}{d}\right)\\
+        &=-\mu\ast\Lambda(n).
+    \end{align*}
+    Now if $n$ is not squarefree, then let's assume first that $n$ is divisible by the squares of at least two primes. In this case
+    \[
+        \mu(n)\log n=0
+    \]
+    and
+    \[
+        -\sum_{d\mid n}\mu(d)\Lambda\left(\frac{n}{d}\right)=\sum_{p^m\mid n}\mu\left(\frac{n}{p^m}\right)\Lambda(p^m).
+    \]
+    In fact, if we write 
+    \[
+        n=p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}
+    \]
+    with $e_1,e_2\geq2$, then $\frac{n}{p_i^{e_i}}$ is not squarefree for all $m_i\leq e_i$. Hence, 
+    \[
+        \sum_{d\mid n}\mu(d)\Lambda\left(\frac{n}{d}\right)=0=\mu(n)\log n.
+    \]
+    You can follow a similar arguemnt to show that
+    \[
+        \mu(n)\log n=0=-\sum_{d\mid n}\mu(d)\Lambda\left(\frac{n}{d}\right),
+    \]
+    in the remaining case where $n$ is divisible by the square of only one prime number, let's call is $p_0$. We write $n=p_0^{e_0}n_0$, with $n_0$ squarefree and $(n_0,p_0)=1$.
+\end{proof}
+Let's go back and prove lemma 3.8 which states that
+\[
+    \left|\sum_{n\leq x}\frac{\mu(n)}{n}\right|\leq1.
+\]
+\begin{proof}[Proof of Lemma 3.8]
+    We will assume WLOG that $x\in\N$. Let's set $x=N$. We consider
+    \[
+        S(N)=\sum_{n\leq N}e(n)
+    \]
+    with
+    \[
+        e(n)=
+        \begin{cases}
+            1&n=1\\
+            0&\text{otherwise}.
+        \end{cases}
+    \]
+    One one hand we have $S(N)=1$. On the other hand, we have
+    \begin{align*}
+        S(N)&=\sum_{n\leq N}e(n)\\
+        &=\sum_{n\leq N}\mu\ast1(n)\\
+        &=\sum_{n\leq N}\sum_{d\mid n}\mu(d)\\
+        &=\sum_{d\leq N}\mu(d)\sum_{m\leq\frac{N}{d}}1\\
+        &=\sum_{d\leq N}\mu(d)\floor{\frac{N}{d}}\\
+        &=\sum_{d\leq N}\mu(d)\left(\frac{N}{d}-\fract{\frac{N}{d}}\right)\\
+        &=N\sum_{d\leq N}\frac{\mu(d)}{d}-\sum_{d\leq N}\mu(d)\fract{\frac{N}{d}}.
+    \end{align*} 
+    Now we have
+    \[
+        1=S(N)=N\sum_{d\leq N}\frac{\mu(d)}{d}-\sum_{d\leq N}\mu(d)\fract{\frac{N}{d}}
+    \]
+    which can be written as 
+    \[
+        N\sum_{d\leq N}\frac{\mu(d)}{d}=1+\sum_{d\leq N}\mu(d)\fract{\frac{N}{d}}.
+    \]
+    Observe that
+    \begin{align*}
+        \sum_{d\leq N}\mu(d)\fract{\frac{N}{d}}&=\sum_{d\leq N-1}\mu(d)\fract{\frac{N}{d}}\\
+        &\leq N-1
+    \end{align*}
+    Hence, 
+    \[
+        N\left|\sum_{d\leq N}\frac{\mu(d)}{d}\right|\leq 1+N-1=N,
+    \]
+    and so
+    \[
+        \left|\sum_{d\leq N}\frac{\mu(d)}{d}\right|\leq1.\qedhere
+    \]
+\end{proof}
+\begin{proof}[Proof of Theorem 3.7]
+    We will show that
+    \begin{enumerate}[label=(\roman*)]
+        \item $\psi(x)\sim x\Rightarrow H(\mu)=0$
+        \item $M(\mu)=0\Rightarrow \Psi(x)\sim x.$
+    \end{enumerate}
+    Let's proceed with (i).\\
+    Suppose that $\Psi(x)\sim x$. Then given any $\varepsilon>0$, there exists $x_0>0$ such that
+    \[
+        \left|\frac{\Psi(x)}{x}-1\right|\leq\frac{\varepsilon}{4}x
+    \]
+    for all $x\geq x_0$. i.e., 
+    \[
+        |\Psi(x)-x|\leq\frac{\varepsilon}{4}x
+    \]
+    for all $x\geq x_0$.\\
+    We need to show that $H(\mu)=0$, i.e.,
+    \[
+        H(x)=\sum_{n\leq x}\mu(n)\log n,
+    \]
+    then we want to show that
+    \[
+        \lim_{x\to 0}\frac{H(x)}{x\log x}=0.
+    \]
+    In other words given $\varepsilon>0$, show that 
+    \[
+        \left|\frac{H(x)}{x\log x}\right|\leq\varepsilon
+    \]
+    for all $x$ sufficiently large. We have 
+    \begin{align*}
+        H(x)&=\sum_{n\leq x}\mu(n)\log n\\
+        &=-\sum_{n\leq x}\sum_{d\mid n}\Lambda\left(\frac{n}{d}\right)\mu(d)\\
+        &=-\sum_{d\leq x}\mu(d)\sum_{m\leq\frac{n}{d}}\Lambda(m)\\
+        &=-\sum_{d\leq x}\mu(d)\Psi\left(\frac{x}{d}\right)\\
+        &=-\sum_{d\leq\frac{x}{x_0}}\Psi\left(\frac{x}{d}\right)-\sum_{\frac{x}{x_0}<d\leq x}\mu(d)\Psi\left(\frac{x}{d}\right)
+    \end{align*}
+    for $d\leq\frac{x}{x_0}$ we have 
+    \[
+        \Psi\left(\frac{x}{d}\right)=\Psi\left(\frac{x}{d}\right)-\frac{x}{d}+\frac{x}{d}
+    \]
+    for $\frac{x}{x_0}<d\leq x$, we have 
+    \begin{align*}
+        \Psi\left(\frac{x}{d}\right)&=\sum_{n\leq\frac{x}{d}}\Lambda(n)\\
+        &\leq\sum_{n\leq\frac{x}{d}}\log n\\
+        &\leq\frac{x}{d}\log\left(\frac{x}{d}\right).
+    \end{align*}
+    Going back to $H(x)$, we have
+    \begin{align*}
+        H(x)&=-\sum_{d\leq\frac{x}{x_0}}\mu(d)\Psi\left(\frac{x}{d}\right)-\sum_{\frac{x}{x_0}<d\leq x}\mu(d)\Psi\left(\frac{x}{d}\right)\\
+        &=-\sum_{d\leq\frac{x}{x_0}}\mu(d)\left(\Psi\left(\frac{x}{d}\right)-\frac{x}{d}\right)+\sum_{d\leq\frac{x}{x_0}}\mu(d)\frac{x}{d}-\sum_{\frac{x}{x_0}<d\leq x}\mu(d)\Psi\left(\frac{x}{d}\right)\\
+        \text{so }|H(x)|&\leq\left|\sum_{d\leq\frac{x}{x_0}}\mu(d)\left(\Psi\left(\frac{x}{d}\right)-\frac{x}{d}\right)\right|+\left|x\sum_{d\leq\frac{x}{x_0}}\frac{\mu(d)}{d}\right|+\left|\sum_{\frac{x}{x_0}<d\leq x}\mu(d)\Psi\left(\frac{x}{d}\right)\right|\\
+        &\leq\sum_{d\leq\frac{x}{x_0}}\left|\Psi\left(\frac{x}{d}\right)-\frac{x}{d}\right|+\sum_{\frac{x}{x}_0<d\leq x}\left|\Psi\left(\frac{x}{d}\right)\right|+x\left|\sum_{d\leq\frac{x}{x_0}}\frac{\mu(d)}{d}\right|\\
+        &\leq\frac{\varepsilon}{4}\sum_{d\leq\frac{x}{x_0}}\frac{x}{d}+\sum_{\frac{x}{x_0}<d\leq x}\frac{x}{d}\log\frac{x}{d}+x\\
+        &\leq\frac{\varepsilon}{4}x\left(\log\left(\frac{x}{x_0}\right)+\oh(1)\right)+xx_0\log x_0+x\\
+        |H(x)|&\leq\frac{\varepsilon}{4}x\log x+\Oh_{\varepsilon}(x)+xx_0\log x_0+x\\
+        \left|\frac{H(x)}{\log x}\right|&\leq\frac{\varepsilon}{4}x+\Oh_{\varepsilon}\left(\frac{1}{\log x}\right)+\frac{x_0\log x_0}{\log x}+\frac{1}{\log x}\\
+        &\leq\frac{\varepsilon}{4}+\frac{\varepsilon}{4}+\frac{\varepsilon}{4}+\frac{\varepsilon}{4}\\
+        &\leq\varepsilon
+    \end{align*}
+    for $x$ sufficiently large, as desired.\\
+    For (ii), suppose that $M(\mu)$=0, i.e.,
+    \[
+        \frac{1}{x}\sum_{n\leq x}\mu(n)\to0\text{ as }0x\to\infty.
+    \]
+    Let's show that
+    \[
+        \sum_{n\leq x}\Lambda(n)=\Psi(x)\sim x.
+    \]
+    Recall
+    \[
+        \log n=\sum_{d\mid n}\Lambda\left(\frac{n}{d}\right),\quad (\log=1\ast\Lambda).
+    \]
+    By M{\"o}bius inversion
+    \begin{align*}
+        \Lambda(n)&=\sum_{d\mid n}\log\left(\frac{n}{d}\right)\mu(d)\\
+        &=\log\ast\mu(n).
+    \end{align*}
+    Let $f(n)=d(n)-2\gamma$,
+    \begin{align*}
+        \sum_{n\leq x}f(n)&=\sum_{n\leq x}d(n)-2\gamma\sum_{n\leq x}1\\
+        &=x\log x+(2\gamma-1)x+\oh(\sqrt{x})-2\gamma(x+\oh(1))\\
+        \sum_{n\leq x}f(n)&=x\log x-x+\Oh(\sqrt{x}).
+    \end{align*}
+    Observe that
+    \[
+        \sum_{n\leq x}\log n=x\log x-x+\Oh(\log x)
+    \]
+    and so if we get $r(n)=\log n-f(n)$, then 
+    \[Z
+        R(x)=\sum_{n\leq x}r(n)=\Oh(\sqrt{x}).
+    \]
+    Now let's get back to
+    \begin{align*}
+        \Lambda(n)&=\log\ast\mu(n)\\
+        &=(r+f)\ast\mu(n)\\
+        (r+d(n)-2\gamma\times1)\ast\mu(n)\\
+        &=r\ast\mu(n)+d\ast\mu(n)-2\gamma(1\ast\mu)(n).
+    \end{align*}
+    Hence, 
+    \[
+        \Lambda(n)=r\ast\mu(m)+1(n)-2\gamma e(n),
+    \]
+    \[
+        \sum_{n\leq x}\Lambda(n)=\sum_{n\leq x}r\ast\mu(n)+\sum_{n\leq x}1(n)-2\gamma\sum_{n\leq x}e(n),
+    \]
+    \[
+        \Psi(x)=E(x)+x+\oh(1)-2\gamma.
+    \]
+    If we estimate $E(x)$ trivially, we get
+    \begin{align*}
+        E(x)&=\sum_{n\leq x}r\ast\mu(n)\\
+        &=\sum_{d\leq x}\mu(d)\sum_{m\leq\frac{n}{d}}r(m)\\
+        |E*(x)|&\leq\sum_{d\leq x}|\mu(d)|\left|\sum_{m\leq\frac{n}{d}}r(m)\right|\\
+        &\leq\sum_{d\leq x}\left|\sum_{m\leq\frac{n}{d}}r(m)\right|\\
+        &\ll\sum_{d\leq x}\left(\sqrt{\frac{x}{d}}\right)\\
+        &=\sqrt{x}\sum_{d\leq x}\left(\frac{1}{\sqrt{d}}\right)\\
+        &=\Oh(x).
+    \end{align*}
+    This is not a good estimate, we want $E(x)=\oh(x)$.\\
+    To this end we will need to apply the hyperbola method. We have:
+    \begin{align*}
+        E(x)&=\sum_{n\leq x}\mu\ast r(n)\\
+        &=\sum_{d\leq x}\mu(d)\sum_{m\leq\frac{x}{d}}r(m)\\
+        &=I_1+I_2-I_3,
+    \end{align*}
+    where
+    \begin{align*}
+        I_1&=\sum_{d\leq\frac{x}{y}}\mu(d)\sum_{m\leq\frac{x}{d}}r(m)=\sum_{d\leq\frac{x}{y}}\mu(d)R\left(\frac{x}{d}\right)\\
+        I_2&=\sum_{m\leq y}r(m)\sum_{d\leq\frac{x}{m}}\mu(d)=\sum_{m\leq y}r(m)M_{\mu}\left(\frac{x}{m}\right)\\
+        I_3&=\sum_{m\leq y}r(m)\sum_{d\leq\frac{x}{y}}\mu(d)=R(y)M_{\mu}\left(\frac{x}{y}\right).
+    \end{align*}
+    Let $\varepsilon>0$ be given. There exists $x_0>0$ such that
+    \[
+        \left|\frac{M_{\mu}(x)}{x}\right|\leq\frac{\varepsilon}{k}
+    \]
+    for all $x\geq x_0$, here $k$ can be any positive integer. We also know that $R(x)=\Oh(x)$ i.e. $|R(x)|\leq C\sqrt{x}$ for some $C>0$. It follows that 
+    \begin{align*}
+        |I_1|&=\left|\sum_{d\leq\frac{x}{y}}\mu(d)R\left(\frac{x}{d}\right)\right|\\
+        &\leq C\sum_{d\leq\frac{x}{y}}\sqrt{\frac{x}{d}}\\
+        &=C\sqrt{x}\sum_{d\leq\frac{x}{y}}\frac{1}{\sqrt{d}}\\
+        &\leq C_1\frac{x}{\sqrt{y}}.
+    \end{align*}
+    We have
+    \[
+        \frac{|I_1|}{x}\leq\frac{C_1}{\sqrt{y}}.
+    \]
+    For $I_2$, we have
+    \begin{align*}
+        |I_2|=\left|\sum_{m\leq y}r(m)M\left(\frac{x}{m}\right)\right|\\
+        &\leq\sum_{m\leq y}|r(m)|\left|\left(\frac{x}{m}\right)\right|\\
+        &\leq\sum_{m\leq y}|r(m)|\frac{\varepsilon}{k}\left(\frac{x}{m}\right)\\
+        &=\frac{\varepsilon}{k}x\sum_{m\leq y}\frac{|r(m)|}{m}C(y),
+    \end{align*}
+    i.e. 
+    \[
+        \frac{|I_2|}{x}\leq\frac{\varepsilon}{k}C(y).
+    \]
+    Finally 
+    \begin{align*}
+        |I_3|&\leq C\sqrt{y}\frac{\varepsilon}{k}\left(\frac{x}{y}\right)\\
+        \frac{|I_3|}{x}&\leq\frac{C\varepsilon}{k\sqrt{y}}.
+    \end{align*}
+    So far, we have
+    \begin{align*}
+        \left|\frac{E(x)}{x}\right|\leq\left|\frac{I_1}{x}\right|+\left|\frac{I_2}{x}\right|+\left|\frac{I_3}{x}\right|\\
+        &\leq\frac{C_1}{\sqrt{y}}+\frac{\varepsilon}{k}C(y)+\frac{C\varepsilon}{k\sqrt{y}}.
+    \end{align*}
+    Choosing $y$ large enough, we get that
+    \[
+        \left|\frac{E(x)}{x}\right|\leq\frac{\varepsilon}{3}+\frac{\varepsilon}{3}+\frac{\varepsilon}{3}=\varepsilon
+    \]
+    for all $x$ sufficiently large.
+\end{proof}
+\chapter{Dirichlet Series }
+\end{document}

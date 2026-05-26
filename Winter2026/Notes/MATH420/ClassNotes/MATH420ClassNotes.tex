@@ -1,0 +1,1366 @@
+\documentclass[twoside, openright, fontsize=10pt, headings=big]{scrbook}
+
+% Load your existing preamble
+\input{../../../../preambles/textbook-notes-preamble.tex}
+\usetikzlibrary{cd}
+% KOMA header configuration
+\usepackage{scrlayer-scrpage}
+\clearpairofpagestyles
+\automark[chapter]{chapter}
+\ohead{\pagemark}
+\ihead{\headmark}
+\cehead{\MakeUppercase{\TextbookTitle}}
+\renewcommand{\chapterpagestyle}{empty}
+\newcommand{\addunumberedsubsec}[1]{%
+    \subsection*{#1}%
+    \addcontentsline{toc}{subsection}{#1}%
+}
+
+% Define title page fields
+\def\YourName{Deepak Jassal}
+\def\TextbookTitle{Structure of Groups and Rings}
+\def\TextbookAuthor{Dr. Stanley Xiao}
+\def\CourseName{MATH420}
+\def\NoteSemester{Winter}
+\def\NoteYear{2026}
+
+% Make equations share the exact same counter as theorems
+\makeatletter
+\let\c@equation\c@tcbtheorem
+\renewcommand{\theequation}{\thetcbtheorem}
+\makeatother
+
+
+\begin{document}
+%No page spaces between chapters
+\let\cleardoublepage\clearpage
+% Title page
+\input{../../../../preambles/titlepage.tex}
+
+\frontmatter
+\tableofcontents
+\mainmatter
+
+\chapter{Lecture 1}
+\addunumberedsubsec{Rings}
+Rings are a particular kind of algebraic structure.\\
+What is the point in considering ``algebraic structures''?\\
+Algebraic structures are abstractions that clarify some essential feature of a problem, and provide a language to describe issues and how they may be resolved.\\
+\\
+Rings ``come from'' groups.\\
+Groups are in some sense the simplest kind of abstract algebraic structures.\\
+Groups are however, already \underline{very} hard structures to understand.\\
+However groups simply cannot capture many objects we come about, which fundamentally may have more than one operation.\\
+From a group $G=(G,\ast)$ we can always form a ring called the \underline{group-ring}.\\
+\begin{definition}{Rings}{}
+    A set $\mathcal{R}$ together with two binary operations $``+''$ and $``\times''$ such that
+    \begin{enumerate}
+        \item $(\mathcal{R},+)$ is an Abelian group;
+        \item $\times$ is associative;
+        \item $a\times(b+c)=a\times b + a\times c,$ $\forall a,b,c\in \mathcal{R}$\\;
+              $(b+c)\times a=b\times a + c\times a$ $\forall a,b,c\in \mathcal{R}$\\;
+    \end{enumerate}
+    forms a ring $\mathcal{R}=(\mathcal{R},+,\times)$.\\
+    A ring with a multiplicative identity $1_\mathcal{R}$ such that $1_\mathcal{R}\times a=a\times1_\mathcal{R}=a$ is called a \underline{unital} ring.
+\end{definition}
+\begin{example}{}{}
+    \begin{enumerate}
+        \item $(\Z,+,\times)$ is a unital ring,
+        \item $(2\Z,+,\times)$ is a ring, but it is not a unital ring.
+    \end{enumerate}
+    Both are examples of \underline{commutative} rings, because $\times$ commutes in both cases.
+\end{example}
+\begin{definition}{}{}
+    $
+        M_{2\times2}(\Z)=\left\{ \begin{bmatrix}
+            1&b\\c&d
+        \end{bmatrix}: a,b,c,d\in\Z \right\}
+    $
+    with respect to matrix adidtion and multiplication is a non-commutative ring.
+\end{definition}
+The jury is out on whether non-commutative rings are important. Heavily context dependant.
+\chapter{Lecture 2}
+Last time: Defined a ring  and introduced same examples of commutative and non-commutative rings.\\
+Two most important examples are polynomial rings and matrix rings. Polynomial rings are commutative and matrix rings are non-commutative rings. These two types of rings make up a large portion of rings which are studied.
+\begin{example}{}{}
+    Let $S\subseteq\C$ be a (possibly finte) set, and $f:\C\mapsto\C$ be a meromorphic function. Then $f$ is regular on $\C\setminus S$ if f has no poles outside of $S$.\\
+    Let $R(S)$ be the set of functions regular on $\C\setminus S$. $R(S)$ forms a ring with respect to function addition and multiplication.
+\end{example}
+\addunumberedsubsec{One Point Compactification}
+Place the unit sphere into the complex plane. Then, if we use the point (0,0,1) we can uniquely map each point in $\C$ to a point on the unit sphere. All but one point on the unit sphere is mapped to, the missing point is (0,0,1). If we append $\{\infty\}$ to $\C$ we can make this function a bijection between the unit sphere and $\C\cup\{\infty\}$.\\
+However interesting this might be it makes it so the only holomorphic functions are the constand functions.
+\begin{example}{}{}
+    The following is an exmaple of a quotient ring,
+    \[
+        \R[x,y]=\{p(x,y):p\text{ is a polynomial with real coefficients}\}.
+    \]
+    One can obtain the quotient ring
+    \[
+        \underbrace{\R[x,y]\setminus(x^2-y)}_{\text{Corresponds to } y=x^2}
+    \]
+\end{example}
+\begin{example}{}{}
+    For any $n\in\N$ the set $T_n(\C)$ of upper triangular (respectively lower triangular) $n\times n$ matrices forms a ring with respect to matrix addition and matrix multiplication.
+\end{example}
+\begin{remark}
+    Matrices have a group structure under rotation, however reflections break this structure.
+\end{remark}
+Symmetries are usually described by certain matrix groups, called \textit{Lie groups}. Associated to Lie groups are \textit{Lie algebras}. These are \underline{matrix rings}.
+\[
+    \text{Lie group}\underset{\text{exponential map}}{\overset{\frac{d}{dx}}{\xrightleftharpoons{\hspace{2cm}}}}\text{Lie algebras}
+\]
+\begin{example}{}{}
+    Number rings i.e.,
+    \[
+        \Z[\sqrt{2}]=\{a+b\sqrt{2}:a,b\in\Z\}\subseteq\R.
+    \]
+    The addition and multiplication is inherited from $\R$.
+    To see that this is a ring we need only to check that it closed under the adidtion and multiplication inherited from $\R$, the other properties are given from $\R$.\\
+    Let $a_1+b_1\sqrt{2},a_2+b_2\sqrt{2}\in\Z[\sqrt{2}]$. Then,
+    \[
+        a_1+b_1\sqrt{2}+a_2+b_2\sqrt{2}=\underbrace{a_1+a_2}_{\in\Z}+\underbrace{(b_1+b_2)}_{\in\Z}\sqrt{2}.
+    \]
+    \begin{align*}
+        (a_1+b_1\sqrt{2})(a_2+b_2\sqrt{2})&=a_1a_2+a_1b_2\sqrt{2}+a_2b_1\sqrt{2}+\sqrt{2}^2b_1b_2\\
+        &=\underbrace{a_1a_2+2b_1b_2}_{\in\Z}+\underbrace{(a_1b_2+a_2b_1)}_{\in\Z}\sqrt{2}.
+    \end{align*}
+    Not all number rings have unique factorization (ex. $\Z[\sqrt{-5}]$).\\
+\end{example}
+\begin{remark}
+    We refer to the ``dimension'' of a ring as the rank of a ring.
+\end{remark}
+\begin{center}
+    Integers $\leftrightarrow$ quadratic rings\\
+    Binary cubic forms acted on by $GL_2(\Z)$ $\leftrightarrow$ cubic rings 
+\end{center}
+\begin{remark}
+    Binary cubic forms:$ax^3+bx^2+cxy^2+dy^3,a,b,c,d\in\Z.$  
+\end{remark}
+
+
+\chapter{Lecture 3}
+\textit{Recall.} Qoutients in ring theory were briefly mentioned.\\
+The original motivation for this phenomenon came from modular arithmetic.\\
+Consider the (OG ring) $(\Z,+,\times)$, We can consider an arithmetic induced by a positive integer $m$, through remainders when divied by m.\\
+\begin{example}{}{}
+    If $m=3$, every integer can be written as $3x$, $3x+1$ or $3x+2$.
+    \[
+      (3x+1)(3y+2)=\underbrace{9x+6x+3y}_{3z}+2.  
+    \]
+\end{example}
+The modern way to define modular arithmetic modulo $m$:
+\begin{enumerate}
+    \item Introduce an equivalence relation $\sim_m$ on $\Z$:\\
+    $a\sim_m b$ \textit{if and only if} $a-b$ is divisible by $m$.
+    \item Introduce addition and multiplication to the equivalence classes with respect to $\sim_m$
+    \[
+        [a]_m+[b]_m:=[a+b]_m,
+    \]
+    \[
+        [a]_m[b]_m:=[a\times b]_m.
+    \]
+    \item Check this is well defined. That is if the representative of a class changes, output does not chance under addition or multiplication.
+\end{enumerate}
+Then we get a new ring $(\Z/m\Z,+,\times)$.\\\\
+Can this be done in general?\\
+If the ring is commutative we get a very nice thoery. If the ring is not commutative this becomes much more complicated; more interpretations.\\
+Even for commutative rings quotients of the form $R/S$ with $S$ an arbitrary subring are not necessarily well behaved.\\
+For $R/S$ to inherit the ring structure on $R$ we need that $[a]_S[b]_S=[ab]_S$ to be well defined. If there exists $s\in S$ and $r\in R$, then
+\[
+    [r]_S\underbrace{[s]_S}_{=[0]_S}=[rs]_S\neq0.
+\]
+Thus $S$ needs to satisfy a much stronger condition, that being $sr\in S$ for all $s\in S$ and $r\in R$. Such subrings are called ``ideals''.
+\begin{definition}{Ideals}{}
+    Let $(R,+,\times)$ be a commutative ring. A subset $S\subset R$ togeth with $+,\times$ is said to be \underline{ideal} if 
+    \begin{enumerate}
+        \item $(S,+)$ is an Abelian group;
+        \item for all $s\in S$ and $r\in R$ we have $sr\in S$. 
+    \end{enumerate}
+\end{definition}
+\begin{proposition}{}{}
+    Let $(R,+,\times)$ be a commutative ring and $I\subseteq R$ an ideal. Then $R/I,+,\times$ is a ring.
+\end{proposition}
+\begin{proof}
+    \textit{Sketch}.\\
+    We have to show that 
+    \[
+        [a_1]_I[b_1]_I=[a_2]_I[b_2]_I.
+    \]
+    Hypothesis implies that there exists $s_1,s_2\in I$ such that $a_2=a_1+s_1$ and $b_2=b_1+s_2$. Then,
+    \begin{align*}
+        [a_2]_I[b_2]_I&=[a_2b_2]_I\\
+        &=[(a_1+s_1)(b_1+s_2)]_I\\
+        &=[a_1b_1+s_1b_1+s_2a_1+s_1s_2]_I\\
+        [a_1]_I[b_1]_I&=[a_1b_1]_I\qedhere
+    \end{align*}    
+\end{proof}
+To study rings, just like vector spaces we want to understand the \underline{maps} between rings.
+\begin{definition}{Ring Homomorphisms}{}
+    Let $(R,+,\times)$,$(S,\oplus,\otimes)$ be rings.\\
+    A function $f:R\mapsto S$ is said to be a homomorphism If
+    \begin{enumerate}
+        \item $f(0_R)=0_S$;
+        \item $f(a+b)=f(a)\oplus f(b)$;
+        \item $f(ab)=f(a)\otimes f(b)$.
+    \end{enumerate}
+\end{definition}
+\begin{important}
+    If $R,S$ are commutative rings, and $f:R\mapsto S$ is a homomorphism, then the kernel of $f$ is an ideal.
+\end{important}
+
+\chapter{Lecture 4}
+
+\textit{Last time:} Ring Homomorphisms
+\[
+    f: R\to S
+\]
+\[
+    f(a+b)=f(a)+f(b)
+\]
+\[
+    f(ab)=f(a)f(b)
+\]
+\[
+\ker(f)=\{r\in R: f(r)=0\}
+\]
+What properties for $\ker(f)$ have?\\
+In linear algebra, $\ker(f)$ is a \underline{subspace}. In group theory we know that it is a normal \underline{subgroup}.
+\begin{lemma}{Ring Homomorphism Kernel's}{}
+    $\ker(f)$ ($f$ is a homomorphism) is a subring of $R$.
+\end{lemma}
+\begin{proof}
+    Suppose $a,b\in\ker(f)$.
+    \begin{enumerate}
+        \item $a+b\in\ker(f)$
+        \[
+            f(a+b)=f(a)\oplus f(b)=0_S\oplus 0_S=0_S.
+        \]
+        \[
+            f(ab)=f(a)\otimes f(b)=\underbrace{0_S\otimes 0_S=0_S}_{\substack{\text{requires proof} \\ \text{Excersize}}}.
+        \]
+        \begin{align*}
+            f(-a)&=f((-1)a)\\
+            &=f(-1)\otimes \underbrace{f(a)}_{\in \ker(f)}\\
+            f(-1)\otimes 0_S&=0_S
+        \end{align*}
+        \begin{align*}
+            f(0_R)&=0_S\\
+            f(a+(-a))&=f(a)\oplus f(-a)\\
+            \Rightarrow f(-a)=-f(a)&=-0_S=0_S.\qedhere
+        \end{align*}
+    \end{enumerate}
+\end{proof}
+\begin{definition}{Subring}{}
+    Let $(R,+,\times)$ be a ring. A subset $S\subseteq R$ is said to be a subring of $R$ if $(S,+,\times)$ is a ring.
+\end{definition}
+Looking to group theory, kernels are not just subgroups by \underline{normal} subgroups.
+\begin{proposition}{}{}
+    Let $R,S$ be rings and $f:R\to S$ be a homomorphism. Then $\ker(f)$ is an ideal of $R$. (Note: if $R$ is not commutative, then a (two-sided) ideal $I$ is one where $sr,rs\in I$ for all $s\in I$ and $r\in R$).    
+\end{proposition}
+\begin{proof}
+    Already proved that it is a subring. Suffice to prove that for all $s\in I=\ker(f)$ and $r\in R$, $rs,sr\in I$.
+    \[
+        f(sr)=f(s)\otimes f(r)=0_S,
+    \]
+    \[
+        f(rs)=f(r)\otimes f(s)=0_S.\qedhere
+    \]    
+\end{proof}
+Since $\ker(f)$ is an ideal, $R\setminus\ker(f)$ is a (quotient) ring.\\
+In linear alegbra, there is the \textit{rank-nullity} theorem:
+\begin{theorem}{Rank-Nullity Theorem}{}
+    If $V,W$ are vector spaces over the same scalar field $F$, and $L:V\to W$ a linear map, then $\mathrm{dim}(L(V))+\mathrm{dim}(\ker(L))=\mathrm{dim}(V).$
+\end{theorem}
+The analogy of this is the \underline{First Isomorphism Theorem}.
+\begin{theorem}{First Isomorphism Theorem}{}
+    Let $R,S$ be rings and $f:R\to S$ a homomorphism. Then $R\setminus\ker(f)\cong f(R)$. Here $\cong$ means isomorphic.
+\end{theorem}
+\begin{definition}{Isomorphic}{}{}
+    A ring homomorphism is an isomorphism if it is invertible and the inverse map is also a homomorphism.
+\end{definition}
+\begin{lemma}{Homorphic Image of Rings}{}
+    The homorphic image of a ring is a ring.
+\end{lemma}
+\begin{proof}[Proof for Lemma]
+    Suppose $x,y\in f(R)$, by definition there exists $a,b\in R$ such that $f(a)=x$, and $f(b)=y$.
+    \[
+        x\oplus y=f(a)\oplus f(b)=f(a+b)\Rightarrow x\oplus y\in f(R).
+    \]
+    \[
+        x\otimes y=f(a)\otimes f(b)=f(a\times b)\Rightarrow x\otimes y\in f(R).
+    \]
+    Prove there exists an inverse map as an excersize. \qedhere
+\end{proof}
+\begin{proof}[Proof of the First Isomorphism Theorem]
+   Recall $r\setminus\ker(f)$ is a set of cosets (or representatives of equivalence classes). $[a]_{\ker(f)}:=a+\ker(f).$ We want to write down a map, say $\tau$, mapping each coset to an element in $f(R)$.\\
+   Define 
+   \[
+        \tau:r\setminus\ker(f)\to f(R)
+   \]
+   by $\tau(a+\ker(f))=f(a)$.\\
+   Check well-definedness:\\
+   If $a-a'\in\ker(f)$, then 
+   \begin{align*}
+        \tau(a+\ker(f))&=\tau(a+(a-a')+\ker(f))\\
+        f(a)&=\tau(a'+\ker(f))\\
+        &=f(a').\qedhere
+   \end{align*}
+\end{proof}
+
+\chapter{Lecture 5}
+\textit{Last Time:} Defined a \underline{canonical} isomorphism (candidate) $\tau:R\setminus\ker(f)\to f(R)$.
+\[
+    \tau(a+\underbrace{\ker(f)}_{+I})=f(a)
+\]
+is well defined.\\
+\[
+    \tau((a+I)+(b+I))=\tau((a+b)+I)=f(a+b)=f(a)\oplus f(b)=\tau(a+I)\oplus\tau(b+I),
+\]
+\[
+    \tau((a+I)(b+I))=\tau((ab)+I)=f(a+b)=f(a)\otimes f(b)=\tau(a+I)\otimes\tau(b+I).
+\]
+Thus, $\tau$ is a homomorphism.\\
+Must show that $\tau$ is bijective.\\
+If $y\in f(R)$, then there exists $e\in R$ such that $f(a)=y$. Hence, $\tau(a+I)=f(a)=y$. Thus, $\tau$ is surrjective.\\
+If $\tau(a+I)=\tau(b+I)$, then 
+\begin{align*}
+    0_S&=\tau(a+I)\oplus(-\tau(b+I))\\
+    &=f(a)\oplus f(b)\\
+    &=f(a)\oplus f(-b)\\
+    &=\tau((a-b)+I)\Rightarrow a-b\in I,
+\end{align*}
+thus, $a+I=b+I$. Hence, $\tau$ as a function is bijective. Therefore, $\tau^{-1}$ is well defined.\\
+It remains to show that $\tau^{-1}$ is a homomorphism. Given that $y_1=f(a_1)$ and $y_2=f(a_2)$
+\begin{align*}
+    \tau^{-1}(y_1\oplus y_2)&=\tau^{-1}(f(a_1)\oplus f(a_2))\\
+    &=\tau^{-1}(f(a_1+a_2))\\
+    &=\tau^{-1}(\tau((a_1+a_2)+I))\\
+    &=(a_1+a_2)+I\\
+    &=\tau^{-1}(y_1)+\tau^{-1}(y_2)
+\end{align*}
+Similar process for multiplication. Thus, we have that $\tau^{-1}$ is a homomorphism.\\
+Ideals were actually meant to be ``numbers''. In fact, ``Ideal numbers'' are a thing. This compels and \underline{arithmetic} on the set of ideals.
+\begin{definition}{Arithmetic on Ideal}{}
+    Let $R$ be a ring, and $I,J$ (2-sided) ideals. Then:
+    \[
+        I+J:=\{i+j:i\in I,j\in J\}
+    \]
+    \[
+        I\cap J=\{m:m\in I\cap J\}
+    \]
+    \[
+        I\cdot J:=\left\{\sum_{\ell=1}^{q}j_\ell i_\ell:j_\ell\in J, i_\ell\in I \right\}
+    \]
+\end{definition}
+\begin{proposition}{}{}
+    Let $R$ be a ring and $I,J$ ideals of $R$. Then $I+J$, $I\cap J$ and $I\cdot J$ are ideals. 
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item $I+J$ is an ideal. \\
+        Suppose $a_1,a_2\in I+J$. Then there exist $i_1,j_1,i_2,j_2$ such that $a_k=i_k+j_k$ for $k=1,2$. Then
+        \begin{align*}
+            a_1+a_2&=(i_1+j_1)+(i_2+j_2)\\
+            &=\underbrace{(i_1+i_2)}_{\in I}+\underbrace{(j_1+j_2)}_{\in J}\\
+            &\in I+J.
+        \end{align*}
+        \begin{align*}
+            a_1a_2&=(i_1+j_1)(i_2+j_2)\\
+            &=i_1i_2+i_1j_2+i_2j_1+j_1j_2\\
+            &\in I+J.
+        \end{align*}
+        Other details are an exercise.
+        \item $I\cap J$ is an ideal.\\
+        Suppose $a_1,a_2\in I\cap J$. Then $a_1+a_2\in I$ and $a_1+a_2\in J\Rightarrow a_1+a_2\in I\cap J$. Similarly $a_1a_2\in I$ and $a_1a_2\in J\Rightarrow a_1a_2\in I\cap J$. Other details are an exercise.
+        \item $I\cdot J$ is an ideal.
+        $a_1,a_2\in I\cdot J$.
+        \[
+            a_1=\sum_{\ell=1}^{q_1}i_\ell j_\ell,
+        \]
+        \[
+            a_2=\sum_{\ell'=1}^{q_2}i_\ell' j_\ell',
+        \]
+        then
+        \[
+            a_1+a_2=\sum_{\ell=1}^{q_1}i_\ell j_\ell+\sum_{\ell'=1}^{q_2}i_\ell' j_\ell'.
+        \]
+        Define $q=\max\{q_1,q_2\}$, WLOG $q=q_1$, define $i_\ell'=j_\ell'=0$ if $q_2<\ell \leq q_1$. then
+        \[
+            a_1+a_2=\sum_{\ell=1}^{q}(i_\ell j_\ell+i_\ell'+j_\ell').
+        \]
+        \textit{Note.} $i_\ell j_\ell+i_\ell'+j_\ell'\in I\cdot J$ for $1\leq \ell\leq q$. Hence, $a_1+a_2\in I\cdot J$.
+        \begin{align*}
+            a_1a_2&=\left(\sum_{\ell=1}^{q_1}i_\ell j_\ell\right)\left(\sum_{\ell'=1}^{q_2}i_\ell' j_\ell'\right)\\
+            &=\sum_{\ell=1}^{q_1}i_\ell j_\ell\left(\sum_{\ell=1}^{q_2}i_\ell'j_\ell'\right)\\
+            &=\sum_{k=1}^{q_1}\sum_{\ell=1}^{q_2}i_k j_k i_\ell'j_\ell'.
+        \end{align*}
+        Other details are an exercise.
+    \end{enumerate}
+    This is a finite sum of summands of the form $ij$. Hence, $a_1a_2\in I\cdot J$.
+\end{proof}
+(If $r\in R$, $ra_2=\sum_{\ell=1}^{q}ri_\ell'j_\ell'\Rightarrow ra_2\in I\cdot J$)\\
+Original Motivation: trying to solve diophantine equations (Fermat's last theorem).
+\addunumberedsubsec{Fermat's Equation}
+\[
+    x^n+y^n=z^n,\quad x,y,z\in\Z,n\geq3
+\]
+\textit{Claim (FLT).} This has no solutions with $xyz\neq0$.\\
+Fermat solved the case for $n=4$. He saw that you can factor the LHS as $(x+\zeta_1y)\cdots(x+\zeta_ny),$ where $\zeta_i$'s are the $n-$th roots of unity. If $x+\zeta_iy$ were all $n-$th powers, then FLT would be easy to prove. Unfortunately this is not case in general. This led to the notion of ``ideal numbers'' to try to recover unique factorization. This ``recovered'' by a theorem of Hilbert. Unfortunately, in practice it does not help.\\
+This is because the arithmetic of ideals just introduced does not behave well with with relevant number theoretic properties. The multiplicative aspect of ideal arithmetic gave rise to so-called \underline{composition laws} in number rings.\\
+This is realted to the \textit{class number problem}. Gauss had two conjectures:
+\begin{enumerate}
+    \item For imaginary quadratic fields, the class numbers go to infiity, and only a specified list of such fields have class \#1 (i.e., unique factorization)
+    \item For real quadratic fields, infiitely many have unique factorization. 
+\end{enumerate}
+1. was proven by showing that if the Reimann hypothesis is true then it is true, and if the Reimann hypothesis is false then the statement is also true.
+
+\chapter{Lecture 6}
+\begin{theorem}{Second Isomorphism Theorem}{}
+    Let $R$ be a ring and $I,J$ ideals of $R$. Then $I$ is an ideal of $I+J$, and $I\cap J$ is an ideal of $J$ then
+    \[
+        I+J\setminus J\cong I\setminus I\cap J
+    \]
+\end{theorem}
+\begin{proof}[Proof of the Second Isomorphism Theorem]
+    Clearly $I\subseteq I+J$, and also a subring. For $r\in I+J\Rightarrow r\in R$, so $r\cdot i\in I$ for $i,r\in I$ for all $i\in I$, since $I\subseteq R$ is an ideal in $R$. Similar argument shows $I\cap J$ is an ideal in $J$. Now define
+    \[
+        \tau:I+J\to J\setminus I\cap J,
+    \]
+    \[
+        \tau(i+j)=i+(I\cap J)=[I]_{I\cap J}.
+    \]
+    It is possible that $i_1+j_1=i_2+j_2$ so we must check that this is well-defined.
+    \[
+        \underset{\in I}{i_1-i_2}=\underset{\in J}{j_2-j_1}\Rightarrow i_1-i_2,j_2-j_1\in I\cap J.
+    \]
+    \[
+        \tau(i_1+j_2)=i_1+(I\cap J)=i_1-(i_1-i_2)+(I\cap J)=i_2+(I\cap J)=\tau(i_2+j_2).
+    \]
+    Next, we must show that $\tau$ is a homomorphism.
+    \begin{align*}
+        \tau(i_1+j_2+i_2+j_2)&=\tau(i_1+i_2+j_1+j_2)\\
+        &=i_1+i_2+(I\cap J)\\
+        &=i_1+(I\cap J)+i_2+(I\cap J)\\
+        &=\tau(i_1+j_1)+\tau(i_2+j_2),
+    \end{align*}
+    \begin{align*}
+        \tau((i_1+j_1)(i_2+j_2))&=\tau(i_1i_2+i_1j_2+j_1i_2+j_1j_2)\\
+        &=i_1i_2+(I\cap J)\\
+        &=(i_1+(I\cap J))(i_2+(I\cap J))\\
+        &=\tau(i_1+j_1)\tau(i_2+j_2).
+    \end{align*}
+    Since $\tau(i+j)=i+I\cap J$ we have that $\tau$ is surrjective.\\
+    Now we need only show that $\ker(\tau)=J$.\\
+    Suppose $j\in J$. Then $\tau(0+j)=0+(I\cap J)$, so $j\in\ker(\tau)$ ($J\subseteq\ker(\tau)$).\\
+    Now suppose that $j\in\ker(\tau)$. Then $\tau(i+j)=i+I\cap J=0+(I\cap J)$. Hence, $i\in (I\cap J)$, to $i\in J$. Therefore, $i+j\in J$. So $\ker(\tau)\subseteq J$. Thus, $J=\ker(\tau)$. Hense, by the first isomorphism theorem we have our desired result. 
+\end{proof}
+\begin{theorem}{Third Isomorphism Theorem}{}
+    Let $R$ be a a ring and $I,J$ ideals of $R$ such that $I\subseteq J$. Then,
+    \[
+        R\setminus J\cong \frac{R\setminus I}{J\setminus I}.
+    \]
+\end{theorem}
+\begin{proof}[Proof of the Third Isomorphism Theorem]
+    Left as an excersize.
+\end{proof}
+The earliest\footnote{Probably the earliest} rings to be considered are close cousins of $\Z:$ (integral) domains.
+\begin{definition}{Integral Domains}{}
+    A ring $(D,+,\times)$ is siad to be an \textit{integral domain} if
+    \begin{enumerate}
+        \item $D$ is unital (has multiplicative identity $1\neq 0$);
+        \item $D$ is commutative;
+        \item for $a,b\in D$, if $ab=0$, then $a=0$ or $b=0$.
+    \end{enumerate}
+\end{definition}
+
+\chapter{Lecture 7}
+For fields, a key invariant if the \underline{characteristic}. $\mathrm{Char}(F)=$ smallest positive integer $p$ such that $\underbrace{1+\cdots+1}_{p\text{ times}}$. If such $p$ exists, $\mathrm{Char}(F)=0$. The problem arises when one considers fields with ``mixed characteristic''.\\
+Fields with the same mixed characteristic play nice with each other, enabling various \underline{cohomology theories} (\'etale, de Rham, crystalline, prismatic).\\
+If a field of one element does exist, it would sync up all of these difference cohomology theories ``somehow''. That's why such an object is unlikely.\\
+\begin{definition}{Prime Ideals}{}
+    Let $(D,+,\times)$ be a domian. We say an ideal $I\subseteq D$ is \underline{prime} if for all ideals $A,B\subseteq D$, if $A\cdot B\subseteq I$, then $A\subseteq I$ or $B\subseteq I$.
+\end{definition}
+\begin{definition}{Generated Ideals}{}
+    Let $R$ be a ring and $S\subseteq R$. The ideal generated by $S$ denoted $\langle S\rangle$ is the smalled ideal containing $S$.
+\end{definition}
+\begin{example}{}{}
+    Let $D=\Z$. $(k)-$ ideal generated by $\{k$\}. $p\mid ab$ means every multiple of $ab$ is also a multiple of $p$. This implies that $(ab)\subseteq(p)$, the first is multplies of $ab$ and the second is all multiples of $p$.
+\end{example}
+\begin{definition}{Maximal Ideals}{}
+    An ideal $I\subsetneqq R$ is \underline{maximal} if whenever $J\subseteq R$ is an ideal and $I\subseteq J$, then $I=J$ or $J=R$.
+\end{definition}
+\begin{proposition}{Maximal Ideals in $\Z$}{}
+    If $D=\Z$ then every prime ideal is maximal.
+\end{proposition}
+\begin{proof}
+    Let $p$ be a prime. Then $(p)$ is a prime ideal. We want to show that it is maximal. Suppose $(p)\subseteq J$. We may assume that $J\neq\Z$. Then $J=(k)$ (because $\Z$ is a PID) for some $k\in \Z$. Then ``every multiple of $p$ is a multiple of $k$''. In particular, $p$ is a multiple of $k$. Hence $k=\pm p,\pm1$. If $k=\pm1$, $J=R=\Z$ which violates the assumption. Hence $k=\pm p$ so $(k)=(p)$.
+\end{proof}
+\begin{proposition}{}{}
+Let $(D,+,\times)$ be a domain. Then every maximal ideal $I\subseteq D$ is prime.
+\end{proposition}
+\begin{proof}
+    Suppose $I$ is maximal but not prime. Then there exists $A,B\subseteq D$ ideals such that  $AB\subseteq I$ but $A\nsubseteq I$ and $B\nsubseteq I$. There exists $a\in A\setminus I$ and $b\in B\setminus I$, but $ab\in I$.\\
+    Let $J=\langle I\cup \{a\}\rangle$, $K=\{t+ar:i\in I,r\in D\}$. $I\subset J$, but $I\neq K$ (because $a\neq\in I$). Hence, $K=D$. Hence, $1\in K$. Therefore, there exists $i\in I$, $r\in D$ such that $1=i+ar$. Thus, $b1=b(i+ar)=bi+bar$, $bi\in bI\subseteq DI=I$. Then $bar\in I\Rightarrow b\in I$ and this is a contradiction.
+\end{proof}
+\begin{theorem}{}{unital1}
+    Let $R$ be a unital, commutative ring. Let $I\subseteq R$ be an ideal. Then $1\Leftrightarrow 2$, whenever
+    \begin{enumerate}
+        \item $R\setminus I$ is an integral domain;
+        \item $I$ is prime.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}{}{unital2}
+    Let $R$ be a unital, commutative ring. Let $I\subseteq R$ be an ideal. Then $1\leftrightarrow2$, whenever
+    \begin{enumerate}
+        \item $R\setminus I$ is a field
+        \item $I$ is \underline{maximal}.
+    \end{enumerate}
+\end{theorem}
+Theorem \ref{thm:unital2} to \ref{thm:unital1} is how we get that all maximal ideals in an itegral domain are prime. All field's are integral domains.
+
+\chapter{Lecture 8}
+
+\textit{Last Time:}
+\begin{theorem}{}{}
+    Let $R$ be a unital commutative ring and $I\subseteq R$ an ideal of $R$. Then $I$ is prime (proper) \textit{iff} $R/I$ is an integral domain.
+\end{theorem}
+\begin{proof}[Proof of the Theorem]
+    Suppose $I$ is a prime ideal. Then $R/I$ is a ring. For $r,s\in R$ we have 
+    \begin{align*}
+        (r+I)(s+I)&:=rs+I\\
+        &=sr+I\\
+        (s+I)(r+I).
+    \end{align*}
+    So $R/I$ is also commutative. Also
+    \begin{align*}
+        (1+I)(r+I)&=1r+I\\
+        &=r+I,
+    \end{align*}
+    so $1+I$ is the identity of $R/I$. Must show that $(r+I)(s+I)=0+I$. Since $rs\in I$ and $I$ is prime we have $r\in I$ or $s\in I$, as required.\\
+    Now assume that $R/I$ is an integral domain. Then $R/I$ is commutative unital and has no zero-divisors. \textit{Note.} $1+I$ is a multiplicative identity in $R/I$, so it must be the only multiplicative identity since it is unique. Since additve and multiplicative identities are never equal we have
+    \[
+        1+I\neq 0+I.
+    \]
+    In particular $I\neq R$.\\
+    Suppose $AB\subseteq I$ with $A,B$ ideals of $R$. Thus, for all $a\in A$ and $b\in B$ we have $ab\in I$. Suppose for the sake of a contradiction, that $A\not\subset I$ and $B\not\subset I$. Then we can choose $a\in A\setminus I$ and $b\in B\setminus I$, such that $ab\in I$. Now
+    \begin{align*}
+        (a+I)(b+I)&=ab+I\\
+        &=0+I.
+    \end{align*}
+    So if $(a+I)$ and $(b+I)$ are non-zero in $R/I$ the must be zero divisors, this is a contradiction. Thus, $I$ is a prime ideal.
+\end{proof}
+\begin{theorem}{}{}
+    Let $R$ be a unital, commutative ring, $I\subseteq R$ be a proper ideal. Then $R/I$ is a field \textit{iff} $I$ is maximal. 
+\end{theorem}
+\begin{proof}[Proof of the Theorem]
+    Suppose $I$ is maximal. Then $I$ is prime. Hence $R/I$ is an integral domain. Remains to prove non-zero elements in $R/I$ are invertible.\\
+    Suppose $r\in R$ such that $r+I\neq 0+I$ (i.e., $r\neq I$). Put $N=\{sr+t:s\in R, t\in I\}$. Let $a\in R$. Then $a(sr+t)=(as)r+at\in N$. Hence $N$ is an ideal of $R$. But $1\cdot r+0\in N$, but $r\not\in I$. Hence $I\subsetneqq N$. Therefore $N=R$. Hence there exists $s,t$ such that $sr+t=1$. For this chouse fo $s,t$ we have 
+    \begin{align*}
+        (s+I)(t+I)&=sr+I\\
+        &=(sr+t)+I\\
+        &=1+I.
+    \end{align*}
+    Hence, $(s+I)$ is the inverse of $(t+I)$ in $R/I$.\\
+    Now suppose that $I$ is not maximal. If $I$ is not prime then $R/I$ is not an integral domain, hence not a field. Hence we may assume that $I$ is prime. Since $I$ is not maximal, there exists an ideal $J$ such that $J\subsetneqq R$ and $I\subsetneqq J$. In particular $i\not\in J$. Let $a\in J/I$. If $ab+I=1+I$ for $b\in R$ then $ab-i\in I$. Hence $ab-1=i$ for some $i\in I$. Note $ab\in J$. Then $i\in J$, since $I\subset J$. Therefore, $1=ab-i\in J$ which is a contradiction.
+\end{proof}
+\begin{example}{}{}
+    Consider $R=\Z[\sqrt{-5}]=\{a+b\sqrt{-5}:a,b\in\Z\}$. This is a subring of $\C$. $2,3$ are \underline{irreducible} in the sense that they cannot be written as the product of ``smaller'' elements.\\
+    i,e.,
+    \[
+        2=\underbrace{(a+b\sqrt{-5})}_{\in R}\underbrace{(a-b\sqrt{-5})}_{\in R}\underbrace{r}_{\in\R}
+    \] 
+    \[
+        r=(a^2+5b^2).
+    \]
+    Then
+    \[
+        \underbrace{r(a-b\sqrt{-5})}_{\in R}\Rightarrow ra,rb\in\Z.
+    \]
+    Hence $r\in\Q$.\\
+    $r=\frac{p}{q},q>0,(p,q)=1$. then $q\mid a$ and $q\mid b$; replace $a$ with $qa$ and $b$ with $qb$ (abuse of notation). Hence,
+    \begin{align*}
+        2&=(qa+qb\sqrt{-5})(pa-pb\sqrt{-5})\\
+        &=pq(a+b\sqrt{-5})(a-b\sqrt{-5})\\
+        &-pq(a^2+5b^2).
+    \end{align*}
+    \[
+        p=2,q=1=a^2+5b^2\Rightarrow b=0,a+b\sqrt{-5}=\pm1.
+    \]
+    \[
+        q=2,p=1\text{ same as above.}
+    \]
+    \[
+        p=q=1,a^2+5b^2=2
+    \]
+    this has no solutions. Hence, 2 is irreducible. Is it prime?\\
+    2,3 are both irreducible. Are they prime? Well,
+    \[
+        6=2\cdot 3=(1+\sqrt{-5})(1-\sqrt{-5}).
+    \]
+    Consider the principal ideals
+    \[
+        (2),\quad (3),\quad (1+\sqrt{-5}),\quad (1-\sqrt{-5}).
+    \]
+    None of these ideals are prime.  
+\end{example}
+
+\chapter{Lecture 9}
+\begin{example}{}{}
+    $R=\Z[\sqrt{-5}]$\\
+    \textit{Claim:} $(2),(3),(1+\sqrt{-5}),(1-\sqrt{-5})$ are not prime (as ideals). We have that $(2)$ is prime \textit{iff} $R/(2)$ is an integral domain.\\
+    $R/(2)$ is a set of equivalence classes.\\
+    i.e., $[1]_{(2)}=1+(2),[0]_{(2)},[\sqrt{-5}]_{(2)},[1+\sqrt{-5}]_{(2)}$ are these all the equivalence classes?\\
+    Consider $[a+b\sqrt{-5}]_{(2)}$ with $a,b\in\Z$. If $a\equiv b\equiv 0\mod2$ then $[a+b\sqrt{-5}]_{(2)}=[0]_{(2)}$. If $a$ is odd, and $b$ is even we get $[a+b\sqrt{-5}]_{(2)}=[1]_{(2)}$. If $a$ is even and $b$ is odd then $[a+b\sqrt{-5}]_{(2)}=[\sqrt{-5}]_{(2)}$. If $a$ is odd and $b$ is odd then $[a+b\sqrt{-5}]_{(2)}=[1+\sqrt{-5}]_{(2)}$. Thus we have $R/(2)=\{[0]_{(2)},[1]_{(2)},[b\sqrt{-5}]_{(2)},[1+\sqrt{-5}]_{(2)}\}$. 
+    \[
+        [1+\sqrt{-5}]_{(2)}[1+\sqrt{-5}]_{(2)}=[0]_{(2)}.
+    \]
+    Since there are zero divisors we have that $R/(2)$ is not an integral domain. Thus, $(2)$ is not prime.\\
+    $R/(3)=\{[0],[1],[2],[1+\sqrt{-5}],[1+2\sqrt{-5}],[2+\sqrt{-5}],[2+2\sqrt{-5}],[\sqrt{-5}],[2\sqrt{-5}]\}$
+    \[
+        [1+2\sqrt{-5}][1+\sqrt{-5}]=[1+3\sqrt{-5}-10]=[0].
+    \]
+    $p=11$, $R/(p)$. Let $a_1,b_1\in\{0,1,\dots,10\}$. Want $[a_1+b_1\sqrt{-5}]_{(11)}$ is invertible, provided that $a_1,b_1$ are not both zero.\\
+    \textit{Consider}: $[a_2+b_2\sqrt{-5}]_{(11)}$ then
+    \[
+       [a_1+b_1\sqrt{-5}]_{(11)}[a_2+b_2\sqrt{-5}]_{(11)}=[a_1a_2-5b_1b_2+\sqrt{-5}(a_1b_2+a_2b_1)]\tag{$\ast$}.
+    \]
+    Easy if one or the other is zero. Choose $(a_2,b_2)=k(a_1-b_1)$. Then ($\ast$) becomes $[k(a_1^5)+5b_1^2]_{(11)}$. Then $a_1^5+5b_1^2$ is divisible by 11 \textit{iff} $a_1,b_1$ are both divisible by 11.
+\end{example}
+Since $(2),(3)$ are \underline{not} prime ideals so they should be ``divisible'' by some other ideal. In particular, not prime implies not maximal. So there is some ideal $J_2,J_3$ such that $(2)\subsetneqq J_2$ and $(3)\subsetneqq J_3$. Extend (2) with $1+\sqrt{-5}$ to get $\langle 2,1+\sqrt{-5} \rangle$.\\
+$R/\langle2,1+\sqrt{-5} \rangle=\{[0],[1]\}=\mathbb{F}_2$. Thus, the ideal is maximal and therefore prime. 
+\[
+    J_2\cdot J_2=\{\sum_{j=1}^{2}a_jb_j:a_j,b_j\in J_2\}.
+\]
+$a=2x+y(1+\sqrt{-5})$, $b=2u+v(1+\sqrt{-5})$. Then
+\[
+    a\cdots b=0+(2),
+\]
+Thus
+\[
+    J_2\cdot J_2=(2).
+\]
+$(3)=\langle3,1+\sqrt{-5} \rangle\langle3-\sqrt{-5} \rangle$ and neither of these ideals are the whole ring.\\
+\textit{Summary:} $(2)=J_2^2$ and $(3)=J_3\overline{J_3}$, ($J_3=\langle3,1+\sqrt{-5} \rangle$, $\overline{J_3}=\langle3-\sqrt{-5} \rangle$).\\
+$(5)$ is also a square. (Excersize).\\
+(11) is a prime ideal.\\
+$(41)=(6+\sqrt{-5})(6-\sqrt{-5})$.
+
+\chapter{Lecture 10}
+\subsection*{Why Rings?}
+We want to do computations with rings. So we want to be able to run the original algorithm: the \underline{Euclidean algorithm}.
+\begin{definition}{Euclidean Norm}{}
+    Let $D$ be an integral domain. A Euclidean norm (valuation) is a function $\mu:D\to\Z_{\geq0}$ such that 
+    \begin{enumerate}[label=(\alph*)]
+        \item for all $a,b\in D$ with $b\neq0$, there exists $q,r\in D$ such that
+        \[
+            a=qb+r
+        \]
+        and either $\mu(r)=0$ or $\mu(r)<\mu(b)$
+        \item and for all $a,b\in D\setminus\{0\}$, $\mu(a)\leq\mu(ab)$.
+    \end{enumerate}
+\end{definition}
+Part (a) of the definition induces a division algorithm on $D$.\\
+There is a division algorithm, and Euclidean algorithm on $\R[x]$. The valuation is given by $\deg(f)$.
+\begin{theorem}{Eulclidean Domain}{}
+    A domain $D$ norm $\mu$ is a \underline{Euclidean domain}.
+\end{theorem}
+\begin{example}{}{}
+    $\Z$, $\R[x],$ $\Z[\sqrt{-1}]$ are Eulclidean domains, and $\Z[\sqrt{-5}]$ is not a Eulclidean domain.    
+\end{example}
+\begin{important}
+    Impotant: Eulciean domain $\subset$ principal ideal domain (PID) $\subset$ unique factorization domains (UFD).
+\end{important}
+Towards Euclidean algorithm.
+\begin{definition}{Divisors}{}
+    Let $R$ be a commutative ring. Suppose $a,b\in R$, $b\neq0$. We say $b$ divides $a$ or $b\vert a$ if there exists $q\in R$ such that $a=qb$. Otherwise we say $b\nmid a$.
+\end{definition}
+\begin{theorem}{GCD}{}
+    Let $a,b\in R$ we say $g\in R$ is a greatest common divisor of $a,b$ if $g\vert a$ and $g\vert b$, and for all $c\in R$ such that $c\vert a$ and $c\vert b$ we have $c\vert g$.
+\end{theorem}
+\begin{theorem}{The Extended Euclidean Algorithm}{}
+    Let $D$ be a Euclidean domain and $a,b\in D$. Then $a,b$ has a gcd in $A$, say $g$. Further there exist $x,y\in D$ such that 
+    \[
+        g=ax+by.
+    \]
+\end{theorem}
+\begin{proof}[Proof of the Theorem]
+    Put $I=\{ax+by:x,y\in D\}=(a)+(b)$ which is an ideal. Using the fact that $D$ being a Eulclidean domain implies that $D$ is a PID (will be proved later). There exists $d\in D$ such that $I=(d)$. Then there exists $p,q\in D$ such that $d=ap+bq$. Note that $a\in I$ and $b\in I$. Hence there exists $k_1,k_2\in I$ such that $a=dk_1$ and $b=dk_2$. Hence $d$ is a common divisor of $a,b$. Any common divisor of $a,b$ must also divide $app+bq$, so $d$ is a gcd. Suppose that $g$ is another gcd of $a,b$ then we have $g\vert d$ and $g\vert d$. Hence $d=gm$ and $g=dn$ for some $m,n\in D$. $d=(dn)m=d(mn)$
+\end{proof}
+
+\chapter{Lecture 11}
+
+\begin{theorem}{Euclidean Domains $\Leftrightarrow$ PID}{}
+    Euclidean domains are principal ideal domains.
+\end{theorem}
+\begin{proof}[Proof of the Theorem]
+    Let $T\subset D$ be an ideal. If $I=\{0\}$, then $I=(0)$. Otherwise, $I$ contains a non-zero element. Let $S_I=\{\mu(i):i\in I\}\subseteq\Z_{\leq0}$. By the well-ordering principal $S_I$ has a least element. Hence there exists $k\in I$ such that $\mu(k)=\min\{S_I\}$.
+    
+    \begin{claim}{}{clm:generator}
+        $I=(k)$.
+    \end{claim} 
+    
+    \begin{proof}[Proof of the Claim]
+        Suppose $\ell\in I$, $\ell\neq0$. By the division algorithm (part a) there exists $q,r\in D$ such that 
+        \[
+            \ell=qk+r,\quad \mu(r)<\mu(k),\quad r=0.
+        \]
+        \[
+            \ell\in I\Rightarrow \ell-pk=r\in I.
+        \]
+        By definition $\mu(k)=\min\{S_I\}$ so $r=0$. Therefore $\ell=pk\in(k)$, so $I\subseteq(k)$. The other direction is trivial.
+    \end{proof}
+\end{proof}
+\begin{definition}{Unique Factorization Domains}{}
+    Let $D$ be an integral domain.
+    \begin{enumerate}[label=(\alph*)]
+        \item An element $q\in D$ is a unit if $q$ has a multiplicative inverse.
+        \item An element $q\in D$ is said to be prime if $(q)$ is a prime ideal.
+        \item An element $q\in D$ is said to be irreducible if $q=ab$, $a,b\in D$ then one of $a,b$ is a unit.
+        \item If $q\in D$ and $u\in D$ is a unit, then $qu$ is an associate of $q$. 
+    \end{enumerate}
+\end{definition}
+\begin{proposition}{}{}
+    Let $D$ be a domain. If $q\in D$ is prime, then it is irreducible
+\end{proposition}
+\begin{proof}
+    Let $q\in D$ be prime. Suppose for the sake of a contradiction, that $q$ is reducible. Then there exists non-units $a,b\in D$ such that 
+    \[
+        q=ab.
+    \]
+    Since $q$ is a prime, $(q)$ is a prime ideal. By definition $(a)\subseteq (q)$ or $(b)\subseteq(q)$. WLOG suppose $(a)\subseteq(q)$. Then there exists $c\in D$ such that $a=qc$. Then we have $q=ab=(qc)b=q(bc)\Rightarrow q=(1-bc)=0$. Since $D$ is a domain, it has no zero divisors. Since 0 is not prime we assume that $q\neq0$, so $1-bc=0$ but $b$ is not a unit.
+\end{proof}
+\begin{theorem}{}{}
+    Let $D$ be a PID. Then $q\in D$ is (a) prime \textit{iff} $q$ is (b) irreducible \textit{iff} $(q)$ is (c) maximal.
+\end{theorem}
+\begin{proof}[Proof of the Theorem]
+    (a)$\Rightarrow$(b) Always true.\\
+    (b)$\Rightarrow$(a) Suppose $q$ is irreducible. Suppose $A,B\in D$ are ideals such that $AB\subseteq (q)$. Since $D$ is a PID, $A=(a)$, and $B=(b)$ for some $a\in A$ and $b\in B$. $\Rightarrow$ $ab\in(q)$, so there exists $s\in D$ such that $ab=qs$. Put $J=\langle a,q \rangle$. Since $D$ is a PID $J=\langle j\rangle$ for some $j\in D$. Hence there exists $x,y\in D$ sick that $a=jx$, and $q=jy$. Since $q$ is irreducible either $j$ or $y$ is a unit. 
+    \begin{enumerate}
+        \item If $j$ is a unit. Then $J=D$. Hence there exists $v,w\in D$ such that $1=av+qw\Rightarrow b=(ab)v+qbw$, $ab=qs$, so $b=(qs)v+(ab)w=q(sv+bw)\in(q)\Rightarrow (b)\subset(q)$.
+        \item $y$ is a unit. Then $q,j$ are associates. This implies that $(q)=(j)=J=(a,q)$. Then we have $(a)\subseteq\langle a,q\rangle\subseteq(q)$. Hence, $q$ is prime. 
+    \end{enumerate}
+    (b)$\Rightarrow$(c) Suppose that $q$ is irreducible. Let $J$ be an ideal, such that $(q)\subseteq J$. Since $D$ is a PID we have $J=(j)$ for some $j\in D$. So there exists $s\in D$ such that $q=js$. Then since $q$ is irreducible $j$ or $s$ is a unit. If $j$ is a unit then $J=D$. Otherwise if $s$ is a unit then $q,j$ are associates and $(q)=(j)$. By definition $q$ is maximal.\\
+    (c)$\Rightarrow$(a) We always have maximal implies prime.
+\end{proof}
+\begin{corollary}{}{}
+    Let $\mathbb{F}$ be a field. Then and $f(x)\in\mathbb{F}[x]$ is irreducible \textit{iff} $(f(x))$ is maximal
+\end{corollary}
+\begin{definition}{UFD}{}
+    Let $D$ be a domain. We say that $D$ is a UFD if for all $q\in D$ which is not a unit, we have:
+    \begin{enumerate}[label=(\alph*)]
+        \item $q=q_1\dots q_r$ where each $q_i$ $1\leq i\leq r$ are irreducible;
+        \item if $q=q_1\dots q_r$ and $q=p_1\dots p_\ell$, then there exists a bijection $\sigma:\{1,\dots,r\}\to\{1,\dots,\ell\}$ such that 
+        \[
+            q_i=p_{\sigma(i)}U_{\sigma(i)}.
+        \]
+        Where $U_{\sigma(i)}$ are units.  
+    \end{enumerate}
+\end{definition}
+\begin{definition}{Noetherian Rings}{}
+    A ring $R$ is \underline{Noetherian}, or $R$ satisifies the ASC (Ascending Chain Condition), if whenever 
+    \[
+        J_1\subseteq\cdots\subseteq J_n\subseteq\cdots,\quad J_i\text{'s are ideals}.
+    \]
+    Then there exists $N\geq 1$ such that for all $m\geq N$ we have $J_m=J_N$. 
+\end{definition}
+
+\chapter{Lecture 12}
+\addunumberedsubsec{Ascending Chain Condition}
+If $J_1\subseteq J_2\subseteq\cdots\subseteq J_n\subseteq\cdots$ are ideals in $R$, then there exists $N\geq1$ such that $J_n=J_N$ for all $n\geq N$.
+\begin{example}{}{}
+    $\R[x]$ (is a PID) satisfies the ascending chain condition. $J_i=(f_i)$, ($f_i\in\R[x]$). $(f_1)\subseteq(f_2)\subseteq\cdots\subseteq(f_n)\subseteq\cdots$. $\{f_jg:g\in\R[x]\}=(f_j)\subseteq(f_{j+1})=\{f_{j+1}g:g\in\R[x]\}$. In particular, $f_j$ is a multiple of $f_{j+1}$ ($f_{j+1}\mid f_j$). So ACC follows from well ordering principle on $\Z_{\geq0}$.
+\end{example}
+\begin{example}{}{}
+    $\R[x_1,\dots,x_n,\dots]$. $(x_1)\subseteq(x_1,x_2)\subseteq(x_1,x_2,x_3)\subseteq\cdots$.
+\end{example}
+\begin{theorem}{Every PID is Noetherian}{}
+    If $R$ is a PID, then it is Noetherian.
+\end{theorem}
+\begin{proof}[Proof of the Theorem]
+    Let $J_1\subseteq J_2\subseteq\cdots\subseteq J_n\subseteq\cdots$ be an AC. Put $J=\bigcup_{n=1}^\infty$. We claim that $J$ is an ideal of $R$. Suppose $a,b\in J$ and $r\in R$. Since $a,b\in J$ there exists indices $n_1,n_2$ such that $a\in J_{n_1}$, and $b\in J_{n_2}$. Without loss of generallity assume that $n_1\leq n_2$. Then $J_{n_1}\subseteq J_{n_2}$, so $a\in J_{n_2}$, Hence $a+b\in J_{n_2}$ since $J_{n_2}$ is an ideal. Thus $a+b\in J$. Now $ar\in J_{n_2}$ hence $ar\in J$. Since $R$ is a PID, there exists $\delta\in R$ such that $J=(\delta)$. In particular $\delta\in J$. Hence there exists $N\geq1$ such that $\delta\in J_N$. It follows that $J=(\delta)\subseteq J_N$. But $J_N\in J$, hence $J=J_N$.
+\end{proof}
+\begin{corollary}
+    Let D be a PID. Suppose $d\in D$, $d\neq0$. Then there exists $P_1,\dots,P_k\in D$, $P_j$ irreducible for $1\leq j\leq k$, such that $d=P_1\cdots P_k$    
+\end{corollary}
+\begin{lemma}{}{}
+    Let D be a PID. Suppose $d\in D$, $d\neq0$. Then $d$ has an irreducible divisor, if $d$ is not a unit.
+\end{lemma}
+\begin{proof}
+    Suppose for the sake of a contradiction that every divisor of $d$ is reducible. Since $d\mid d$ we have that $d$ is reducible, hence $d=a_1b_1$ with $a_1,b_1$ non units. $a_1$ is reducible so $a_1=a_2b_2$, $a_2,b_2$ non units. In general $a_i=a_{i+1}b_{i+1}$. Put $J_k=(a_k)$. Then $J_k\subseteq J_{k+1}$ for all $k\geq 1$. Applying ACC, choose $N$ such that $J_k=J_N$ for all $k\geq N$. Then $J_{N+1}=J_N$. Then $(a_{N+1})\subseteq (a_N)$. Thus there exists $c\in D$ such that  $a_{N+1}=a_Nc=(a_{N+1}b_{N+1})c$. This implies that $1=b_{N+1}c$, but $b_{N+1}$ is a unit, this is a contradiction.
+\end{proof}
+The second step (for the corollary) proceeds by induction, and uses ACC to obtain a terminal state.\\
+Factorization in polynomial rings
+
+\chapter{Lecture 13}
+Factorization in a polynomial ring.\\
+Last time we proved that is $R=F$ is a field, then $F[x]$ is a Euclidean domain. In particular, there is a division algorithm on $F[x]$, which can be used to implement the EA. \\
+Factoring polynomials over $R[x]$ with $R$ a ring if of significant interest. Over $\Z[x],$ one can write down an algorithm as follows:
+\[
+    f(x)=a_nx^n+\cdots+a_1x+a_0
+\]
+we factor $a_0$. For any divisor $d$ of $a_0$ and degree $r\leq n$, we look for solutions of the form $g(x)h(x)=f(x)$ where $\deg(g)=r$, and $g(x)=\cdots+g_1x+d$. This depends on prime factorization over $\Z$ which is super-polynomial time. Instead of a deterministic algorithm, how about a \underline{probablistic} algorithm? 
+\begin{example}{}{}
+    Is $x^2+1$ irreducible? $\Z\to\Z/3\Z$ induces a homomorphism from $\Z[x]$ to $(\Z/3\Z[x])$. $x^2+1\mod 3$ factors mod 3? Possible linear factors:
+    \[
+        x,2x,x+1,x+2,2x+1,2x+2.
+    \]
+    If $f(x)\mod p$ is irreducible over $\Z/p\Z$ for any prime $p$ then $f(x)$ is irreducible over $\Z$.
+\end{example}
+\begin{example}{}{}
+    $x^2+x+41$, mod 2 $x^2+x+1$, mod 3 $x^2+x+2$, doesn't work for 3. Then it doesn't work till 41.     
+\end{example}
+Pick your favourite integers $a_1,\dots,a_n$. Let $g(n)=(x-a_1)\cdots(x-a_n)$. One can show that there exists an \underline{irreducible} $f\in\Z[x]$, such that $f(x)\equiv g(x)\mod p$ all small primes.\\
+
+Q: If $f(x)$ is \underline{reducible} for all $p$, does it follow that $f$ is reducible over $\Z$?\\
+Ans: No. $x^4+1$ is reducible for every prime $p$, but not reducible over $\Z$.\\
+Assuming the Grand/Generalized Riemann Hypothesis (GRH), there is a positive number $C$ such that is $f$ is irreducible over $\Z$, there is a prime $p\leq C(\log H)^2$ such that $f(x)\mod p$ splits completely. Here 
+\[
+    H=H(f)=\max_{0\leq k\leq n}|f_k|
+\]
+
+\chapter{Lecture 14}
+\addunumberedsubsec{Modules}
+They are generalizations of vector spaces.
+\begin{definition}{Modules}{}
+    Let $R$ be a ring. An Abelian group $(M,\oplus)$ is said to be a left-$R$ module with respect to an operation
+    \[
+        \dot:R\times M\to M
+    \]
+    if given $r\in R, x,y\in M$
+    \begin{enumerate}
+        \item $r\dot(x\oplus y)=r\dot x\oplus r\dot y$,$(r+ y)\dot x=r\dot x\oplus y\dot x$;
+        \item $r\dot(x\dot y)=(r\dot x)\dot y$;
+        \item $1\dot x=x$.
+    \end{enumerate}
+\end{definition}
+All Abelian groups are $\Z-$modules.
+\begin{example}{}{}
+    $\Z^3$ is a $\Z-$module.\\
+\end{example}
+Any subgroup of $(\Z^n,+)$ is a $\Z-$module, such a subgroup is denoted by $\Lambda$, say (lattice). The rank of $\Lambda$ is the max number of linearly independant vectors in $\Lambda$.\\
+$\rank(\Z^3)=3$.\\
+Q: Given $\Lambda\subset\Z^n$, compute a basis of a $\Lambda$. i.e., $B\subset\Lambda$ such that $\spn_{\Z}(B)=\Lambda$, $|B|=\rank(\Lambda)$.\\
+Shortest basis problem for $\Lambda\subset\Z^n$ is NP-hard.\\
+If $\Lambda=\spn_Z(B),B=\{\vec{b_1},\dots,\vec{b_n}\}\subset\Z^n$, then a theorem of Minkowski assers that there exists a possitive number $f(a)$ such that the shortest vector $\vec{v}\in\Lambda$ has length at most $f(n)(\det\Lambda)^{\frac{1}{n}}$, $\det\Lambda=|\det(B)|$.
+\begin{definition}{Rank of a Ring}{}
+    A commutative ring is said to have an \underline{order} rank of $r$ if $(R,+)$ is isomorphic to $\Z^r$ as a $\Z-$module, $R$ is unital.
+\end{definition}
+Q: Given an order $R$ of a finite rank, decide if $x^2+1=0$ has a solution in $R$.\\
+(Lenstra) This can be decided with an algorithm in P. But to decide $x^2+x+1=0$ is NP hard. 
+\begin{example}{}{}
+    Elliptic Cruves
+    \[
+        E:y^2=x^3+Ax+B,\quad A,B\in\Z,\quad 4A^3+27B^2\neq0.
+    \]
+    \[
+        E(\Q)=\{(x,y)\in\Q^2:y^2=x^3+Ax+B\}.
+    \]
+    Mordell (1922): $E(\Q)\cong G\oplus\Z^r$, for some $r\geq0$, $G$ a finite Abelian group, as groups. $G$ is the torsion part and $\Z^r$ is the free part. The $r$ in Mordell's theorem is the (algebraic) rank of $E$. 
+\end{example}
+Tate module.\\
+Fix a prime $p$ (usually $p\nmid16(4A^3-27B^2)$). Over $\C$, $E(\C)$ has a $p-$torsion point. $E(\C)$ is a group, ``torsion'' in a group means elements of finite order.\\
+Let $E[P]$ denote the set of $p-$torsion points in $E(\C)$.\\
+We can play the same game for $p^n,$ $n\geq1$. Get $E[p^n]$. Turns out $E[P^n]$ are \underline{algebraic} for all $p^n$.
+\addunumberedsubsec{Algebras}
+\begin{example}{}{}
+    Set of polynomials with real coefficients is an $\R-$algebra. $\R[x]$ clearly has the same structure of a $\R-$vector space is also a ring. 
+\end{example}
+\begin{definition}{$A$-Algebra}{}
+    Let $A$ be a ring. An $A$-algebra is a ring $B$ together with a homomorphism $i_B:A\to B$.
+\end{definition}
+\begin{definition}{}
+    Let $B,C$ be $A-$algebras. A homomorphism $\phi:B\to C$ is a map such that $\phi(i_B(a))=i(a)$, for all $a\in A$, where $\phi$ is a ring homomorphism.
+\end{definition}
+
+\chapter{Lecture 15}
+\begin{definition}{}{}
+    A ring homomorphism $i_B:A\to B$ is said to be \underline{finite-type}, and $B$ a \underline{finitely generated} $A$-algebra, if $B$ is generated by a finite set of elements as an $A$-algebra. 
+\end{definition}
+Compare this definition to the definition of finite-dimensional vector space $V$ over a field $F$. That being
+\[
+    V=\spn_F\{v_1,\dots,v_k\}
+\]
+for some $v_1,\dots,v_k\in V$.\\
+Interpreting this for an $A$-algebra, we want:\\
+there exists $b_1,\dots,b_k\in B$ such that for all $b\in B$, there exists a polynomial $P_b\in A[x_1,\dots,x_k]$ such that $b=i_B(P_b)(b_1,\dots,b_k)$.\\
+Unlike vector spaces, the size of a minimal generating set (i.e., a generating fet $S$ such that $S\setminus\{s\}$ is not a generating set for all $s\in S$) of a general $A$-algebra $B$ is \underline{not} the same. So ``dimension'' is not well defined.\\
+A natural family of algebras (they can be thought of as general $A$-algebras, of $F$-algebras, for $F=\Z,\Q,\R,\C$,etc.) are so-called \underline{rings of polynomial} invariants/covariants. If we want to study polynomials, we can consider how htey behave when acted upon by a group.\\
+Consdier the group
+\[
+    GL_2(R)=\left\{\begin{bmatrix}
+        a_{11}&a_{12}\\a_{21}&a_{22}
+    \end{bmatrix}:
+    a_{11}a_{22}-a_{12}a_{21}\neq0\right\}
+\]
+with $R$ a unital, commutative ring. Let 
+\[
+    P_2(R)=\{f_2x^2+f_1xy+f_0y^2:f_2,f_1,f_0\in R\}.
+\]
+$GL_2(R)$ acts on $P_2(R)$ via the \underline{substitution action}:
+\[
+    g=
+    \begin{bmatrix}
+        a_{11}&a_{12}\\a_{21}&a_{22}
+    \end{bmatrix}\to f\in P_2(R),
+\]
+by 
+\[
+    g\cdot f=f(a_{11}x+a_{21}y,a_{12}x+a_{22}y)=f_2(a_{11}x+a_{21}y)^2+f_1(a_{11}x+a_{21}y)(a_{12}x+a_{22}y)+f_0(a_{12}x+a_{22}y)^2.
+\]
+Restrict to the subgroup $G=GL_2^{\pm1}(R)$ ($\det=\pm1$).\\
+Q: does there exists a \underline{non-zero} polynomial, $Q(f)=Q(f_2,f_1,f_0)$ such that for all $g\in G$, $Q(g\cdot f)=Q(f)$?\\
+Yes, $Q$ can be taken to be the \underline{discriminant}, $\Delta(f)=f_1^2-4f_2f_0$.\\
+Let's try this for $G=GL_2(\Z)=GL_2^{\pm1}(\Z)$. 
+\[
+    G=\left\langle
+    \begin{bmatrix}
+        1&1\\0&1
+    \end{bmatrix},
+    \begin{bmatrix}
+        0&1\\-1&0
+    \end{bmatrix},
+    \begin{bmatrix}
+        0&1\\1&0
+    \end{bmatrix}
+    \right\rangle=\langle E_1,S,T\rangle.
+\] 
+\[
+    E_1\cdot f=f_2x^2+f_1(x)(x+y)+f_0(x+y)^2=(f_2+f_1+f_0)x^2+(f_1+2f_0)xy+f_0y^2,
+\]
+\[
+    \Delta(E_1\cdot f)=(f_1+2f_0)^2-4(f_2+f_1+f_0)f_0=f_1^2-4f_2f_0=\Delta(f).
+\]
+\[
+    S\cdot f=f_2(-y^2)+f_1(-y)(x)+f_0x^2=f_0x^2-f_1xy+f_2y^2
+\]
+\[
+    \Delta(S\cdot f)=(-f_1)^2-4f_0f_2=f_1^2-4f_2f_0=\Delta(f).
+\]
+Inv$_2(\Z)$ si the set of polynomials $Q(F)$ such that $Q(g\cdot f)=Q(f)$ for all $g\in G$. We just showed that $\langle\Delta(f)\rangle\subseteq$Inv$_2(\Z)$ (they are actually equal).
+\[
+    P_3(R)=\{f_3x^3+f_2x^2y+f+1xy^2+f_0y^3\}.
+\]
+$G$ acts on $P_3(R)$ by substitution. 
+\[
+    \Delta_3(f)=f_2^2f_1^2-4f_3f_1^3-4f_0f_2^3-27f_3^2f_0^2+18f_3f_2f_1f_0.
+\]
+$\Delta_3(g\cdot f)=\Delta_3(f)$ for all $g\in G$. Inv$_3(\Z)=\langle\Delta_3(f)\rangle$.\\
+However for quartics we have, Inv$_4(\Z)=\langle I(f),J(f)\rangle$, with $I(f)=12f_4f_0-3f_3f_1+f_2^2$ and $J(f)=72f_4f_2f_0+9f_3f_2f_1-27f_4f_1^2-27f_0f_3^2-2f_2^3$.\\
+No longer true for quintics. 
+\[
+    \text{Inv}_5=\langle H_6,h_8,H_{10},H_{15}\rangle/ n
+\]
+\[
+    H^2_{15}=P(H_6,H_8,H_{10})
+\]
+
+\chapter{Lecture 16}
+
+\addunumberedsubsec{Radical of an Ideal}
+\begin{definition}{}{}
+    Let $R$ be a ring, $U\subseteq R$ an ideal. The \underline{radical} of the $I$, denotes rad$(I)$, is givne by
+    \[
+        \text{rad}(I)=\{r\in R:r^k\in I,\text{ for some } k\geq1\}.
+    \]
+\end{definition}
+\begin{example}{}{}
+    If $R=\Z$, $I\subseteq\Z$ an ideal, what is rad$(I)$.
+\end{example}
+\begin{example}{}{}
+    rad(3)=(3), and rad(9)=rad(3)=(3)\\
+    Suppose $a\in$rad$(3)$, then there exists $k\geq1$, such that $a^k\in(3)$. Hence, $a^k=3\ell$ for some $\ell\in\Z$. Hence $3\mid a,$ for $a\in(3)$.
+\end{example}
+\begin{important}{}{}
+    For $a\in\Z$, $a=p_1^{s_1}\cdots p_k^{s_k}$, then rad$(a)=(p_1\cdots p_k)$. Proof is left as an excersize.    
+\end{important}
+
+\begin{definition}{}{}
+    For $a\in\Z$ the radical of just the integer rad$a=p_1\cdots p_k$.
+\end{definition}
+Q: Suppose that $a,b,c\in\Z$ such that $a+b=c$ and $(a,b,c)=1$. How large can $\max\{|a|,|b|,|c|\}$ be compared to rad$abd$?
+\begin{proposition}{}{}
+    For all $\varepsilon>0$, $a,b,c$ as given above, we have
+    \[
+        \max\{|a|,|b|,|c|\}\ll_\varepsilon\text{rad}(abc)^{1+\epsilon}.
+    \]
+\end{proposition}
+Q: Let $R$ be a ring. What is rad(0)?\\
+A: Nilpotent elements of $R$.
+\begin{proposition}
+    Let $R$ be a commutative ring. Then for all $I\subseteq R$ ideals, rad$I$ is an ideal. 
+\end{proposition}
+\begin{proof}
+    Suppose $a,b\in$rad$I$. Then there exists $k,\ell\geq1$ such that $a^k,b^\ell\in I$. Then 
+    \[
+        (a+b)^{k+\ell}-\sum_{j=0}^{k+\ell}\binom{k+\ell}{j}a^jb^{k+\ell-j}\in I
+    \]
+    this is the binomial theorem in a commutative ring.\\
+    Suppose $r\in R$ and $(ra)^k=r^la^k\in I$. Hence, rad$(I)$ is an ideal.
+\end{proof}
+\begin{lemma}{Radical of a Radical}{}
+    Radicals are idempotent, that is
+    \[
+        \text{radrad}(I)=\text{rad}I.
+    \]
+\end{lemma}
+\begin{proof}
+    Excersize.
+\end{proof}
+\begin{proposition}{}{}
+    Let $I\subseteq R$ be an ideal. Then 
+    \[
+        \text{rad}I=\bigcap_{I\subseteq P}P
+    \]
+    that is the intersection of all prime ideals that contain the ideal $I$.
+\end{proposition}
+\begin{proof}
+    If $I=R$, then rad$I=I$, and there is nothing to prove. Hence, assume that $I$ is proper, that is $I\neq R$. Then rad$I\subset\bigcap_{P\subset P}P$ (because prime ideals are equal to there radicals (next homework)).
+\end{proof}
+
+\chapter{Lecture 17}
+
+\begin{proposition}{}{}
+    Let $R$ be a ring, and $S\subset R$. Let $I\subseteq R$ be an ideal, disjoint from $S$. Let $\Sigma_S(I)$ be the set of ideals of $R$ containing $I$, and disjoint from $S$. Then $\Sigma_S(I)$ contains maximal elements. i.e., there exists $J\in\Sigma_S(I)$ such that there is no $J'\in\Sigma_S(I)$ for which $J\subsetneqq J'$.
+\end{proposition}
+\begin{proof}
+    Note that $I\in\Sigma_S(I)$, so $\Sigma_S(I)\neq\phi$. We apply \underline{Zorn's lemma} as follows. Let $b_1\subset b_2\subset\cdots$ be an ascending chain of ideals in $\Sigma_S(I)$ and put
+    \[
+        b=\bigcup_{j=1}^\infty b_j.
+    \]
+    $b\in\Sigma_S(I)$ since otherwise there must exists some $s\in S$ such that $s\in b$. But then $s\in b_n$ for some $n\geq 1$ which is a contradiction. Hence $b$ is an upper bound for every chain. Hence, every ascending chain in $\Sigma_S(I)$, so Zorn implies that $\Sigma_S(I)$ has a maximal element. 
+\end{proof}
+So what is Zorn's lemma?
+\begin{lemma}{Zorn's Lemma}{}
+    Let $(P,\leq)$ be a partially-ordered set (poset). Suppose that $P\neq\phi$ and every ascending chain in $P$ has an uper bound. Then, $P$ has a maximal element. 
+\end{lemma}
+\begin{proposition}
+    Same hypothesis as the last proposition but also assume that $S$ is multiplicative and $R$ is commutative. Then maximal elements of $\Sigma_S(I)$ are prime ideals. 
+\end{proposition}
+\begin{proof}
+    Let $c\in\Sigma_S(I)$ be maximal. Suppose that $a_1,a_2\in R$ such that $a_1a_2\in C$. If $a_1\in C$ then we are done. Otherwise assume that $a_1\not\in C$. Then $C\subsetneqq C+(a_1)=J_1$. And since $C$ is maximal then $J_1\not\in\Sigma_S(I)$. Hence, $S\cap J_1\neq\phi$, say $s_1\in S\cap J_1$. $s\in J$ implies $s_1=c_1+a_1r_1$ for $c_1\in C,r_1\in R$. Similarily, we must assume $a_2\not\in C$. Hence, $J_2=C+(a_2)$ properly contains $C$, so $S\cup J_2\neq\phi$, say $s_in S\cup J_2$. Then $s_2=c_2+a_2r_2$, for $c_2\in C$ and $r_2\in R$. Then 
+    \[
+        \underbrace{s_1s_2}_{\in S}=(c_1+a_1r_1)(c_2+a_2r_2)=c_1c_2+c_1a_2r_2+c_2a_1r_1+a_1r_1a_2r_2\in C.
+    \]
+    This is a contradiction sicne we assumed that $S$ and $C$ are disjoint. Thus, maximal ideals are prime ideals. 
+\end{proof}
+This proposition implies  
+\begin{proposition}{}{}
+    \[
+        \text{rad(rad($I$))}=\text{rad($I$)}.
+    \]
+\end{proposition}
+\begin{proof}
+    $S=\{1,a,a^2,\dots\}$, $S$ is multiplicative and $a\not\in$rad$I$. The proposition implies there is a prime ideal $P$ containing $I$ and disjoint from $S$. Hence, $a\not\in\cap_{I\subset P,\text{ prime}}P$.
+\end{proof}
+\begin{definition}{Jacobson Radical}{}
+    Let $R$ be a ring. The Jacobson Radical of $R$ is the ideal 
+    \[
+        \mathcal{J}(R)=\bigcap_{\substack{m\text{ maximal}\\\text{ideal of $R$}}}m.
+    \]    
+\end{definition}
+\begin{proposition}
+        Let $R$ be a unital ring. Then $a\in\mathcal{J}(R)$ \textit{iff} $1-ac$ is a unit for all $c\in R$. 
+\end{proposition}
+\begin{proof}
+    It suffices to show that there exists a maximal ideal $m$ not containing $a$ \textit{iff} there exists $c\in R$ such that $1-ac$ is not a unit. \\
+    First suppose that $a\not\in m$, $m$ maximal. Then $m+(a)=R$. Then $1=m_1+ab$, with $m_1\in M$ and $b\in R$. Hence, $m_1=1-ab$, and $m_1$ is not a unit. Conversely, suppose that $1-ac$ is not a unit. Then $(1-ac)$ is a proper ideal of $R$. Thus, $(1-ac)\subset m$ for some maximal ideal $m$. We claim that $a\not\in m$. This si because if otherwise then $m_1=1-ac\implies1\in m$, which is a contradiction. 
+\end{proof}
+\addunumberedsubsec{Pell's Equation}
+\[
+    x^2-2y^2=1
+\]
+with $x,y\in\Z_{\geq1}$. Euler wanted to solve 
+\[
+    \frac{m(m+1)}{2}=n^2
+\]
+with the LHS being triangular numbers. He got
+\begin{align*}
+    4m(m+1)&=8n^2\\
+    4m^2+4m+1&=8n^2\\
+    (2m+1)^2-2(2n)^2&=1.
+\end{align*}
+Solving Pell's equation is the same as finding all units in $\Z[\sqrt{2}]$.
+
+\chapter{Lecture 18}
+\begin{proposition}{Prime Avoidance}{}    
+    Let $\mathcal{P}_1,\dots,\mathcal{P}_r$ be prime ideals in a ring $R$. If $I\subsetneq \mathcal{P}_i$ ($I$ an ideal of $R$) for $i=1,\dots,r$, then $I\subsetneqq\bigcup_{j=1}^r\mathcal{P}_i$.
+\end{proposition}
+\begin{proof}
+    If $r=1$, the claim is obvious. Hence, we assume that $r\geq2.$ Suppose that $I\subset I\subsetneqq\bigcup_{j=1}^r\mathcal{P}_i$, but $I$ is not contained in the union of fewer $\mathcal{P}_i$'s. In particular for $1\leq i\leq r$ $I\subsetneqq\bigcup_{j\neq i}\mathcal{P}_j$. Hence there exists $a_i\in I\setminus\bigcup_{j\neq i}\mathcal{P}_j$. But then $a_i\in\mathcal{P}_i$. Take $a=a_1\cdots a_{r-1}+a_r\in I$.\\
+    \textit{Claim:} $a\not\in\mathcal{P}_i$ for $1\leq i\leq r$. To see this note that $a_1,\dots,a_{r-1}\not\in\mathcal{P}_r$.\\
+    Since $\mathcal{P}_r$ is prime, their product must not lie in $\mathcal{P}_r$. By definition, $a_r\in\mathcal{P}_r$. Hence $a\not\in\mathcal{P}_r$. If $1\leq i\leq r-1$, then $a_1\cdots a_{r-1}\in\mathcal{P}_i$, but $a_r\not\in\mathcal{P}_i$. $a\in I$, but $a\not\in\mathcal{P}_i$ for $1\leq i\leq r$, contradicts $I\subset\bigcup_{j=1}^r\mathcal{P}_j$.
+\end{proof}
+$\Z[\sqrt{-5}]$ is a quadratic extention of the $\Z$ (the ring of integers extended with roots for unsolvable (monoic) quadratic polynomials). $(5)\in\Z$ is irreducible. But $(5)=(\sqrt{-5})\in\Z[\sqrt{-5}]$ is reducible.\\
+Let $\phi:A\to B$ be a ring homomorphism ($B$ has the structure of an $A$-algebra). If $b$ is an ideal in $B$, then $\phi^{-1}b$ is an ideal in $A$. 
+\begin{lemma}{}{}
+    If $b$ is an ideal in $B$, then $\phi^{-1}b$ is an ideal in $A$.\\
+\end{lemma}
+\begin{proof}
+    \textit{Recall:}
+    \[
+        \phi^{-1}b=\{a\in A:\phi(a)\in b\},
+    \]
+    $0_A\in\phi^{-1}(\{0_B\})$, so we need to check 
+    \begin{enumerate}
+        \item $0_B\in b$
+        \item If $a_1,a_2\in\phi^{-1}(b)$ then there exists $b_1,b_2\in b$ such that $a_i\in\phi^{-1}(\{b_i\})$, (i.e., $b_i=\phi(\{a_i\})\in b$). $b_1+b_2\in b$, $b$ is an ideal. $b_1+b_2\phi(a_1)+\phi(a_2)=\phi(a_1+a_2)\Rightarrow a_1+a_2\in\phi^{-1}(b)$. Supose $r\in A$, $a\in\phi^{-1}(b)$. Then $\phi(ra)=\phi(r)\phi(a)$. $\phi(a)\in b$, hence $\phi(r)\phi(a)\in b$. Hence $\phi(ra)\in b$ and $ra\in\phi^{-1}(b)$.
+    \end{enumerate}
+    Thus, we have our result.
+\end{proof}
+\begin{definition}{Ideal Contractions}{}
+    Let $\phi:A\to B$, be a ring homomorphism. For an ideal $b$ of $B$, $\phi^{-1}(b)$ is called the \underline{contraction} of $b$ in $A$.
+\end{definition}
+\begin{example}{}{}
+    $\Z[\sqrt{-5}]$ contracts to what in $\Z$?\\
+    $\phi^{-1}(\Z[\sqrt{-5}])=(6)$.
+\end{example}
+In general $\phi(I)$ is \underline{not} an ideal in $B$. But we can take the ideal generated by $\phi(I)$ and call that the \underline{extension} of $I$.
+\begin{lemma}{}{}
+    If $A$ is a subring of $B$, and $b\subset B$ an ideal ($b^c$ is the contraction of $b$ in $A$), then $b^c=b\cap A$ ($\phi:A\to A$ is the identity map).
+\end{lemma}
+\begin{proof}
+    $a\in b^c=\phi^{-1}(b)$ \textit{iff} $\phi(a)\in b$, but $\phi(a)=a$, so $a\in b$. Hence $b^c=b\cap A$.
+\end{proof}
+\addunumberedsubsec{Chinese Remainder Theorem}
+\textit{Classical:} If $m_1,\dots,m_k$ are pairwise coprime integers. and $a_1,\dots,a_k$ are arbitrary integers, then there exists $x\in\Z_{\geq1}$ such that $x-a_i$ is divisible by $m_i$ for $i=1,\dots,k$.\\
+We have to interpret the second half of the statement as a statement about the map $\phi:R\to R/m_1\times\cdots R/m_k$, $a\mapsto(a+m_1,\dots,a+m_k)$.
+
+\chapter{Lecture 19}
+\begin{theorem}{Chinese Remainder Theorem for Rings}{}
+    Let $R$ be a unital ring, and $m_1,\dots,m_k$ are pairwise co-prime ideals in $R$. Then the map
+    \[
+        \phi:R\to R/m_1\times R/m_2\times\cdots\times R/m_k
+    \]
+    where
+    \[
+        \phi(a)=(a+m_1,\dots,a+m_k)
+    \]
+    is a surjective ring homomorphism, and 
+    \[
+        \ker(\phi)=(m_1\cdot m_2\cdots m_k)
+    \]
+\end{theorem}
+\begin{proof}
+    By induction on $k$.\\
+    $k=2$: Since $(m_1+m_2)=R$, there exists $a_i\in m_i$ such that $a_1+a_2=1$. Then for any $x_1,x_2\in R$ we have $\phi(a_1x_2+a_2x_1)=(x_1+m_1,x_2+m_2)$. This shows that $\phi$ is surjective.
+    \begin{lemma}{}{}
+        For $I,J$ prime ideals in $R$, $I\cdot J=I\cap J$
+    \end{lemma}
+    \begin{proof}
+        $I\cdot J=\{i_1j_1+\cdots i_kj_k:i_\ell\in I,j_\ell\in J\}$. Since $I,J$ are coprime, there exists $i\in I$ and $j\in J$ such that $i+j=1$. If $a\in I\cap J$, then $a(i+j)=a\in I\cdot J$. Hence, $I\cap J\subseteq I\cdot J$.\\
+        Conversely, suppose that $a=i_1j_1+\cdots i_kj_k\in I\cdot J$. Then each $i_\ell j_\ell\in I\cap J$, so $a\in I\cap J$. Hence, $I\cdot J\subseteq I\cap J$. Giving the desired result. 
+    \end{proof}
+    Suppose $c\in m_1\cap m_2=m_1\cdot m_2$. Then $c(a_1+a_2)=c\in m_1\cdot m_2$ and
+    \[
+        \phi(c)=\phi(a_1c+a_2c)=(c+m_1,c+m_2)=(0,0).
+    \]
+    Hence $c\in\ker(\phi)$. If $c\in\ker(\phi)$, then $\phi(c)=(0+m_1,0+m_2)$. But $c=a_1c+a_2c\Rightarrow\phi(c)=(c+m_1,c+m_2)$. Hence $c\in m_1$ and $c\in m_2$. That is, $c\in m_1\cap m_2=m_1\cdot m_2$.\\
+    \textit{Inductive Hypothesis:} Let $k\geq2$. Suppose that the statement holds for $k$. We need to show that it is true for $k+1$.\\
+    We have $m_1,m_2,\dots,m_k,m_{k+1}$ pairwise co-prime ideals. Take $M=m_1\cdots m_k$. Have to show that $M+m_{k+1}=R$. By the hyopthesis, there exist $a_i\in m_{k+1}$ and $b_i\in m_i$ such that $a_1+b_i=1$. Let
+    \[
+        \alpha=\prod_{1\leq i\leq k}\underbrace{(a_i+b_i)}_{=1}. 
+    \]
+    Then $\alpha\in m_{k+1}+m_1+\cdots+m_k$. Hence, $a\in m_{k+1}+M$, so $R=m_{k+1}+M$. Hence, using the $k=2$ case
+    \[
+        \phi:R\to R/M+R/m_{k+1}
+    \]
+    is surjective. By the induction hypothesis, $R/M\cong R/m_1+\cdots R/m_k$, so we have our desired result. 
+\end{proof}
+\addunumberedsubsec{Noetherian Rings}
+Recall that a ring $R$ is Noetherian is it satifies the ascending chain condition. 
+\begin{proposition}{}{}
+    Let $R$ be a ring. The following are equivalent for an $R$-module $M$
+    \begin{enumerate}[label=(\alph*)]
+        \item Every submomdule of $M$ is finitely generated;
+        \item Every ascending chain of submodules $M_1\subset M_2\subset\cdots$ in $M$ is eventually constant;
+        \item Every non-empty set of submodules of $M$ has a maximal element. 
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    ((a)$\Rightarrow$(b)) Suppose $M_1\subset\cdots\subset M_k\subset\cdots$ is an ascending chain of modules. Then, just like the ideal case, one shows that $\bigcup_{j\geq1}M_j=N$ is a submodule of $M$. By (a), $N$ is finitely generated, say $N=\langle n_1,\dots,n_\ell\rangle$. There exists $L\geq1$ such that $n_j\in M_j$ for $1\leq j\leq \ell$. Hence, $M_t\subseteq M_L$ for all $t\geq1$, so $M_t=M_L$ for $t\geq L$.\\
+    ((b)$\Rightarrow$(c)) Let $\Sigma$ be a non-empty set of submodules. If $\Sigma$ has no maximal element, then by the contrapositive of Zorn's lemma, there must be ascending chains with no maximal element in $\sigma$, contradiciting the hypothesis.\\
+    ((c)$\Rightarrow$(a)) Let $N$ be a submodule of $M$ and let $\Sigma(N)$ be the set of finitely generated submodules contained in $N$. $\Sigma(N)$ is non-empty (since it contains $\{0\}$), hence $\Sigma(N)$ contains a maximal element, say $N'=\langle n_1,\dots,n_\ell\rangle$. If $N'\neq N$, then there exists $n\in N\setminus N'$. Then $N''=\langle n_1,\dots,n_\ell,n\rangle$ properly contains $N$. But $N''\subset N$, hence $N''\in\Sigma(N)$. Thus $N''$ is larger than $N'$ contradiciting the maximality of $N'$.
+\end{proof}
+
+\chapter{Lecture 20}
+\addunumberedsubsec{Exact Sequences}
+Exact sequences are of the form
+\[
+    0\xrightarrow{f_0}A_1\xrightarrow{f_1}\cdots\xrightarrow{f_{k-1}}A_k\xrightarrow{f_k}0
+\]
+such that Im$(f_j)=\ker(f_{j+1})$
+\addunumberedsubsec{Short Exact Sequence}
+\[ 
+    0\xrightarrow{f_0}A\xrightarrow{f_1}B\xrightarrow{f_2}C\xrightarrow{f_3}0
+\]
+\begin{example}{}{}
+    \[
+        0\xrightarrow{f_0}\R\xrightarrow{f_1} C^\infty(\R,\R)\xrightarrow{f_2=\frac{d}{dx}} C^\infty(\R,\R)\to 0
+    \]
+    $f_1:\R\mapsto$ constant functions. 
+\end{example}
+\begin{example}{}{}
+    \[
+        0\to\Z\to\Q\to\Q/\Z\to 0
+    \]
+\end{example}
+\begin{example}{}{}
+    \[
+        0\to\Z\to\R\to\R/\Z\cong S^1(\text{sphere})\to0
+    \]
+\end{example}
+\begin{example}{}{}
+    Selmer group
+    \[
+        0\to E^{(\Q)}/2E(\Q)\to\text{Sel}_2(E)\to\text{Sha}_E[2]\to0
+    \]
+    $E$ is an elliptic curve over $\Q$. Computing Sha is an open problem for elliptic curves.
+\end{example}
+\addunumberedsubsec{Commutative Diagrams}
+\[
+    \begin{tikzcd}[column sep=huge, row sep=huge]
+        \mathcal{A} \arrow[r, "F"] \arrow[d, "\alpha"'] & \mathcal{B} \\
+        \mathcal{C} \arrow[r, "G"'] & \mathcal{D} \arrow[u, "\beta"']
+    \end{tikzcd}
+\]
+with $F=\beta\circ G\circ\alpha$
+\begin{example}{}{}
+    \[
+        \begin{tikzcd}[column sep=large, row sep=large]
+            % Row 1: A, B, (empty), (empty)
+            X(\Q) \arrow[r, ] \arrow[d, ] & x(\Q_p) \arrow[d, ] & & \\
+            % Row 2: C, D, (empty), E
+            J(\Q) \arrow[r, ] & J(\Q_p) \arrow[rr, ] & & H^\circ(x_{\Q_p}\Omega')
+            \arrow[from=1-2, to=2-4, , bend left=15]
+        \end{tikzcd}
+    \]
+\end{example}
+\begin{proposition}{}{}
+    Let $R$ be a ring, and let 
+    \[ 
+        0\xrightarrow{f_0}M_1\xrightarrow{f_1}M_2\xrightarrow{f_2}M_3\xrightarrow{f_3}0
+    \]
+    be an exact sequence of $R$ modules. 
+    \begin{enumerate}[label=(\alph*)]
+        \item If $N\subseteq P$ are submodules of $M_2$ such that $f_1(M_1)\cap N=f_1(M_1)\cap P$ and $f_2(N)=f_2(P)$, then $N=P$;
+        \item If $M_1$ and $M_1$ are finitely generaeted, then so it $M_2$;
+        \item $M_2$ is Noetherian \textit{iff} $M_1$ and $M_3$ are both Noetherian.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}[label=(\alph*)]
+        \item Let $p\in P$. The second condition implies there exists $n\in N$ such that $f_2(p)=f_2(n)$. Since $f_2$ is a module homomorphism we have $f(n-p)=0$. Therefore, sicne this si an exact sequence, $n-p\in\ker(f_2)\Rightarrow n-p\in$Im$f_1=(f_1(M_1))$. Since $N\subseteq P$ we have $n,\in P$, hence $n-p\in P$. Therefore, $n-p\in f_1(M_1)\cap P$. By the hypothesis $f_1(M_1)\cap P=f_1(M_1)\cap N$. Hence, $n-p\in f_1(M_1)\cap N$, thus $s-n\in N$. But $\underbrace{(p-n)}_{\in N}+\underbrace{n}_{\in N}=p\in N$. Thus, $P\subseteq N$. So $P=N$.
+        \item Let $s_1$ be a finite set of generators of $M_1$. Recall, from the property of exact sequences that $f_2:M_2\to M_3$ is surrjective. Since $M_3$ is finitely generated, there exists finite $s_2\subset M_2$ such that $f_2(s_3)$ generates $M_3$. Let $N\subset M_2$ be the submodules generated by $f_1(s_1)$ and $s_3$. Then $f_1(M_1)\cap N=M_2$, and $f_2(N)=M_3=f_2(M_2)$. Part (a) says that $N=M_2$. Hence $M_2$ is generated by $f_1(s_1)\cup s_3$, which is finite.
+        \item One direction it clear (i.e., $M_1,M_2$ are Noetherian implies that $M_2$ is Noetherian). Now assume $M_2$ is Noetherian. Let
+        \[
+            N_1^{(1)}\subseteq N_2^{(1)}\subseteq\cdots
+        \]
+        be an ascending chain of submodiles of $M_1$. then
+        \[
+            f_1(N_1^{(1)})\subseteq f_1(N_2^{(1)})\subseteq\cdots 
+        \]
+        is an ascending chain in $M_2$. Since $M_2$ is Noetherian there exists $k\leq 1$ such that $f_1(N_s^{(1)})=f_1(N_k^{(1)})$ for all $s\geq k$. But $f_1$ is injective, so this implies 
+        \[
+            N_s^{(1)}=N_k^{(1)}
+        \]
+        for all $s\geq k$. So $M_1$ is Noetherian.\qedhere
+    \end{enumerate}
+\end{proof}
+
+\chapter{Lecture 21}
+\addsec{Grothendieck's proof of Riemann-Roch}
+\begin{enumerate}
+    \item Introduced the notion of \underline{schemes} rather than varieties;
+    \item Introduced the idea that Riemann-Roch is about \underline{morphisms}, not the actual varieties;
+    \item Decomposing morphisms in a certain canonical manner gives ``obvious'' proof.
+\end{enumerate}
+\begin{proposition}{}{}
+    Every finitely generated module over a Noetherian ring is Noetherian.
+\end{proposition}
+\begin{proof}
+    Let $M$ be a finitely generated module over a Noetherian ring $R$. If $M$ is generated by a single elements over $R$, say $\alpha$, then $M\cong R/I$ for some ideal $I\subset R$. Since $R$ is Noetherian, so is $R/I$, so we're done. Now induct on teh number $n$ of generators of $M$, say $M=\langle a_1,\dots,a_n \rangle$. Let $N=\langle a_1,\dots,a_{n-1} \rangle$ by the submodule generated by $a_1,\dots,a_{n-1}$. By the IH, $N$ is Noetherian. THen $M/N$ is generated by one element; base case finishes the job. 
+\end{proof}
+\begin{proposition}{}{}
+    Every finitely generated module $M$ over a Noetherian ring $R$ contains a finite chain of submodules $M_r\subset\cdots\subset M_1\subset M_0$ such that $M_i/M_{i+1}$ is isomorphic to $R/P_i$ for some prime ideal $P_i$ or $R$.
+\end{proposition}
+The proof needs the idea of annihilator.
+\begin{definition}{Annihilator}{}
+    Let $M$ be an $R$-module. For $x\in M$ the \underline{annihilator} of $x$, denoted ann$(x)$, is the set ann$(x)=\{r\in R:rx=0\}$. 
+\end{definition}
+\begin{lemma}{}{}
+    ann($x$) is an ideal in $R$ ($R$ is commutative).
+\end{lemma}
+\begin{proof}
+    If $r_1,r_2\in\ann(x)$, then $(r_1+r_2)x=r_1x+r_2x=0$. If $r_1\in\ann(x)$, $r_2\in R$ then $(r_2r_1)x=r_20=0=(r_1r_2)x$.
+\end{proof}
+\begin{proof}[Proof of Prop 1.2]
+    Let $\mathfrak{a}=\ann(x)$ be maximal among the annihilators of non-zero elements of $M$. We claim that $\ann(x)$ is prime. Suppose $a_1a_2\in\mathfrak{a}$. Then $(a_1a_2)x=0$. Then 
+    \[
+        \mathfrak{a}\subset(a_1)+\mathfrak{a}\subset \ann(a_2x).
+    \]
+    If $a_2\in\mathfrak{a}$, then $a_2x\neq0$. Hence, $\mathfrak{a}=\ann(a_2x)$ by maximality. This implies $a_1\in\mathfrak{a}$. To procees, nore that the submodule $Rx$ (orbit of $x$ acted on by $R$) is isomorphic to $R/\ann(x)$. If $M$ is non-zero, then there exists a non-zero $x\in M$ sucj that $\ann(x)$ is maximal, hence prime. Hence $M$ contains a submodule $M_1=Rx$ which is isomorphic to $R/\ann(x)=R/P_1$. Similarily, $M_2$ contains a submodule isomorphic to $R/P_2$. This terminates because $M$ is Noetherian. 
+\end{proof}
+\begin{theorem}{Hilbert Basis Theorem}{}
+    Every finitely generated algebra over a Noetherian ring $R$ is Noetherian. 
+\end{theorem}
+\begin{proof}[Proof of the Theorem]
+    Let $A$ be a ring, $B$ an $A$-alegbra. We argue by induction over minimum number of generators (for $B$). Note $A[x_1,\dots,x_n]\cong A[x_1,\dots,x_{n-1}][x_n]$. Thus, only the case $n=1$ matters. Let $f(x)=c_rx^r+\cdots+c_1x+c_0\in A[x]$, and $I$ be an ideal of $A{x}$. Let $I(k)$ be the set of elements in $A$ which appear as the leading coefficients of some $f\in I$ with $\deg(f)\leq k$ (can be 0). Then $I(k)$ is an ideal in $A$. Further, $I(k-1)\subset I(k)$, since $c_{k-1}x^{k-1}+\cdots+c_1x+c_0\in I$ implies that $c_{k-1}x^{k}+\cdots+c_1x^2+c_0x\in I$. If $J$ is an ideal in $A[x]$ containing $I$, then $I(k)\subset J(k)$. Further if $I(k)=J(k)$ for all $k\geq0$ then $I=J$. Hence, suppose there exists $f\in J\setminus I$, and $f$ has a minimal degree among all such polynomials. Let $k$ be this degree. Then $I(k)=J(k)$, because for all $g\in J$ of degree at most $k-1$, $g\in I$. If one takes such a $g$ then $f+g\in I$. Then the leading coefficient of $f$, and $f+g$ are the same. Continue on like this\\
+    Since $A$ is Noetherian
+    \[
+        I(1)\subset I(2)\subset \cdots
+    \]
+    must terminate, say at $I(k)=I(\ell)$ for all $k\geq\ell$. For $i\leq\ell$, there exists a finite generating set $S_i=\{C_{i1},C_{i2},\dots\}$ for $I(i)$. For each $(i,j)$ there exists $f_{ij}\in I$ for degree $i$ and leading coefficient be $C_{ij}$. Let $J=\langle C_{ij} \rangle$. Further, $J(k)=I(k)$ for every $k$, so $I=J$. 
+\end{proof}
+\chapter{Lecture 22}
+\begin{lemma}{Nakayama's Lemma}{}
+    Let $R$ be a ring. Let $I\subset R$ be an ideal, $M$ a finitely generated $R$-module. Suppose $I\subset m$ for all maximal ideals $m$ of $R$. Then:
+    \begin{enumerate}[label=(\alph*)]
+        \item If $M=I\cdot M$, then $M=\{0\}$;
+        \item If $N$ is a submodule of $M$ such that $M=N+I\cdot M$, then $M=N$.
+    \end{enumerate}
+\end{lemma}
+Nakayama's lemma is most applicable to \underline{local rings}, which are rings with a unique maximal ideal. Rings with non-trivial Jacobson ideals. 
+\begin{proof}[Proof of Lemma 1.1]
+    (a) Suppose $M\neq\{0\}$. Choose a minimal set of generators $\{a_1,\dots,a_k\}$. Since $M=I\cdot M$, we have a relation of the form $a_1=u_1a_1+\cdots+u_ka_k$, $u_j\in I$ for $1\leq j\leq k$. Then $(1-u_1)a_1=u_2a_2+\cdots+u_ka_k$. We claim that $1-u_1$ cannot lie in any maximal ideal $m$. Suppose otherwise, then $1-u_1=v\in m$, so $1=u_1+v\in m$ (since $I\subset m$). This contradicts $m$ being a proper ideal. Hence, $1-u_1$, must be a unit ($u_1\neq0$). In particular $a_1\in\langle a_2,\dots,a_k \rangle$. This contradicts the minimality of $\{a_1,\dots,a_k\}$ as a generating set. \\
+    (b) If $M=N+I\cdot M$, then $M/N\cong I(M/N)$. By part (a) we have $M/N=\{0\}$.
+\end{proof}
+\begin{corollary}{}{}
+    Let $A$ be a local ring with a maximal ideal $m$. Let $F=A/m$ be the \underline{residue field} of $A$. Let $M$ be a fintely generated module over $A$. Then action of $A$ on $M/mM$ \underline{factors through} $F$, and elements $a_1,\dots,a_k$ in $M$ generate $M$ as an $A$-module \textit{iff} $a_i+mM$, $1\leq i\leq k$, generate $M/m$ as a \underline{$F$-vector-space}. Factors through means we can break the action into two parts which go through $F$.
+\end{corollary}
+\begin{proof}
+   If $M=\langle a_1,\dots,a_k \rangle$, then it is clear that $M/m=\langle a_1+mM,\dots,a_k+mM \rangle$.\\
+   Now suppose $M/m=\spn_F(a_1+mM,\dots,a_k+mM)$. Let $N=\langle a_1,\dots,a_k \rangle$. Then 
+   \[
+    N\underbrace{\to}_{\text{embedding}} M\underbrace{\to}_{\text{surjective}} M/mM.
+   \]
+   Hence, $M=N+mM$. Nakayama $\Rightarrow$ $M=N$.
+\end{proof}
+\begin{corollary}
+    Let $A$ be a Noetherian local ring with a maximal ideal $m$. Elements $a_1,\dots,a_k$ generate $m$ as an ideal \textit{iff} $a_1+m^1,\dots,a_k+m^2$ generate $m/m^2$ as a vector space over $F=A/m$. In particular, the minimum number of generators of $m$ as an ideal equal $\dim_F(m/m^2)$.
+\end{corollary}
+\begin{proof}
+    Because $A$ is Noetherian, $m$ is finitely generated. Any ideal of $A$ is an $A$-module, apply the previoud result with $M=m$. 
+\end{proof}
+\addunumberedsubsec{Dedekind Domains}
+Integral closure of a domain.\\
+Let $A$ be a unital, commutative domain (no zero divisors). Suppose $A\subset B$, $B$ is also a ring (that is $A$ is a subring of $B$). We say that $b\in B$ is \underline{integral} over $A$ if there exists a \underline{monic} polynomial in $A[x]$ say $f(x)=x^r+c_{r-1}x^{r-1}+\cdots+c_1x+c_0$ such that $f(b)=0$. The integral closure $\overline{A}$ of $A$ in $B$ is the set of all elements in $B$ which are integral over $A$. (Note that $A\subset \overline{A}$). 
+\begin{definition}{Dedekind Domain}{}
+    An integral domain not equal to a field is said to be a Dedekind domain if 
+    \begin{enumerate}[label=(\alph*)]
+        \item $A$ is Noetherian;
+        \item $A$ is equal to its integral closure in the field of fractions;
+        \item Every non-zero prime ideal of $A$ is maximal. 
+    \end{enumerate}
+\end{definition}
+\begin{theorem}{}{}
+    Let $\alpha$ be an algebraic integer (is a zero of a polynomial in $\Z$). Then the ring $\Z[\alpha]$ is a Dedekind domain. 
+\end{theorem}
+\begin{theorem}{Dedekind}{}
+    Let $A$ be a Dedekind domain domain, and $I\subset A$ an ideal. Then $I$ admits a \underline{unique factorization}
+    \[
+        I=P_1^{a_1}\cdots P_K^{a_k}
+    \]
+    into distinct prime ideals. The $P_1,\dots,P_k$ are precisely the prime (max) ideals containing $I$.
+\end{theorem}
+The ideals $A$ and $B$ of a ring $R$ are coprime if $A+B=R$.
+\end{document}

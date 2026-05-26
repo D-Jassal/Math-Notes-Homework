@@ -64,8 +64,11 @@
 \usepackage{tcolorbox}
 \tcbuselibrary{most}
 
+%  Shared counter for Theorem, Lemma, Corollary only
 \newcounter{tcbtheorem}[section]
 \renewcommand{\thetcbtheorem}{\thesection.\arabic{tcbtheorem}}
+
+%  --- NUMBERED environments ---
 
 %  Theorem
 \newtcbtheorem[use counter=tcbtheorem, number within=chapter]
@@ -77,17 +80,6 @@
     boxed title style={colback=AccentMain, rounded corners},
     separator sign={ --},
   }{thm}
-
-%  Definition
-\newtcbtheorem[use counter=tcbtheorem, number within=chapter]
-  {definition}{Definition}{
-    enhanced, breakable,
-    colback=BoxBg!60, colframe=AccentMain!70,
-    fonttitle=\bfseries\color{AccentMain},
-    attach boxed title to top left={yshift=-2mm, xshift=4mm},
-    boxed title style={colback=AccentMain!15, colframe=AccentMain!70},
-    separator sign={ --},
-  }{def}
 
 %  Lemma
 \newtcbtheorem[use counter=tcbtheorem, number within=chapter]
@@ -105,32 +97,47 @@
     fonttitle=\bfseries, separator sign={ --},
   }{cor}
 
+%  --- UNNUMBERED environments ---
+
+%  Definition
+\newtcolorbox{definition}[2][]{
+  enhanced, breakable,
+  colback=BoxBg!60, colframe=AccentMain!70,
+  title={Definition\ifx\relax#2\relax\else\ --\ #2\fi},
+  fonttitle=\bfseries\color{AccentMain},
+  attach boxed title to top left={yshift=-2mm, xshift=4mm},
+  boxed title style={colback=AccentMain!15, colframe=AccentMain!70},
+  #1
+}
+
 %  Claim
-\newtcbtheorem[use counter=tcbtheorem, number within=chapter]
-  {claim}{Claim}{
-    enhanced, breakable,
-    colback=BoxBg!35, colframe=AccentMain!60,
-    fonttitle=\bfseries, separator sign={ --},
-  }{clm}
+\newtcolorbox{claim}[2][]{
+  enhanced, breakable,
+  colback=BoxBg!35, colframe=AccentMain!60,
+  title={Claim\ifx\relax#2\relax\else\ --\ #2\fi},
+  fonttitle=\bfseries,
+  #1
+}
 
 %  Proposition
-\newtcbtheorem[use counter=tcbtheorem, number within=chapter]
-  {proposition}{Proposition}{
-    enhanced, breakable,
-    colback=BoxBg!40, colframe=AccentMain!50,
-    fonttitle=\bfseries, separator sign={ --},
-  }{prop}
+\newtcolorbox{proposition}[2][]{
+  enhanced, breakable,
+  colback=BoxBg!40, colframe=AccentMain!50,
+  title={Proposition\ifx\relax#2\relax\else\ --\ #2\fi},
+  fonttitle=\bfseries,
+  #1
+}
 
 %  Example
-\newtcbtheorem[use counter=tcbtheorem, number within=chapter]
-  {example}{Example}{
-    enhanced, breakable,
-    colback=AccentSoft!8, colframe=AccentSoft!70,
-    fonttitle=\bfseries\color{AccentSoft!80!black},
-    attach boxed title to top left={yshift=-2mm, xshift=4mm},
-    boxed title style={colback=AccentSoft!20, colframe=AccentSoft!70},
-    separator sign={ --},
-  }{ex}
+\newtcolorbox{example}[2][]{
+  enhanced, breakable,
+  colback=AccentSoft!8, colframe=AccentSoft!70,
+  title={Example\ifx\relax#2\relax\else\ --\ #2\fi},
+  fonttitle=\bfseries\color{AccentSoft!80!black},
+  attach boxed title to top left={yshift=-2mm, xshift=4mm},
+  boxed title style={colback=AccentSoft!20, colframe=AccentSoft!70},
+  #1
+}
 
 %  Important / Warning
 \newtcolorbox{important}[1][]{
